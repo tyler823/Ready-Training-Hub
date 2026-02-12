@@ -4327,7 +4327,14 @@ document.addEventListener('keydown', function(e) {
         }
 
         function loadReconQ() {
+            console.log('Loading reconstruction quiz question', reconQIdx + 1, 'of', reconQuizQuestions.length);
+            if (reconQIdx >= reconQuizQuestions.length) {
+                console.log('Quiz complete! Score:', reconQScore);
+                showReconResults();
+                return;
+            }
             const d = reconQuizQuestions[reconQIdx];
+            console.log('Question data:', d);
             document.getElementById('recon-quiz-counter').innerText = `Question ${reconQIdx + 1}/${reconQuizQuestions.length}`;
             document.getElementById('recon-quiz-score').innerText = `Score: ${reconQScore}`;
             document.getElementById('recon-quiz-q').innerText = d.q;
@@ -4341,6 +4348,7 @@ document.addEventListener('keydown', function(e) {
                 b.onclick = () => checkReconAns(idx);
                 o.appendChild(b);
             });
+            console.log('Question loaded successfully');
         }
 
         function checkReconAns(idx) {
