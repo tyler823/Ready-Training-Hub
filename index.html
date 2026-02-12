@@ -261,6 +261,118 @@
             .mobile-menu-btn, .mobile-menu, .mobile-menu-overlay { display: block; }
             nav .hidden.md\:flex { display: none !important; }
         }
+    
+        /* ===== KNOWLEDGE CHECK QUIZ STYLES ===== */
+        .knowledge-check {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 3px solid #f59e0b;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 32px 0;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+        }
+        .knowledge-check-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .knowledge-check-icon {
+            font-size: 32px;
+        }
+        .knowledge-check-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #78350f;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .knowledge-check-question {
+            font-size: 17px;
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .knowledge-check-option {
+            background: white;
+            border: 2px solid #fbbf24;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            color: #78350f;
+            font-size: 15px;
+        }
+        .knowledge-check-option:hover {
+            background: #fffbeb;
+            border-color: #f59e0b;
+            transform: translateX(4px);
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+        .knowledge-check-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+            color: #065f46;
+            font-weight: 600;
+        }
+        .knowledge-check-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #991b1b;
+            font-weight: 600;
+        }
+        .knowledge-check-option:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+        .knowledge-check-feedback {
+            margin-top: 16px;
+            padding: 16px 18px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.6;
+            display: none;
+        }
+        .knowledge-check-feedback.correct {
+            background: #d1fae5;
+            border: 2px solid #10b981;
+            color: #065f46;
+        }
+        .knowledge-check-feedback.incorrect {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+            color: #991b1b;
+        }
+
+    
+        /* Logout Button */
+        .logout-btn {
+            background: transparent;
+            border: 2px solid #e2e8f0;
+            color: #64748b;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-left: 12px;
+        }
+        .logout-btn:hover {
+            border-color: #ef4444;
+            color: #ef4444;
+            background: #fef2f2;
+        }
+        @media (max-width: 768px) {
+            .logout-btn {
+                display: none;
+            }
+        }
+
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col">
@@ -313,6 +425,7 @@
                     
                     <button onclick="nav('quiz')" class="bg-slate-900 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-600 transition shadow-md" id="link-quiz">MITIGATION QUIZ</button>
                     <button onclick="startReconQuiz()" class="bg-violet-600 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-700 transition shadow-md" id="link-recon-quiz">RECONSTRUCTION QUIZ</button>
+                    <button onclick="logout()" class="logout-btn">Logout</button>
                 </div>
             </div>
         </div>
@@ -395,6 +508,11 @@
                 <a onclick="nav('quiz'); closeMobileMenu();">Mitigation Quiz</a>
                 <a onclick="startReconQuiz(); closeMobileMenu();">Reconstruction Quiz</a>
             </div>
+        </div>
+        
+        <!-- Logout (Mobile) -->
+        <div class="mobile-menu-item">
+            <a onclick="logout(); closeMobileMenu();" style="cursor: pointer;">🚪 Logout</a>
         </div>
     </div>
 </div>
@@ -1006,6 +1124,28 @@ document.addEventListener('keydown', function(e) {
                             <p class="mb-3 text-left"><strong>Work Authorization = Legal Protection:</strong> Work Auth is a contract authorizing the restoration company to perform services. Without signed Work Auth, you are trespassing and have no legal right to be on property or perform services. If the homeowner later disputes charges or claims unauthorized work, the company has zero legal standing without signed Work Auth. This results in complete write-off of labor and materials—$3,000-$15,000 average loss per incident.</p>
                             
                             <p class="mb-3 text-left"><strong>Documentation Drives Payment:</strong> Insurance adjusters approve or deny line items based on photo documentation, moisture readings, and equipment logs. IICRC S500 requires "comprehensive documentation throughout the restoration process." Missing documentation = denied line items. Industry data shows that poor documentation results in 30-45% reduction in total claim payout.</p>
+
+                <!-- Knowledge Check: Mitigation -->
+                <div class="knowledge-check" id="kc-mitigation">
+                    <div class="knowledge-check-header">
+                        <span class="knowledge-check-icon">🧠</span>
+                        <span class="knowledge-check-title">Quick Knowledge Check</span>
+                    </div>
+                    <div class="knowledge-check-question">
+                        According to IICRC S500, water damage mitigation should ideally begin within how many hours to prevent category degradation?
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-mitigation', 0, 1, 'IICRC S500 recommends beginning mitigation within 24-48 hours to prevent Category 1 water from degrading to Category 2 or 3.')">
+                        12 hours
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-mitigation', 1, 1, 'Correct! The 24-48 hour window is critical. Beyond this timeframe, clean water begins to absorb contaminants and bacteria multiply, escalating the category and complexity of the loss.')">
+                        24-48 hours
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-mitigation', 2, 1, '72 hours is too long. By this time, Category 1 water has likely degraded to Category 2, increasing restoration costs and health risks.')">
+                        72 hours
+                    </div>
+                    <div class="knowledge-check-feedback" style="display: none;"></div>
+                </div>
+
                             
                             <p class="mb-3 text-left"><strong>Timely Demo Prevents Secondary Damage:</strong> Wet drywall, insulation, and framing lumber must be removed within 48-72 hours to prevent mold colonization. Delayed demo extends drying time by 3-7 days and increases mold risk exponentially. Mold growth discovered post-restoration triggers insurance investigations, potential claim denial, and litigation alleging negligent restoration practices.</p>
                             
@@ -4448,6 +4588,36 @@ document.addEventListener('keydown', function(e) {
         ];
 
         let reconQIdx = 0, reconQScore = 0;
+
+
+        // Knowledge Check Quiz Handler
+        function checkKnowledge(quizId, selectedOption, correctOption, feedback) {
+            const quiz = document.getElementById(quizId);
+            if (!quiz) return;
+            
+            const options = quiz.querySelectorAll('.knowledge-check-option');
+            const feedbackDiv = quiz.querySelector('.knowledge-check-feedback');
+            
+            // Disable all options
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+                opt.style.cursor = 'not-allowed';
+            });
+            
+            // Mark selected
+            options[selectedOption].classList.add(selectedOption === correctOption ? 'correct' : 'incorrect');
+            
+            // Show correct answer if wrong
+            if (selectedOption !== correctOption) {
+                options[correctOption].classList.add('correct');
+            }
+            
+            // Show feedback
+            feedbackDiv.style.display = 'block';
+            feedbackDiv.className = 'knowledge-check-feedback ' + (selectedOption === correctOption ? 'correct' : 'incorrect');
+            feedbackDiv.innerHTML = (selectedOption === correctOption ? '✅ Correct! ' : '❌ Incorrect. ') + feedback;
+        }
+
         let reconQuizMode = 'practice'; // 'practice' or 'certification'
 
         function resetReconQuiz() { reconQIdx = 0; reconQScore = 0; loadReconQ(); }
@@ -4593,6 +4763,116 @@ document.addEventListener('keydown', function(e) {
                             <div class='text-6xl mb-4'>✅</div>
                             <h2 class='text-2xl font-bold text-green-600'>Practice Quiz Passed!</h2>
                             <p class='text-slate-500 mt-2'>Final Score: ${reconQScore}/${total} (${percent}%)</p>
+
+                <!-- Knowledge Check: Completion -->
+                <div class="knowledge-check" id="kc-recon-completion">
+                    <div class="knowledge-check-header">
+                        <span class="knowledge-check-icon">🧠</span>
+                        <span class="knowledge-check-title">Quick Knowledge Check</span>
+                    </div>
+                    <div class="knowledge-check-question">
+                        What is required to release depreciation holdback from the insurance company?
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-completion', 0, 2, 'Verbal confirmation is not sufficient for depreciation release.')">
+                        Verbal confirmation from adjuster
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-completion', 1, 2, 'The initial estimate is not what releases depreciation—completion documentation is.')">
+                        Original estimate and invoice
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-completion', 2, 2, 'Correct! Depreciation release requires: Certificate of Completion, final photos showing completed work, and final scope with any supplements. This package proves work was completed per agreement.')">
+                        Certificate of Completion, final photos, and final scope
+                    </div>
+                    <div class="knowledge-check-feedback" style="display: none;"></div>
+                </div>
+
+
+                <!-- Knowledge Check: Construction -->
+                <div class="knowledge-check" id="kc-recon-construction">
+                    <div class="knowledge-check-header">
+                        <span class="knowledge-check-icon">🧠</span>
+                        <span class="knowledge-check-title">Quick Knowledge Check</span>
+                    </div>
+                    <div class="knowledge-check-question">
+                        What must pass before you can install drywall?
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-construction', 0, 1, 'Customer approval is not the critical prerequisite for drywall installation.')">
+                        Customer approval
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-construction', 1, 1, 'Correct! Rough-in inspections (electrical, plumbing, HVAC) must pass before drywall goes up. Installing drywall before inspections pass creates $2,000-$5,000 in rework costs.')">
+                        Rough-in inspections
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-construction', 2, 1, 'Material delivery is not the controlling factor. Code compliance is.')">
+                        All materials delivered
+                    </div>
+                    <div class="knowledge-check-feedback" style="display: none;"></div>
+                </div>
+
+
+                <!-- Knowledge Check: Pre-Construction -->
+                <div class="knowledge-check" id="kc-recon-preconstruction">
+                    <div class="knowledge-check-header">
+                        <span class="knowledge-check-icon">🧠</span>
+                        <span class="knowledge-check-title">Quick Knowledge Check</span>
+                    </div>
+                    <div class="knowledge-check-question">
+                        What financial risk does the company assume when starting reconstruction work before receiving the initial draw payment?
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-preconstruction', 0, 2, 'Much higher. Starting without payment creates complete financial exposure.')">
+                        50% risk
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-preconstruction', 1, 2, 'Close, but it is actually worse. You have zero protection.')">
+                        75% risk
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-preconstruction', 2, 2, 'Correct! Starting work without initial draw payment creates 100% financial risk. NEVER begin reconstruction work until payment is received and posted.')">
+                        100% risk
+                    </div>
+                    <div class="knowledge-check-feedback" style="display: none;"></div>
+                </div>
+
+
+                <!-- Knowledge Check: Estimating -->
+                <div class="knowledge-check" id="kc-recon-estimating">
+                    <div class="knowledge-check-header">
+                        <span class="knowledge-check-icon">🧠</span>
+                        <span class="knowledge-check-title">Quick Knowledge Check</span>
+                    </div>
+                    <div class="knowledge-check-question">
+                        What percentage of insurance claim pricing in North America is controlled by Xactimate?
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-estimating', 0, 2, 'Much higher. Xactimate dominates the insurance restoration estimating market.')">
+                        50%
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-estimating', 1, 2, 'Close, but even higher. Xactimate is the overwhelming industry standard.')">
+                        65%
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-estimating', 2, 2, 'Correct! Xactimate controls 80%+ of insurance claim pricing. This is why mastering Xactimate is non-negotiable for reconstruction work.')">
+                        80%+
+                    </div>
+                    <div class="knowledge-check-feedback" style="display: none;"></div>
+                </div>
+
+
+                <!-- Knowledge Check: Reconstruction Transition -->
+                <div class="knowledge-check" id="kc-recon-transition">
+                    <div class="knowledge-check-header">
+                        <span class="knowledge-check-icon">🧠</span>
+                        <span class="knowledge-check-title">Quick Knowledge Check</span>
+                    </div>
+                    <div class="knowledge-check-question">
+                        What TWO things must be verified before transitioning from mitigation to reconstruction?
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-transition', 0, 2, 'Customer approval is important but not the first verification step.')">
+                        Customer approval and estimate signed
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-transition', 1, 2, 'These are later steps. The critical verification happens first.')">
+                        Materials ordered and permit submitted
+                    </div>
+                    <div class="knowledge-check-option" onclick="checkKnowledge('kc-recon-transition', 2, 2, 'Correct! You must verify mitigation is 100% complete AND the source of loss is fully repaired. Starting reconstruction before these are confirmed creates massive liability.')">
+                        Mitigation complete and source repaired
+                    </div>
+                    <div class="knowledge-check-feedback" style="display: none;"></div>
+                </div>
+
                             
                             <div class="mt-8 p-6 bg-green-50 rounded-xl border-2 border-green-200">
                                 <h3 class="font-bold text-green-900 mb-3 text-lg">🎉 You're Ready for Certification!</h3>
@@ -4839,6 +5119,244 @@ document.addEventListener('keydown', function(e) {
             console.log('Quiz section element exists:', !!document.getElementById('sec-recon-quiz'));
             console.log('=== VERIFICATION COMPLETE ===');
         });
+
+    
+        // ===== AUTHENTICATION FUNCTIONS =====
+        
+        // Toggle between login and signup forms
+        function toggleAuthForm(mode) {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            
+            if (mode === 'signup') {
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+            } else {
+                signupForm.style.display = 'none';
+                loginForm.style.display = 'block';
+            }
+            
+            // Clear errors
+            document.getElementById('login-error').style.display = 'none';
+            document.getElementById('signup-error').style.display = 'none';
+            document.getElementById('signup-success').style.display = 'none';
+        }
+        
+        // Handle login form submission
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errorDiv = document.getElementById('login-error');
+            
+            try {
+                // Check if Memberstack is available
+                if (typeof window.$memberstackDom !== 'undefined') {
+                    const member = await window.$memberstackDom.loginMemberEmailPassword({
+                        email: email,
+                        password: password
+                    });
+                    
+                    console.log('Memberstack login successful:', member);
+                    hideAuthOverlay();
+                } else {
+                    // Fallback: Simple local storage authentication for demo
+                    console.log('Memberstack not available, using demo mode');
+                    const storedUsers = JSON.parse(localStorage.getItem('ready_users') || '{}');
+                    
+                    if (storedUsers[email] && storedUsers[email].password === password) {
+                        localStorage.setItem('ready_auth', JSON.stringify({
+                            email: email,
+                            name: storedUsers[email].name,
+                            loggedIn: true,
+                            timestamp: Date.now()
+                        }));
+                        hideAuthOverlay();
+                    } else {
+                        throw new Error('Invalid email or password');
+                    }
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                errorDiv.textContent = error.message || 'Login failed. Please check your credentials.';
+                errorDiv.style.display = 'block';
+            }
+        }
+        
+        // Handle signup form submission
+        async function handleSignup(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const errorDiv = document.getElementById('signup-error');
+            const successDiv = document.getElementById('signup-success');
+            
+            try {
+                // Check if Memberstack is available
+                if (typeof window.$memberstackDom !== 'undefined') {
+                    const member = await window.$memberstackDom.signupMemberEmailPassword({
+                        email: email,
+                        password: password,
+                        customFields: {
+                            name: name
+                        }
+                    });
+                    
+                    console.log('Memberstack signup successful:', member);
+                    successDiv.textContent = 'Account created successfully! Logging you in...';
+                    successDiv.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        hideAuthOverlay();
+                    }, 1500);
+                } else {
+                    // Fallback: Simple local storage authentication for demo
+                    console.log('Memberstack not available, using demo mode');
+                    const storedUsers = JSON.parse(localStorage.getItem('ready_users') || '{}');
+                    
+                    if (storedUsers[email]) {
+                        throw new Error('An account with this email already exists');
+                    }
+                    
+                    storedUsers[email] = {
+                        name: name,
+                        password: password,
+                        createdAt: Date.now()
+                    };
+                    
+                    localStorage.setItem('ready_users', JSON.stringify(storedUsers));
+                    localStorage.setItem('ready_auth', JSON.stringify({
+                        email: email,
+                        name: name,
+                        loggedIn: true,
+                        timestamp: Date.now()
+                    }));
+                    
+                    successDiv.textContent = 'Account created successfully! Welcome to Ready!';
+                    successDiv.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        hideAuthOverlay();
+                    }, 1500);
+                }
+            } catch (error) {
+                console.error('Signup error:', error);
+                errorDiv.textContent = error.message || 'Signup failed. Please try again.';
+                errorDiv.style.display = 'block';
+            }
+        }
+        
+        // Handle Google authentication
+        async function handleGoogleAuth(mode) {
+            try {
+                // Check if Memberstack is available
+                if (typeof window.$memberstackDom !== 'undefined') {
+                    const member = await window.$memberstackDom.loginWithProvider({
+                        provider: 'google'
+                    });
+                    
+                    console.log('Google auth successful:', member);
+                    hideAuthOverlay();
+                } else {
+                    // Fallback: Alert for demo mode
+                    alert('Google Sign-In will be available once Memberstack is configured.\n\nFor now, please use email/password to ' + (mode === 'login' ? 'log in' : 'sign up') + '.');
+                }
+            } catch (error) {
+                console.error('Google auth error:', error);
+                const errorDiv = mode === 'login' ? document.getElementById('login-error') : document.getElementById('signup-error');
+                errorDiv.textContent = 'Google sign-in failed. Please try email/password.';
+                errorDiv.style.display = 'block';
+            }
+        }
+        
+        // Hide authentication overlay
+        function hideAuthOverlay() {
+            document.getElementById('auth-overlay').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Show authentication overlay
+        function showAuthOverlay() {
+            document.getElementById('auth-overlay').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Check authentication status on page load
+        function checkAuthStatus() {
+            // Check Memberstack first
+            if (typeof window.$memberstackDom !== 'undefined') {
+                window.$memberstackDom.getCurrentMember()
+                    .then(member => {
+                        if (member.data) {
+                            console.log('User is logged in via Memberstack:', member.data);
+                            hideAuthOverlay();
+                        } else {
+                            console.log('No Memberstack session found');
+                            showAuthOverlay();
+                        }
+                    })
+                    .catch(error => {
+                        console.log('Memberstack check failed:', error);
+                        // Fallback to localStorage check
+                        checkLocalAuth();
+                    });
+            } else {
+                // Fallback: Check localStorage
+                checkLocalAuth();
+            }
+        }
+        
+        // Check local storage authentication (fallback)
+        function checkLocalAuth() {
+            const auth = localStorage.getItem('ready_auth');
+            if (auth) {
+                const authData = JSON.parse(auth);
+                // Check if session is less than 7 days old
+                const sevenDays = 7 * 24 * 60 * 60 * 1000;
+                if (authData.loggedIn && (Date.now() - authData.timestamp < sevenDays)) {
+                    console.log('User is logged in (localStorage):', authData.email);
+                    hideAuthOverlay();
+                } else {
+                    console.log('Session expired');
+                    localStorage.removeItem('ready_auth');
+                    showAuthOverlay();
+                }
+            } else {
+                console.log('No session found');
+                showAuthOverlay();
+            }
+        }
+        
+        // Logout function
+        async function logout() {
+            try {
+                // Clear Memberstack session
+                if (typeof window.$memberstackDom !== 'undefined') {
+                    await window.$memberstackDom.logout();
+                    console.log('Logged out from Memberstack');
+                }
+                // Clear local storage
+                localStorage.removeItem('ready_auth');
+                console.log('Local session cleared');
+                
+                // Show auth overlay and reload
+                showAuthOverlay();
+                setTimeout(() => {
+                    location.reload();
+                }, 300);
+            } catch (error) {
+                console.error('Logout error:', error);
+                // Force logout anyway
+                localStorage.removeItem('ready_auth');
+                location.reload();
+            }
+        }
+        
+        // Run auth check when page loads
+        window.addEventListener('DOMContentLoaded', checkAuthStatus);
 
     </script>
 </body>
