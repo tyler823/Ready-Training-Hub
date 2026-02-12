@@ -312,7 +312,7 @@
                     </div>
                     
                     <button onclick="nav('quiz')" class="bg-slate-900 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-600 transition shadow-md" id="link-quiz">MITIGATION QUIZ</button>
-                    <button onclick="nav('recon-quiz')" class="bg-violet-600 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-700 transition shadow-md" id="link-recon-quiz">RECONSTRUCTION QUIZ</button>
+                    <button onclick="startReconQuiz()" class="bg-violet-600 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-700 transition shadow-md" id="link-recon-quiz">RECONSTRUCTION QUIZ</button>
                 </div>
             </div>
         </div>
@@ -393,7 +393,7 @@
             </button>
             <div class="mobile-submenu" id="quiz-sub">
                 <a onclick="nav('quiz'); closeMobileMenu();">Mitigation Quiz</a>
-                <a onclick="nav('recon-quiz'); closeMobileMenu();">Reconstruction Quiz</a>
+                <a onclick="startReconQuiz(); closeMobileMenu();">Reconstruction Quiz</a>
             </div>
         </div>
     </div>
@@ -598,7 +598,7 @@ document.addEventListener('keydown', function(e) {
                                 <p>✓ Pre-Construction Planning & Closeout</p>
                             </div>
                             <div class="grid grid-cols-2 gap-3">
-                                <button onclick="nav('recon-quiz')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition text-sm">Practice Quiz</button>
+                                <button onclick="startReconQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition text-sm">Practice Quiz</button>
                                 <button onclick="startReconCertificationQuiz()" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-4 rounded-lg transition text-sm">Certify</button>
                             </div>
                             <p class="text-xs text-violet-300 mt-4 font-semibold">Earn: Ready Certified Contractor</p>
@@ -4273,6 +4273,64 @@ document.addEventListener('keydown', function(e) {
         // RECONSTRUCTION QUIZ SYSTEM
         // ============================================
 
+
+        // SIMPLE DIRECT QUIZ LOADER - bypasses all other logic
+        function startReconQuiz() {
+            console.log('=== STARTING RECONSTRUCTION QUIZ ===');
+            
+            // Hide all sections
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            
+            // Show quiz section
+            const quizSection = document.getElementById('sec-recon-quiz');
+            if (!quizSection) {
+                console.error('Quiz section not found!');
+                return;
+            }
+            quizSection.classList.remove('hidden');
+            
+            // Set mode
+            reconQuizMode = 'practice';
+            document.getElementById('recon-quiz-mode-badge').className = 'quiz-mode-indicator bg-blue-100 text-blue-700';
+            document.getElementById('recon-quiz-mode-badge').innerHTML = '📝 Practice Mode';
+            
+            // Reset and load
+            reconQIdx = 0;
+            reconQScore = 0;
+            
+            console.log('Checking questions array...');
+            console.log('Questions exist:', typeof reconQuizQuestions !== 'undefined');
+            console.log('Questions count:', reconQuizQuestions ? reconQuizQuestions.length : 'undefined');
+            
+            if (!reconQuizQuestions || reconQuizQuestions.length === 0) {
+                alert('Error: Quiz questions not loaded. Please refresh the page.');
+                return;
+            }
+            
+            // Load first question directly
+            console.log('Loading first question...');
+            const q = reconQuizQuestions[0];
+            
+            document.getElementById('recon-quiz-counter').innerText = 'Question 1/' + reconQuizQuestions.length;
+            document.getElementById('recon-quiz-score').innerText = 'Score: 0';
+            document.getElementById('recon-quiz-q').innerText = q.q;
+            document.getElementById('recon-quiz-feedback').classList.add('hidden');
+            
+            const optionsDiv = document.getElementById('recon-quiz-opts');
+            optionsDiv.innerHTML = '';
+            
+            q.o.forEach((option, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-5 rounded-xl border-2 border-slate-100 hover:border-violet-400 hover:bg-violet-50 transition-all font-semibold";
+                btn.innerText = option;
+                btn.onclick = function() { checkReconAns(idx); };
+                optionsDiv.appendChild(btn);
+            });
+            
+            console.log('Question loaded successfully!');
+            window.scrollTo(0, 0);
+        }
+
         const reconQuizQuestions = [
             // Transition & Handoff (1-6)
             { q: "What must be verified before transitioning a project from mitigation to reconstruction?", o: ["Drying equipment removed", "Estimate approved", "Customer signed off", "Mitigation completion and source repair"], c: 3, f: "Verify mitigation is complete AND the source of loss is fully repaired before starting reconstruction." },
@@ -4693,6 +4751,23 @@ document.addEventListener('keydown', function(e) {
         }
 
                 window.onload = function() { initCharts(); drawFloorPlan(); nav('home'); };
+    
+        // Verify quiz on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('=== PAGE LOADED - VERIFYING QUIZ ===');
+            console.log('reconQuizQuestions array exists:', typeof reconQuizQuestions !== 'undefined');
+            if (typeof reconQuizQuestions !== 'undefined') {
+                console.log('Number of questions:', reconQuizQuestions.length);
+                console.log('First question preview:', reconQuizQuestions[0].q.substring(0, 60) + '...');
+            } else {
+                console.error('ERROR: reconQuizQuestions array not found!');
+            }
+            console.log('startReconQuiz function exists:', typeof startReconQuiz !== 'undefined');
+            console.log('loadReconQ function exists:', typeof loadReconQ !== 'undefined');
+            console.log('Quiz section element exists:', !!document.getElementById('sec-recon-quiz'));
+            console.log('=== VERIFICATION COMPLETE ===');
+        });
+
     </script>
 </body>
 </html>
