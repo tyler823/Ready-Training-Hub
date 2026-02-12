@@ -3854,7 +3854,13 @@ document.addEventListener('keydown', function(e) {
                 reconQuizMode = 'practice';
                 document.getElementById('recon-quiz-mode-badge').className = 'quiz-mode-indicator bg-blue-100 text-blue-700';
                 document.getElementById('recon-quiz-mode-badge').innerHTML = '📝 Practice Mode';
-                resetReconQuiz();
+                // Use setTimeout to ensure DOM is ready
+                setTimeout(() => {
+                    console.log('Initializing reconstruction quiz...');
+                    reconQIdx = 0;
+                    reconQScore = 0;
+                    loadReconQ();
+                }, 100);
             }
             window.scrollTo(0,0);
         }
@@ -4327,7 +4333,24 @@ document.addEventListener('keydown', function(e) {
         }
 
         function loadReconQ() {
-            console.log('Loading reconstruction quiz question', reconQIdx + 1, 'of', reconQuizQuestions.length);
+            console.log('=== loadReconQ called ===');
+            console.log('reconQIdx:', reconQIdx);
+            console.log('reconQuizQuestions exists:', typeof reconQuizQuestions !== 'undefined');
+            console.log('reconQuizQuestions length:', reconQuizQuestions ? reconQuizQuestions.length : 'undefined');
+            
+            if (!reconQuizQuestions || reconQuizQuestions.length === 0) {
+                console.error('ERROR: reconQuizQuestions array is empty or undefined');
+                document.getElementById('recon-quiz-q').innerText = 'Error: Questions not loaded. Please refresh the page.';
+                return;
+            }
+            
+            if (reconQIdx >= reconQuizQuestions.length) {
+                console.log('Quiz complete! Showing results...');
+                showReconResults();
+                return;
+            }
+            
+            console.log('Loading question', reconQIdx + 1, 'of', reconQuizQuestions.length);
             if (reconQIdx >= reconQuizQuestions.length) {
                 console.log('Quiz complete! Score:', reconQScore);
                 showReconResults();
@@ -4376,6 +4399,57 @@ document.addEventListener('keydown', function(e) {
             if (reconQIdx < reconQuizQuestions.length) loadReconQ();
             else showReconResults();
         }
+
+        // Test function - can be called from console
+        window.testReconQuiz = function() {
+            console.log('Testing reconstruction quiz...');
+            console.log('1. Questions array:', reconQuizQuestions ? reconQuizQuestions.length + ' questions' : 'NOT FOUND');
+            console.log('2. Current index:', reconQIdx);
+            console.log('3. Current score:', reconQScore);
+            console.log('4. Quiz section exists:', !!document.getElementById('sec-recon-quiz'));
+            console.log('5. Question element exists:', !!document.getElementById('recon-quiz-q'));
+            console.log('6. Options element exists:', !!document.getElementById('recon-quiz-opts'));
+            
+            if (reconQuizQuestions && reconQuizQuestions.length > 0) {
+                console.log('7. First question preview:', reconQuizQuestions[0].q.substring(0, 50) + '...');
+                console.log('8. Attempting to load first question...');
+                reconQIdx = 0;
+                reconQScore = 0;
+                loadReconQ();
+                console.log('9. Done! Check if question appeared above.');
+            }
+        };
+        console.log('Test function available: window.testReconQuiz()');
+        // Robust quiz initialization - watches for section visibility
+        const reconQuizObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const section = document.getElementById('sec-recon-quiz');
+                    if (section && !section.classList.contains('hidden')) {
+                        console.log('Reconstruction quiz section became visible');
+                        // Only load if not already loaded (check if question is still placeholder)
+                        const currentQ = document.getElementById('recon-quiz-q').innerText;
+                        if (currentQ === 'Question goes here?' || currentQ === '') {
+                            console.log('Loading first question...');
+                            setTimeout(() => {
+                                reconQIdx = 0;
+                                reconQScore = 0;
+                                loadReconQ();
+                            }, 50);
+                        }
+                    }
+                }
+            });
+        });
+        
+        // Start observing the quiz section for class changes
+        const quizSection = document.getElementById('sec-recon-quiz');
+        if (quizSection) {
+            reconQuizObserver.observe(quizSection, { attributes: true, attributeFilter: ['class'] });
+            console.log('Reconstruction quiz observer initialized');
+        }
+
+
 
         function showReconResults() {
             const total = reconQuizQuestions.length;
