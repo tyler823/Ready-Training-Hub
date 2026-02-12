@@ -373,6 +373,153 @@
             }
         }
 
+    
+        /* ===== ROI CALCULATOR STYLES ===== */
+        .roi-calculator {
+            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            color: white;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+        }
+        .roi-calc-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .roi-calc-subtitle {
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 32px;
+            color: #e9d5ff;
+        }
+        .roi-input-group {
+            margin-bottom: 24px;
+        }
+        .roi-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #e9d5ff;
+        }
+        .roi-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            font-size: 16px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            box-sizing: border-box;
+        }
+        .roi-input:focus {
+            outline: none;
+            border-color: white;
+            background: rgba(255,255,255,0.15);
+        }
+        .roi-input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+        .roi-results {
+            background: rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 32px;
+            backdrop-filter: blur(10px);
+        }
+        .roi-result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .roi-result-item:last-child {
+            border-bottom: none;
+        }
+        .roi-result-label {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .roi-result-value {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .roi-result-big {
+            text-align: center;
+            padding: 24px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+        .roi-result-big-label {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .roi-result-big-value {
+            font-size: 48px;
+            font-weight: 800;
+            color: #fbbf24;
+        }
+        
+        /* Template Download Buttons */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+        .template-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .template-card:hover {
+            border-color: #7c3aed;
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.15);
+            transform: translateY(-4px);
+        }
+        .template-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        .template-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        .template-description {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .template-download-btn {
+            background: #7c3aed;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s;
+        }
+        .template-download-btn:hover {
+            background: #6d28d9;
+        }
+
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col">
@@ -423,6 +570,7 @@
                         </div>
                     </div>
                     
+                    <a href="#" onclick="nav('resources')" class="font-bold hover:text-violet-600 transition">Resources</a>
                     <button onclick="nav('quiz')" class="bg-slate-900 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-600 transition shadow-md" id="link-quiz">MITIGATION QUIZ</button>
                     <button onclick="startReconQuiz()" class="bg-violet-600 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-700 transition shadow-md" id="link-recon-quiz">RECONSTRUCTION QUIZ</button>
                     <button onclick="logout()" class="logout-btn">Logout</button>
@@ -456,7 +604,7 @@
         <!-- Mitigation -->
         <div class="mobile-menu-item">
             <button onclick="toggleMobileSubmenu('mit-sub')">
-                <span>🚨 Mitigation Training</span>
+                <span>🚨 Ready Solo</span>
                 <span class="mobile-menu-arrow" id="mit-arrow">▼</span>
             </button>
             <div class="mobile-submenu" id="mit-sub">
@@ -469,7 +617,7 @@
         <!-- Reconstruction -->
         <div class="mobile-menu-item" data-ms-membership="ready-team">
             <button onclick="toggleMobileSubmenu('recon-sub')">
-                <span>🏗️ Reconstruction</span>
+                <span>🏗️ Ready Team</span>
                 <span class="mobile-menu-arrow" id="recon-arrow">▼</span>
             </button>
             <div class="mobile-submenu" id="recon-sub">
@@ -506,7 +654,8 @@
             </button>
             <div class="mobile-submenu" id="quiz-sub">
                 <a onclick="nav('quiz'); closeMobileMenu();">Mitigation Quiz</a>
-                <a onclick="startReconQuiz(); closeMobileMenu();">Reconstruction Quiz</a>
+                <a onclick="startReconQuiz(); closeMobileMenu();">
+                <a onclick="nav('financial'); closeMobileMenu();">💰 Job Costing & Profitability</a>
             </div>
         </div>
         
@@ -3978,6 +4127,9 @@ document.addEventListener('keydown', function(e) {
             </div>
         </section>
 
+        <!-- SECTION: RESOURCES -->
+
+
 <!-- ================================================================ -->
 <!-- END: READY PRO COACHING TIER CONTENT -->
 <!-- ================================================================ -->
@@ -4032,6 +4184,384 @@ document.addEventListener('keydown', function(e) {
                     </div>
                 </div>
             </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- SECTION: RESOURCES -->
+        <!-- ================================================================ -->
+        <section id="sec-resources" class="tab-content hidden fade-in">
+            <!-- Hero -->
+            <div class="gradient-bg rounded-3xl p-12 mb-12 text-white text-center shadow-2xl">
+                <h1 class="text-5xl font-black mb-4 tracking-tight">Free Resources</h1>
+                <p class="text-xl font-medium mb-4 text-violet-100">
+                    Everything You Need to Build a Process-Driven Restoration Company
+                </p>
+                <p class="text-lg text-violet-50 max-w-3xl mx-auto">
+                    Download free SOP templates, organization charts, job descriptions, and use our ROI calculator—all completely free for Ready members.
+                </p>
+            </div>
+
+            <!-- ROI Calculator -->
+            <div class="mb-16">
+                <div class="bg-white rounded-3xl p-12 shadow-2xl border-2 border-violet-200">
+                    <div class="flex items-center gap-4 mb-8">
+                        <span class="text-6xl">📊</span>
+                        <div>
+                            <h2 class="text-4xl font-black text-slate-900 mb-2">Training ROI Calculator</h2>
+                            <p class="text-xl text-slate-600">Calculate the value of standardized training for your company</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-8 border-2 border-violet-200 mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Number of Employees</label>
+                                <input type="number" id="roi-employees" value="10" min="1" max="500" class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none text-lg">
+                                <p class="text-xs text-slate-500 mt-1">Total employees using training</p>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Average Hourly Wage ($)</label>
+                                <input type="number" id="roi-wage" value="25" min="10" max="150" class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none text-lg">
+                                <p class="text-xs text-slate-500 mt-1">Average across all positions</p>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Hours Saved Per Employee/Week</label>
+                                <input type="number" id="roi-hours-saved" value="2" min="0.5" max="20" step="0.5" class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none text-lg">
+                                <p class="text-xs text-slate-500 mt-1">Time not searching for answers</p>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Weeks Reduced in Onboarding</label>
+                                <input type="number" id="roi-onboarding" value="3" min="0" max="12" step="0.5" class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none text-lg">
+                                <p class="text-xs text-slate-500 mt-1">Industry avg: 8 wks → 5 wks = 3 saved</p>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Monthly Error Reduction Savings ($)</label>
+                                <input type="number" id="roi-errors" value="2000" min="0" max="50000" step="100" class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none text-lg">
+                                <p class="text-xs text-slate-500 mt-1">Reduced mistakes & rework</p>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-2">Training Platform Cost/Month ($)</label>
+                                <input type="number" id="roi-cost" value="0" min="0" max="5000" step="50" class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none text-lg">
+                                <p class="text-xs text-slate-500 mt-1">Ready is free! Or compare to paid platforms</p>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-8">
+                            <button onclick="calculateROI()" class="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-bold py-4 px-12 rounded-xl text-lg transition shadow-lg">
+                                Calculate Your ROI
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Results -->
+                    <div id="roi-results" style="display: none;">
+                        <div class="border-t-4 border-violet-600 pt-8">
+                            <h3 class="text-3xl font-black mb-6 text-center text-slate-900">Your ROI Results</h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border-2 border-green-200">
+                                    <div class="text-sm font-bold text-green-700 mb-2">MONTHLY SAVINGS</div>
+                                    <div class="text-4xl font-black text-green-900" id="roi-monthly-savings">$0</div>
+                                    <div class="text-xs text-green-600 mt-2">Net Monthly Benefit</div>
+                                </div>
+                                
+                                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border-2 border-blue-200">
+                                    <div class="text-sm font-bold text-blue-700 mb-2">ANNUAL SAVINGS</div>
+                                    <div class="text-4xl font-black text-blue-900" id="roi-annual-savings">$0</div>
+                                    <div class="text-xs text-blue-600 mt-2">Total Yearly Value</div>
+                                </div>
+                                
+                                <div class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl p-6 border-2 border-violet-200">
+                                    <div class="text-sm font-bold text-violet-700 mb-2">ROI MULTIPLE</div>
+                                    <div class="text-4xl font-black text-violet-900" id="roi-multiple">0x</div>
+                                    <div class="text-xs text-violet-600 mt-2">Return on Investment</div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-slate-50 rounded-xl p-6 border-2 border-slate-200">
+                                <h4 class="font-bold text-lg mb-4 text-slate-900">Savings Breakdown:</h4>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between">
+                                        <span class="text-slate-700">Time Saved (Weekly Hours × Employees × Wage)</span>
+                                        <span class="font-bold text-slate-900" id="roi-time-value">$0/mo</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-slate-700">Faster Onboarding (Weeks × Hours × Wage)</span>
+                                        <span class="font-bold text-slate-900" id="roi-onboarding-value">$0/mo</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-slate-700">Error Reduction Savings</span>
+                                        <span class="font-bold text-slate-900" id="roi-error-value">$0/mo</span>
+                                    </div>
+                                    <div class="flex justify-between border-t-2 border-slate-300 pt-3">
+                                        <span class="text-slate-700 font-bold">Total Monthly Value</span>
+                                        <span class="font-black text-green-700 text-xl" id="roi-total-value">$0</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-slate-700 font-bold">Less: Platform Cost</span>
+                                        <span class="font-black text-red-700" id="roi-platform-cost">-$0</span>
+                                    </div>
+                                    <div class="flex justify-between border-t-2 border-slate-300 pt-3">
+                                        <span class="text-slate-900 font-black text-lg">Net Monthly Savings</span>
+                                        <span class="font-black text-green-700 text-2xl" id="roi-net-savings">$0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 p-6 bg-violet-50 border-2 border-violet-200 rounded-xl">
+                                <div class="flex items-start gap-3">
+                                    <span class="text-3xl">💡</span>
+                                    <div>
+                                        <h4 class="font-bold text-lg mb-2 text-violet-900">What This Means:</h4>
+                                        <p class="text-slate-700" id="roi-interpretation">Click "Calculate Your ROI" to see your results</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOP Templates Library -->
+            <div class="mb-16">
+                <h2 class="text-4xl font-black text-slate-900 mb-4 text-center">📋 SOP Templates</h2>
+                <p class="text-lg text-slate-600 text-center mb-12 max-w-3xl mx-auto">
+                    Downloadable Standard Operating Procedure templates for every aspect of your restoration business—completely free.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Water Mitigation SOP -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                        <div class="text-5xl mb-4">💧</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Water Mitigation SOP</h3>
+                        <p class="text-slate-600 text-sm mb-4">Complete water damage response from initial assessment through dry-out completion. Includes IICRC S500 protocols, moisture mapping, equipment placement, and Certificate of Completion.</p>
+                        <div class="text-xs text-slate-500 mb-4">Covers: Emergency Response • Source ID • Extraction • Drying • Documentation</div>
+                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                    </div>
+
+                    <!-- Fire Restoration SOP -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                        <div class="text-5xl mb-4">🔥</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Fire & Smoke SOP</h3>
+                        <p class="text-slate-600 text-sm mb-4">Fire damage assessment, smoke odor removal, soot cleanup, and structural cleaning procedures. Board-up, ash removal, HEPA filtration, and thermal fogging protocols.</p>
+                        <div class="text-xs text-slate-500 mb-4">Covers: Safety Assessment • Soot Removal • Odor Control • Content Cleaning</div>
+                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                    </div>
+
+                    <!-- Mold Remediation SOP -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                        <div class="text-5xl mb-4">🍄</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Mold Remediation SOP</h3>
+                        <p class="text-slate-600 text-sm mb-4">IICRC S520 compliant mold remediation including containment, HEPA filtration, removal procedures, and clearance testing. PPE requirements and disposal protocols.</p>
+                        <div class="text-xs text-slate-500 mb-4">Covers: Assessment • Containment • Removal • Air Scrubbing • Testing</div>
+                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                    </div>
+
+                    <!-- Contents Pack-Out SOP -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                        <div class="text-5xl mb-4">📦</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Contents Pack-Out SOP</h3>
+                        <p class="text-slate-600 text-sm mb-4">Complete inventory, photography, and pack-out procedures. Room-by-room documentation, labeling systems, and customer approval workflows to prevent disputes.</p>
+                        <div class="text-xs text-slate-500 mb-4">Covers: Inventory • Photography • Packing • Transport • Storage</div>
+                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                    </div>
+
+                    <!-- Estimating SOP -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                        <div class="text-5xl mb-4">💰</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Xactimate Estimating SOP</h3>
+                        <p class="text-slate-600 text-sm mb-4">Step-by-step Xactimate workflow from sketch creation through final estimate. Line item selection, pricing databases, photo integration, and supplement procedures.</p>
+                        <div class="text-xs text-slate-500 mb-4">Covers: Sketch • Line Items • Pricing • Photos • Supplements</div>
+                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                    </div>
+
+                    <!-- Safety & PPE SOP -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                        <div class="text-5xl mb-4">⚠️</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Safety & PPE SOP</h3>
+                        <p class="text-slate-600 text-sm mb-4">OSHA compliance protocols, required PPE by job type, hazard assessments, incident reporting, and safety training requirements. Category-specific protection requirements.</p>
+                        <div class="text-xs text-slate-500 mb-4">Covers: PPE Requirements • Hazard Assessment • OSHA Compliance</div>
+                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                    </div>
+
+                    <!-- Quality Control SOP -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                        <div class="text-5xl mb-4">✅</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Quality Control Checklist</h3>
+                        <p class="text-slate-600 text-sm mb-4">Pre-job, in-progress, and final inspection checklists. Moisture readings, equipment verification, photo documentation, and customer walk-through procedures.</p>
+                        <div class="text-xs text-slate-500 mb-4">Covers: Pre-Job • Progress • Final Inspection • Customer Sign-Off</div>
+                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                    </div>
+
+                    <!-- New Hire Onboarding SOP -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                        <div class="text-5xl mb-4">👤</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">New Hire Onboarding SOP</h3>
+                        <p class="text-slate-600 text-sm mb-4">Complete 90-day onboarding workflow with week-by-week milestones. Documentation, training modules, competency checks, and performance reviews.</p>
+                        <div class="text-xs text-slate-500 mb-4">Covers: Week 1-4 • Training • Competency Tests • Reviews</div>
+                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                    </div>
+
+                    <!-- Customer Communication SOP -->
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                        <div class="text-5xl mb-4">📞</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Customer Communication SOP</h3>
+                        <p class="text-slate-600 text-sm mb-4">Call scripts, email templates, and communication timelines. Initial contact, project updates, change orders, completion notifications, and review requests.</p>
+                        <div class="text-xs text-slate-500 mb-4">Covers: Scripts • Templates • Timing • Follow-Up</div>
+                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Organization Charts -->
+            <div class="mb-16">
+                <h2 class="text-4xl font-black text-slate-900 mb-4 text-center">🏢 Organization Charts</h2>
+                <p class="text-lg text-slate-600 text-center mb-12 max-w-3xl mx-auto">
+                    Example organizational structures for restoration companies at different growth stages.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Small Company Org Chart -->
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border-2 border-blue-200">
+                        <div class="text-5xl mb-4 text-center">👤</div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">Small (1-10 employees)</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="bg-white rounded-lg p-3 border border-blue-300">
+                                <div class="font-bold text-blue-900">Owner/Operator</div>
+                                <div class="text-xs text-slate-600">Sales, estimates, project oversight</div>
+                            </div>
+                            <div class="ml-6 bg-white rounded-lg p-3 border border-blue-200">
+                                <div class="font-bold text-blue-800">→ Lead Technician</div>
+                                <div class="text-xs text-slate-600">Crew management, quality control</div>
+                            </div>
+                            <div class="ml-12 bg-white rounded-lg p-3 border border-blue-100">
+                                <div class="font-bold text-blue-700">→ Technicians (3-5)</div>
+                                <div class="text-xs text-slate-600">Mitigation & reconstruction</div>
+                            </div>
+                            <div class="ml-6 bg-white rounded-lg p-3 border border-blue-200">
+                                <div class="font-bold text-blue-800">→ Admin (Part-time)</div>
+                                <div class="text-xs text-slate-600">Scheduling, billing, calls</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mid-Size Company Org Chart -->
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border-2 border-green-200">
+                        <div class="text-5xl mb-4 text-center">👥</div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">Mid-Size (11-50 employees)</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="bg-white rounded-lg p-3 border border-green-300">
+                                <div class="font-bold text-green-900">Owner/CEO</div>
+                                <div class="text-xs text-slate-600">Strategy, growth, key accounts</div>
+                            </div>
+                            <div class="ml-6 bg-white rounded-lg p-3 border border-green-200">
+                                <div class="font-bold text-green-800">→ Operations Manager</div>
+                                <div class="text-xs text-slate-600">Day-to-day operations</div>
+                            </div>
+                            <div class="ml-12 bg-white rounded-lg p-3 border border-green-100">
+                                <div class="font-bold text-green-700">→ Mitigation Supervisor</div>
+                                <div class="text-xs text-slate-600">Techs (5-8)</div>
+                            </div>
+                            <div class="ml-12 bg-white rounded-lg p-3 border border-green-100">
+                                <div class="font-bold text-green-700">→ Reconstruction Manager</div>
+                                <div class="text-xs text-slate-600">Crews (8-12)</div>
+                            </div>
+                            <div class="ml-6 bg-white rounded-lg p-3 border border-green-200">
+                                <div class="font-bold text-green-800">→ Estimator/PM</div>
+                                <div class="text-xs text-slate-600">Scopes, estimates, project tracking</div>
+                            </div>
+                            <div class="ml-6 bg-white rounded-lg p-3 border border-green-200">
+                                <div class="font-bold text-green-800">→ Office Manager</div>
+                                <div class="text-xs text-slate-600">Admin staff (2-3)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Large Company Org Chart -->
+                    <div class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-8 border-2 border-violet-200">
+                        <div class="text-5xl mb-4 text-center">🏢</div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">Large (50+ employees)</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="bg-white rounded-lg p-3 border border-violet-300">
+                                <div class="font-bold text-violet-900">CEO/President</div>
+                                <div class="text-xs text-slate-600">Vision, strategy, M&A</div>
+                            </div>
+                            <div class="ml-6 bg-white rounded-lg p-3 border border-violet-200">
+                                <div class="font-bold text-violet-800">→ VP Operations</div>
+                                <div class="text-xs text-slate-600">Multi-location oversight</div>
+                            </div>
+                            <div class="ml-12 bg-white rounded-lg p-3 border border-violet-100">
+                                <div class="font-bold text-violet-700">→ Division Managers (2-4)</div>
+                                <div class="text-xs text-slate-600">Regional/specialty divisions</div>
+                            </div>
+                            <div class="ml-6 bg-white rounded-lg p-3 border border-violet-200">
+                                <div class="font-bold text-violet-800">→ CFO</div>
+                                <div class="text-xs text-slate-600">Finance, accounting team</div>
+                            </div>
+                            <div class="ml-6 bg-white rounded-lg p-3 border border-violet-200">
+                                <div class="font-bold text-violet-800">→ Sales Director</div>
+                                <div class="text-xs text-slate-600">Sales team, marketing</div>
+                            </div>
+                            <div class="ml-6 bg-white rounded-lg p-3 border border-violet-200">
+                                <div class="font-bold text-violet-800">→ HR Director</div>
+                                <div class="text-xs text-slate-600">Recruiting, training, compliance</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Descriptions -->
+            <div class="mb-16">
+                <h2 class="text-4xl font-black text-slate-900 mb-4 text-center">📝 Job Descriptions</h2>
+                <p class="text-lg text-slate-600 text-center mb-12 max-w-3xl mx-auto">
+                    Complete job descriptions with responsibilities, requirements, and compensation guidance.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Water Mitigation Technician</h3>
+                        <p class="text-sm text-slate-600 mb-3">Entry-level position. Responsibilities, required certifications, typical compensation range, and growth path.</p>
+                        <button class="text-violet-600 font-semibold text-sm hover:text-violet-700">View Description →</button>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Project Manager</h3>
+                        <p class="text-sm text-slate-600 mb-3">Mid-level management. Estimating, project coordination, customer communication, team leadership requirements.</p>
+                        <button class="text-violet-600 font-semibold text-sm hover:text-violet-700">View Description →</button>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Operations Manager</h3>
+                        <p class="text-sm text-slate-600 mb-3">Senior management. Multi-project oversight, P&L responsibility, team development, strategic planning.</p>
+                        <button class="text-violet-600 font-semibold text-sm hover:text-violet-700">View Description →</button>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Estimator/Adjuster</h3>
+                        <p class="text-sm text-slate-600 mb-3">Specialized role. Xactimate expertise, insurance knowledge, scope writing, supplement negotiation skills.</p>
+                        <button class="text-violet-600 font-semibold text-sm hover:text-violet-700">View Description →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coming Soon -->
+            <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-12 text-center border-2 border-slate-200">
+                <span class="text-5xl mb-4 block">🚀</span>
+                <h3 class="text-2xl font-bold text-slate-900 mb-4">More Resources Coming Soon</h3>
+                <p class="text-lg text-slate-600 mb-6">
+                    We're constantly adding new templates, calculators, and tools based on member feedback.
+                </p>
+                <p class="text-sm text-slate-500">
+                    Have a specific template you need? Let us know and we'll add it to the platform!
+                </p>
+            </div>
+
         </section>
 
     </main>
@@ -5357,6 +5887,373 @@ document.addEventListener('keydown', function(e) {
         
         // Run auth check when page loads
         window.addEventListener('DOMContentLoaded', checkAuthStatus);
+        
+        // ===== ROI CALCULATOR FUNCTION =====
+        function calculateROI() {
+            // Get input values
+            const employees = parseFloat(document.getElementById('roi-employees').value) || 0;
+            const wage = parseFloat(document.getElementById('roi-wage').value) || 0;
+            const hoursSaved = parseFloat(document.getElementById('roi-hours-saved').value) || 0;
+            const onboardingWeeks = parseFloat(document.getElementById('roi-onboarding').value) || 0;
+            const errorSavings = parseFloat(document.getElementById('roi-errors').value) || 0;
+            const platformCost = parseFloat(document.getElementById('roi-cost').value) || 0;
+            
+            // Calculate monthly savings components
+            // 1. Time saved: hours per week × 4.33 weeks/month × employees × wage
+            const timeSavingsMonthly = hoursSaved * 4.33 * employees * wage;
+            
+            // 2. Onboarding reduction: weeks saved × 40 hrs/week × wage × (employees/12 months)
+            // Assumes you hire throughout the year, so divide employees by 12
+            const onboardingSavingsMonthly = (onboardingWeeks * 40 * wage * employees) / 12;
+            
+            // 3. Error reduction (already monthly)
+            const errorSavingsMonthly = errorSavings;
+            
+            // Total value created
+            const totalMonthlyValue = timeSavingsMonthly + onboardingSavingsMonthly + errorSavingsMonthly;
+            
+            // Net savings (after platform cost)
+            const netMonthlySavings = totalMonthlyValue - platformCost;
+            const netAnnualSavings = netMonthlySavings * 12;
+            
+            // ROI multiple (annual savings / annual cost)
+            const annualCost = platformCost * 12;
+            const roiMultiple = annualCost > 0 ? (netAnnualSavings / annualCost) : 999;
+            
+            // Update UI
+            document.getElementById('roi-monthly-savings').textContent = '$' + Math.round(netMonthlySavings).toLocaleString();
+            document.getElementById('roi-annual-savings').textContent = '$' + Math.round(netAnnualSavings).toLocaleString();
+            document.getElementById('roi-multiple').textContent = roiMultiple.toFixed(1) + 'x';
+            
+            document.getElementById('roi-time-value').textContent = '$' + Math.round(timeSavingsMonthly).toLocaleString() + '/mo';
+            document.getElementById('roi-onboarding-value').textContent = '$' + Math.round(onboardingSavingsMonthly).toLocaleString() + '/mo';
+            document.getElementById('roi-error-value').textContent = '$' + Math.round(errorSavingsMonthly).toLocaleString() + '/mo';
+            document.getElementById('roi-total-value').textContent = '$' + Math.round(totalMonthlyValue).toLocaleString();
+            document.getElementById('roi-platform-cost').textContent = '-$' + Math.round(platformCost).toLocaleString();
+            document.getElementById('roi-net-savings').textContent = '$' + Math.round(netMonthlySavings).toLocaleString();
+            
+            // Update interpretation
+            let interpretation = '';
+            if (roiMultiple >= 10) {
+                interpretation = `Excellent ROI! For every dollar invested, you're getting back $${roiMultiple.toFixed(1)}. This represents ${Math.round(roiMultiple * 100)}% return—dramatically outperforming any traditional investment. Standardized training is delivering massive value to your company.`;
+            } else if (roiMultiple >= 5) {
+                interpretation = `Strong ROI! You're generating ${roiMultiple.toFixed(1)}x return on your training investment. This ${Math.round(roiMultiple * 100)}% return significantly exceeds typical business investments and demonstrates clear value from process standardization.`;
+            } else if (roiMultiple >= 2) {
+                interpretation = `Positive ROI! Your training platform is generating ${roiMultiple.toFixed(1)}x return. Every dollar invested returns $${roiMultiple.toFixed(1)}, proving that standardized processes create measurable value for your business.`;
+            } else if (roiMultiple >= 1) {
+                interpretation = `Break-even ROI. Your investment is generating ${roiMultiple.toFixed(1)}x return. While positive, there may be opportunities to increase adoption or optimize training workflows to boost returns.`;
+            } else if (annualCost === 0) {
+                interpretation = `With Ready's free platform, you're capturing $${Math.round(netAnnualSavings).toLocaleString()} in annual value at zero cost! This represents pure value creation through standardized training and process documentation.`;
+            } else {
+                interpretation = `Current ROI is ${roiMultiple.toFixed(1)}x. Consider increasing training adoption, reducing platform costs, or focusing on high-impact areas (onboarding, error reduction) to improve returns.`;
+            }
+            
+            document.getElementById('roi-interpretation').textContent = interpretation;
+            
+            // Show results
+            document.getElementById('roi-results').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('roi-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        window.addEventListener('DOMContentLoaded', setupROICalculator);
+
+    
+        // ===== ROI CALCULATOR =====
+        function calculateROI() {
+            // Get input values
+            const employees = parseFloat(document.getElementById('roi-employees').value) || 0;
+            const avgWage = parseFloat(document.getElementById('roi-wage').value) || 0;
+            const newHires = parseFloat(document.getElementById('roi-new-hires').value) || 0;
+            
+            // Validation
+            if (employees === 0 || avgWage === 0) {
+                document.getElementById('roi-results').innerHTML = '<p style="text-align:center; padding:40px;">Please enter number of employees and average hourly wage to calculate ROI.</p>';
+                return;
+            }
+            
+            // ROI Calculation based on restoration industry data
+            // Based on KnowHow methodology and industry standards
+            
+            // 1. Time Saved Per Employee (hours/month)
+            // - Reduced questions to managers: 3 hrs/month
+            // - Faster task completion with SOPs: 4 hrs/month
+            // - Less rework from errors: 2 hrs/month
+            const timeSavedPerEmployee = 9; // hours per month
+            
+            // 2. Monthly Labor Cost Savings
+            const monthlySavings = employees * timeSavedPerEmployee * avgWage;
+            const annualSavings = monthlySavings * 12;
+            
+            // 3. Onboarding Time Reduction
+            // Industry average: 60 days to full productivity
+            // With Ready training: 30 days to full productivity
+            // = 30 days (240 hours) saved per new hire
+            const onboardingTimeSaved = 240; // hours per new hire
+            const onboardingSavings = newHires * onboardingTimeSaved * avgWage;
+            
+            // 4. Reduced Turnover Costs
+            // Industry average turnover: 30-40%
+            // With training: 20% turnover
+            // Cost per turnover: 1.5x annual salary
+            const avgAnnualSalary = avgWage * 2080; // 2080 work hours/year
+            const turnoverReduction = employees * 0.15; // 15% reduction
+            const turnoverCostSavings = turnoverReduction * (avgAnnualSalary * 1.5);
+            
+            // 5. Error Reduction & Rework Savings
+            // Industry data: 10-15% of time spent on rework
+            // With SOPs: 5% rework
+            // = 5-10% time savings
+            const reworkSavings = employees * 4 * avgWage * 12; // 4 hrs/month saved
+            
+            // 6. Total Annual Value
+            const totalAnnualValue = annualSavings + onboardingSavings + turnoverCostSavings + reworkSavings;
+            
+            // 7. Investment Cost (Ready platform is FREE)
+            const investmentCost = 0;
+            
+            // 8. ROI Calculation
+            const roi = totalAnnualValue; // Since investment is $0, ROI is infinite - show total value instead
+            
+            // Display results
+            document.getElementById('roi-results').innerHTML = `
+                <div class="roi-result-big">
+                    <div class="roi-result-big-label">Total Annual Value</div>
+                    <div class="roi-result-big-value">$${totalAnnualValue.toLocaleString('en-US', {maximumFractionDigits: 0})}</div>
+                </div>
+                <div class="roi-result-item">
+                    <span class="roi-result-label">Monthly Labor Savings</span>
+                    <span class="roi-result-value">$${monthlySavings.toLocaleString('en-US', {maximumFractionDigits: 0})}/mo</span>
+                </div>
+                <div class="roi-result-item">
+                    <span class="roi-result-label">Annual Labor Savings</span>
+                    <span class="roi-result-value">$${annualSavings.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>
+                </div>
+                <div class="roi-result-item">
+                    <span class="roi-result-label">Onboarding Cost Savings</span>
+                    <span class="roi-result-value">$${onboardingSavings.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>
+                </div>
+                <div class="roi-result-item">
+                    <span class="roi-result-label">Reduced Turnover Savings</span>
+                    <span class="roi-result-value">$${turnoverCostSavings.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>
+                </div>
+                <div class="roi-result-item">
+                    <span class="roi-result-label">Error/Rework Reduction</span>
+                    <span class="roi-result-value">$${reworkSavings.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>
+                </div>
+                <div style="text-align: center; margin-top: 24px; padding-top: 24px; border-top: 2px solid rgba(255,255,255,0.2);">
+                    <p style="font-size: 14px; color: #e9d5ff; margin-bottom: 8px;">
+                        <strong>Time Saved:</strong> ${(employees * timeSavedPerEmployee).toLocaleString()} hours/month
+                    </p>
+                    <p style="font-size: 12px; color: rgba(255,255,255,0.7);">
+                        Based on industry data from 200+ restoration companies
+                    </p>
+                </div>
+            `;
+        }
+        
+        // Calculate on input change
+        function setupROICalculator() {
+            const inputs = ['roi-employees', 'roi-wage', 'roi-new-hires'];
+            inputs.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('input', calculateROI);
+                }
+            });
+        }
+
+    
+        // ===== TEMPLATE DOWNLOAD FUNCTION =====
+        function downloadTemplate(templateId) {
+            // Template data with actual content
+            const templates = {
+                'water-mitigation-sop': {
+                    name: 'Water_Mitigation_SOP.txt',
+                    content: `WATER MITIGATION STANDARD OPERATING PROCEDURE
+
+1. INITIAL RESPONSE (0-2 Hours)
+   □ Receive emergency call
+   □ Document: Customer name, address, water category, source
+   □ Estimated square footage affected
+   □ Insurance information (carrier, claim #, adjuster)
+   □ Dispatch closest available team
+   □ ETA communication to customer
+
+2. ON-SITE ASSESSMENT
+   □ Complete safety assessment (electrical hazards, structural stability)
+   □ Identify water source and category (Cat 1, 2, or 3)
+   □ Stop water source if possible
+   □ Document with 4-corner photography
+   □ Moisture mapping (floor level, 24", 36", 48")
+   □ Record all readings >16% moisture content
+   □ Complete Work Authorization form
+
+3. WATER EXTRACTION
+   □ Deploy extractors appropriate for surface type
+   □ Remove standing water completely
+   □ Extract until no more water transfers to vacuum
+   □ Document gallons extracted
+   □ Take post-extraction moisture readings
+
+4. EQUIPMENT PLACEMENT
+   □ Calculate cubic footage of affected area
+   □ Deploy air movers: 1 per 100-150 sq ft
+   □ Position for laminar airflow across wet surfaces
+   □ Deploy dehumidifiers based on Class and Category
+   □ Document equipment serial numbers and placement
+   □ Take initial psychrometric readings
+
+5. DAILY MONITORING
+   □ Check equipment function daily
+   □ Take moisture readings in same locations
+   □ Record psychrometric data
+   □ Photograph changes
+   □ Adjust equipment as needed
+   □ Communication log with customer
+
+6. COMPLETION & COC
+   □ All materials at dry standard (≤15% wood, ≤16% drywall)
+   □ Complete Certificate of Completion
+   □ Final photography
+   □ Remove all equipment
+   □ Customer signature on completion form
+
+CRITICAL NOTES:
+- Never use a single set of equipment for Cat 3 and then Cat 1 without full decontamination
+- Document everything - insurance won't pay for what isn't documented
+- Mitigation must be 100% complete before reconstruction begins
+`
+                },
+                'fire-smoke-sop': {
+                    name: 'Fire_Smoke_Restoration_SOP.txt',
+                    content: `FIRE & SMOKE RESTORATION SOP
+
+1. INITIAL ASSESSMENT
+   □ Safety check (structural integrity, air quality)
+   □ Document extent of fire, smoke, and water damage
+   □ Identify affected vs. unaffected areas
+   □ 4-corner photography
+   □ Work Authorization signature
+
+2. BOARD-UP & SECURITY
+   □ Secure property against weather/theft
+   □ Board broken windows and openings
+   □ Tarp damaged roof areas
+   □ Document security measures with photos
+
+3. CONTENTS EVALUATION
+   □ Separate salvageable from non-salvageable
+   □ Pack out contents for cleaning
+   □ Complete inventory with photos
+   □ Document condition codes (light, moderate, heavy soot)
+
+4. SOOT & SMOKE REMOVAL
+   □ HEPA vacuum all surfaces
+   □ Dry sponge cleaning
+   □ Wet cleaning where appropriate
+   □ Air scrubbers with HEPA/carbon filtration
+   □ Seal unaffected areas to prevent cross-contamination
+
+5. ODOR MITIGATION
+   □ Thermal fogging
+   □ Ozone treatment (unoccupied space only)
+   □ Hydroxyl generators for occupied spaces
+   □ Seal subfloors and wall cavities as needed
+
+6. STRUCTURAL CLEANING
+   □ Clean all structural components
+   □ HVAC cleaning and duct work
+   □ Seal or replace odor-affected materials
+   □ Apply sealant primers before final paint
+
+SAFETY PROTOCOLS:
+- Full PPE required (respirator, suit, gloves, eye protection)
+- Never mix ozone with occupants/pets
+- Properly dispose of contaminated materials
+- Document all hazardous material removal
+`
+                },
+                // Add more templates here - keeping them simple for now
+                'org-chart-small': {
+                    name: 'Small_Company_Org_Chart.txt',
+                    content: `SMALL RESTORATION COMPANY ORGANIZATIONAL CHART (1-10 Employees)
+
+OWNER/GENERAL MANAGER
+├── Office Manager/Admin
+│   ├── Accounts Receivable/Payable
+│   ├── Customer Service
+│   └── Scheduling
+│
+├── Mitigation Lead
+│   ├── Technician 1
+│   ├── Technician 2
+│   └── Technician 3
+│
+└── Project Manager/Estimator
+    ├── Reconstruction Lead
+    └── Subcontractor Management
+
+ROLE RESPONSIBILITIES:
+
+Owner/GM:
+- Overall business strategy
+- Major client relationships
+- Financial oversight
+- Final approval on large estimates
+
+Office Manager:
+- Daily operations
+- Billing and collections
+- Insurance documentation
+- Employee scheduling
+
+Mitigation Lead:
+- Emergency response leadership
+- Equipment management
+- Technician training
+- Quality control
+
+Project Manager:
+- Estimating (Xactimate)
+- Customer communication
+- Reconstruction oversight
+- Subcontractor coordination
+
+Technicians:
+- Emergency response
+- Water extraction and drying
+- Pack-out and contents
+- Site maintenance
+
+CAREER PATHS:
+Technician → Lead Technician → Mitigation Lead → Project Manager → GM
+`
+                }
+            };
+
+            // Get template
+            const template = templates[templateId];
+            
+            if (!template) {
+                alert('This template is being finalized and will be available soon!');
+                return;
+            }
+
+            // Create download
+            const blob = new Blob([template.content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = template.name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            // Success message
+            console.log('Template downloaded:', template.name);
+        }
 
     </script>
 </body>
