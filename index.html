@@ -4879,28 +4879,6 @@ document.addEventListener('keydown', function(e) {
         let qIdx = 0, qScore = 0;
         let quizMode = 'practice'; // 'practice' or 'certification'
 
-        function nav(id) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById('sec-' + id).classList.remove('hidden');
-            document.querySelectorAll('.nav-link').forEach(el => {
-                el.classList.remove('text-violet-600', 'border-b-2', 'border-violet-600');
-                el.classList.add('text-slate-500');
-            });
-            const activeLink = document.getElementById('link-' + id);
-            if (activeLink && activeLink.classList.contains('nav-link')) {
-                activeLink.classList.add('text-violet-600', 'border-b-2', 'border-violet-600');
-                activeLink.classList.remove('text-slate-500');
-            }
-            if (id === 'mitigation') drawFloorPlan();
-            if (id === 'quiz') {
-                quizMode = 'practice';
-                document.getElementById('quiz-mode-badge').className = 'quiz-mode-indicator bg-blue-100 text-blue-700';
-                document.getElementById('quiz-mode-badge').innerHTML = '📝 Practice Mode';
-                resetQuiz();
-            }
-            window.scrollTo(0,0);
-        }
-
         function startCertificationQuiz() {
             quizMode = 'certification';
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
