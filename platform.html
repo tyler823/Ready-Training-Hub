@@ -4895,13 +4895,24 @@ document.addEventListener('keydown', function(e) {
 
         function nav(id) {
             try {
+                // Map reconstruction sub-sections to the main reconstruction section
+                const reconSubSections = {
+                    'recon-transition': 'reconstruction',
+                    'recon-estimating': 'reconstruction',
+                    'recon-scope': 'reconstruction',
+                    'recon-preconstruction': 'reconstruction',
+                    'recon-construction': 'reconstruction',
+                    'recon-completion': 'reconstruction'
+                };
+                const sectionId = reconSubSections[id] || id;
+
                 // Hide all sections
                 document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
                 
                 // Show target section
-                const targetSection = document.getElementById('sec-' + id);
+                const targetSection = document.getElementById('sec-' + sectionId);
                 if (!targetSection) {
-                    console.error('Section not found: sec-' + id);
+                    console.error('Section not found: sec-' + sectionId);
                     return;
                 }
                 targetSection.classList.remove('hidden');
