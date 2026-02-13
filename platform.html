@@ -1408,42 +1408,266 @@ document.addEventListener('keydown', function(e) {
                         </div>
                     </div>
 
-                    <div class="space-y-4">
+                    <div class="space-y-1">
+                        <!-- STEP 1 -->
                         <div class="flex gap-4">
-                            <div class="flex flex-col items-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg text-center">1</div><div class="w-0.5 h-full bg-slate-200 my-1 text-center"></div></div>
-                            <div class="pb-2 text-left"><h4 class="font-bold text-slate-800 text-left">Arrival & Onboarding</h4><p class="text-xs text-slate-500 text-left">Work Auth signed BEFORE any services begin. Verify customer identity and property ownership.</p></div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="flex flex-col items-center text-center text-center text-center text-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg text-center text-center text-center">2</div><div class="w-0.5 h-full bg-slate-200 my-1 text-center text-center text-center"></div></div>
-                            <div class="pb-2">
-                                <h4 class="font-bold text-slate-800 text-left text-left">Investigation & Documentation</h4>
-                                <p class="text-xs text-slate-500 text-left text-left">4-corner photos, thermal imaging, moisture mapping, affected materials inventory. Complete ES checklist in Job-Dox.</p>
+                            <div class="flex flex-col items-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">1</div><div class="w-0.5 h-full bg-slate-200 my-1"></div></div>
+                            <div class="pb-4 flex-1">
+                                <h4 class="font-bold text-slate-800 text-lg mb-1">Arrival &amp; Onboarding</h4>
+                                <p class="text-xs text-slate-500 mb-3">Work Auth signed BEFORE any services begin. Verify customer identity and property ownership.</p>
+                                <button onclick="toggleDetails('det-step1')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-3 py-1.5 rounded hover:bg-violet-100 transition-all mb-2">Expand Details</button>
+                                <div id="det-step1" class="detail-expansion max-h-0 bg-slate-50 rounded-xl">
+                                    <div class="p-4 text-xs leading-relaxed">
+                                        <p class="font-bold text-violet-800 mb-2">Why This Step Cannot Be Skipped:</p>
+                                        <p class="mb-3">The Work Authorization is the legal foundation of every restoration project. Without a signed Work Auth, your company is trespassing on private property and has no legal right to perform services. If the homeowner later disputes charges or claims work was unauthorized, your company has zero legal standing and faces a complete write-off of labor and materials &mdash; averaging $3,000&ndash;$15,000 per incident industry-wide.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">What to Cover During Onboarding:</p>
+                                        <p class="mb-2">&bull; <strong>Verify identity and ownership.</strong> Confirm the person signing is the property owner or an authorized agent. Tenants should sign a separate third-party authorization, not the primary service contract.</p>
+                                        <p class="mb-2">&bull; <strong>Explain the entire restoration process.</strong> Walk the customer through what will happen in their home &mdash; equipment noise, drying timelines, demo expectations, and daily monitoring visits. Set realistic expectations about 3&ndash;5 day drying timelines for typical losses.</p>
+                                        <p class="mb-2">&bull; <strong>Review insurance coordination.</strong> Collect carrier name, claim number, adjuster name, and policy number. Explain that the homeowner is responsible for payment regardless of insurance outcome &mdash; this must be acknowledged in writing.</p>
+                                        <p class="mb-2">&bull; <strong>Document the Assignment of Benefits (AOB)</strong> or Direction to Pay if applicable. This authorizes the insurance company to pay the restoration company directly. Without this, payment goes to the homeowner who may not forward it.</p>
+                                        <p class="mb-2">&bull; <strong>Provide the Right to Rescind notice.</strong> Federal and most state laws require a 3-business-day cancellation window for contracts signed at the customer's residence. Failure to provide this notice can void the entire contract.</p>
+                                        <p class="mb-2">&bull; <strong>Explain antimicrobial treatment options.</strong> Have the customer elect or decline antimicrobial application in writing. If they decline and mold develops, the signed declination protects your company from liability.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Critical Documents to Complete:</p>
+                                        <p class="mb-1">&square; Work Authorization / Service Contract (signed and dated)</p>
+                                        <p class="mb-1">&square; Right to Rescind / Notice of Cancellation</p>
+                                        <p class="mb-1">&square; Assignment of Benefits / Direction to Pay</p>
+                                        <p class="mb-1">&square; Antimicrobial election or declination</p>
+                                        <p class="mb-1">&square; Equipment authorization (acknowledging noise, power usage, do-not-turn-off)</p>
+                                        <p class="mb-1">&square; Customer contact information and emergency contact</p>
+                                        
+                                        <p class="font-bold text-red-700 mt-3 mb-1">&#9888; Non-Negotiable Rule:</p>
+                                        <p>Absolutely NO physical work begins until the Work Auth is signed &mdash; not extraction, not demo, not even moving furniture. &quot;We'll get it signed later&quot; is the single most common source of payment disputes in the restoration industry.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- STEP 2 -->
                         <div class="flex gap-4">
-                            <div class="flex flex-col items-center text-left text-left text-left text-left"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg text-center text-center text-center">3</div><div class="w-0.5 h-full bg-slate-200 my-1 text-center text-center text-center"></div></div>
-                            <div class="pb-2">
-                                <h4 class="font-bold text-slate-800 text-left text-left text-left">Ancillary Services & Demolition</h4>
-                                <p class="text-xs text-slate-500 text-left text-left">Water extraction, controlled demo of affected materials. Timely removal within 48-72 hours prevents mold.</p>
+                            <div class="flex flex-col items-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">2</div><div class="w-0.5 h-full bg-slate-200 my-1"></div></div>
+                            <div class="pb-4 flex-1">
+                                <h4 class="font-bold text-slate-800 text-lg mb-1">Investigation &amp; Documentation</h4>
+                                <p class="text-xs text-slate-500 mb-3">4-corner photos, thermal imaging, moisture mapping, affected materials inventory. Complete ES checklist in Job-Dox.</p>
+                                <button onclick="toggleDetails('det-step2')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-3 py-1.5 rounded hover:bg-violet-100 transition-all mb-2">Expand Details</button>
+                                <div id="det-step2" class="detail-expansion max-h-0 bg-slate-50 rounded-xl">
+                                    <div class="p-4 text-xs leading-relaxed">
+                                        <p class="font-bold text-violet-800 mb-2">Why Documentation Drives Payment:</p>
+                                        <p class="mb-3">Insurance adjusters approve or deny every line item based on photo evidence, moisture readings, and field notes. IICRC S500 Section 8.5 requires comprehensive photo documentation before, during, and after restoration. Industry data shows that incomplete documentation results in a 25&ndash;45% reduction in total claim payout. If it's not documented, it didn't happen &mdash; and you won't get paid for it.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">4-Corner Photography Protocol:</p>
+                                        <p class="mb-3">Stand in each corner of every affected room and shoot diagonally across to the opposite corner. This creates overlapping fields of view that capture 100% of room contents, wall surfaces, floor conditions, and ceiling damage. Four diagonal shots create zero blind spots. Take photos BEFORE moving anything &mdash; digital photos embed EXIF data (date, time, GPS coordinates) that serve as timestamped litigation defense if pre-existing damage is later disputed.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Moisture Mapping Requirements:</p>
+                                        <p class="mb-2">&bull; <strong>Baseline readings.</strong> Take moisture readings at floor level, 24&quot;, 36&quot;, and 48&quot; elevations on every affected wall. The 16% threshold per IICRC S500 determines &quot;affected&quot; vs. &quot;unaffected&quot; materials for wood and drywall.</p>
+                                        <p class="mb-2">&bull; <strong>Use both meter types.</strong> Non-invasive meters for rapid scanning, then pin-type penetrating meters for precise readings on flagged areas. Cross-reference readings for accuracy.</p>
+                                        <p class="mb-2">&bull; <strong>Cap readings at 60%.</strong> Meters above 60% indicate complete saturation &mdash; the meter cannot differentiate between 65% and 99%. Logging &quot;60%&quot; standardizes data across the industry.</p>
+                                        <p class="mb-2">&bull; <strong>Map unaffected areas too.</strong> Document dry areas adjacent to wet zones to establish the boundary of damage. This prevents scope creep disputes with adjusters.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Thermal Imaging:</p>
+                                        <p class="mb-3">Use infrared cameras to identify hidden moisture behind walls, under flooring, and above ceilings. Thermal imaging reveals moisture intrusion pathways invisible to the naked eye &mdash; water follows gravity and capillary action through wall cavities, often appearing far from the original source. Thermal images are powerful evidence for justifying expanded demo scope.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Water Category &amp; Class Determination:</p>
+                                        <p class="mb-3">Classify the water category (1, 2, or 3) and class (1 through 4) per IICRC S500 standards. This classification directly determines PPE requirements, salvageability of materials, equipment needs, and drying timeline. Category 1 water degrades to Category 2 after 48 hours, and Category 2 to Category 3 &mdash; document the time-of-loss to support your classification decisions.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Complete Documentation Checklist:</p>
+                                        <p class="mb-1">&square; 4-corner photos of every affected room (before touching anything)</p>
+                                        <p class="mb-1">&square; Close-up photos of affected materials (wet drywall, saturated carpet, stains)</p>
+                                        <p class="mb-1">&square; Thermal imaging scans with saved images</p>
+                                        <p class="mb-1">&square; Moisture map with readings at all four elevations</p>
+                                        <p class="mb-1">&square; Water category and class determination with justification</p>
+                                        <p class="mb-1">&square; Affected materials inventory</p>
+                                        <p class="mb-1">&square; Source of loss identified and documented</p>
+                                        <p>&square; All data uploaded to Job-Dox within 15 minutes of leaving site</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- STEP 3 -->
                         <div class="flex gap-4">
-                            <div class="flex flex-col items-center text-center text-center text-center text-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg text-center text-center text-center">4</div><div class="w-0.5 h-full bg-slate-200 my-1 text-center text-center text-center"></div></div>
-                            <div class="pb-2 text-left"><h4 class="font-bold text-slate-800 text-left text-left">Equipment Set</h4><p class="text-xs text-slate-500 text-left text-left">Air movers, dehumidifiers, air scrubbers placed per psychrometric calculations and system recommendations.</p></div>
+                            <div class="flex flex-col items-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">3</div><div class="w-0.5 h-full bg-slate-200 my-1"></div></div>
+                            <div class="pb-4 flex-1">
+                                <h4 class="font-bold text-slate-800 text-lg mb-1">Ancillary Services &amp; Demolition</h4>
+                                <p class="text-xs text-slate-500 mb-3">Water extraction, controlled demo of affected materials. Timely removal within 48&ndash;72 hours prevents mold.</p>
+                                <button onclick="toggleDetails('det-step3')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-3 py-1.5 rounded hover:bg-violet-100 transition-all mb-2">Expand Details</button>
+                                <div id="det-step3" class="detail-expansion max-h-0 bg-slate-50 rounded-xl">
+                                    <div class="p-4 text-xs leading-relaxed">
+                                        <p class="font-bold text-violet-800 mb-2">Why Speed Matters &mdash; The 48-Hour Rule:</p>
+                                        <p class="mb-3">Microbial growth (mold) begins colonizing wet porous materials within 48&ndash;72 hours under favorable conditions. Once mold is present, the project scope escalates dramatically &mdash; what was a $5,000 mitigation becomes a $15,000&ndash;$30,000 remediation. IICRC S500 emphasizes that prompt extraction and removal of saturated materials is the single most effective mold prevention strategy.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Water Extraction Procedures:</p>
+                                        <p class="mb-2">&bull; <strong>Standing water removal.</strong> Use truck-mounted or portable extractors to remove all free-standing water immediately. Truck-mounted units deliver significantly more suction power and heated water extraction capability.</p>
+                                        <p class="mb-2">&bull; <strong>Carpet and pad extraction.</strong> Weighted extraction tools should make multiple slow passes over carpeted areas. Sub-surface extractors pull water from the carpet pad without pulling the carpet off the tack strip. Industry standard: minimum 2 passes in each direction.</p>
+                                        <p class="mb-2">&bull; <strong>Hard surface extraction.</strong> Use squeegees and hard surface extraction tools on tile, hardwood, and concrete. Riding extractors for large commercial losses.</p>
+                                        <p class="mb-2">&bull; <strong>Upholstery and contents.</strong> Extract water from salvageable soft contents. Move wet contents to a dry area or elevate on blocks to allow airflow underneath.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Controlled Demolition Protocol:</p>
+                                        <p class="mb-2">&bull; <strong>Cut height determination.</strong> Use your vertical moisture map to determine the demo cut line. Standard practice: cut 12&ndash;18 inches above the highest point of moisture detection to ensure all affected material is removed.</p>
+                                        <p class="mb-2">&bull; <strong>Flood cuts.</strong> Make clean, straight horizontal cuts with oscillating tools or utility knives. Ragged cuts require more reconstruction material and labor &mdash; this directly impacts rebuild cost and timeline.</p>
+                                        <p class="mb-2">&bull; <strong>Insulation removal.</strong> All wet insulation must be removed &mdash; fiberglass and cellulose insulation cannot be dried in place and will harbor mold growth. Bag and dispose of properly.</p>
+                                        <p class="mb-2">&bull; <strong>Baseboard and trim removal.</strong> Remove all baseboards in affected areas to expose the wall cavity for drying. Label and store salvageable trim for reinstallation.</p>
+                                        <p class="mb-2">&bull; <strong>Cabinet toe-kick removal.</strong> In kitchen and bathroom losses, remove cabinet toe-kicks to allow airflow into the cavity behind and beneath cabinets. This is a commonly missed area that leads to hidden mold.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Antimicrobial Application:</p>
+                                        <p class="mb-3">If the customer has elected antimicrobial treatment, apply EPA-registered antimicrobial solution to all exposed structural surfaces (wall cavities, subfloor, framing) after demo is complete. Document product used, EPA registration number, dilution ratio, and application method.</p>
+                                        
+                                        <p class="font-bold text-red-700 mb-1">&#9888; Asbestos Check &mdash; BEFORE Any Demo:</p>
+                                        <p>Re-confirm: no suspected asbestos-containing materials are present in the demo area. If ANY doubt exists, STOP and test before proceeding. See Asbestos Alert above.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex gap-4 text-left text-left text-left">
-                            <div class="flex flex-col items-center text-center text-center text-center text-center text-center text-center text-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg text-center text-center text-center text-center">5</div><div class="w-0.5 h-full bg-slate-200 my-1 text-center text-center text-center"></div></div>
-                            <div class="pb-2 text-left text-left"><h4 class="font-bold text-slate-800 text-left text-left text-left">Daily Monitoring</h4><p class="text-xs text-slate-500 leading-relaxed mt-1 text-left text-left">Log readings daily. Update moisture map. Upload notes to Job-Dox within 15 minutes of leaving site.</p></div>
+
+                        <!-- STEP 4 -->
+                        <div class="flex gap-4">
+                            <div class="flex flex-col items-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">4</div><div class="w-0.5 h-full bg-slate-200 my-1"></div></div>
+                            <div class="pb-4 flex-1">
+                                <h4 class="font-bold text-slate-800 text-lg mb-1">Equipment Set</h4>
+                                <p class="text-xs text-slate-500 mb-3">Air movers, dehumidifiers, air scrubbers placed per psychrometric calculations and IICRC S500 guidelines.</p>
+                                <button onclick="toggleDetails('det-step4')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-3 py-1.5 rounded hover:bg-violet-100 transition-all mb-2">Expand Details</button>
+                                <div id="det-step4" class="detail-expansion max-h-0 bg-slate-50 rounded-xl">
+                                    <div class="p-4 text-xs leading-relaxed">
+                                        <p class="font-bold text-violet-800 mb-2">The Science of Structural Drying:</p>
+                                        <p class="mb-3">Effective drying is a controlled scientific process &mdash; not just putting fans in a room. Air movers accelerate evaporation from wet surfaces by creating high-velocity airflow. Dehumidifiers capture the evaporated moisture from the air. Together, they create a continuous cycle: evaporation, capture, dry air recirculated, more evaporation. This is driven by the vapor pressure differential between the wet material surface and the surrounding air.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Air Mover Placement:</p>
+                                        <p class="mb-2">&bull; <strong>Quantity calculation.</strong> Per IICRC S500, calculate air mover count based on affected floor area, space configuration, and airflow obstacles. General guideline: 1 air mover per 10&ndash;16 linear feet of affected wall, or approximately 1 per 50&ndash;70 sq ft of affected floor area.</p>
+                                        <p class="mb-2">&bull; <strong>Angle positioning.</strong> Position air movers at 5&ndash;45 degree angles relative to walls depending on material and moisture level. Place the snout approximately 1 inch from the wall &mdash; direct contact impedes airflow.</p>
+                                        <p class="mb-2">&bull; <strong>Run on HIGH speed &mdash; always.</strong> Air movers should run at maximum speed throughout the entire drying process. Slowing airflow near the end does not help &mdash; it reduces energy transfer and extends drying time.</p>
+                                        <p class="mb-2">&bull; <strong>Coverage priority.</strong> Focus on corners, closets, under cabinets, and behind furniture &mdash; areas where natural air circulation is limited.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Dehumidifier Placement:</p>
+                                        <p class="mb-2">&bull; <strong>Central positioning.</strong> Place dehumidifiers in the center of the affected area when possible, with sufficient clearance for air intake and discharge.</p>
+                                        <p class="mb-2">&bull; <strong>Multi-room strategy.</strong> Position dehumidifiers in central hallways or the largest room and use air movers to direct moist air toward the dehumidifier intake.</p>
+                                        <p class="mb-2">&bull; <strong>Type selection.</strong> LGR (Low Grain Refrigerant) dehumidifiers for standard conditions above 65&deg;F. Desiccant dehumidifiers for cold environments. One standard LGR unit handles approximately 150&ndash;300 sq ft of moderate water damage.</p>
+                                        <p class="mb-2">&bull; <strong>Ratio.</strong> Typical ratio: 4&ndash;5 air movers per dehumidifier. Adjust based on moisture loading and psychrometric readings.</p>
+                                        <p class="mb-2">&bull; <strong>Continuous drainage.</strong> Set up dehumidifiers with continuous drain hoses rather than relying on internal reservoirs that require manual emptying.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Air Scrubbers / Negative Air:</p>
+                                        <p class="mb-2">&bull; Deploy HEPA air scrubbers to filter mold spores, dust, and particulates generated during demo.</p>
+                                        <p class="mb-2">&bull; For Category 2 and 3 water losses, air scrubbers are mandatory &mdash; not optional.</p>
+                                        <p class="mb-3">&bull; In containment scenarios, air scrubbers create negative air pressure to prevent cross-contamination.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Document Everything:</p>
+                                        <p class="mb-1">&square; Equipment placement floor plan with unit serial numbers and locations</p>
+                                        <p class="mb-1">&square; Number and type of each piece of equipment deployed</p>
+                                        <p class="mb-1">&square; Date and time of equipment set</p>
+                                        <p class="mb-1">&square; Psychrometric readings: temperature, relative humidity, GPP</p>
+                                        <p>&square; Customer acknowledgment that equipment must NOT be turned off</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex gap-4 text-left text-left text-left text-left">
-                            <div class="flex flex-col items-center text-center text-center text-center text-center text-center text-center text-center text-center text-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg text-center text-center text-center text-center">6</div><div class="w-0.5 h-full bg-slate-200 my-1 text-center text-center text-center"></div></div>
-                            <div class="pb-2 text-left text-left text-left text-left text-left"><h4 class="font-bold text-slate-800 text-left text-left">Labor & Scope Capture</h4><p class="text-xs text-slate-500 leading-relaxed mt-1 text-left">Enter all line items in Job-Dox. Complete Docusketch floor plan with measurements.</p></div>
+
+                        <!-- STEP 5 -->
+                        <div class="flex gap-4">
+                            <div class="flex flex-col items-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">5</div><div class="w-0.5 h-full bg-slate-200 my-1"></div></div>
+                            <div class="pb-4 flex-1">
+                                <h4 class="font-bold text-slate-800 text-lg mb-1">Daily Monitoring</h4>
+                                <p class="text-xs text-slate-500 mb-3">Log readings daily. Update moisture map. Upload notes to Job-Dox within 15 minutes of leaving site.</p>
+                                <button onclick="toggleDetails('det-step5')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-3 py-1.5 rounded hover:bg-violet-100 transition-all mb-2">Expand Details</button>
+                                <div id="det-step5" class="detail-expansion max-h-0 bg-slate-50 rounded-xl">
+                                    <div class="p-4 text-xs leading-relaxed">
+                                        <p class="font-bold text-violet-800 mb-2">Why Daily Monitoring Is Non-Negotiable:</p>
+                                        <p class="mb-3">Drying is not set-it-and-forget-it. Conditions change daily &mdash; equipment may malfunction, the customer may turn off units, weather changes can alter humidity, and moisture migrates through materials over time. Missing a single day of monitoring can add 2&ndash;3 extra days of drying time, costing equipment rental fees and delaying project completion.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Daily Monitoring Checklist:</p>
+                                        <p class="mb-2">&bull; <strong>Moisture readings at all mapped points.</strong> Repeat readings at the same locations from your initial moisture map &mdash; floor, 24&quot;, 36&quot;, 48&quot; elevations. Use the same meter type and settings for consistency.</p>
+                                        <p class="mb-2">&bull; <strong>Psychrometric readings.</strong> Record ambient temperature, relative humidity, and calculate GPP (grains per pound) inside the affected area AND outside. Indoor GPP should be consistently lower than outdoor GPP &mdash; if not, equipment is undersized or malfunctioning.</p>
+                                        <p class="mb-2">&bull; <strong>Equipment verification.</strong> Confirm every air mover and dehumidifier is running. Check dehumidifier collection rates &mdash; a unit collecting no water may indicate a mechanical failure or that the space is near target. Record equipment run hours.</p>
+                                        <p class="mb-2">&bull; <strong>Adjust equipment as needed.</strong> As areas dry, redistribute air movers from dry zones to remaining wet zones. This &quot;stepping down&quot; focuses drying energy where it's still needed and reduces equipment rental costs. Document every adjustment with the reason.</p>
+                                        <p class="mb-2">&bull; <strong>Inspect for secondary damage.</strong> Check for new mold growth, odors, delamination, warping, or other signs of ongoing damage. Catching secondary issues early prevents scope escalation.</p>
+                                        <p class="mb-2">&bull; <strong>Customer communication.</strong> Brief the homeowner on progress every visit. Explain when you expect dry-down to be achieved. Managing expectations prevents complaints.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Documentation Standard:</p>
+                                        <p class="mb-3">All readings, observations, equipment changes, and customer communication must be uploaded to Job-Dox within 15 minutes of leaving the site. This creates a real-time audit trail. Missing or incomplete daily monitoring documentation has resulted in six-figure adverse judgments against restoration companies in litigation.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Drying Trend Analysis:</p>
+                                        <p>Plot daily moisture readings on a trend chart. Healthy drying shows a consistent downward slope. If readings plateau for 24&ndash;48 hours, investigate immediately &mdash; possible causes include equipment failure, hidden moisture source, inadequate airflow, or customer interference. A flat trend line on Day 3+ is a red flag requiring immediate troubleshooting.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex gap-4 text-left text-left text-left text-left text-left">
-                            <div class="flex flex-col items-center text-center text-center text-center text-center text-center text-center text-center text-center text-center text-center text-center text-center text-center text-center"><div class="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg text-center text-center text-center text-center text-center text-center">7</div></div>
-                            <div class="pb-2 text-left text-left text-left text-left text-left text-left text-left"><h4 class="font-bold text-emerald-900 text-left text-left">Completion & COC</h4><p class="text-xs text-emerald-700 leading-relaxed mt-1 text-left text-left">Remove all equipment. Final moisture readings ≤15%. Issue Certificate of Completion with photos.</p></div>
+
+                        <!-- STEP 6 -->
+                        <div class="flex gap-4">
+                            <div class="flex flex-col items-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">6</div><div class="w-0.5 h-full bg-slate-200 my-1"></div></div>
+                            <div class="pb-4 flex-1">
+                                <h4 class="font-bold text-slate-800 text-lg mb-1">Labor &amp; Scope Capture</h4>
+                                <p class="text-xs text-slate-500 mb-3">Enter all line items in Job-Dox. Complete Docusketch floor plan with measurements.</p>
+                                <button onclick="toggleDetails('det-step6')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-3 py-1.5 rounded hover:bg-violet-100 transition-all mb-2">Expand Details</button>
+                                <div id="det-step6" class="detail-expansion max-h-0 bg-slate-50 rounded-xl">
+                                    <div class="p-4 text-xs leading-relaxed">
+                                        <p class="font-bold text-violet-800 mb-2">Why Scope Capture Is Where Money Is Made or Lost:</p>
+                                        <p class="mb-3">Every piece of work your crew performs must be captured as a billable line item. Missed scope = unpaid work. Industry estimates show that technicians who don't actively capture scope lose 15&ndash;25% of recoverable revenue. A $6,000 job becomes a $4,500 job simply because line items weren't documented in real time.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">What Gets Captured:</p>
+                                        <p class="mb-2">&bull; <strong>Every labor activity.</strong> Extraction (by method &mdash; truck mount, portable, weighted, sub-surface), demo (by material type and height), detach and reset of fixtures, furniture manipulation, content moving, protective covering, and cleaning.</p>
+                                        <p class="mb-2">&bull; <strong>Every material used.</strong> Antimicrobial products (with quantity), plastic sheeting, PPE consumed for Category 2/3, disposal bags, and containment materials.</p>
+                                        <p class="mb-2">&bull; <strong>Every piece of equipment.</strong> Each air mover, dehumidifier, air scrubber &mdash; with serial numbers, placement dates, and daily run-time. Equipment charges represent 30&ndash;50% of total mitigation invoice value.</p>
+                                        <p class="mb-2">&bull; <strong>Every ancillary service.</strong> Emergency service call, after-hours response, biohazard handling, temporary repairs, board-up, tarp, content pack-out/pack-back.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Docusketch Floor Plan:</p>
+                                        <p class="mb-3">Complete an accurate floor plan with room dimensions, door and window locations, and affected area boundaries. The floor plan is the visual foundation for the Xactimate estimate &mdash; inaccurate measurements mean inaccurate line items. Use Docusketch or equivalent laser-measurement tool for precision.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Real-Time Capture &mdash; Not After the Fact:</p>
+                                        <p class="mb-3">Scope must be captured as work is performed &mdash; not reconstructed from memory days later. Build the habit: do the work, document the work, enter the line item. Every time.</p>
+                                        
+                                        <p class="font-bold text-violet-800 mb-2">Common Missed Line Items:</p>
+                                        <p class="mb-1">&bull; Furniture manipulation (move/reset per room)</p>
+                                        <p class="mb-1">&bull; Content protection / covering with plastic</p>
+                                        <p class="mb-1">&bull; Detach and reset of toilets, vanities, appliances</p>
+                                        <p class="mb-1">&bull; Baseboard/trim removal and storage</p>
+                                        <p class="mb-1">&bull; Carpet/pad detach for inspection and reinstall</p>
+                                        <p>&bull; After-hours emergency response premium</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- STEP 7 -->
+                        <div class="flex gap-4">
+                            <div class="flex flex-col items-center"><div class="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">7</div></div>
+                            <div class="pb-2 flex-1">
+                                <h4 class="font-bold text-emerald-900 text-lg mb-1">Completion &amp; Certificate of Completion</h4>
+                                <p class="text-xs text-emerald-700 mb-3">Remove all equipment. Final moisture readings at or below 15%. Issue Certificate of Completion with photos.</p>
+                                <button onclick="toggleDetails('det-step7')" class="text-[10px] font-bold uppercase text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded hover:bg-emerald-100 transition-all mb-2">Expand Details</button>
+                                <div id="det-step7" class="detail-expansion max-h-0 bg-emerald-50 rounded-xl">
+                                    <div class="p-4 text-xs leading-relaxed">
+                                        <p class="font-bold text-emerald-800 mb-2">Dry Standard &mdash; When Is It Actually Dry?</p>
+                                        <p class="mb-3">Per IICRC S500, materials are considered dry when moisture content returns to normal or pre-loss conditions. For wood framing and drywall, the target is generally at or below 15% moisture content using a penetrating pin meter. Compare affected area readings to unaffected areas of the same material as your benchmark.</p>
+                                        
+                                        <p class="font-bold text-emerald-800 mb-2">Final Readings &amp; Documentation:</p>
+                                        <p class="mb-2">&bull; <strong>Take final moisture readings at every mapped point.</strong> All readings must meet the dry standard. If even one reading is above threshold, drying continues &mdash; do not pull equipment prematurely.</p>
+                                        <p class="mb-2">&bull; <strong>Final psychrometric readings.</strong> Indoor humidity should be at or near normal levels (30&ndash;50% RH). Document final temperature, RH, and GPP.</p>
+                                        <p class="mb-2">&bull; <strong>Completion photos.</strong> Take 4-corner photos of every room showing dry conditions and equipment-free spaces. Before/after documentation is powerful for insurance approval.</p>
+                                        
+                                        <p class="font-bold text-emerald-800 mb-2">Equipment Removal:</p>
+                                        <p class="mb-2">&bull; Remove all air movers, dehumidifiers, and air scrubbers. Verify nothing is left behind &mdash; check closets, crawlspaces, and behind doors.</p>
+                                        <p class="mb-2">&bull; Record the exact date and time of equipment pickup for each unit. This determines your final equipment rental charges.</p>
+                                        <p class="mb-3">&bull; Clean up all power cords, tape residue, and plastic sheeting. Leave the property in a presentable condition.</p>
+                                        
+                                        <p class="font-bold text-emerald-800 mb-2">Certificate of Completion (COC):</p>
+                                        <p class="mb-2">&bull; <strong>Walk the entire property with the customer.</strong> Show them every area that was affected, explain what was done, and point out any areas that will need reconstruction.</p>
+                                        <p class="mb-2">&bull; <strong>Have the customer sign the Certificate of Completion.</strong> This document acknowledges the mitigation work is complete to their satisfaction and that they understand remaining payment obligations. A signed COC prevents future disputes.</p>
+                                        <p class="mb-2">&bull; <strong>Explain next steps.</strong> If reconstruction is needed, explain the handoff process and provide timeline expectations.</p>
+                                        <p class="mb-3">&bull; <strong>Discuss payment.</strong> Review outstanding balance, deductible responsibility, and insurance payment timeline. The COC is the trigger for insurance to release depreciation on the mitigation portion of the claim.</p>
+                                        
+                                        <p class="font-bold text-emerald-800 mb-2">Final Upload to Job-Dox:</p>
+                                        <p class="mb-1">&square; Final moisture readings showing all points at or below dry standard</p>
+                                        <p class="mb-1">&square; Final psychrometric readings</p>
+                                        <p class="mb-1">&square; Completion photos (4-corner of every room)</p>
+                                        <p class="mb-1">&square; Equipment removal log with dates/times</p>
+                                        <p class="mb-1">&square; Signed Certificate of Completion</p>
+                                        <p>&square; Final scope review confirming all line items are captured</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="space-y-6">
