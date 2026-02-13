@@ -580,6 +580,7 @@
                     </div>
                     
                     <button onclick="nav('resources')" class="nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-resources">Resources</button>
+                    <button onclick="nav('dashboard')" class="nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-dashboard" data-ms-membership="ready-team,ready-pro" style="display:none;">Team Dashboard</button>
                     <button onclick="nav('quiz')" class="bg-slate-900 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-600 transition shadow-md" id="link-quiz">MITIGATION QUIZ</button>
                     <button onclick="startReconQuiz()" class="bg-violet-600 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-700 transition shadow-md" id="link-recon-quiz">RECONSTRUCTION QUIZ</button>
                     <button onclick="logout()" class="logout-btn">Logout</button>
@@ -654,6 +655,11 @@
         <!-- Resources -->
         <div class="mobile-menu-item">
             <a onclick="nav('resources'); closeMobileMenu();">📚 Resources</a>
+        </div>
+        
+        <!-- Team Dashboard (Admin Only) -->
+        <div class="mobile-menu-item" data-ms-membership="ready-team,ready-pro" style="display:none;" id="mobile-dashboard-link">
+            <a onclick="nav('dashboard'); closeMobileMenu();">📊 Team Dashboard</a>
         </div>
         
         <!-- Quizzes -->
@@ -4573,6 +4579,151 @@ document.addEventListener('keydown', function(e) {
 
         </section>
 
+        <!-- ========================================
+             TEAM DASHBOARD SECTION (ADMIN ONLY)
+             ======================================== -->
+        <section id="sec-dashboard" class="tab-content hidden fade-in">
+            <div class="max-w-7xl mx-auto px-4 py-16">
+                <div class="mb-12 text-center">
+                    <h1 class="text-5xl font-black mb-4">Team Dashboard</h1>
+                    <p class="text-xl text-slate-600">Manage your team and track training progress</p>
+                </div>
+
+                <!-- Dashboard Overview Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                    <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-violet-200">
+                        <div class="text-sm font-bold text-violet-700 mb-2">TEAM MEMBERS</div>
+                        <div class="text-4xl font-black text-slate-900" id="dash-total-members">0</div>
+                        <div class="text-xs text-slate-500 mt-2">Active Users</div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-green-200">
+                        <div class="text-sm font-bold text-green-700 mb-2">AVG COMPLETION</div>
+                        <div class="text-4xl font-black text-green-900" id="dash-avg-completion">0%</div>
+                        <div class="text-xs text-slate-500 mt-2">Across All Members</div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-200">
+                        <div class="text-sm font-bold text-blue-700 mb-2">CERTIFICATES</div>
+                        <div class="text-4xl font-black text-blue-900" id="dash-total-certs">0</div>
+                        <div class="text-xs text-slate-500 mt-2">Earned by Team</div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-orange-200">
+                        <div class="text-sm font-bold text-orange-700 mb-2">AVG QUIZ SCORE</div>
+                        <div class="text-4xl font-black text-orange-900" id="dash-avg-score">0%</div>
+                        <div class="text-xs text-slate-500 mt-2">Across All Quizzes</div>
+                    </div>
+                </div>
+
+                <!-- Add Team Member Section -->
+                <div class="bg-white rounded-xl p-8 shadow-lg border-2 border-violet-200 mb-8">
+                    <h2 class="text-2xl font-black mb-6">Add Team Member</h2>
+                    <form id="add-member-form" class="grid grid-cols-1 md:grid-cols-4 gap-4" onsubmit="addTeamMember(event)">
+                        <div>
+                            <label class="block text-sm font-bold mb-2">First Name *</label>
+                            <input type="text" id="member-firstname" required 
+                                class="w-full px-4 py-2 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Last Name *</label>
+                            <input type="text" id="member-lastname" required
+                                class="w-full px-4 py-2 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Email *</label>
+                            <input type="email" id="member-email" required
+                                class="w-full px-4 py-2 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none">
+                        </div>
+                        <div class="flex items-end">
+                            <button type="submit" 
+                                class="w-full bg-violet-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-700 transition">
+                                Add Member
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Team Members Table -->
+                <div class="bg-white rounded-xl p-8 shadow-lg border-2 border-slate-200 mb-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-black">Team Members</h2>
+                        <button onclick="exportTeamReport()" 
+                            class="bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700 transition flex items-center gap-2">
+                            <span>📥</span> Export Report
+                        </button>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full" style="border-collapse: collapse;">
+                            <thead>
+                                <tr class="border-b-2 border-slate-200">
+                                    <th class="text-left py-3 px-4 font-bold text-sm bg-slate-50">Name</th>
+                                    <th class="text-left py-3 px-4 font-bold text-sm bg-slate-50">Email</th>
+                                    <th class="text-center py-3 px-4 font-bold text-sm bg-slate-50">Completion</th>
+                                    <th class="text-center py-3 px-4 font-bold text-sm bg-slate-50">Avg Score</th>
+                                    <th class="text-center py-3 px-4 font-bold text-sm bg-slate-50">Certificates</th>
+                                    <th class="text-center py-3 px-4 font-bold text-sm bg-slate-50">Last Login</th>
+                                    <th class="text-center py-3 px-4 font-bold text-sm bg-slate-50">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="team-members-tbody">
+                                <tr>
+                                    <td colspan="7" class="text-center py-8 text-slate-500">
+                                        No team members yet. Add your first team member above!
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Individual Member Progress Modal (Hidden by default) -->
+                <div id="member-progress-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" style="animation: fadeIn 0.2s ease-in;">
+                    <div class="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <h2 class="text-3xl font-black" id="modal-member-name">Member Name</h2>
+                                <p class="text-slate-600" id="modal-member-email">email@example.com</p>
+                            </div>
+                            <button onclick="closeProgressModal()" class="text-3xl font-bold text-slate-400 hover:text-slate-600">&times;</button>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4 mb-8">
+                            <div class="bg-violet-50 rounded-lg p-4 border-2 border-violet-200">
+                                <div class="text-xs font-bold text-violet-700 mb-1">COMPLETION</div>
+                                <div class="text-2xl font-black text-violet-900" id="modal-completion">0%</div>
+                            </div>
+                            <div class="bg-green-50 rounded-lg p-4 border-2 border-green-200">
+                                <div class="text-xs font-bold text-green-700 mb-1">AVG SCORE</div>
+                                <div class="text-2xl font-black text-green-900" id="modal-avg-score">0%</div>
+                            </div>
+                            <div class="bg-blue-50 rounded-lg p-4 border-2 border-blue-200">
+                                <div class="text-xs font-bold text-blue-700 mb-1">CERTIFICATES</div>
+                                <div class="text-2xl font-black text-blue-900" id="modal-certificates">0</div>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-xl font-black mb-4">Quiz Progress</h3>
+                        <div id="modal-quiz-progress" class="space-y-3">
+                            <!-- Quiz progress will be populated here -->
+                        </div>
+                        
+                        <div class="mt-8 flex gap-4">
+                            <button onclick="downloadMemberCertificate()" 
+                                class="bg-violet-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-violet-700 transition flex-1">
+                                Download Certificate
+                            </button>
+                            <button onclick="closeProgressModal()" 
+                                class="bg-slate-200 text-slate-700 font-bold py-3 px-6 rounded-lg hover:bg-slate-300 transition flex-1">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <script>
@@ -4601,6 +4752,7 @@ document.addEventListener('keydown', function(e) {
             }
             if (id === 'mitigation') drawFloorPlan();
             if (id === 'quiz') resetQuiz();
+            if (id === 'dashboard') initTeamDashboard();
             if (id === 'recon-quiz') {
                 reconQuizMode = 'practice';
                 document.getElementById('recon-quiz-mode-badge').className = 'quiz-mode-indicator bg-blue-100 text-blue-700';
@@ -8774,6 +8926,320 @@ CEO / Partner / Owner
 `
                 }
             };
+
+        // ==========================================
+        // TEAM DASHBOARD FUNCTIONS
+        // ==========================================
+
+        // Team data structure (stored in Memberstack custom fields)
+        let teamMembers = [];
+        let currentMemberView = null;
+
+        // Initialize team dashboard
+        function initTeamDashboard() {
+            loadTeamMembers();
+            updateDashboardStats();
+        }
+
+        // Load team members from Memberstack custom fields OR localStorage as fallback
+        async function loadTeamMembers() {
+            try {
+                // Try to load from localStorage first (browser storage)
+                const storedData = localStorage.getItem('ready_team_members');
+                if (storedData) {
+                    teamMembers = JSON.parse(storedData);
+                } else {
+                    teamMembers = [];
+                }
+                
+                renderTeamTable();
+                updateDashboardStats();
+            } catch (error) {
+                console.error('Error loading team members:', error);
+                teamMembers = [];
+                renderTeamTable();
+            }
+        }
+
+        // Save team members to localStorage
+        async function saveTeamMembers() {
+            try {
+                localStorage.setItem('ready_team_members', JSON.stringify(teamMembers));
+                return true;
+            } catch (error) {
+                console.error('Error saving team members:', error);
+                alert('Error saving team data. Please try again.');
+                return false;
+            }
+        }
+
+        // Add team member
+        async function addTeamMember(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('member-firstname').value.trim();
+            const lastName = document.getElementById('member-lastname').value.trim();
+            const email = document.getElementById('member-email').value.trim().toLowerCase();
+            
+            // Check if email already exists
+            if (teamMembers.find(m => m.email === email)) {
+                alert('A team member with this email already exists.');
+                return;
+            }
+            
+            // Create new member object
+            const newMember = {
+                id: 'member_' + Date.now(),
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                addedDate: new Date().toISOString(),
+                lastLogin: null,
+                quizzes: {},
+                certificates: [],
+                overallCompletion: 0,
+                avgScore: 0
+            };
+            
+            teamMembers.push(newMember);
+            
+            if (await saveTeamMembers()) {
+                // Clear form
+                document.getElementById('add-member-form').reset();
+                
+                // Refresh table
+                renderTeamTable();
+                updateDashboardStats();
+                
+                alert(`${firstName} ${lastName} has been added to your team!`);
+            }
+        }
+
+        // Render team members table
+        function renderTeamTable() {
+            const tbody = document.getElementById('team-members-tbody');
+            if (!tbody) return;
+            
+            if (teamMembers.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="text-center py-8 text-slate-500">
+                            No team members yet. Add your first team member above!
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = teamMembers.map(member => {
+                const completionPercent = member.overallCompletion || 0;
+                const avgScore = member.avgScore || 0;
+                const certCount = member.certificates ? member.certificates.length : 0;
+                const lastLogin = member.lastLogin ? new Date(member.lastLogin).toLocaleDateString() : 'Never';
+                
+                return `
+                    <tr class="border-b border-slate-100 hover:bg-slate-50">
+                        <td class="py-3 px-4">${member.firstName} ${member.lastName}</td>
+                        <td class="py-3 px-4 text-sm text-slate-600">${member.email}</td>
+                        <td class="py-3 px-4 text-center">
+                            <div class="flex items-center justify-center gap-2">
+                                <div class="w-24 bg-slate-200 rounded-full h-2">
+                                    <div class="bg-violet-600 h-2 rounded-full" style="width: ${completionPercent}%"></div>
+                                </div>
+                                <span class="text-sm font-bold">${completionPercent}%</span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-4 text-center font-bold">${avgScore}%</td>
+                        <td class="py-3 px-4 text-center font-bold">${certCount}</td>
+                        <td class="py-3 px-4 text-center text-sm">${lastLogin}</td>
+                        <td class="py-3 px-4 text-center">
+                            <button onclick="viewMemberProgress('${member.id}')" 
+                                class="bg-violet-600 text-white px-4 py-1 rounded text-xs font-bold hover:bg-violet-700">
+                                View
+                            </button>
+                            <button onclick="removeMember('${member.id}')" 
+                                class="bg-red-600 text-white px-4 py-1 rounded text-xs font-bold hover:bg-red-700 ml-2">
+                                Remove
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Update dashboard stats
+        function updateDashboardStats() {
+            const totalMembers = teamMembers.length;
+            const totalCerts = teamMembers.reduce((sum, m) => sum + (m.certificates ? m.certificates.length : 0), 0);
+            const avgCompletion = totalMembers > 0 
+                ? Math.round(teamMembers.reduce((sum, m) => sum + (m.overallCompletion || 0), 0) / totalMembers)
+                : 0;
+            const avgScore = totalMembers > 0
+                ? Math.round(teamMembers.reduce((sum, m) => sum + (m.avgScore || 0), 0) / totalMembers)
+                : 0;
+            
+            document.getElementById('dash-total-members').textContent = totalMembers;
+            document.getElementById('dash-avg-completion').textContent = avgCompletion + '%';
+            document.getElementById('dash-total-certs').textContent = totalCerts;
+            document.getElementById('dash-avg-score').textContent = avgScore + '%';
+        }
+
+        // View member progress
+        function viewMemberProgress(memberId) {
+            const member = teamMembers.find(m => m.id === memberId);
+            if (!member) return;
+            
+            currentMemberView = member;
+            
+            // Update modal with member info
+            document.getElementById('modal-member-name').textContent = `${member.firstName} ${member.lastName}`;
+            document.getElementById('modal-member-email').textContent = member.email;
+            document.getElementById('modal-completion').textContent = (member.overallCompletion || 0) + '%';
+            document.getElementById('modal-avg-score').textContent = (member.avgScore || 0) + '%';
+            document.getElementById('modal-certificates').textContent = member.certificates ? member.certificates.length : 0;
+            
+            // Render quiz progress
+            const quizProgress = document.getElementById('modal-quiz-progress');
+            const quizList = [
+                { id: 'readiness', name: 'Phase 1: Readiness' },
+                { id: 'mitigation', name: 'Phase 2: Mitigation' },
+                { id: 'contents', name: 'Phase 3: Contents' },
+                { id: 'transition', name: 'Transition & Handoff' },
+                { id: 'estimating', name: 'Estimating Software' },
+                { id: 'scope', name: 'Scope Development' },
+                { id: 'preconstruction', name: 'Pre-Construction' },
+                { id: 'construction', name: 'Construction' },
+                { id: 'completion', name: 'Completion' }
+            ];
+            
+            quizProgress.innerHTML = quizList.map(quiz => {
+                const quizData = member.quizzes && member.quizzes[quiz.id];
+                const completed = quizData ? quizData.completed : false;
+                const score = quizData ? quizData.score : 0;
+                const attempts = quizData ? quizData.attempts : 0;
+                
+                return `
+                    <div class="flex items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <div class="flex-1">
+                            <div class="font-bold">${quiz.name}</div>
+                            <div class="text-sm text-slate-600">
+                                ${completed ? `Completed • Score: ${score}%` : 'Not Started'}
+                                ${attempts > 0 ? ` • ${attempts} attempt(s)` : ''}
+                            </div>
+                        </div>
+                        <div>
+                            ${completed 
+                                ? '<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">✓ PASSED</span>'
+                                : '<span class="bg-slate-200 text-slate-600 px-3 py-1 rounded-full text-xs font-bold">PENDING</span>'}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Show modal
+            document.getElementById('member-progress-modal').classList.remove('hidden');
+        }
+
+        // Close progress modal
+        function closeProgressModal() {
+            document.getElementById('member-progress-modal').classList.add('hidden');
+            currentMemberView = null;
+        }
+
+        // Remove member
+        async function removeMember(memberId) {
+            const member = teamMembers.find(m => m.id === memberId);
+            if (!member) return;
+            
+            if (!confirm(`Are you sure you want to remove ${member.firstName} ${member.lastName} from your team?`)) {
+                return;
+            }
+            
+            teamMembers = teamMembers.filter(m => m.id !== memberId);
+            
+            if (await saveTeamMembers()) {
+                renderTeamTable();
+                updateDashboardStats();
+                alert('Team member removed successfully.');
+            }
+        }
+
+        // Export team report as CSV
+        function exportTeamReport() {
+            if (teamMembers.length === 0) {
+                alert('No team members to export.');
+                return;
+            }
+            
+            // CSV headers
+            let csv = 'First Name,Last Name,Email,Overall Completion (%),Avg Quiz Score (%),Certificates Earned,Last Login\n';
+            
+            // Add each member
+            teamMembers.forEach(member => {
+                const lastLogin = member.lastLogin ? new Date(member.lastLogin).toLocaleDateString() : 'Never';
+                const certCount = member.certificates ? member.certificates.length : 0;
+                
+                csv += `${member.firstName},${member.lastName},${member.email},${member.overallCompletion || 0},${member.avgScore || 0},${certCount},${lastLogin}\n`;
+            });
+            
+            // Create download
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Ready_Team_Report_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Download member certificate
+        function downloadMemberCertificate() {
+            if (!currentMemberView) return;
+            
+            // Create certificate HTML
+            const certHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        .cert-container { border: 10px solid #7c3aed; padding: 50px; max-width: 800px; margin: 0 auto; }
+        .cert-title { font-size: 48px; font-weight: bold; color: #7c3aed; margin-bottom: 20px; }
+        .cert-text { font-size: 24px; margin: 20px 0; }
+        .cert-name { font-size: 36px; font-weight: bold; color: #1e293b; margin: 30px 0; }
+        .cert-details { font-size: 18px; color: #64748b; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="cert-container">
+        <div class="cert-title">CERTIFICATE OF COMPLETION</div>
+        <div class="cert-text">This certifies that</div>
+        <div class="cert-name">${currentMemberView.firstName} ${currentMemberView.lastName}</div>
+        <div class="cert-text">has successfully completed</div>
+        <div class="cert-text" style="font-weight: bold;">Ready Training Platform</div>
+        <div class="cert-details">Overall Completion: ${currentMemberView.overallCompletion || 0}%</div>
+        <div class="cert-details">Average Quiz Score: ${currentMemberView.avgScore || 0}%</div>
+        <div class="cert-details">Date: ${new Date().toLocaleDateString()}</div>
+    </div>
+</body>
+</html>
+            `;
+            
+            // Create blob and download
+            const blob = new Blob([certHTML], { type: 'text/html' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Ready_Certificate_${currentMemberView.firstName}_${currentMemberView.lastName}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('Certificate downloaded! Open the HTML file in your browser and print to PDF.');
+        }
 
     </script>
 </body>
