@@ -107,9 +107,17 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
             z-index: 100; 
             border-radius: 0.5rem; 
-            margin-top: 0.5rem; 
+            margin-top: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out, visibility 0s linear 0.5s;
+            visibility: hidden;
         }
-        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown:hover .dropdown-content { 
+            display: block; 
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0s;
+        }
         .dropdown-content a { 
             color: #475569; 
             padding: 12px 16px; 
@@ -121,6 +129,7 @@
         }
         .dropdown-content a:hover { background-color: #f1f5f9; color: #7c3aed; }
         .dropbtn { cursor: pointer; }
+    
     
         
         /* ===== MOBILE MENU STYLES ===== */
@@ -4351,84 +4360,84 @@ document.addEventListener('keydown', function(e) {
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Water Mitigation SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
                         <div class="text-5xl mb-4">💧</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-2">Water Mitigation SOP</h3>
                         <p class="text-slate-600 text-sm mb-4">Complete water damage response from initial assessment through dry-out completion. Includes IICRC S500 protocols, moisture mapping, equipment placement, and Certificate of Completion.</p>
                         <div class="text-xs text-slate-500 mb-4">Covers: Emergency Response • Source ID • Extraction • Drying • Documentation</div>
-                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                        <button onclick="downloadTemplate('water-mitigation-sop')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
                     </div>
 
                     <!-- Fire Restoration SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
                         <div class="text-5xl mb-4">🔥</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-2">Fire & Smoke SOP</h3>
                         <p class="text-slate-600 text-sm mb-4">Fire damage assessment, smoke odor removal, soot cleanup, and structural cleaning procedures. Board-up, ash removal, HEPA filtration, and thermal fogging protocols.</p>
                         <div class="text-xs text-slate-500 mb-4">Covers: Safety Assessment • Soot Removal • Odor Control • Content Cleaning</div>
-                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                        <button onclick="downloadTemplate('fire-smoke-sop')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
                     </div>
 
                     <!-- Mold Remediation SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
                         <div class="text-5xl mb-4">🍄</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-2">Mold Remediation SOP</h3>
                         <p class="text-slate-600 text-sm mb-4">IICRC S520 compliant mold remediation including containment, HEPA filtration, removal procedures, and clearance testing. PPE requirements and disposal protocols.</p>
                         <div class="text-xs text-slate-500 mb-4">Covers: Assessment • Containment • Removal • Air Scrubbing • Testing</div>
-                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                        <button onclick="alert('Mold Remediation SOP coming soon!')" class="w-full bg-slate-400 hover:bg-slate-500 text-white py-2 rounded-lg font-semibold text-sm transition">Coming Soon</button>
                     </div>
 
                     <!-- Contents Pack-Out SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
                         <div class="text-5xl mb-4">📦</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-2">Contents Pack-Out SOP</h3>
                         <p class="text-slate-600 text-sm mb-4">Complete inventory, photography, and pack-out procedures. Room-by-room documentation, labeling systems, and customer approval workflows to prevent disputes.</p>
                         <div class="text-xs text-slate-500 mb-4">Covers: Inventory • Photography • Packing • Transport • Storage</div>
-                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                        <button onclick="downloadTemplate('contents-packout-sop')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
                     </div>
 
                     <!-- Estimating SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
                         <div class="text-5xl mb-4">💰</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-2">Xactimate Estimating SOP</h3>
                         <p class="text-slate-600 text-sm mb-4">Step-by-step Xactimate workflow from sketch creation through final estimate. Line item selection, pricing databases, photo integration, and supplement procedures.</p>
                         <div class="text-xs text-slate-500 mb-4">Covers: Sketch • Line Items • Pricing • Photos • Supplements</div>
-                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                        <button onclick="downloadTemplate('xactimate-estimating-sop')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
                     </div>
 
                     <!-- Safety & PPE SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
                         <div class="text-5xl mb-4">⚠️</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-2">Safety & PPE SOP</h3>
                         <p class="text-slate-600 text-sm mb-4">OSHA compliance protocols, required PPE by job type, hazard assessments, incident reporting, and safety training requirements. Category-specific protection requirements.</p>
                         <div class="text-xs text-slate-500 mb-4">Covers: PPE Requirements • Hazard Assessment • OSHA Compliance</div>
-                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                        <button onclick="downloadTemplate('safety-ppe-sop')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
                     </div>
 
                     <!-- Quality Control SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
                         <div class="text-5xl mb-4">✅</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-2">Quality Control Checklist</h3>
                         <p class="text-slate-600 text-sm mb-4">Pre-job, in-progress, and final inspection checklists. Moisture readings, equipment verification, photo documentation, and customer walk-through procedures.</p>
                         <div class="text-xs text-slate-500 mb-4">Covers: Pre-Job • Progress • Final Inspection • Customer Sign-Off</div>
-                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                        <button onclick="alert('Quality Control Checklist coming soon!')" class="w-full bg-slate-400 hover:bg-slate-500 text-white py-2 rounded-lg font-semibold text-sm transition">Coming Soon</button>
                     </div>
 
                     <!-- New Hire Onboarding SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
                         <div class="text-5xl mb-4">👤</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-2">New Hire Onboarding SOP</h3>
                         <p class="text-slate-600 text-sm mb-4">Complete 90-day onboarding workflow with week-by-week milestones. Documentation, training modules, competency checks, and performance reviews.</p>
                         <div class="text-xs text-slate-500 mb-4">Covers: Week 1-4 • Training • Competency Tests • Reviews</div>
-                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                        <button onclick="alert('New Hire Onboarding SOP coming soon!')" class="w-full bg-slate-400 hover:bg-slate-500 text-white py-2 rounded-lg font-semibold text-sm transition">Coming Soon</button>
                     </div>
 
                     <!-- Customer Communication SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition cursor-pointer">
+                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
                         <div class="text-5xl mb-4">📞</div>
                         <h3 class="text-xl font-bold text-slate-900 mb-2">Customer Communication SOP</h3>
                         <p class="text-slate-600 text-sm mb-4">Call scripts, email templates, and communication timelines. Initial contact, project updates, change orders, completion notifications, and review requests.</p>
                         <div class="text-xs text-slate-500 mb-4">Covers: Scripts • Templates • Timing • Follow-Up</div>
-                        <button class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">View Template</button>
+                        <button onclick="downloadTemplate('customer-communication-sop')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
                     </div>
                 </div>
             </div>
@@ -4540,27 +4549,51 @@ document.addEventListener('keydown', function(e) {
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Water Mitigation Technician</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Mitigation Technician</h3>
                         <p class="text-sm text-slate-600 mb-3">Entry-level position. Responsibilities, required certifications, typical compensation range, and growth path.</p>
-                        <button class="text-violet-600 font-semibold text-sm hover:text-violet-700">View Description →</button>
+                        <button onclick="downloadTemplate('job-mitigation-tech')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
                     </div>
                     
                     <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Project Manager</h3>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Project Manager - Mitigation</h3>
                         <p class="text-sm text-slate-600 mb-3">Mid-level management. Estimating, project coordination, customer communication, team leadership requirements.</p>
-                        <button class="text-violet-600 font-semibold text-sm hover:text-violet-700">View Description →</button>
+                        <button onclick="downloadTemplate('job-mitigation-pm')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
                     </div>
                     
                     <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Operations Manager</h3>
-                        <p class="text-sm text-slate-600 mb-3">Senior management. Multi-project oversight, P&L responsibility, team development, strategic planning.</p>
-                        <button class="text-violet-600 font-semibold text-sm hover:text-violet-700">View Description →</button>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Contents Supervisor</h3>
+                        <p class="text-sm text-slate-600 mb-3">Pack-out and inventory oversight, warehouse management, team leadership, customer communication.</p>
+                        <button onclick="downloadTemplate('job-contents-supervisor')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
                     </div>
                     
                     <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Estimator/Adjuster</h3>
-                        <p class="text-sm text-slate-600 mb-3">Specialized role. Xactimate expertise, insurance knowledge, scope writing, supplement negotiation skills.</p>
-                        <button class="text-violet-600 font-semibold text-sm hover:text-violet-700">View Description →</button>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Mitigation Administrator</h3>
+                        <p class="text-sm text-slate-600 mb-3">Office-based support. Invoice preparation, carrier communication, documentation compliance, collections.</p>
+                        <button onclick="downloadTemplate('job-mitigation-admin')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Reconstruction Administrator</h3>
+                        <p class="text-sm text-slate-600 mb-3">Billing and compliance for reconstruction projects. Subcontractor coordination, invoice preparation.</p>
+                        <button onclick="downloadTemplate('job-reconstruction-admin')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Mitigation & Contents Dept Manager</h3>
+                        <p class="text-sm text-slate-600 mb-3">Department leadership. Team supervision, quality control, KPI tracking, cross-functional collaboration.</p>
+                        <button onclick="downloadTemplate('job-mitigation-dept-manager')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Reconstruction Dept Manager</h3>
+                        <p class="text-sm text-slate-600 mb-3">Oversee all reconstruction jobs. Project oversight, subcontractor management, quality control.</p>
+                        <button onclick="downloadTemplate('job-reconstruction-dept-manager')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Superintendent</h3>
+                        <p class="text-sm text-slate-600 mb-3">Executive operations leadership. Multi-market oversight, strategic planning, financial oversight.</p>
+                        <button onclick="downloadTemplate('job-superintendent')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
                     </div>
                 </div>
             </div>
@@ -4684,7 +4717,7 @@ document.addEventListener('keydown', function(e) {
                         <div class="flex justify-between items-start mb-6">
                             <div>
                                 <h2 class="text-3xl font-black" id="modal-member-name">Member Name</h2>
-                                <p class="text-slate-600" id="modal-member-email">email@example.com</p>
+                                <p class="text-slate-600" id="modal-member-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c4a1a9a5ada884a1bca5a9b4a8a1eaa7aba9">[email&#160;protected]</a></p>
                             </div>
                             <button onclick="closeProgressModal()" class="text-3xl font-bold text-slate-400 hover:text-slate-600">&times;</button>
                         </div>
@@ -4726,7 +4759,7 @@ document.addEventListener('keydown', function(e) {
 
     </main>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         function toggleDetails(id) {
             const el = document.getElementById(id);
             if (el.style.maxHeight && el.style.maxHeight !== '0px') {
@@ -6124,15 +6157,9 @@ document.addEventListener('keydown', function(e) {
         
         // Calculate on input change
         function setupROICalculator() {
-            const inputs = ['roi-employees', 'roi-wage', 'roi-hours-saved', 'roi-onboarding', 'roi-errors', 'roi-cost'];
-            inputs.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.addEventListener('input', calculateROI);
-                }
-            });
-            // Calculate initial ROI with default values
-            calculateROI();
+            // ROI calculator is set up to only calculate when button is clicked
+            // No auto-calculation on input changes
+            // Button has onclick="calculateROI()" already
         }
 
     
@@ -9235,12 +9262,3 @@ CEO / Partner / Owner
             a.download = `Ready_Certificate_${currentMemberView.firstName}_${currentMemberView.lastName}.html`;
             document.body.appendChild(a);
             a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-            
-            alert('Certificate downloaded! Open the HTML file in your browser and print to PDF.');
-        }
-
-    </script>
-</body>
-</html>
