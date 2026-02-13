@@ -9268,3 +9268,12 @@ CEO / Partner / Owner
             a.download = `Ready_Certificate_${currentMemberView.firstName}_${currentMemberView.lastName}.html`;
             document.body.appendChild(a);
             a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            alert('Certificate downloaded! Open the HTML file in your browser and print to PDF.');
+        }
+
+    </script>
+</body>
+</html>
