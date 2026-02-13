@@ -281,7 +281,6 @@
             * { max-width: 100%; word-wrap: break-word; }
             .container, section { padding-left: 16px !important; padding-right: 16px !important; }
             .mobile-menu-btn, .mobile-menu, .mobile-menu-overlay { display: block; }
-            nav .hidden.md\:flex { display: none !important; }
         }
     
         /* ===== KNOWLEDGE CHECK QUIZ STYLES ===== */
@@ -555,12 +554,9 @@
         window.$memberstackDom.getCurrentMember()
             .then(member => {
                 if (!member.data) {
-                    // Not logged in - allow access but hide premium content
-                    console.log('⚠️ User not authenticated - showing free content only');
-                    // Hide all premium content by default
-                    document.querySelectorAll('[data-ms-membership]').forEach(el => {
-                        el.style.display = 'none';
-                    });
+                    // Not logged in - redirect to main website
+                    console.log('⚠️ User not authenticated - redirecting to main site');
+                    window.location.href = 'https://readytraining.app';
                     return;
                 }
                 
@@ -608,11 +604,9 @@
                 }
             })
             .catch(err => {
-                // Error checking auth - show free content only
+                // Error checking auth - redirect to main website
                 console.error('❌ Auth error:', err);
-                document.querySelectorAll('[data-ms-membership]').forEach(el => {
-                    el.style.display = 'none';
-                });
+                window.location.href = 'https://readytraining.app';
             });
     })();
     </script>
@@ -628,7 +622,7 @@
                         <span class="text-xs font-medium text-slate-500 tracking-widest uppercase text-[9px] text-left">Training Platform</span>
                     </div>
                 </div>
-                <div class="flex md:flex space-x-6 items-center">
+                <div class="hidden md:flex space-x-6 items-center">
                     <button onclick="nav('home')" class="nav-link px-2 py-1 text-sm font-semibold border-b-2 border-violet-600 text-violet-600" id="link-home">Home</button>
                     
                     <!-- Ready Solo Dropdown -->
@@ -6131,13 +6125,9 @@ document.addEventListener('keydown', function(e) {
             }
         }
         
-        // Show authentication overlay
+        // Show authentication overlay (redirects to main site)
         function showAuthOverlay() {
-            const overlay = document.getElementById('auth-overlay');
-            if (overlay) {
-                overlay.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
+            window.location.href = 'https://readytraining.app';
         }
         
         // Check authentication status on page load
@@ -6151,7 +6141,7 @@ document.addEventListener('keydown', function(e) {
                             hideAuthOverlay();
                         } else {
                             console.log('No Memberstack session found');
-                            showAuthOverlay();
+                            window.location.href = 'https://readytraining.app';
                         }
                     })
                     .catch(error => {
@@ -6178,11 +6168,11 @@ document.addEventListener('keydown', function(e) {
                 } else {
                     console.log('Session expired');
                     localStorage.removeItem('ready_auth');
-                    showAuthOverlay();
+                    window.location.href = 'https://readytraining.app';
                 }
             } else {
                 console.log('No session found');
-                showAuthOverlay();
+                window.location.href = 'https://readytraining.app';
             }
         }
         
@@ -6198,16 +6188,13 @@ document.addEventListener('keydown', function(e) {
                 localStorage.removeItem('ready_auth');
                 console.log('Local session cleared');
                 
-                // Show auth overlay and reload
-                showAuthOverlay();
-                setTimeout(() => {
-                    location.reload();
-                }, 300);
+                // Redirect to main website
+                window.location.href = 'https://readytraining.app';
             } catch (error) {
                 console.error('Logout error:', error);
                 // Force logout anyway
                 localStorage.removeItem('ready_auth');
-                location.reload();
+                window.location.href = 'https://readytraining.app';
             }
         }
         
