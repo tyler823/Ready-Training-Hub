@@ -6177,10 +6177,7 @@ document.addEventListener('keydown', function(e) {
     
                 // ===== TEMPLATE DOWNLOAD FUNCTION =====
         function downloadTemplate(templateId) {
-            // Use the templates from downloadTemplate_OLD since those have actual content
-            // Reference the full templates object defined below
             const templates = window.readyTemplates || {};
-            
             const template = templates[templateId];
             
             if (!template) {
@@ -6188,22 +6185,91 @@ document.addEventListener('keydown', function(e) {
                 return;
             }
             
-            // Create text file download
-            const blob = new Blob([template.content], { type: 'text/plain' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = template.name;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
+            // Create PDF using jsPDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Set up PDF styling
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const margin = 20;
+            const maxWidth = pageWidth - (margin * 2);
+            let yPosition = margin;
+            
+            // Add Ready branding header
+            doc.setFillColor(124, 58, 237); // violet-600
+            doc.rect(0, 0, pageWidth, 15, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            doc.text('READY TRAINING PLATFORM', margin, 10);
+            
+            // Reset text color for content
+            doc.setTextColor(0, 0, 0);
+            yPosition = 25;
+            
+            // Split content into lines and add to PDF
+            const lines = template.content.split('\n');
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                
+                // Check if we need a new page
+                if (yPosition > pageHeight - margin) {
+                    doc.addPage();
+                    yPosition = margin;
+                }
+                
+                // Detect headers (all caps lines or lines ending with :)
+                if (line.trim() === line.toUpperCase() && line.trim().length > 0 && line.trim().length < 60) {
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(11);
+                    yPosition += 3; // Extra space before headers
+                } else if (line.trim().endsWith(':') && line.trim().length < 60) {
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(10);
+                } else {
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(10);
+                }
+                
+                // Handle long lines by splitting them
+                const wrappedLines = doc.splitTextToSize(line || ' ', maxWidth);
+                
+                for (let j = 0; j < wrappedLines.length; j++) {
+                    if (yPosition > pageHeight - margin) {
+                        doc.addPage();
+                        yPosition = margin;
+                    }
+                    doc.text(wrappedLines[j], margin, yPosition);
+                    yPosition += 5;
+                }
+            }
+            
+            // Add footer with page numbers
+            const pageCount = doc.internal.getNumberOfPages();
+            doc.setFontSize(8);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(100, 100, 100);
+            
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+                doc.text(
+                    `Page ${i} of ${pageCount}`,
+                    pageWidth / 2,
+                    pageHeight - 10,
+                    { align: 'center' }
+                );
+            }
+            
+            // Download the PDF
+            doc.save(template.name);
         }
 
         // Template content for downloads
         window.readyTemplates = {
                 'water-mitigation-sop': {
-                    name: 'Ready_Water_Mitigation_SOP.txt',
+                    name: 'Ready_Water_Mitigation_SOP.pdf',
                     content: `READY COMPANIES
 WATER MITIGATION STANDARD OPERATING PROCEDURE
 Based on IICRC S500 Standards
@@ -6509,7 +6575,7 @@ Version 1.0 - Ready Companies Training Platform
                 },
 
                 'fire-smoke-sop': {
-                    name: 'Ready_Fire_Smoke_Restoration_SOP.txt',
+                    name: 'Ready_Fire_Smoke_Restoration_SOP.pdf',
                     content: `READY COMPANIES
 FIRE & SMOKE RESTORATION STANDARD OPERATING PROCEDURE
 Based on IICRC S520 Standards
@@ -6821,7 +6887,7 @@ Version 1.0 - Ready Companies Training Platform
                 },
 
                 'contents-packout-sop': {
-                    name: 'Ready_Contents_PackOut_SOP.txt',
+                    name: 'Ready_Contents_PackOut_SOP.pdf',
                     content: `READY COMPANIES
 CONTENTS PACK-OUT STANDARD OPERATING PROCEDURE
 
@@ -7158,7 +7224,7 @@ For questions, contact your Ready Companies supervisor.
                 },
 
                 'reconstruction-workflow-sop': {
-                    name: 'Ready_Reconstruction_Workflow_SOP.txt',
+                    name: 'Ready_Reconstruction_Workflow_SOP.pdf',
                     content: `READY COMPANIES
 RECONSTRUCTION WORKFLOW STANDARD OPERATING PROCEDURE
 From Estimate to Certificate of Completion
@@ -7386,7 +7452,7 @@ For questions, contact your Ready Companies supervisor.
                 },
 
                 'xactimate-estimating-sop': {
-                    name: 'Ready_Xactimate_Estimating_SOP.txt',
+                    name: 'Ready_Xactimate_Estimating_SOP.pdf',
                     content: `READY COMPANIES
 XACTIMATE ESTIMATING STANDARD OPERATING PROCEDURE
 Creating Accurate, Defensible Estimates
@@ -7572,7 +7638,7 @@ For questions, contact your Ready Companies supervisor.
                 },
 
                 'customer-communication-sop': {
-                    name: 'Ready_Customer_Communication_SOP.txt',
+                    name: 'Ready_Customer_Communication_SOP.pdf',
                     content: `READY COMPANIES
 CUSTOMER COMMUNICATION STANDARD OPERATING PROCEDURE
 Excellence in Every Interaction
@@ -7756,7 +7822,7 @@ For questions, contact your Ready Companies supervisor.
                 },
 
                 'safety-ppe-sop': {
-                    name: 'Ready_Safety_PPE_Protocols_SOP.txt',
+                    name: 'Ready_Safety_PPE_Protocols_SOP.pdf',
                     content: `READY COMPANIES
 SAFETY & PPE PROTOCOLS STANDARD OPERATING PROCEDURE
 
@@ -7999,7 +8065,7 @@ For questions, contact your Ready Companies supervisor.
                 },
 
                 'job-mitigation-tech': {
-                    name: 'Ready_Job_Description_Mitigation_Technician.txt',
+                    name: 'Ready_Job_Description_Mitigation_Technician.pdf',
                     content: `JOB DESCRIPTION: MITIGATION TECHNICIAN
 Company: [Your Company Name]
 Department: Mitigation / Emergency Services
@@ -8103,7 +8169,7 @@ We promote from within and invest in developing great people!
                 },
 
                 'job-mitigation-pm': {
-                    name: 'Ready_Job_Description_Project_Manager_Mitigation.txt',
+                    name: 'Ready_Job_Description_Project_Manager_Mitigation.pdf',
                     content: `JOB DESCRIPTION: PROJECT MANAGER - MITIGATION
 Company: [Your Company Name]
 Department: Mitigation / Emergency Services
@@ -8223,7 +8289,7 @@ Operations Manager
                 },
 
                 'job-contents-supervisor': {
-                    name: 'Ready_Job_Description_Contents_Supervisor.txt',
+                    name: 'Ready_Job_Description_Contents_Supervisor.pdf',
                     content: `JOB DESCRIPTION: CONTENTS SUPERVISOR
 Company: [Your Company Name]
 Department: Contents / Pack-Out Services
@@ -8344,7 +8410,7 @@ Operations Manager
                 },
 
                 'job-mitigation-admin': {
-                    name: 'Ready_Job_Description_Mitigation_Administrator.txt',
+                    name: 'Ready_Job_Description_Mitigation_Administrator.pdf',
                     content: `JOB DESCRIPTION: MITIGATION ADMINISTRATOR
 Company: [Your Company Name]
 Department: Mitigation / Administrative Support
@@ -8457,7 +8523,7 @@ Department Manager
                 },
 
                 'job-reconstruction-admin': {
-                    name: 'Ready_Job_Description_Reconstruction_Administrator.txt',
+                    name: 'Ready_Job_Description_Reconstruction_Administrator.pdf',
                     content: `JOB DESCRIPTION: RECONSTRUCTION ADMINISTRATOR
 Company: [Your Company Name]
 Department: Reconstruction / Administrative Support
@@ -8577,7 +8643,7 @@ Department Manager
                 },
 
                 'job-mitigation-dept-manager': {
-                    name: 'Ready_Job_Description_Mitigation_Contents_Department_Manager.txt',
+                    name: 'Ready_Job_Description_Mitigation_Contents_Department_Manager.pdf',
                     content: `JOB DESCRIPTION: MITIGATION & CONTENTS DEPARTMENT MANAGER
 Company: [Your Company Name]
 Department: Operations / Department Management
@@ -8706,7 +8772,7 @@ VP of Operations
                 },
 
                 'job-reconstruction-dept-manager': {
-                    name: 'Ready_Job_Description_Reconstruction_Department_Manager.txt',
+                    name: 'Ready_Job_Description_Reconstruction_Department_Manager.pdf',
                     content: `JOB DESCRIPTION: RECONSTRUCTION DEPARTMENT MANAGER
 Company: [Your Company Name]
 Department: Operations / Department Management
@@ -8835,7 +8901,7 @@ VP of Operations
                 },
 
                 'job-superintendent': {
-                    name: 'Ready_Job_Description_Superintendent.txt',
+                    name: 'Ready_Job_Description_Superintendent.pdf',
                     content: `JOB DESCRIPTION: SUPERINTENDENT - RECONSTRUCTION
 Company: [Your Company Name]
 Department: Executive Leadership / Operations
