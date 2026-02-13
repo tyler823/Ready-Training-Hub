@@ -4767,7 +4767,7 @@ document.addEventListener('keydown', function(e) {
 
     </main>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         function toggleDetails(id) {
             const el = document.getElementById(id);
             if (el.style.maxHeight && el.style.maxHeight !== '0px') {
@@ -6004,14 +6004,20 @@ document.addEventListener('keydown', function(e) {
         
         // Hide authentication overlay
         function hideAuthOverlay() {
-            document.getElementById('auth-overlay').classList.add('hidden');
-            document.body.style.overflow = 'auto';
+            const overlay = document.getElementById('auth-overlay');
+            if (overlay) {
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
         }
         
         // Show authentication overlay
         function showAuthOverlay() {
-            document.getElementById('auth-overlay').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+            const overlay = document.getElementById('auth-overlay');
+            if (overlay) {
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
         }
         
         // Check authentication status on page load
