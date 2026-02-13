@@ -6185,6 +6185,26 @@ document.addEventListener('keydown', function(e) {
                 return;
             }
             
+            // Clean text function to remove problematic characters
+            function cleanText(text) {
+                return text
+                    // Replace tabs with spaces
+                    .replace(/\t/g, '    ')
+                    // Remove carriage returns
+                    .replace(/\r/g, '')
+                    // Replace smart quotes with regular quotes
+                    .replace(/[\u2018\u2019]/g, "'")
+                    .replace(/[\u201C\u201D]/g, '"')
+                    // Replace em/en dashes with regular dashes
+                    .replace(/[\u2013\u2014]/g, '-')
+                    // Replace bullet points with asterisks
+                    .replace(/[\u2022\u2023\u25E6\u2043\u2219]/g, '*')
+                    // Remove any other non-ASCII characters except common ones
+                    .replace(/[^\x20-\x7E\n]/g, '')
+                    // Clean up multiple spaces
+                    .replace(/  +/g, ' ');
+            }
+            
             // Create PDF using jsPDF
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
@@ -6208,8 +6228,9 @@ document.addEventListener('keydown', function(e) {
             doc.setTextColor(0, 0, 0);
             yPosition = 25;
             
-            // Split content into lines and add to PDF
-            const lines = template.content.split('\n');
+            // Clean the content and split into lines
+            const cleanedContent = cleanText(template.content);
+            const lines = cleanedContent.split('\n');
             
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i];
