@@ -1,1 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ready — Train, Scale & Dominate Restoration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --violet:#6B2CF5;
+  --violet-dark:#5220C7;
+  --violet-light:#8B5CF6;
+  --violet-glow:rgba(107,44,245,0.25);
+  --dark:#0A0A0F;
+  --dark-card:#131320;
+  --dark-border:#1E1E35;
+  --gray-100:#F4F4F8;
+  --gray-200:#E4E4EC;
+  --gray-400:#9494A8;
+  --gray-500:#6E6E85;
+  --white:#FFFFFF;
+  --success:#22C55E;
+  --font-body:'DM Sans', sans-serif;
+  --font-display:'Instrument Serif', serif;
+}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:var(--font-body);background:var(--dark);color:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none}
 
+/* ─── NAV ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,15,0.82);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06)}
+.nav-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:72px}
+.nav-logo{height:36px}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{font-size:14px;font-weight:500;color:var(--gray-400);transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--violet);color:white;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;transition:all .25s}
+.nav-cta:hover{background:var(--violet-dark);transform:translateY(-1px);box-shadow:0 8px 24px var(--violet-glow)}
+.nav-mobile{display:none;background:none;color:white;font-size:24px;border:none}
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(10,10,15,0.96);backdrop-filter:blur(20px);padding:24px 32px;flex-direction:column;gap:20px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.mobile-menu.active{display:flex}
+.mobile-menu a{font-size:16px;color:var(--gray-200);padding:8px 0}
+
+/* ─── HERO ─── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:140px 32px 80px;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,var(--violet-glow) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(transparent,var(--dark));pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:900px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(107,44,245,0.12);border:1px solid rgba(107,44,245,0.3);padding:8px 20px;border-radius:40px;font-size:13px;font-weight:600;color:var(--violet-light);margin-bottom:32px;letter-spacing:0.5px;text-transform:uppercase}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--success);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:var(--font-display);font-size:clamp(48px,7vw,88px);line-height:1.05;font-weight:400;letter-spacing:-1.5px;margin-bottom:24px}
+.hero h1 em{font-style:italic;color:var(--violet-light)}
+.hero-sub{font-size:clamp(16px,1.8vw,20px);color:var(--gray-400);line-height:1.7;max-width:640px;margin:0 auto 48px}
+.hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--violet);color:white;padding:16px 36px;border-radius:12px;font-size:16px;font-weight:600;transition:all .3s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{background:var(--violet-dark);transform:translateY(-2px);box-shadow:0 12px 40px var(--violet-glow)}
+.btn-secondary{background:rgba(255,255,255,0.06);color:white;padding:16px 36px;border-radius:12px;font-size:16px;font-weight:600;border:1px solid rgba(255,255,255,0.1);transition:all .3s}
+.btn-secondary:hover{background:rgba(255,255,255,0.1);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:48px;justify-content:center;margin-top:72px;padding-top:48px;border-top:1px solid rgba(255,255,255,0.06)}
+.hero-stat h3{font-family:var(--font-display);font-size:42px;font-weight:400;margin-bottom:4px}
+.hero-stat h3 span{color:var(--violet-light)}
+.hero-stat p{font-size:13px;color:var(--gray-500);text-transform:uppercase;letter-spacing:1px}
+
+/* ─── SECTIONS ─── */
+section{padding:120px 32px}
+.section-container{max-width:1200px;margin:0 auto}
+.section-label{font-size:12px;font-weight:700;color:var(--violet-light);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
+.section-title{font-family:var(--font-display);font-size:clamp(36px,4.5vw,56px);line-height:1.15;font-weight:400;letter-spacing:-0.5px;margin-bottom:20px}
+.section-desc{font-size:18px;color:var(--gray-400);line-height:1.7;max-width:600px}
+
+/* ─── PROBLEMS ─── */
+.problems{background:linear-gradient(180deg,var(--dark) 0%,#0D0D18 100%)}
+.problems-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+.problem-card{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:20px;padding:40px 32px;transition:all .4s}
+.problem-card:hover{border-color:rgba(107,44,245,0.3);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.problem-icon{width:56px;height:56px;border-radius:14px;background:rgba(107,44,245,0.12);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:24px}
+.problem-card h3{font-size:20px;font-weight:600;margin-bottom:12px}
+.problem-card p{font-size:15px;color:var(--gray-400);line-height:1.7}
+.problem-stat{display:inline-block;margin-top:16px;font-size:13px;font-weight:700;color:var(--violet-light);background:rgba(107,44,245,0.08);padding:6px 14px;border-radius:6px}
+
+/* ─── FEATURES / SOLUTION ─── */
+.solution{background:#0D0D18}
+.feature-rows{display:flex;flex-direction:column;gap:80px;margin-top:80px}
+.feature-row{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.feature-row:nth-child(even){direction:rtl}
+.feature-row:nth-child(even) > *{direction:ltr}
+.feature-visual{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:24px;padding:48px;min-height:360px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.feature-visual::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(107,44,245,0.08),transparent 60%)}
+.feature-visual-inner{position:relative;z-index:1;text-align:center}
+.feature-emoji{font-size:64px;margin-bottom:16px;display:block}
+.feature-visual-label{font-size:14px;color:var(--gray-500);letter-spacing:1px;text-transform:uppercase}
+.feature-text .section-label{margin-bottom:12px}
+.feature-text h3{font-family:var(--font-display);font-size:36px;font-weight:400;line-height:1.2;margin-bottom:20px}
+.feature-text p{font-size:16px;color:var(--gray-400);line-height:1.8;margin-bottom:24px}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.feature-list li{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:var(--gray-200)}
+.feature-list li::before{content:'✓';display:flex;align-items:center;justify-content:center;min-width:22px;height:22px;border-radius:6px;background:rgba(34,197,94,0.12);color:var(--success);font-size:12px;font-weight:700;margin-top:2px}
+
+/* ─── PRICING ─── */
+.pricing{background:var(--dark)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+.price-card{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:24px;padding:40px 32px;display:flex;flex-direction:column;transition:all .4s}
+.price-card.featured{border-color:var(--violet);position:relative;box-shadow:0 0 60px var(--violet-glow)}
+.price-card.featured::before{content:'MOST POPULAR';position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--violet);padding:6px 20px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px}
+.price-card:hover{transform:translateY(-4px)}
+.price-tier{font-size:13px;font-weight:700;color:var(--violet-light);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.price-name{font-family:var(--font-display);font-size:32px;margin-bottom:8px}
+.price-desc{font-size:14px;color:var(--gray-500);margin-bottom:28px;line-height:1.6}
+.price-amount{display:flex;align-items:baseline;gap:4px;margin-bottom:4px}
+.price-amount .dollar{font-family:var(--font-display);font-size:52px;font-weight:400}
+.price-amount .period{font-size:14px;color:var(--gray-500)}
+.price-detail{font-size:13px;color:var(--gray-500);margin-bottom:32px}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:40px;flex:1}
+.price-features li{font-size:14px;color:var(--gray-200);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.price-features li::before{content:'✓';color:var(--success);font-weight:700;min-width:16px}
+.price-btn{display:block;text-align:center;padding:14px;border-radius:12px;font-size:15px;font-weight:600;transition:all .3s}
+.price-btn-primary{background:var(--violet);color:white}
+.price-btn-primary:hover{background:var(--violet-dark);box-shadow:0 8px 30px var(--violet-glow)}
+.price-btn-outline{background:rgba(255,255,255,0.04);color:white;border:1px solid rgba(255,255,255,0.12)}
+.price-btn-outline:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.2)}
+
+/* ─── TESTIMONIALS ─── */
+.testimonials{background:linear-gradient(180deg,var(--dark) 0%,#0D0D18 100%)}
+.testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+.testimonial-card{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:20px;padding:36px 32px;transition:all .4s}
+.testimonial-card:hover{border-color:rgba(107,44,245,0.2);transform:translateY(-2px)}
+.testimonial-stars{color:#FBBF24;font-size:16px;margin-bottom:20px;letter-spacing:2px}
+.testimonial-text{font-size:15px;color:var(--gray-200);line-height:1.8;margin-bottom:28px;font-style:italic}
+.testimonial-author{display:flex;align-items:center;gap:14px}
+.testimonial-avatar{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:white}
+.testimonial-info h4{font-size:15px;font-weight:600}
+.testimonial-info p{font-size:13px;color:var(--gray-500)}
+
+/* ─── ABOUT ─── */
+.about{background:#0D0D18}
+.about-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-bottom:80px}
+.about-story p{font-size:16px;color:var(--gray-400);line-height:1.8;margin-bottom:20px}
+.about-mission{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:24px;padding:48px;position:relative;overflow:hidden}
+.about-mission::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--violet),var(--violet-light))}
+.about-mission blockquote{font-family:var(--font-display);font-size:28px;line-height:1.4;font-style:italic;margin-bottom:16px}
+.about-mission cite{font-size:14px;color:var(--gray-500);font-style:normal}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
+.team-card{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:20px;padding:32px 24px;text-align:center;transition:all .4s}
+.team-card:hover{border-color:rgba(107,44,245,0.2);transform:translateY(-4px)}
+.team-photo{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--violet-light));margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:36px;color:white;border:3px solid var(--dark-border)}
+.team-card h4{font-size:17px;font-weight:600;margin-bottom:4px}
+.team-card .role{font-size:13px;color:var(--violet-light);font-weight:600;margin-bottom:12px}
+.team-card p{font-size:13px;color:var(--gray-500);line-height:1.6}
+
+/* ─── BLOG ─── */
+.blog{background:var(--dark)}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+.blog-card{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:20px;overflow:hidden;transition:all .4s;cursor:pointer}
+.blog-card:hover{border-color:rgba(107,44,245,0.3);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.blog-img{height:200px;position:relative;overflow:hidden}
+.blog-img-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:48px}
+.blog-body{padding:28px 24px}
+.blog-meta{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.blog-tag{font-size:11px;font-weight:700;color:var(--violet-light);background:rgba(107,44,245,0.1);padding:4px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
+.blog-date{font-size:12px;color:var(--gray-500)}
+.blog-card h3{font-size:18px;font-weight:600;margin-bottom:10px;line-height:1.4}
+.blog-card p{font-size:14px;color:var(--gray-400);line-height:1.7}
+.blog-read{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:13px;font-weight:600;color:var(--violet-light);transition:gap .2s}
+.blog-card:hover .blog-read{gap:10px}
+
+/* ─── PODCAST ─── */
+.podcast{background:linear-gradient(180deg,var(--dark) 0%,#0D0D18 100%)}
+.podcast-hero{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:center;margin-top:64px}
+.podcast-art{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:24px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;position:relative;overflow:hidden}
+.podcast-art::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(107,44,245,0.15),transparent 70%)}
+.podcast-art>*{position:relative;z-index:1}
+.podcast-mic{font-size:80px}
+.podcast-art h3{font-family:var(--font-display);font-size:36px;text-align:center;line-height:1.2}
+.podcast-art p{font-size:14px;color:var(--gray-500)}
+.podcast-info h3{font-family:var(--font-display);font-size:36px;margin-bottom:16px}
+.podcast-info p{font-size:16px;color:var(--gray-400);line-height:1.8;margin-bottom:24px}
+.podcast-episodes{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.podcast-episode{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:16px;padding:24px;display:flex;align-items:center;gap:20px;transition:all .3s}
+.podcast-episode:hover{border-color:rgba(107,44,245,0.3)}
+.podcast-play{width:48px;height:48px;border-radius:50%;background:var(--violet);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s}
+.podcast-play:hover{background:var(--violet-dark);transform:scale(1.05)}
+.podcast-play svg{width:18px;height:18px;fill:white;margin-left:2px}
+.podcast-ep-info h4{font-size:15px;font-weight:600;margin-bottom:4px}
+.podcast-ep-info p{font-size:13px;color:var(--gray-500)}
+.podcast-ep-duration{font-size:12px;color:var(--gray-500);margin-left:auto;flex-shrink:0}
+.podcast-rss{margin-top:40px;padding:24px;background:var(--dark-card);border:1px solid var(--dark-border);border-radius:16px}
+.podcast-rss label{font-size:13px;color:var(--gray-500);display:block;margin-bottom:8px}
+.podcast-rss input{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--dark-border);color:var(--gray-400);padding:12px 16px;border-radius:8px;font-size:14px;font-family:monospace}
+
+/* ─── CONTACT ─── */
+.contact{background:#0D0D18}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:64px}
+.contact-form{display:flex;flex-direction:column;gap:20px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group label{display:block;font-size:13px;font-weight:600;color:var(--gray-200);margin-bottom:8px}
+.form-group input,.form-group textarea,.form-group select{width:100%;background:var(--dark-card);border:1px solid var(--dark-border);color:white;padding:14px 16px;border-radius:10px;font-size:15px;font-family:var(--font-body);transition:border-color .2s;outline:none}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--violet)}
+.form-group textarea{resize:vertical;min-height:120px}
+.form-group select option{background:var(--dark-card);color:white}
+.form-submit{background:var(--violet);color:white;padding:16px;border-radius:12px;font-size:16px;font-weight:600;transition:all .3s;border:none;width:100%;display:flex;align-items:center;justify-content:center;gap:8px}
+.form-submit:hover{background:var(--violet-dark);box-shadow:0 8px 30px var(--violet-glow);transform:translateY(-2px)}
+.contact-info{display:flex;flex-direction:column;gap:32px}
+.contact-card{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:20px;padding:32px}
+.contact-card h4{font-size:17px;font-weight:600;margin-bottom:8px}
+.contact-card p{font-size:15px;color:var(--gray-400);line-height:1.7}
+.contact-card a{color:var(--violet-light);transition:color .2s}
+.contact-card a:hover{color:var(--white)}
+.contact-icon{font-size:28px;margin-bottom:16px;display:block}
+
+/* ─── CTA BANNER ─── */
+.cta-banner{background:linear-gradient(135deg,var(--violet-dark),var(--violet));padding:100px 32px;text-align:center;position:relative;overflow:hidden}
+.cta-banner::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,0.05)}
+.cta-banner::after{content:'';position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.03)}
+.cta-banner h2{font-family:var(--font-display);font-size:clamp(36px,5vw,56px);margin-bottom:16px;position:relative;z-index:1}
+.cta-banner p{font-size:18px;color:rgba(255,255,255,0.75);margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
+.cta-banner .btn-white{background:white;color:var(--violet-dark);padding:16px 40px;border-radius:12px;font-size:16px;font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:all .3s;position:relative;z-index:1}
+.cta-banner .btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+
+/* ─── FOOTER ─── */
+.footer{background:var(--dark);border-top:1px solid var(--dark-border);padding:64px 32px 32px}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand p{font-size:14px;color:var(--gray-500);line-height:1.7;margin-top:16px;max-width:280px}
+.footer-col h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gray-400);margin-bottom:20px}
+.footer-col a{display:block;font-size:14px;color:var(--gray-500);margin-bottom:12px;transition:color .2s}
+.footer-col a:hover{color:var(--white)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:32px;border-top:1px solid var(--dark-border)}
+.footer-bottom p{font-size:13px;color:var(--gray-500)}
+.footer-logo{height:28px;opacity:.5}
+
+/* ─── ANIMATIONS ─── */
+.fade-up{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.stagger-1{transition-delay:.1s}
+.stagger-2{transition-delay:.2s}
+.stagger-3{transition-delay:.3s}
+.stagger-4{transition-delay:.4s}
+.stagger-5{transition-delay:.5s}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1024px){
+  .problems-grid,.pricing-grid,.testimonial-grid,.blog-grid{grid-template-columns:repeat(2,1fr)}
+  .feature-row,.about-intro,.podcast-hero,.contact-grid{grid-template-columns:1fr;gap:48px}
+  .feature-row:nth-child(even){direction:ltr}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-mobile{display:block}
+  .problems-grid,.pricing-grid,.testimonial-grid,.blog-grid,.team-grid{grid-template-columns:1fr}
+  .hero-stats{flex-direction:column;gap:24px}
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  section{padding:80px 20px}
+}
+
+/* ─── BLOG MODAL ─── */
+.blog-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);z-index:200;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+.blog-modal-overlay.active{display:flex}
+.blog-modal{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:24px;max-width:800px;width:100%;padding:48px;position:relative;margin-top:40px}
+.blog-modal-close{position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.06);border:none;color:white;width:40px;height:40px;border-radius:10px;font-size:20px;cursor:pointer;transition:all .2s}
+.blog-modal-close:hover{background:rgba(255,255,255,0.12)}
+.blog-modal h2{font-family:var(--font-display);font-size:32px;margin-bottom:8px}
+.blog-modal .blog-meta{margin-bottom:24px}
+.blog-modal .blog-content{font-size:16px;color:var(--gray-200);line-height:1.9}
+.blog-modal .blog-content p{margin-bottom:20px}
+.blog-modal .blog-content h3{font-size:20px;font-weight:600;margin:32px 0 12px;color:white}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#hero"><img src="data:image/png;base64,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" alt="Ready" class="nav-logo" id="nav-logo"></a>
+    <div class="nav-links">
+      <a href="#problems">Why Ready</a>
+      <a href="#solution">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+      <a href="#blog">Blog</a>
+      <a href="#podcast">Podcast</a>
+      <a href="#contact" class="nav-cta">Contact Us</a>
+    </div>
+    <button class="nav-mobile" onclick="document.querySelector('.mobile-menu').classList.toggle('active')" aria-label="Menu">☰</button>
+  </div>
+  <div class="mobile-menu">
+    <a href="#problems" onclick="this.parentElement.classList.remove('active')">Why Ready</a>
+    <a href="#solution" onclick="this.parentElement.classList.remove('active')">Features</a>
+    <a href="#pricing" onclick="this.parentElement.classList.remove('active')">Pricing</a>
+    <a href="#about" onclick="this.parentElement.classList.remove('active')">About</a>
+    <a href="#blog" onclick="this.parentElement.classList.remove('active')">Blog</a>
+    <a href="#podcast" onclick="this.parentElement.classList.remove('active')">Podcast</a>
+    <a href="#contact" onclick="this.parentElement.classList.remove('active')">Contact Us</a>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge fade-up"><span class="dot"></span> Now Open for Restoration Teams</div>
+    <h1 class="fade-up stagger-1">Train your crew.<br>Scale your <em>empire.</em></h1>
+    <p class="hero-sub fade-up stagger-2">Ready is the AI-powered training and coaching platform purpose-built for restoration companies. Stop losing techs to bad onboarding and start building the team that dominates your market.</p>
+    <div class="hero-actions fade-up stagger-3">
+      <a href="#pricing" class="btn-primary">Start Free →</a>
+      <a href="#solution" class="btn-secondary">See How It Works</a>
+    </div>
+    <div class="hero-stats fade-up stagger-4">
+      <div class="hero-stat"><h3>45<span>%</span></h3><p>Firms Can't Find Talent</p></div>
+      <div class="hero-stat"><h3>$210<span>B</span></h3><p>Industry & Growing</p></div>
+      <div class="hero-stat"><h3>94<span>%</span></h3><p>Report Open Positions</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROBLEMS ═══════════ -->
+<section class="problems" id="problems">
+  <div class="section-container">
+    <div class="section-label fade-up">The Problem</div>
+    <h2 class="section-title fade-up stagger-1">The restoration industry is <br>facing a perfect storm.</h2>
+    <p class="section-desc fade-up stagger-2">Rising costs, labor shortages, and tighter insurance guidelines are squeezing small and mid-size restoration companies harder than ever.</p>
+    <div class="problems-grid">
+      <div class="problem-card fade-up stagger-1">
+        <div class="problem-icon">🔧</div>
+        <h3>You Can't Find Good Techs</h3>
+        <p>The skilled labor shortage is crippling restoration. You're competing with construction, HVAC, and plumbing for the same shrinking pool — and losing projects because your bench is thin.</p>
+        <span class="problem-stat">45% of firms can't recruit skilled labor</span>
+      </div>
+      <div class="problem-card fade-up stagger-2">
+        <div class="problem-icon">📉</div>
+        <h3>Training Is Expensive & Slow</h3>
+        <p>IICRC certifications, WRT courses, FSRT certs — the training pipeline costs thousands per tech and takes them off the jobsite for weeks. Most small shops just can't afford it at scale.</p>
+        <span class="problem-stat">12%+ cost-of-business increase</span>
+      </div>
+      <div class="problem-card fade-up stagger-3">
+        <div class="problem-icon">🚪</div>
+        <h3>You Train Them, Then Lose Them</h3>
+        <p>You invest weeks into a new tech only to watch them walk to a competitor or burn out from bad onboarding. Turnover is the silent killer of restoration margins.</p>
+        <span class="problem-stat">Crew leader loss derails operations</span>
+      </div>
+      <div class="problem-card fade-up stagger-1">
+        <div class="problem-icon">💸</div>
+        <h3>Insurance Is Getting Tighter</h3>
+        <p>Premiums are up 300% in some markets. Deductibles now exceed your average job size. Claims processing delays are making damage worse and cutting into your revenue.</p>
+        <span class="problem-stat">18% of firms face claim delays</span>
+      </div>
+      <div class="problem-card fade-up stagger-2">
+        <div class="problem-icon">⚖️</div>
+        <h3>Compliance Is a Moving Target</h3>
+        <p>New mold legislation, OSHA requirements, EPA Lead Safety, ESG alignment — the regulatory landscape is shifting fast and one mistake can cost you your license.</p>
+        <span class="problem-stat">New regulations rolling out in 2025+</span>
+      </div>
+      <div class="problem-card fade-up stagger-3">
+        <div class="problem-icon">🏢</div>
+        <h3>Big Firms Are Eating Your Lunch</h3>
+        <p>Private equity-backed nationals have training departments, dedicated recruiters, and marketing budgets you can't match. You need to compete smarter, not just harder.</p>
+        <span class="problem-stat">M&A activity accelerating</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SOLUTION ═══════════ -->
+<section class="solution" id="solution">
+  <div class="section-container">
+    <div class="section-label fade-up">The Solution</div>
+    <h2 class="section-title fade-up stagger-1">Ready gives you the training infrastructure<br>of a national — at indie prices.</h2>
+    <div class="feature-rows">
+      <!-- Feature 1 -->
+      <div class="feature-row fade-up">
+        <div class="feature-visual">
+          <div class="feature-visual-inner">
+            <span class="feature-emoji">🎓</span>
+            <div class="feature-visual-label">AI-Powered Training Hub</div>
+          </div>
+        </div>
+        <div class="feature-text">
+          <div class="section-label">Onboarding & Training</div>
+          <h3>Get new techs job-ready in days, not months.</h3>
+          <p>Ready's Training Hub delivers structured learning paths covering water, fire, mold, contents, and reconstruction — all aligned with IICRC standards. Your crew learns at their pace, on their phone, between jobs.</p>
+          <ul class="feature-list">
+            <li>Structured courses from WRT fundamentals to advanced structural drying</li>
+            <li>Interactive quizzes and knowledge checks after every module</li>
+            <li>Track progress across your entire team from one dashboard</li>
+            <li>Mobile-first — techs can train on-site, in the truck, or at home</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Feature 2 -->
+      <div class="feature-row fade-up">
+        <div class="feature-visual">
+          <div class="feature-visual-inner">
+            <span class="feature-emoji">🤖</span>
+            <div class="feature-visual-label">AI Coaching Engine</div>
+          </div>
+        </div>
+        <div class="feature-text">
+          <div class="section-label">AI-Powered Coaching</div>
+          <h3>Like having a master restorer on call 24/7.</h3>
+          <p>Ready's AI coach answers technical questions, walks your crew through procedures, and helps with estimating — all trained specifically on restoration knowledge. No more calling you at midnight with basic questions.</p>
+          <ul class="feature-list">
+            <li>Restoration-specific AI trained on industry best practices</li>
+            <li>Instant answers on drying science, chemicals, and safety protocols</li>
+            <li>Helps techs document properly and write better scope notes</li>
+            <li>Available 24/7 — your always-on technical resource</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Feature 3 -->
+      <div class="feature-row fade-up">
+        <div class="feature-visual">
+          <div class="feature-visual-inner">
+            <span class="feature-emoji">📊</span>
+            <div class="feature-visual-label">Team Performance Dashboard</div>
+          </div>
+        </div>
+        <div class="feature-text">
+          <div class="section-label">Scale Your Team</div>
+          <h3>See exactly where your team stands — and where they're headed.</h3>
+          <p>Stop guessing who's ready for lead tech and who needs more reps. Ready's dashboard shows you training completion, quiz scores, and competency gaps across your entire organization.</p>
+          <ul class="feature-list">
+            <li>Individual and team-wide progress tracking</li>
+            <li>Identify high-performers and fast-track promotions</li>
+            <li>Certification readiness scores for IICRC and OSHA</li>
+            <li>Onboarding checklists that ensure nothing falls through the cracks</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PRICING ═══════════ -->
+<section class="pricing" id="pricing">
+  <div class="section-container">
+    <div class="section-label fade-up">Pricing</div>
+    <h2 class="section-title fade-up stagger-1">Simple pricing. Serious results.</h2>
+    <p class="section-desc fade-up stagger-2">Start free. Scale when you're ready. Every plan includes our core training library built for restoration professionals.</p>
+    <div class="pricing-grid">
+      <!-- Solo -->
+      <div class="price-card fade-up stagger-1">
+        <div class="price-tier">Starter</div>
+        <div class="price-name">Ready Solo</div>
+        <p class="price-desc">Perfect for solo restorers or owners who want to sharpen their own skills first.</p>
+        <div class="price-amount"><span class="dollar">Free</span></div>
+        <p class="price-detail">No credit card required</p>
+        <ul class="price-features">
+          <li>Full access to core training library</li>
+          <li>Water, fire, mold & contents courses</li>
+          <li>Interactive quizzes & knowledge checks</li>
+          <li>Personal progress dashboard</li>
+          <li>AI coaching assistant (limited queries)</li>
+          <li>Mobile-optimized learning</li>
+          <li>Community forum access</li>
+        </ul>
+        <a href="#contact" class="price-btn price-btn-outline">Get Started Free</a>
+      </div>
+      <!-- Team -->
+      <div class="price-card featured fade-up stagger-2">
+        <div class="price-tier">Growth</div>
+        <div class="price-name">Ready Team</div>
+        <p class="price-desc">For restoration companies ready to build a trained, certified, scalable crew.</p>
+        <div class="price-amount"><span class="dollar">$97</span><span class="period">/month</span></div>
+        <p class="price-detail">Up to 20 team members included</p>
+        <ul class="price-features">
+          <li>Everything in Solo, plus:</li>
+          <li>Up to 20 user seats for your whole crew</li>
+          <li>Team-wide progress & performance dashboard</li>
+          <li>Unlimited AI coaching for all team members</li>
+          <li>Custom onboarding checklists & workflows</li>
+          <li>Role-based learning paths (Tech, Lead, PM)</li>
+          <li>Certification readiness tracking (IICRC, OSHA)</li>
+          <li>Manager alerts for training milestones</li>
+          <li>Priority email support</li>
+        </ul>
+        <a href="#contact" class="price-btn price-btn-primary">Start 14-Day Trial →</a>
+      </div>
+      <!-- Pro -->
+      <div class="price-card fade-up stagger-3">
+        <div class="price-tier">Enterprise</div>
+        <div class="price-name">Ready Pro Coaching</div>
+        <p class="price-desc">White-glove coaching and consulting for companies scaling aggressively.</p>
+        <div class="price-amount"><span class="dollar">$2,500</span><span class="period">/month</span></div>
+        <p class="price-detail">Unlimited team members</p>
+        <ul class="price-features">
+          <li>Everything in Team, plus:</li>
+          <li>Unlimited team member seats</li>
+          <li>Dedicated 1-on-1 business coach</li>
+          <li>Weekly live strategy sessions</li>
+          <li>Custom training content for your SOPs</li>
+          <li>Hiring & retention playbooks</li>
+          <li>Financial performance review & KPI coaching</li>
+          <li>Marketing & lead generation consulting</li>
+          <li>Insurance negotiation & claims strategy</li>
+          <li>Direct Slack/phone access to your coach</li>
+        </ul>
+        <a href="#contact" class="price-btn price-btn-outline">Book a Strategy Call</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TESTIMONIALS ═══════════ -->
+<section class="testimonials" id="testimonials">
+  <div class="section-container">
+    <div class="section-label fade-up">Testimonials</div>
+    <h2 class="section-title fade-up stagger-1">Restoration pros are getting Ready.</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card fade-up stagger-1">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"We onboarded three new techs last month and had them running water mitigation jobs solo within two weeks. Before Ready, that took us six to eight weeks minimum. The AI coach alone has saved me hours of answering the same basic questions."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#6B2CF5,#3B82F6)">MR</div>
+          <div class="testimonial-info">
+            <h4>Marcus Rodriguez</h4>
+            <p>Owner, FloodPro Restoration — Austin, TX</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up stagger-2">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"I'm a one-truck operation and I was drowning trying to train my first hire. Ready Solo was free and gave me a structured way to bring him up to speed. We just upgraded to Team because I hired two more guys. At $97 a month, this is the best investment I've made."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#059669,#34D399)">JH</div>
+          <div class="testimonial-info">
+            <h4>Jake Hernandez</h4>
+            <p>Owner, Dry Right Services — Denver, CO</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up stagger-3">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"The Pro Coaching completely changed how I run my business. My coach helped me restructure my crew roles, fix our estimating process, and we increased revenue 34% in one quarter. This isn't just training — it's a growth partner."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#DC2626,#F97316)">ST</div>
+          <div class="testimonial-info">
+            <h4>Sarah Thompson</h4>
+            <p>CEO, Apex Disaster Recovery — Phoenix, AZ</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up stagger-1">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"We lost two crew leaders in three months last year and it almost sank us. Ready helped us cross-train everyone so we're never that vulnerable again. Now I have three guys who could step into a lead role tomorrow."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#7C3AED,#EC4899)">DW</div>
+          <div class="testimonial-info">
+            <h4>David Williams</h4>
+            <p>Operations Mgr, Summit Restoration — Nashville, TN</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up stagger-2">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"My guys used to call me at 11pm asking about dehumidifier placement or which antimicrobial to use. Now they just ask the Ready AI and get an accurate answer in seconds. I finally have my evenings back."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#0284C7,#38BDF8)">KM</div>
+          <div class="testimonial-info">
+            <h4>Kevin Mitchell</h4>
+            <p>Owner, Restore Right Inc. — Charlotte, NC</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up stagger-3">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"As a franchise owner, I was spending $3,000+ per tech just on IICRC training. Ready supplements that beautifully — my guys show up to certification exams already knowing the material. Pass rates went from 60% to nearly 100%."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#B45309,#FCD34D)">LP</div>
+          <div class="testimonial-info">
+            <h4>Lisa Park</h4>
+            <p>Franchise Owner, ServiceMaster — Atlanta, GA</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section class="about" id="about">
+  <div class="section-container">
+    <div class="section-label fade-up">About Us</div>
+    <h2 class="section-title fade-up stagger-1">Built by restorers, for restorers.</h2>
+    <div class="about-intro">
+      <div class="about-story fade-up">
+        <p>Ready was born from a simple frustration: the restoration industry is one of the most essential, demanding, and rewarding trades in America — but the tools to train and scale a crew haven't kept up.</p>
+        <p>We've watched talented owners hit a ceiling because they couldn't onboard fast enough, couldn't afford to send every tech to multi-day certification courses, and couldn't compete with the training departments of billion-dollar nationals.</p>
+        <p>So we built the platform we wish existed. Ready combines structured, IICRC-aligned training content with AI-powered coaching and real business strategy — all delivered in a format that works for people who spend their days tearing out drywall, not sitting at desks.</p>
+        <p>Our mission is to level the playing field so that the best-run small and mid-size restoration companies can compete with anyone — and win.</p>
+      </div>
+      <div class="about-mission fade-up stagger-1">
+        <blockquote>"We don't just teach restoration. We build the kind of teams that restoration companies need to survive — and scale."</blockquote>
+        <cite>— The Ready Team</cite>
+      </div>
+    </div>
+    <h3 class="section-title fade-up" style="font-size:36px;margin-bottom:12px">Meet the Team</h3>
+    <p class="section-desc fade-up stagger-1" style="margin-bottom:0">The people behind Ready.</p>
+    <div class="team-grid">
+      <div class="team-card fade-up stagger-1">
+        <div class="team-photo">👤</div>
+        <h4>Your Name Here</h4>
+        <div class="role">Founder & CEO</div>
+        <p>Placeholder for founder bio. Add your background, vision, and what drives your passion for the restoration industry.</p>
+      </div>
+      <div class="team-card fade-up stagger-2">
+        <div class="team-photo">👤</div>
+        <h4>Team Member</h4>
+        <div class="role">Head of Training</div>
+        <p>Placeholder for team member bio. Describe their experience in restoration training and curriculum development.</p>
+      </div>
+      <div class="team-card fade-up stagger-3">
+        <div class="team-photo">👤</div>
+        <h4>Team Member</h4>
+        <div class="role">Lead Coach</div>
+        <p>Placeholder for team member bio. Highlight their hands-on restoration experience and coaching methodology.</p>
+      </div>
+      <div class="team-card fade-up stagger-4">
+        <div class="team-photo">👤</div>
+        <h4>Team Member</h4>
+        <div class="role">Head of Product</div>
+        <p>Placeholder for team member bio. Share their background in technology and what they're building at Ready.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ BLOG ═══════════ -->
+<section class="blog" id="blog">
+  <div class="section-container">
+    <div class="section-label fade-up">Blog</div>
+    <h2 class="section-title fade-up stagger-1">The Ready Journal</h2>
+    <p class="section-desc fade-up stagger-2">Insights, strategies, and stories from the front lines of restoration.</p>
+    <div class="blog-grid">
+      <!-- Blog 1 -->
+      <div class="blog-card fade-up stagger-1" onclick="openBlog(0)">
+        <div class="blog-img" style="background:linear-gradient(135deg,#6B2CF5 0%,#3B82F6 100%)">
+          <div class="blog-img-inner">🚀</div>
+        </div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-tag">Training</span>
+            <span class="blog-date">Feb 2026</span>
+          </div>
+          <h3>Why 45% of Restoration Companies Can't Find Good Techs — And What to Do About It</h3>
+          <p>The labor shortage isn't coming. It's here. Here's how the smartest restoration owners are building pipeline anyway.</p>
+          <span class="blog-read">Read more →</span>
+        </div>
+      </div>
+      <!-- Blog 2 -->
+      <div class="blog-card fade-up stagger-2" onclick="openBlog(1)">
+        <div class="blog-img" style="background:linear-gradient(135deg,#059669 0%,#34D399 100%)">
+          <div class="blog-img-inner">💡</div>
+        </div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-tag">AI & Tech</span>
+            <span class="blog-date">Feb 2026</span>
+          </div>
+          <h3>How AI Is Transforming Restoration — Without Replacing Your Crew</h3>
+          <p>From smarter estimates to 24/7 coaching, AI is the force multiplier that restoration teams didn't know they needed.</p>
+          <span class="blog-read">Read more →</span>
+        </div>
+      </div>
+      <!-- Blog 3 -->
+      <div class="blog-card fade-up stagger-3" onclick="openBlog(2)">
+        <div class="blog-img" style="background:linear-gradient(135deg,#DC2626 0%,#F97316 100%)">
+          <div class="blog-img-inner">📋</div>
+        </div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-tag">Growth</span>
+            <span class="blog-date">Jan 2026</span>
+          </div>
+          <h3>The Onboarding Playbook: Get New Restoration Techs Job-Ready in 14 Days</h3>
+          <p>Most companies take 6–8 weeks to onboard a new tech. Here's the framework to cut that in half.</p>
+          <span class="blog-read">Read more →</span>
+        </div>
+      </div>
+      <!-- Blog 4 -->
+      <div class="blog-card fade-up stagger-1" onclick="openBlog(3)">
+        <div class="blog-img" style="background:linear-gradient(135deg,#7C3AED 0%,#EC4899 100%)">
+          <div class="blog-img-inner">🏗️</div>
+        </div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-tag">Industry</span>
+            <span class="blog-date">Jan 2026</span>
+          </div>
+          <h3>Rising Deductibles, Shrinking Margins: How Restorers Can Adapt to the New Insurance Reality</h3>
+          <p>Premiums are skyrocketing and deductibles are exceeding average job sizes. Time for a new strategy.</p>
+          <span class="blog-read">Read more →</span>
+        </div>
+      </div>
+      <!-- Blog 5 -->
+      <div class="blog-card fade-up stagger-2" onclick="openBlog(4)">
+        <div class="blog-img" style="background:linear-gradient(135deg,#0284C7 0%,#38BDF8 100%)">
+          <div class="blog-img-inner">🎯</div>
+        </div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-tag">Scaling</span>
+            <span class="blog-date">Jan 2026</span>
+          </div>
+          <h3>From One Truck to Five Crews: A Restoration Scaling Blueprint</h3>
+          <p>The step-by-step process for growing from a solo operator to a multi-crew restoration company without burning out.</p>
+          <span class="blog-read">Read more →</span>
+        </div>
+      </div>
+      <!-- Blog 6 -->
+      <div class="blog-card fade-up stagger-3" onclick="openBlog(5)">
+        <div class="blog-img" style="background:linear-gradient(135deg,#B45309 0%,#FCD34D 100%)">
+          <div class="blog-img-inner">🛡️</div>
+        </div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-tag">Compliance</span>
+            <span class="blog-date">Dec 2025</span>
+          </div>
+          <h3>IICRC, OSHA, EPA: The Certification Maze and How Ready Helps You Navigate It</h3>
+          <p>Compliance isn't optional anymore. Here's what every restoration owner needs to know about the regulatory landscape.</p>
+          <span class="blog-read">Read more →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog Modal -->
+<div class="blog-modal-overlay" id="blogModal">
+  <div class="blog-modal">
+    <button class="blog-modal-close" onclick="closeBlog()">✕</button>
+    <h2 id="blogModalTitle"></h2>
+    <div class="blog-meta">
+      <span class="blog-tag" id="blogModalTag"></span>
+      <span class="blog-date" id="blogModalDate"></span>
+    </div>
+    <div class="blog-content" id="blogModalContent"></div>
+  </div>
+</div>
+
+<!-- ═══════════ PODCAST ═══════════ -->
+<section class="podcast" id="podcast">
+  <div class="section-container">
+    <div class="section-label fade-up">Podcast</div>
+    <h2 class="section-title fade-up stagger-1">The Ready Room</h2>
+    <p class="section-desc fade-up stagger-2">Conversations with restoration owners, coaches, and industry leaders on how to build crews that win.</p>
+    <div class="podcast-hero">
+      <div class="podcast-art fade-up">
+        <span class="podcast-mic">🎙️</span>
+        <h3>The Ready Room<br>Podcast</h3>
+        <p>Coming Soon — Subscribe to be notified</p>
+      </div>
+      <div class="podcast-info fade-up stagger-1">
+        <h3>Coming to your ears soon.</h3>
+        <p>The Ready Room is a podcast for restoration business owners who want more than survival — they want scale. Every episode brings you real conversations with operators who've built multi-crew companies, coaches who've turned around struggling businesses, and industry experts who see where the market is heading.</p>
+        <p>Whether you're a one-truck operation or managing 50+ techs, every episode is designed to give you one actionable takeaway you can implement this week.</p>
+        <div class="podcast-episodes">
+          <div class="podcast-episode">
+            <div class="podcast-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            <div class="podcast-ep-info">
+              <h4>Episode 1: Why We Built Ready</h4>
+              <p>The founding story and what we learned about restoration training</p>
+            </div>
+            <span class="podcast-ep-duration">Coming Soon</span>
+          </div>
+          <div class="podcast-episode">
+            <div class="podcast-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            <div class="podcast-ep-info">
+              <h4>Episode 2: The Labor Crisis Nobody Talks About</h4>
+              <p>Why good techs are leaving and how to stop the bleeding</p>
+            </div>
+            <span class="podcast-ep-duration">Coming Soon</span>
+          </div>
+          <div class="podcast-episode">
+            <div class="podcast-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+            <div class="podcast-ep-info">
+              <h4>Episode 3: From Tech to Owner — The Hardest Jump</h4>
+              <p>What nobody tells you about transitioning from doing the work to leading it</p>
+            </div>
+            <span class="podcast-ep-duration">Coming Soon</span>
+          </div>
+        </div>
+        <div class="podcast-rss">
+          <label>RSS Feed URL (connect to your podcast host)</label>
+          <input type="text" value="https://feeds.yourpodcasthost.com/ready-room" readonly onclick="this.select()" placeholder="Paste your RSS feed URL here">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<div class="cta-banner">
+  <h2>Ready to get Ready?</h2>
+  <p>Join hundreds of restoration companies that are training smarter, scaling faster, and winning more.</p>
+  <a href="#pricing" class="btn-white">Start Free Today →</a>
+</div>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section class="contact" id="contact">
+  <div class="section-container">
+    <div class="section-label fade-up">Contact</div>
+    <h2 class="section-title fade-up stagger-1">Let's talk.</h2>
+    <p class="section-desc fade-up stagger-2">Have questions about Ready? Want a demo? Or just want to talk shop about scaling your restoration business? We'd love to hear from you.</p>
+    <div class="contact-grid">
+      <form class="contact-form fade-up" id="contactForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="John" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Smith" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="john@yourcompany.com" required>
+        </div>
+        <div class="form-group">
+          <label>Company Name</label>
+          <input type="text" placeholder="Your Restoration Company">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" placeholder="(555) 123-4567">
+          </div>
+          <div class="form-group">
+            <label>Team Size</label>
+            <select>
+              <option>Just me</option>
+              <option>2–5 people</option>
+              <option>6–20 people</option>
+              <option>21–50 people</option>
+              <option>50+ people</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>What can we help you with?</label>
+          <textarea placeholder="Tell us about your business and what you're looking for..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message →</button>
+      </form>
+      <div class="contact-info fade-up stagger-1">
+        <div class="contact-card">
+          <span class="contact-icon">📧</span>
+          <h4>Email Us</h4>
+          <p>Drop us a line anytime. We typically respond within a few hours.</p>
+          <p style="margin-top:8px"><a href="mailto:hello@getready.com">hello@getready.com</a></p>
+        </div>
+        <div class="contact-card">
+          <span class="contact-icon">📞</span>
+          <h4>Call Us</h4>
+          <p>Want to talk now? Give us a ring during business hours.</p>
+          <p style="margin-top:8px"><a href="tel:+15551234567">(555) 123-4567</a></p>
+        </div>
+        <div class="contact-card">
+          <span class="contact-icon">📍</span>
+          <h4>Location</h4>
+          <p>We're a remote-first team serving restoration companies across the United States.</p>
+        </div>
+        <div class="contact-card">
+          <span class="contact-icon">💬</span>
+          <h4>Book a Demo</h4>
+          <p>Want to see Ready in action? <a href="#contact">Schedule a live walkthrough</a> with our team.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="data:image/png;base64,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" alt="Ready" class="footer-logo" id="footer-logo" style="height:32px;opacity:.7">
+        <p>The AI-powered training and coaching platform built to help restoration companies train smarter and scale faster.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#solution">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Book a Demo</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#about">About Us</a>
+        <a href="#blog">Blog</a>
+        <a href="#podcast">Podcast</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="#">Help Center</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Affiliate Program</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Ready. All rights reserved.</p>
+      <p>Built for restoration. Powered by AI.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── INJECT LOGOS ───
+const LOGO_ICON = "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";
+const LOGO_WHITE = "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";
+
+// ─── SCROLL ANIMATIONS ───
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ─── BLOG DATA ───
+const blogs = [
+  {
+    title: "Why 45% of Restoration Companies Can't Find Good Techs — And What to Do About It",
+    tag: "Training", date: "Feb 2026",
+    content: `<p>The restoration industry is facing a workforce crisis that shows no signs of slowing down. According to recent industry data, 45% of restoration firms report significant difficulties in recruiting skilled labor. And with 94% of construction firms reporting open positions and a need for over 500,000 additional workers nationally, restoration companies are competing for talent in one of the tightest labor markets in decades.</p>
+    <h3>The Root of the Problem</h3>
+    <p>Restoration work is demanding. It's physical, often requires after-hours emergency response, and the path from "new hire" to "competent tech" is long and expensive. Traditional training through IICRC certification courses like WRT, ASD, and FSRT costs thousands of dollars per technician and pulls them off the jobsite for days at a time.</p>
+    <p>For a small company running two or three crews, sending one tech to training can mean losing 20–30% of your production capacity for a week. The math simply doesn't work for most independent operators.</p>
+    <h3>Why Good People Leave</h3>
+    <p>But recruiting is only half the battle. Retention is the silent killer. When new hires don't receive proper onboarding, they feel lost, undervalued, and overwhelmed. They leave — often within the first 90 days — and take your investment with them to a competitor or an entirely different trade.</p>
+    <p>The companies that retain talent are the ones that invest in structured, ongoing training. Not a one-time orientation, but a real development path that shows new hires a career trajectory.</p>
+    <h3>What the Best Companies Do Differently</h3>
+    <p>The smartest restoration owners we work with are rethinking training from the ground up. Instead of waiting for certification courses, they're using platforms like Ready to start training from Day One. They're building learning paths that take a new tech from basic safety and equipment knowledge through water mitigation, fire and smoke, mold protocols, and contents handling — all before they ever step foot in a certification classroom.</p>
+    <p>The result? Faster ramp-up, higher retention, better pass rates on IICRC exams, and crews that can handle more complex jobs sooner.</p>
+    <h3>The Ready Approach</h3>
+    <p>Ready was built specifically for this problem. Our platform gives restoration companies a structured training system that works on mobile, fits around jobsite schedules, and tracks progress across your entire team. The AI coaching assistant means your techs get answers to technical questions instantly — without calling you at midnight.</p>
+    <p>The labor shortage isn't going away. But the companies that build a real training infrastructure will be the ones that attract, develop, and keep the best people. That's what Ready is here to help you do.</p>`
+  },
+  {
+    title: "How AI Is Transforming Restoration — Without Replacing Your Crew",
+    tag: "AI & Tech", date: "Feb 2026",
+    content: `<p>There's a lot of noise about AI in every industry right now. In restoration, the conversation often triggers anxiety: will robots take our jobs? The short answer is no. The real answer is that AI is becoming the most powerful force multiplier restoration companies have ever had — if they know how to use it.</p>
+    <h3>Where AI Actually Helps</h3>
+    <p>AI adoption in the restoration industry has grown rapidly, and for good reason. The technology excels at the repetitive, time-consuming tasks that eat into your margins: scheduling optimization, automated follow-ups, documentation assistance, and estimate drafting.</p>
+    <p>But the most impactful use case we've seen? Training and coaching. An AI coaching assistant trained on restoration best practices can answer a tech's question about drying science, antimicrobial application rates, or OSHA protocols in seconds — accurately, consistently, and at 2 AM on a Saturday when you're trying to sleep.</p>
+    <h3>The Human Element Matters More Than Ever</h3>
+    <p>Here's what AI can't do: it can't look a distressed homeowner in the eye and tell them everything is going to be okay. It can't assess the structural integrity of a fire-damaged beam by feel. It can't mentor a 22-year-old tech into becoming a project manager.</p>
+    <p>AI handles the information layer so your people can focus on the relationship and craftsmanship layers. That's not replacement — that's elevation.</p>
+    <h3>Practical AI Applications in Restoration Today</h3>
+    <p>The most forward-thinking restoration companies are already using AI-powered platforms for CRM and customer communication automation, predictive scheduling based on weather data, intelligent quality control checklists, real-time training and knowledge delivery, and estimate accuracy improvement through pattern recognition.</p>
+    <p>These aren't futuristic concepts. They're tools available right now that are helping companies achieve productivity gains of 15–40% in scheduling, dispatching, and marketing.</p>
+    <h3>Getting Started Without Getting Overwhelmed</h3>
+    <p>You don't need to overhaul your entire operation overnight. Start with one high-impact area — training is the easiest entry point because it doesn't require integrating with your existing job management software. Platforms like Ready give your team AI-powered coaching alongside structured training content, so you can see results within the first week.</p>
+    <p>The companies that embrace AI as a tool — not a threat — will be the ones that scale. The rest will keep losing techs, missing margins, and wondering why the national down the road keeps winning their bids.</p>`
+  },
+  {
+    title: "The Onboarding Playbook: Get New Restoration Techs Job-Ready in 14 Days",
+    tag: "Growth", date: "Jan 2026",
+    content: `<p>Most restoration companies take six to eight weeks to get a new technician to the point where they can handle a job without constant supervision. During that time, you're paying them, pairing them with a senior tech (reducing that person's productivity), and crossing your fingers that they don't quit before the investment pays off.</p>
+    <p>What if you could cut that timeline to two weeks?</p>
+    <h3>The Traditional Approach Is Broken</h3>
+    <p>Here's how most restoration onboarding works: Day 1 is paperwork and a warehouse tour. Days 2–5 are riding along with a senior tech. Weeks 2–4 are more ride-alongs with increasing responsibility. Weeks 4–8 are the first solo jobs with heavy check-ins. Maybe somewhere in there, you send them to a WRT course.</p>
+    <p>The problem? There's no structure. No clear expectations. No way for the new hire to learn at their own pace. And the senior tech doing the training is losing 30–50% of their productivity during the entire process.</p>
+    <h3>The 14-Day Ready Framework</h3>
+    <p><strong>Days 1–3: Foundation.</strong> Before they ever touch equipment, new techs go through Ready's core safety modules, basic equipment identification, and company-specific SOPs. This happens on their phone, at their pace. By Day 3, they understand PPE protocols, basic water science, and your company's documentation standards.</p>
+    <p><strong>Days 4–7: Skill Building.</strong> Now they're on jobsites, but with specific learning objectives for each day. They complete corresponding Ready modules each evening that reinforce what they practiced. The AI coach is available for any questions that come up on-site.</p>
+    <p><strong>Days 8–10: Supervised Practice.</strong> They're running smaller tasks independently — demo, set-up, moisture mapping — while a lead tech handles the complex decisions. They're completing intermediate modules on Ready and passing knowledge checks.</p>
+    <p><strong>Days 11–14: Validation.</strong> By now, they've completed 80%+ of the core training modules, passed all knowledge checks, and demonstrated competency on supervised jobs. They're ready for their first solo water mitigation with a clear escalation path for anything complex.</p>
+    <h3>Why This Works</h3>
+    <p>Structure creates confidence. When a new tech knows exactly what they need to learn, how they'll be evaluated, and what "success" looks like at each stage, they ramp faster and stick around longer. Ready provides that structure while your team provides the hands-on mentorship that no platform can replace.</p>`
+  },
+  {
+    title: "Rising Deductibles, Shrinking Margins: How Restorers Can Adapt to the New Insurance Reality",
+    tag: "Industry", date: "Jan 2026",
+    content: `<p>The insurance landscape for restoration companies has shifted dramatically, and the impact on small and mid-size operators is severe. Premium increases of 200–300% are becoming common. Deductibles are rising from 1% to 3% of policy value. In some markets, the average homeowner deductible now exceeds the average restoration job size.</p>
+    <p>That's not a typo. When deductibles hit $15,000 and your average water mitigation job is $12,000, the entire insurance-driven business model starts to crack.</p>
+    <h3>What's Driving This Shift</h3>
+    <p>Insurance carriers are struggling with profitability. Global insured losses from natural catastrophes continue to climb, and the frequency of severe weather events — wildfires, hurricanes, flooding — is putting enormous pressure on the industry. Some carriers are pulling out of high-risk states entirely. Others are raising premiums so aggressively that they're effectively telling policyholders they don't want their business.</p>
+    <p>For restoration contractors, this means fewer insurance-covered claims, longer claims processing times, and more homeowners choosing to pay out-of-pocket (or not at all).</p>
+    <h3>How Smart Restorers Are Adapting</h3>
+    <p>The companies that are thriving in this environment share several traits. They're diversifying their revenue streams beyond insurance work, investing in direct-to-consumer marketing, improving their estimating accuracy to win more negotiated claims, building stronger relationships with adjusters through professionalism and documentation quality, and training their teams to deliver exceptional customer experiences that drive referrals.</p>
+    <h3>The Training Connection</h3>
+    <p>Here's what many owners miss: your training program directly impacts your ability to navigate the insurance squeeze. Better-trained techs write better scope notes, document more thoroughly, and produce higher-quality work that survives adjuster scrutiny. That translates to fewer supplements, faster claim approvals, and better margins on every job.</p>
+    <p>Ready helps your team build these skills systematically — from documentation best practices to communication standards that build adjuster confidence in your work.</p>`
+  },
+  {
+    title: "From One Truck to Five Crews: A Restoration Scaling Blueprint",
+    tag: "Scaling", date: "Jan 2026",
+    content: `<p>Scaling a restoration company is one of the hardest things you can do in this industry. The jump from owner-operator to multi-crew company requires a fundamentally different set of skills — and most owners hit a wall somewhere between crews two and three.</p>
+    <h3>The Scaling Bottleneck</h3>
+    <p>Here's the pattern we see over and over: An owner builds a great reputation doing quality work. They're booked out. They hire a second crew. Now they're splitting time between managing people and doing production work. Quality starts to slip because they can't be everywhere. They're working 80-hour weeks. Something breaks — a bad job, a lost tech, an insurance dispute — and they retreat back to two crews.</p>
+    <p>The bottleneck is never demand. It's always people and systems.</p>
+    <h3>Stage 1: Document Everything (Before You Hire)</h3>
+    <p>Before you bring on crew #2, every process in your business needs to be documented. How you set equipment. How you scope a job. How you communicate with customers. How you do quality checks. If it lives only in your head, it can't scale. Ready helps you build these training materials and SOPs into a system your team can access anywhere.</p>
+    <h3>Stage 2: Build Your Bench (Crews 2–3)</h3>
+    <p>Your first priority is developing lead techs who can run jobs without you. This requires structured training (not just ride-alongs), clear performance standards, and a promotion path that motivates people to grow. With Ready Team, you can track exactly where each team member is in their development and identify who's ready to step into leadership.</p>
+    <h3>Stage 3: Systemize Operations (Crews 3–5)</h3>
+    <p>At this stage, you need to stop being the best restorer in the company and start being the best leader. Your job is building systems, developing managers, and working on the business. Ready Pro Coaching pairs you with a dedicated business coach who's helped other restoration companies make this exact transition — so you don't have to figure it out alone.</p>
+    <h3>The Common Denominator</h3>
+    <p>Every successful multi-crew restoration company we've studied has one thing in common: they invested in training before they needed it. They built the bench, the systems, and the culture first — then scaled into it. Ready is the platform that makes that investment practical and affordable for companies of any size.</p>`
+  },
+  {
+    title: "IICRC, OSHA, EPA: The Certification Maze and How Ready Helps You Navigate It",
+    tag: "Compliance", date: "Dec 2025",
+    content: `<p>The alphabet soup of restoration certifications can overwhelm even experienced owners. WRT, ASD, FSRT, OCT, HST, HAZWOPER, EPA Lead Safety — each one represents days of classroom time, hundreds or thousands of dollars, and the constant pressure to keep your team current as standards evolve.</p>
+    <h3>Why Compliance Matters More Than Ever</h3>
+    <p>The regulatory landscape in restoration is tightening. New mold legislation is being introduced in multiple states. OSHA enforcement is increasing in the trades. Insurance carriers are requiring specific certifications before they'll include you on their preferred vendor lists. And ESG alignment is becoming a differentiator for commercial contracts.</p>
+    <p>Compliance isn't optional anymore — it's a competitive advantage for the companies that get it right.</p>
+    <h3>The Certification Landscape</h3>
+    <p>The IICRC remains the gold standard for restoration certifications. Their core offerings — the Water Restoration Technician (WRT) course, Applied Structural Drying (ASD), Fire and Smoke Damage Restoration Technician (FSRT), and Odor Control Technician (OCT) — cover the fundamental competencies every restoration company needs. OSHA's Health and Safety Technician (HST) and HAZWOPER courses add the safety foundation that protects your crew and your liability exposure.</p>
+    <h3>How Ready Supplements Certification</h3>
+    <p>Ready doesn't replace IICRC or OSHA certification — it makes them dramatically more effective. Our training content is aligned with IICRC standards, so your techs arrive at certification courses already understanding the core concepts. They're reinforcing knowledge, not learning it for the first time.</p>
+    <p>The result? Higher pass rates, less time away from production, and a team that actually retains what they learn because they're applying it daily through Ready's reinforcement modules and AI coaching.</p>
+    <p>Our certification readiness tracking shows you exactly which team members are prepared for which certifications, so you can schedule courses strategically instead of sending people before they're ready (and risking failed exams that waste time and money).</p>
+    <h3>Building a Culture of Continuous Learning</h3>
+    <p>The best restoration companies don't treat certification as a checkbox — they treat it as part of a continuous learning culture. Ready makes that culture practical by giving every team member access to growing industry knowledge, delivered in a format that fits around the demands of restoration work.</p>`
+  }
+];
+
+function openBlog(index) {
+  const blog = blogs[index];
+  document.getElementById('blogModalTitle').textContent = blog.title;
+  document.getElementById('blogModalTag').textContent = blog.tag;
+  document.getElementById('blogModalDate').textContent = blog.date;
+  document.getElementById('blogModalContent').innerHTML = blog.content;
+  document.getElementById('blogModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeBlog() {
+  document.getElementById('blogModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('blogModal').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('blogModal')) closeBlog();
+});
+
+// ─── FORM HANDLER ───
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.innerHTML = '✓ Message Sent!';
+  btn.style.background = '#22C55E';
+  setTimeout(() => {
+    btn.innerHTML = 'Send Message →';
+    btn.style.background = '';
+    e.target.reset();
+  }, 3000);
+}
+
+// ─── NAV SCROLL ───
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('.nav');
+  const scroll = window.scrollY;
+  if (scroll > 100) nav.style.boxShadow = '0 4px 30px rgba(0,0,0,0.3)';
+  else nav.style.boxShadow = 'none';
+  lastScroll = scroll;
+});
+</script>
+</body>
+</html>
