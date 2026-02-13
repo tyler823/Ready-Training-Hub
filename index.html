@@ -109,10 +109,20 @@
             z-index: 100; 
             border-radius: 0.5rem; 
             margin-top: 0.5rem;
+            padding-top: 0.5rem;
         }
         .dropdown:hover .dropdown-content,
         .dropdown-content:hover { 
             display: block; 
+        }
+        /* Add invisible padding area above dropdown to prevent closing */
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -0.5rem;
+            left: 0;
+            right: 0;
+            height: 0.5rem;
         }
         .dropdown-content a { 
             color: #475569; 
@@ -125,6 +135,7 @@
         }
         .dropdown-content a:hover { background-color: #f1f5f9; color: #7c3aed; }
         .dropbtn { cursor: pointer; }
+    
     
     
     
@@ -4817,38 +4828,6 @@ document.addEventListener('keydown', function(e) {
                 alert('Navigation error. Please refresh the page.');
             }
         }
-
-        // Dropdown menu delay handling
-        let dropdownTimeout;
-        document.addEventListener('DOMContentLoaded', function() {
-            const dropdowns = document.querySelectorAll('.dropdown');
-            
-            dropdowns.forEach(dropdown => {
-                const content = dropdown.querySelector('.dropdown-content');
-                if (!content) return;
-                
-                dropdown.addEventListener('mouseenter', function() {
-                    clearTimeout(dropdownTimeout);
-                    content.style.display = 'block';
-                });
-                
-                dropdown.addEventListener('mouseleave', function() {
-                    dropdownTimeout = setTimeout(() => {
-                        content.style.display = 'none';
-                    }, 500); // 500ms delay before closing
-                });
-                
-                content.addEventListener('mouseenter', function() {
-                    clearTimeout(dropdownTimeout);
-                });
-                
-                content.addEventListener('mouseleave', function() {
-                    dropdownTimeout = setTimeout(() => {
-                        content.style.display = 'none';
-                    }, 300);
-                });
-            });
-        });
 
         let readinessChart;
         function initCharts() {
