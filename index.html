@@ -538,13 +538,10 @@
                 <div class="hidden md:flex space-x-6 items-center">
                     <button onclick="nav('home')" class="nav-link px-2 py-1 text-sm font-semibold border-b-2 border-violet-600 text-violet-600" id="link-home">Home</button>
                     
-                    <!-- ============================================== -->
-                    <!-- NAV: BASE TIER (Visible to all) -->
-                    <!-- ============================================== -->
-                    <!-- Mitigation Dropdown -->
+                    <!-- Ready Solo Dropdown -->
                     <div class="dropdown">
                         <span class="dropbtn nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-mitigation-dropdown">
-                            Mitigation ▾
+                            Ready Solo ▾
                         </span>
                         <div class="dropdown-content">
                             <a onclick="nav('readiness')">Phase 1: Readiness</a>
@@ -553,12 +550,24 @@
                         </div>
                     </div>
                     
-                    <button onclick="nav('reconstruction')" class="nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-reconstruction">Reconstruction</button>
-                    <button onclick="nav('financial')" class="nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-financial">Financial</button>
+                    <!-- Ready Team Dropdown -->
+                    <div class="dropdown">
+                        <span class="dropbtn nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-ready-team-dropdown">
+                            Ready Team ▾
+                        </span>
+                        <div class="dropdown-content">
+                            <div style="padding: 8px 16px; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em;">Reconstruction</div>
+                            <a onclick="nav('recon-transition')">Transition & Handoff</a>
+                            <a onclick="nav('recon-estimating')">Estimating Software</a>
+                            <a onclick="nav('recon-scope')">Scope Development</a>
+                            <a onclick="nav('recon-preconstruction')">Pre-Construction</a>
+                            <a onclick="nav('recon-construction')">Construction</a>
+                            <a onclick="nav('recon-completion')">Completion</a>
+                            <div style="padding: 8px 16px; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em; border-top: 1px solid #e2e8f0; margin-top: 8px; padding-top: 12px;">Financial Operations</div>
+                            <a onclick="nav('financial')">Job Costing & Profitability</a>
+                        </div>
+                    </div>
                     
-                    <!-- ============================================== -->
-                    <!-- NAV: READY PRO COACHING TIER (Gatekeep for premium) -->
-                    <!-- ============================================== -->
                     <!-- Ready Pro Coaching Dropdown -->
                     <div class="dropdown">
                         <span class="dropbtn nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-pro-dropdown">
@@ -570,7 +579,7 @@
                         </div>
                     </div>
                     
-                    <a href="#" onclick="nav('resources')" class="font-bold hover:text-violet-600 transition">Resources</a>
+                    <button onclick="nav('resources')" class="nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-resources">Resources</button>
                     <button onclick="nav('quiz')" class="bg-slate-900 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-600 transition shadow-md" id="link-quiz">MITIGATION QUIZ</button>
                     <button onclick="startReconQuiz()" class="bg-violet-600 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-700 transition shadow-md" id="link-recon-quiz">RECONSTRUCTION QUIZ</button>
                     <button onclick="logout()" class="logout-btn">Logout</button>
@@ -614,24 +623,20 @@
             </div>
         </div>
         
-        <!-- Reconstruction -->
-        <div class="mobile-menu-item" data-ms-membership="ready-team">
+        <!-- Reconstruction -->\n        <div class="mobile-menu-item" data-ms-membership="ready-team">
             <button onclick="toggleMobileSubmenu('recon-sub')">
                 <span>🏗️ Ready Team</span>
                 <span class="mobile-menu-arrow" id="recon-arrow">▼</span>
             </button>
             <div class="mobile-submenu" id="recon-sub">
-                <a onclick="nav('recon-transition'); closeMobileMenu();">Phase 1: Transition</a>
-                <a onclick="nav('recon-estimating'); closeMobileMenu();">Phase 2: Estimating</a>
-                <a onclick="nav('recon-preconstruction'); closeMobileMenu();">Phase 3: Pre-Construction</a>
-                <a onclick="nav('recon-construction'); closeMobileMenu();">Phase 4: Construction</a>
-                <a onclick="nav('recon-completion'); closeMobileMenu();">Phase 5: Completion</a>
+                <a onclick="nav('recon-transition'); closeMobileMenu();">Transition & Handoff</a>
+                <a onclick="nav('recon-estimating'); closeMobileMenu();">Estimating Software</a>
+                <a onclick="nav('recon-scope'); closeMobileMenu();">Scope Development</a>
+                <a onclick="nav('recon-preconstruction'); closeMobileMenu();">Pre-Construction</a>
+                <a onclick="nav('recon-construction'); closeMobileMenu();">Construction</a>
+                <a onclick="nav('recon-completion'); closeMobileMenu();">Completion</a>
+                <a onclick="nav('financial'); closeMobileMenu();">💰 Job Costing & Profitability</a>
             </div>
-        </div>
-        
-        <!-- Financial -->
-        <div class="mobile-menu-item" data-ms-membership="ready-team">
-            <a onclick="nav('financial'); closeMobileMenu();">💰 Financial Operations</a>
         </div>
         
         <!-- Ready Pro -->
@@ -646,6 +651,11 @@
             </div>
         </div>
         
+        <!-- Resources -->
+        <div class="mobile-menu-item">
+            <a onclick="nav('resources'); closeMobileMenu();">📚 Resources</a>
+        </div>
+        
         <!-- Quizzes -->
         <div class="mobile-menu-item">
             <button onclick="toggleMobileSubmenu('quiz-sub')">
@@ -654,8 +664,7 @@
             </button>
             <div class="mobile-submenu" id="quiz-sub">
                 <a onclick="nav('quiz'); closeMobileMenu();">Mitigation Quiz</a>
-                <a onclick="startReconQuiz(); closeMobileMenu();">
-                <a onclick="nav('financial'); closeMobileMenu();">💰 Job Costing & Profitability</a>
+                <a onclick="startReconQuiz(); closeMobileMenu();">Reconstruction Quiz</a>
             </div>
         </div>
         
@@ -5959,288 +5968,36 @@ document.addEventListener('keydown', function(e) {
         window.addEventListener('DOMContentLoaded', setupROICalculator);
 
     
-        // ===== ROI CALCULATOR =====
-        function calculateROI() {
-            // Get input values
-            const employees = parseFloat(document.getElementById('roi-employees').value) || 0;
-            const avgWage = parseFloat(document.getElementById('roi-wage').value) || 0;
-            const newHires = parseFloat(document.getElementById('roi-new-hires').value) || 0;
-            
-            // Validation
-            if (employees === 0 || avgWage === 0) {
-                document.getElementById('roi-results').innerHTML = '<p style="text-align:center; padding:40px;">Please enter number of employees and average hourly wage to calculate ROI.</p>';
-                return;
-            }
-            
-            // ROI Calculation based on restoration industry data
-            // Based on KnowHow methodology and industry standards
-            
-            // 1. Time Saved Per Employee (hours/month)
-            // - Reduced questions to managers: 3 hrs/month
-            // - Faster task completion with SOPs: 4 hrs/month
-            // - Less rework from errors: 2 hrs/month
-            const timeSavedPerEmployee = 9; // hours per month
-            
-            // 2. Monthly Labor Cost Savings
-            const monthlySavings = employees * timeSavedPerEmployee * avgWage;
-            const annualSavings = monthlySavings * 12;
-            
-            // 3. Onboarding Time Reduction
-            // Industry average: 60 days to full productivity
-            // With Ready training: 30 days to full productivity
-            // = 30 days (240 hours) saved per new hire
-            const onboardingTimeSaved = 240; // hours per new hire
-            const onboardingSavings = newHires * onboardingTimeSaved * avgWage;
-            
-            // 4. Reduced Turnover Costs
-            // Industry average turnover: 30-40%
-            // With training: 20% turnover
-            // Cost per turnover: 1.5x annual salary
-            const avgAnnualSalary = avgWage * 2080; // 2080 work hours/year
-            const turnoverReduction = employees * 0.15; // 15% reduction
-            const turnoverCostSavings = turnoverReduction * (avgAnnualSalary * 1.5);
-            
-            // 5. Error Reduction & Rework Savings
-            // Industry data: 10-15% of time spent on rework
-            // With SOPs: 5% rework
-            // = 5-10% time savings
-            const reworkSavings = employees * 4 * avgWage * 12; // 4 hrs/month saved
-            
-            // 6. Total Annual Value
-            const totalAnnualValue = annualSavings + onboardingSavings + turnoverCostSavings + reworkSavings;
-            
-            // 7. Investment Cost (Ready platform is FREE)
-            const investmentCost = 0;
-            
-            // 8. ROI Calculation
-            const roi = totalAnnualValue; // Since investment is $0, ROI is infinite - show total value instead
-            
-            // Display results
-            document.getElementById('roi-results').innerHTML = `
-                <div class="roi-result-big">
-                    <div class="roi-result-big-label">Total Annual Value</div>
-                    <div class="roi-result-big-value">$${totalAnnualValue.toLocaleString('en-US', {maximumFractionDigits: 0})}</div>
-                </div>
-                <div class="roi-result-item">
-                    <span class="roi-result-label">Monthly Labor Savings</span>
-                    <span class="roi-result-value">$${monthlySavings.toLocaleString('en-US', {maximumFractionDigits: 0})}/mo</span>
-                </div>
-                <div class="roi-result-item">
-                    <span class="roi-result-label">Annual Labor Savings</span>
-                    <span class="roi-result-value">$${annualSavings.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>
-                </div>
-                <div class="roi-result-item">
-                    <span class="roi-result-label">Onboarding Cost Savings</span>
-                    <span class="roi-result-value">$${onboardingSavings.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>
-                </div>
-                <div class="roi-result-item">
-                    <span class="roi-result-label">Reduced Turnover Savings</span>
-                    <span class="roi-result-value">$${turnoverCostSavings.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>
-                </div>
-                <div class="roi-result-item">
-                    <span class="roi-result-label">Error/Rework Reduction</span>
-                    <span class="roi-result-value">$${reworkSavings.toLocaleString('en-US', {maximumFractionDigits: 0})}</span>
-                </div>
-                <div style="text-align: center; margin-top: 24px; padding-top: 24px; border-top: 2px solid rgba(255,255,255,0.2);">
-                    <p style="font-size: 14px; color: #e9d5ff; margin-bottom: 8px;">
-                        <strong>Time Saved:</strong> ${(employees * timeSavedPerEmployee).toLocaleString()} hours/month
-                    </p>
-                    <p style="font-size: 12px; color: rgba(255,255,255,0.7);">
-                        Based on industry data from 200+ restoration companies
-                    </p>
-                </div>
-            `;
-        }
+
         
         // Calculate on input change
         function setupROICalculator() {
-            const inputs = ['roi-employees', 'roi-wage', 'roi-new-hires'];
+            const inputs = ['roi-employees', 'roi-wage', 'roi-hours-saved', 'roi-onboarding', 'roi-errors', 'roi-cost'];
             inputs.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
                     el.addEventListener('input', calculateROI);
                 }
             });
+            // Calculate initial ROI with default values
+            calculateROI();
         }
 
     
-        // ===== TEMPLATE DOWNLOAD FUNCTION =====
+                // ===== TEMPLATE DOWNLOAD FUNCTION =====
         function downloadTemplate(templateId) {
-            // Template data with actual content
-            const templates = {
-                'water-mitigation-sop': {
-                    name: 'Water_Mitigation_SOP.txt',
-                    content: `WATER MITIGATION STANDARD OPERATING PROCEDURE
-
-1. INITIAL RESPONSE (0-2 Hours)
-   □ Receive emergency call
-   □ Document: Customer name, address, water category, source
-   □ Estimated square footage affected
-   □ Insurance information (carrier, claim #, adjuster)
-   □ Dispatch closest available team
-   □ ETA communication to customer
-
-2. ON-SITE ASSESSMENT
-   □ Complete safety assessment (electrical hazards, structural stability)
-   □ Identify water source and category (Cat 1, 2, or 3)
-   □ Stop water source if possible
-   □ Document with 4-corner photography
-   □ Moisture mapping (floor level, 24", 36", 48")
-   □ Record all readings >16% moisture content
-   □ Complete Work Authorization form
-
-3. WATER EXTRACTION
-   □ Deploy extractors appropriate for surface type
-   □ Remove standing water completely
-   □ Extract until no more water transfers to vacuum
-   □ Document gallons extracted
-   □ Take post-extraction moisture readings
-
-4. EQUIPMENT PLACEMENT
-   □ Calculate cubic footage of affected area
-   □ Deploy air movers: 1 per 100-150 sq ft
-   □ Position for laminar airflow across wet surfaces
-   □ Deploy dehumidifiers based on Class and Category
-   □ Document equipment serial numbers and placement
-   □ Take initial psychrometric readings
-
-5. DAILY MONITORING
-   □ Check equipment function daily
-   □ Take moisture readings in same locations
-   □ Record psychrometric data
-   □ Photograph changes
-   □ Adjust equipment as needed
-   □ Communication log with customer
-
-6. COMPLETION & COC
-   □ All materials at dry standard (≤15% wood, ≤16% drywall)
-   □ Complete Certificate of Completion
-   □ Final photography
-   □ Remove all equipment
-   □ Customer signature on completion form
-
-CRITICAL NOTES:
-- Never use a single set of equipment for Cat 3 and then Cat 1 without full decontamination
-- Document everything - insurance won't pay for what isn't documented
-- Mitigation must be 100% complete before reconstruction begins
-`
-                },
-                'fire-smoke-sop': {
-                    name: 'Fire_Smoke_Restoration_SOP.txt',
-                    content: `FIRE & SMOKE RESTORATION SOP
-
-1. INITIAL ASSESSMENT
-   □ Safety check (structural integrity, air quality)
-   □ Document extent of fire, smoke, and water damage
-   □ Identify affected vs. unaffected areas
-   □ 4-corner photography
-   □ Work Authorization signature
-
-2. BOARD-UP & SECURITY
-   □ Secure property against weather/theft
-   □ Board broken windows and openings
-   □ Tarp damaged roof areas
-   □ Document security measures with photos
-
-3. CONTENTS EVALUATION
-   □ Separate salvageable from non-salvageable
-   □ Pack out contents for cleaning
-   □ Complete inventory with photos
-   □ Document condition codes (light, moderate, heavy soot)
-
-4. SOOT & SMOKE REMOVAL
-   □ HEPA vacuum all surfaces
-   □ Dry sponge cleaning
-   □ Wet cleaning where appropriate
-   □ Air scrubbers with HEPA/carbon filtration
-   □ Seal unaffected areas to prevent cross-contamination
-
-5. ODOR MITIGATION
-   □ Thermal fogging
-   □ Ozone treatment (unoccupied space only)
-   □ Hydroxyl generators for occupied spaces
-   □ Seal subfloors and wall cavities as needed
-
-6. STRUCTURAL CLEANING
-   □ Clean all structural components
-   □ HVAC cleaning and duct work
-   □ Seal or replace odor-affected materials
-   □ Apply sealant primers before final paint
-
-SAFETY PROTOCOLS:
-- Full PPE required (respirator, suit, gloves, eye protection)
-- Never mix ozone with occupants/pets
-- Properly dispose of contaminated materials
-- Document all hazardous material removal
-`
-                },
-                // Add more templates here - keeping them simple for now
-                'org-chart-small': {
-                    name: 'Small_Company_Org_Chart.txt',
-                    content: `SMALL RESTORATION COMPANY ORGANIZATIONAL CHART (1-10 Employees)
-
-OWNER/GENERAL MANAGER
-├── Office Manager/Admin
-│   ├── Accounts Receivable/Payable
-│   ├── Customer Service
-│   └── Scheduling
-│
-├── Mitigation Lead
-│   ├── Technician 1
-│   ├── Technician 2
-│   └── Technician 3
-│
-└── Project Manager/Estimator
-    ├── Reconstruction Lead
-    └── Subcontractor Management
-
-ROLE RESPONSIBILITIES:
-
-Owner/GM:
-- Overall business strategy
-- Major client relationships
-- Financial oversight
-- Final approval on large estimates
-
-Office Manager:
-- Daily operations
-- Billing and collections
-- Insurance documentation
-- Employee scheduling
-
-Mitigation Lead:
-- Emergency response leadership
-- Equipment management
-- Technician training
-- Quality control
-
-Project Manager:
-- Estimating (Xactimate)
-- Customer communication
-- Reconstruction oversight
-- Subcontractor coordination
-
-Technicians:
-- Emergency response
-- Water extraction and drying
-- Pack-out and contents
-- Site maintenance
-
-CAREER PATHS:
-Technician → Lead Technician → Mitigation Lead → Project Manager → GM
-`
-                }
-            };
-
-            // Get template
+            // Use the templates from downloadTemplate_OLD since those have actual content
+            // Reference the full templates object defined below
+            const templates = window.readyTemplates || {};
+            
             const template = templates[templateId];
             
             if (!template) {
                 alert('This template is being finalized and will be available soon!');
                 return;
             }
-
-            // Create download
+            
+            // Create text file download
             const blob = new Blob([template.content], { type: 'text/plain' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -6250,10 +6007,2773 @@ Technician → Lead Technician → Mitigation Lead → Project Manager → GM
             a.click();
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
-            
-            // Success message
-            console.log('Template downloaded:', template.name);
         }
+
+        // Template content for downloads
+        window.readyTemplates = {
+                'water-mitigation-sop': {
+                    name: 'Ready_Water_Mitigation_SOP.txt',
+                    content: `READY COMPANIES
+WATER MITIGATION STANDARD OPERATING PROCEDURE
+Based on IICRC S500 Standards
+
+═══════════════════════════════════════════════════════════
+
+PHASE 1: INITIAL RESPONSE & ASSESSMENT (0-2 Hours)
+
+1.1 EMERGENCY CALL INTAKE
+□ Document customer name, address, phone number
+□ Record water category (Cat 1, 2, or 3 - ask questions)
+□ Estimated square footage affected
+□ Source of water if known
+□ Insurance information (carrier, claim #, adjuster if available)
+□ Safety concerns noted
+□ Dispatch closest available team
+□ Communicate ETA to customer (within 2 hours target)
+
+1.2 ON-SITE SAFETY ASSESSMENT
+□ PPE assessment - determine required protection level
+□ Electrical hazards check - standing water + electricity
+□ Structural stability evaluation
+□ Slip/fall hazards identification
+□ Biohazard potential (Category 2/3 water)
+□ Document safety concerns in job notes
+
+1.3 SOURCE IDENTIFICATION & ELIMINATION
+□ Locate source of water intrusion
+□ Shut off water source if possible
+□ Document source with photos (subrogation potential)
+□ If unable to stop source, coordinate with plumber/specialist
+□ Verify source is completely stopped before proceeding
+
+═══════════════════════════════════════════════════════════
+
+PHASE 2: DOCUMENTATION (Critical - Do NOT Skip!)
+
+2.1 PHOTOGRAPHIC DOCUMENTATION
+Take minimum 4 photos per affected room (one from each corner):
+□ Vehicle on site (logo visible, address visible)
+□ Front of property with posted address
+□ Origin/source of water loss
+□ Close-up of subrogation potential
+□ All affected rooms BEFORE mitigation
+□ 10-second video of affected area (water movement)
+□ Damaged contents "as they lie"
+□ Building materials (for estimator grade selection)
+□ Material intersections (how installed = cost impact)
+
+2.2 THERMAL IMAGING
+□ Scan all walls in affected areas
+□ Identify hidden moisture migration
+□ Document ceiling moisture if overhead source
+□ Check adjacent rooms for moisture travel
+□ Save thermal images to job file
+
+2.3 MOISTURE MAPPING
+□ Use graph paper or digital sketch
+□ Draw room layout with dimensions
+□ Mark affected vs unaffected areas
+□ Take readings at HIGHEST point showing legitimate number
+   (Not just "HIGH" - get actual % reading)
+□ Establish DRY STANDARD in unaffected area
+□ Record: MC%, meter setting, material type
+□ Document: Normal Dry Range _____% to _____%
+
+METER SETTINGS TO USE:
+- Setting: MC% (Moisture Content Percentage)
+- Material: DRYWALL (for walls), PINE (for subfloor)
+- Type: Penetrating for accuracy verification
+
+2.4 SKETCH/FLOOR PLAN
+□ Outline of all rooms (affected + continuous flooring)
+□ Dimensions of walls (to nearest foot)
+□ Ceiling height
+□ Room labels
+□ Flooring types per room
+□ Windows, doors (with swing direction), case openings
+□ Door/window measurements
+□ Equipment placement with directional arrows
+□ Color code: Air movers, Dehus, Air scrubbers, etc.
+
+2.5 JOURNALING
+□ Write detailed description of damage
+□ Note source and category of water
+□ List all affected areas and flooring types
+□ Document any customer concerns or requests
+□ Record time on site and actions taken
+
+═══════════════════════════════════════════════════════════
+
+PHASE 3: WATER EXTRACTION
+
+3.1 EXCESS WATER REMOVAL
+"It is 1,000x easier to physically remove water than evaporate it"
+
+□ Squeegee standing water from hard surfaces
+□ Mop excess water from floors
+□ Pump standing water from below-grade areas
+□ Extract carpet and pad using truck-mount or portable
+□ Use specialty extraction tools:
+   - Wand extraction (standard)
+   - Claw tool (aggressive extraction)
+   - Xtreme extraction mat (maximum removal)
+
+3.2 EXTRACTION EFFICIENCY TEST
+Perform "weight test" to verify extraction quality:
+- Weigh 3 sq ft sample wet
+- Weigh 3 sq ft sample after extraction
+- Weigh 3 sq ft sample dry
+- Calculate gallons remaining per sq ft
+- Target: <0.5 gallons remaining per sq ft
+
+□ Document extraction method used
+□ Test extraction efficiency
+□ Re-extract if efficiency is poor
+
+3.3 DRAINAGE
+□ Drain water from wall cavities (drill weep holes if needed)
+□ Drain ceiling cavities
+□ Check and drain HVAC ductwork if affected
+□ Document drainage activities
+
+═══════════════════════════════════════════════════════════
+
+PHASE 4: CONTENT MANAGEMENT
+
+4.1 CONTENT PROTECTION
+□ Pick up contents from flooring
+□ Hang draperies on hangers
+□ Tuck in bedspreads
+□ Pin up furniture skirts
+□ Hang closet clothes
+
+4.2 FURNITURE BLOCKING
+□ Place foam blocks under all furniture feet
+□ Move furniture to center of room for airflow
+□ Tab furniture edges to prevent staining
+□ Elevate furniture minimum 2" off wet surfaces
+
+4.3 PACK-OUT COORDINATION
+If entire structure affected:
+□ Inventory contents requiring removal
+□ Photo document "as they lie"
+□ Coordinate off-site storage
+□ Complete pack-out inventory forms
+
+═══════════════════════════════════════════════════════════
+
+PHASE 5: STRUCTURE PREPARATION
+
+5.1 CLEANING
+□ Edge vacuum all baseboards
+□ Wipe baseboards to remove dust
+□ Vacuum furniture to prevent dust distribution
+□ Remove loose debris from affected areas
+
+5.2 FLOOR ANALYSIS
+□ Remove floor registers to inspect subfloor
+□ Check thresholds to identify transitions
+□ Document: Carpet type, pad type, subfloor layers
+□ Note any specialty flooring (hardwood, tile, etc.)
+
+5.3 AIRFLOW OPTIMIZATION
+□ Remove interior doors (pull hinge pins)
+□ Block and secure removed doors
+□ OR leave doors in place to create drying chambers
+□ Ensure airflow pathways throughout affected area
+
+═══════════════════════════════════════════════════════════
+
+PHASE 6: EQUIPMENT CALCULATION & PLACEMENT
+
+6.1 DETERMINE WATER LOSS CLASS
+Class 1: Minimal water, low porosity materials
+Class 2: Entire room carpet/pad, walls wet to 24"
+Class 3: Overhead source, everything saturated
+Class 4: Low porosity materials (hardwood, concrete, etc.)
+
+6.2 CALCULATE EQUIPMENT NEEDS
+Air Movers: 1 per 100-150 sq ft (Class 2)
+Dehumidifiers: Based on cubic footage and class
+- Class 1: 1 dehu per 500-1000 cu ft
+- Class 2: 1 dehu per 300-500 cu ft
+- Class 3: 1 dehu per 200-300 cu ft
+- Class 4: LGR or desiccant dehus required
+
+6.3 EQUIPMENT PLACEMENT
+□ Position air movers for laminar airflow
+□ Aim air movers across wet surfaces
+□ Angle air movers at 45° toward walls
+□ Place dehumidifiers centrally in chamber
+□ Ensure dehumidifier exhaust vents outside chamber
+□ Position for easy drain hose routing
+□ Document all equipment serial numbers
+□ Photo document equipment placement
+
+6.4 DRYING CHAMBER SETUP
+□ Seal off unaffected areas
+□ Close doors/windows in drying chamber
+□ Activate HVAC if beneficial
+□ Set thermostat to 75-80°F optimal drying
+□ Verify negative air pressure in chamber
+
+═══════════════════════════════════════════════════════════
+
+PHASE 7: INITIAL PSYCHROMETRIC READINGS
+
+7.1 RECORD BASELINE DATA
+Location readings required:
+□ Outside air (temp, RH, GPP)
+□ Unaffected area (temp, RH, GPP)
+□ Affected area (temp, RH, GPP)
+□ HVAC supply (temp, RH, GPP)
+□ Dehumidifier exhaust (temp, RH, GPP)
+
+7.2 CALCULATE DRYING GOAL
+Goal: Affected area GPP = Unaffected area GPP
+Document target GPP: _______
+
+═══════════════════════════════════════════════════════════
+
+PHASE 8: DAILY MONITORING
+
+8.1 DAILY SITE VISIT TASKS
+□ Check all equipment function
+□ Empty dehumidifier buckets if needed
+□ Verify drain hoses flowing
+□ Take psychrometric readings (all 5 locations)
+□ Take moisture content readings (same locations daily)
+□ Photo document moisture meter readings
+□ Photo progress of drying
+□ Adjust equipment as needed
+□ Communicate progress to customer
+
+8.2 MOISTURE CONTENT TRACKING
+□ Use same meter settings each visit
+□ Take readings at highest legitimate MC% location
+□ Do NOT re-penetrate same hole (dry faster)
+□ Record readings on moisture map
+□ Update job notes with progress
+
+8.3 DOCUMENTATION PER VISIT
+□ Daily psychrometric sheet
+□ Daily moisture content readings
+□ Photos of meter readings (with location reference)
+□ Equipment check photos
+□ Progress journal entry
+
+═══════════════════════════════════════════════════════════
+
+PHASE 9: COMPLETION & CERTIFICATE OF COMPLETION
+
+9.1 DRY STANDARD VERIFICATION
+Materials must reach:
+□ Wood: ≤15% MC
+□ Drywall: ≤16% MC
+□ Concrete: ≤4% MC
+□ Psychrometrics: Affected = Unaffected GPP
+
+9.2 FINAL DOCUMENTATION
+□ Final moisture content readings all locations
+□ Final psychrometric readings
+□ Before/after photo comparison
+□ Certificate of Completion form
+□ Customer signature on COC
+
+9.3 EQUIPMENT REMOVAL
+□ Remove all air movers
+□ Remove all dehumidifiers
+□ Remove all accessories (hoses, cords, etc.)
+□ Return furniture to normal placement
+□ Clean/vacuum affected areas
+□ Rehang doors
+
+9.4 CUSTOMER COMMUNICATION
+□ Explain final readings
+□ Provide copy of Certificate of Completion
+□ Review next steps (reconstruction if needed)
+□ Obtain final signature and feedback
+
+═══════════════════════════════════════════════════════════
+
+CRITICAL REMINDERS:
+
+🚨 NEVER use Cat 3 equipment on Cat 1 jobs without decontamination
+📸 Insurance will NOT pay for undocumented work
+✅ Mitigation must be 100% complete before reconstruction begins
+📊 Take readings at HIGHEST point showing legitimate number
+🎯 Dry Standard: Establish and document in unaffected area
+⏱️ Response time goal: <2 hours from initial call
+🔍 When in doubt, call supervisor for guidance
+
+═══════════════════════════════════════════════════════════
+
+This SOP is based on IICRC S500 Standard and Reference Guide for
+Professional Water Damage Restoration and Ready Companies best practices.
+
+For questions or clarification, contact your Ready Companies supervisor.
+
+Version 1.0 - Ready Companies Training Platform
+`
+                },
+
+                'fire-smoke-sop': {
+                    name: 'Ready_Fire_Smoke_Restoration_SOP.txt',
+                    content: `READY COMPANIES
+FIRE & SMOKE RESTORATION STANDARD OPERATING PROCEDURE
+Based on IICRC S520 Standards
+
+═══════════════════════════════════════════════════════════
+
+⚠️ SAFETY FIRST - FULL PPE REQUIRED AT ALL TIMES ⚠️
+- Respirator with appropriate filters (P100 minimum)
+- Disposable coveralls
+- Nitrile gloves (double layer recommended)
+- Eye protection
+- Boot covers
+
+═══════════════════════════════════════════════════════════
+
+PHASE 1: INITIAL ASSESSMENT & SAFETY
+
+1.1 STRUCTURAL SAFETY INSPECTION
+□ Check for structural compromise
+□ Look for sagging ceilings or floors
+□ Inspect for fire-weakened load-bearing elements
+□ Verify electrical safety (shut off if questionable)
+□ Check for gas leaks
+□ Document all safety concerns
+□ DO NOT ENTER if structure is unsafe - call supervisor
+
+1.2 AIR QUALITY ASSESSMENT
+□ Check for smoke odor intensity
+□ Identify presence of chemical odors
+□ Note any respiratory irritation
+□ Determine need for air scrubbers immediately
+□ Set up negative air if needed
+
+1.3 DAMAGE ASSESSMENT
+□ Document extent of fire damage (%)
+□ Document extent of smoke damage (%)
+□ Document extent of water damage (from firefighting)
+□ Identify origin/cause of fire (photos for subrogation)
+□ Separate affected from unaffected areas
+
+1.4 PHOTOGRAPHIC DOCUMENTATION
+□ 4-corner photos every affected room
+□ Close-up photos of fire origin
+□ Subrogation potential (appliances, electrical, etc.)
+□ Soot/char patterns
+□ Smoke migration evidence
+□ Water damage from firefighting efforts
+□ All damaged contents
+
+═══════════════════════════════════════════════════════════
+
+PHASE 2: EMERGENCY SERVICES
+
+2.1 BOARD-UP & SECURITY
+□ Board broken windows
+□ Secure damaged doors
+□ Tarp damaged roof sections
+□ Protect from weather intrusion
+□ Protect from theft/vandalism
+□ Photo document all security measures
+□ Notify customer and adjuster of actions taken
+
+2.2 UTILITY ASSESSMENT
+□ Verify electrical safety
+□ Check water system integrity
+□ Verify gas lines secure
+□ Coordinate utility shutoffs if needed
+□ Arrange utility repairs as required
+
+═══════════════════════════════════════════════════════════
+
+PHASE 3: CONTENTS EVALUATION
+
+3.1 CONTENT TRIAGE
+Sort contents into categories:
+
+SALVAGEABLE - Light Soot:
+□ Items with minimal soot deposit
+□ No direct fire contact
+□ No melting or charring
+□ Cleanable materials
+
+SALVAGEABLE - Moderate Soot:
+□ Heavy soot but structurally intact
+□ No melting or charring
+□ Requires professional cleaning
+
+NON-SALVAGEABLE:
+□ Charred or melted items
+□ Structural damage from fire
+□ Contaminated with Category 3 water
+□ Cost to clean exceeds replacement value
+
+3.2 PACK-OUT PREPARATION
+□ Inventory all items by room
+□ Photo document condition codes
+□ Apply condition stickers:
+   - Green: Light soot
+   - Yellow: Moderate soot  
+   - Red: Heavy soot/non-salvageable
+□ Box and label by room
+□ Transport to cleaning facility
+
+═══════════════════════════════════════════════════════════
+
+PHASE 4: STRUCTURE CLEANING - SOOT REMOVAL
+
+4.1 HEPA VACUUMING (First Step - Always!)
+□ HEPA vacuum ALL surfaces before any wet cleaning
+□ Vacuum walls from top to bottom
+□ Vacuum ceilings
+□ Vacuum floors
+□ Vacuum furniture
+□ Vacuum HVAC vents and returns
+
+CRITICAL: Never wet clean before HEPA vacuuming!
+Wet soot = permanent staining
+
+4.2 DRY SPONGE CLEANING
+□ Use dry chemical sponges on walls
+□ Work from top to bottom
+□ Use light pressure - don't smear
+□ Replace sponge when saturated with soot
+□ Dry sponge before any wet cleaning
+
+4.3 WET CLEANING (After dry methods complete)
+□ Use appropriate cleaning solution for surface type
+□ Test in inconspicuous area first
+□ Work in small sections
+□ Rinse thoroughly
+□ Dry immediately to prevent water damage
+
+4.4 AIR SCRUBBING
+□ Deploy HEPA/carbon air scrubbers
+□ Position to create negative air pressure
+□ Run continuously during cleaning
+□ Calculate: 1 air scrubber per 1000-2000 cu ft
+□ Exhaust filtered air outside if possible
+
+═══════════════════════════════════════════════════════════
+
+PHASE 5: ODOR MITIGATION
+
+5.1 SOURCE REMOVAL (Most Important!)
+□ Remove all charred materials
+□ Remove smoke-saturated porous items
+□ Seal subfloors if necessary
+□ Seal wall cavities if necessary
+□ Remove affected insulation
+
+5.2 THERMAL FOGGING
+□ Close off treatment area
+□ Use appropriate fogging solution
+□ Follow manufacturer dwell time
+□ Ventilate per instructions
+□ May require multiple applications
+
+5.3 OZONE TREATMENT
+⚠️ UNOCCUPIED SPACE ONLY - No people, pets, or plants!
+□ Seal treatment area completely
+□ Remove/protect rubber, leather items
+□ Set ozone generator per cubic footage
+□ Minimum 24-48 hour treatment
+□ Ventilate minimum 2 hours before re-entry
+□ Test air quality before allowing occupancy
+
+5.4 HYDROXYL GENERATOR (Safe for Occupied Spaces)
+□ Can run while area is occupied
+□ Position for maximum air circulation
+□ Run continuously for several days
+□ Monitor odor levels
+□ Safe alternative to ozone
+
+5.5 SEALING ODOR-AFFECTED SURFACES
+□ Apply odor-blocking primer/sealer
+□ Seal subfloors before new flooring
+□ Seal wall surfaces before painting
+□ Use shellac-based or specifically formulated sealer
+□ Multiple coats may be required
+
+═══════════════════════════════════════════════════════════
+
+PHASE 6: HVAC CLEANING
+
+6.1 DUCT SYSTEM INSPECTION
+□ Inspect all supply and return ducts
+□ Check for soot contamination
+□ Inspect furnace/AC unit
+□ Check air handler
+□ Document contamination level
+
+6.2 HVAC CLEANING REQUIREMENTS
+If soot present in system:
+□ Professional duct cleaning required
+□ Clean or replace all filters
+□ Clean air handler components
+□ Clean furnace/AC unit exterior
+□ Verify system operation after cleaning
+□ Document cleaning completion
+
+═══════════════════════════════════════════════════════════
+
+PHASE 7: STRUCTURAL CLEANING DETAILS
+
+7.1 CEILING CLEANING
+□ HEPA vacuum first
+□ Dry sponge entire ceiling
+□ Spot clean heavy soot areas
+□ Wet clean if necessary
+□ Apply sealer/primer before painting
+
+7.2 WALL CLEANING
+□ HEPA vacuum walls
+□ Dry sponge from top to bottom
+□ Wet clean with appropriate solution
+□ Rinse thoroughly
+□ Dry completely
+□ Apply sealer before painting
+
+7.3 FLOOR CLEANING
+□ HEPA vacuum all flooring
+□ Clean per flooring type:
+   - Hardwood: specialized wood cleaner
+   - Tile: degreaser then neutral cleaner
+   - Carpet: professional cleaning or replace
+   - Concrete: TSP or specialized cleaner
+
+7.4 CABINET & MILLWORK CLEANING
+□ HEPA vacuum all surfaces
+□ Remove cabinet doors for easier access
+□ Clean interior and exterior
+□ Clean hinges and hardware
+□ Seal/prime before refinishing
+
+═══════════════════════════════════════════════════════════
+
+PHASE 8: DEMOLITION (If Required)
+
+8.1 DEMOLITION DECISION FACTORS
+Remove materials if:
+□ Structurally compromised by fire
+□ Contaminated beyond cleaning
+□ Cost to clean exceeds replacement
+□ Retains persistent odor after cleaning attempts
+□ Melted or severely charred
+
+8.2 SELECTIVE DEMOLITION PROTOCOL
+□ Photo document BEFORE demolition
+□ Remove only necessary materials
+□ Contain demolition area with plastic
+□ Use HEPA vacuum during demo
+□ Bag and remove debris properly
+□ Photo document AFTER demolition
+
+═══════════════════════════════════════════════════════════
+
+PHASE 9: FINAL STEPS
+
+9.1 POST-CLEANING INSPECTION
+□ Visual inspection of all cleaned surfaces
+□ Odor test in all areas
+□ Air quality verification
+□ Touch test for soot residue
+□ Customer walkthrough
+
+9.2 SEALING & PROTECTION
+□ Apply sealer to all affected surfaces
+□ Prime before paint
+□ Encapsulate odor sources
+□ Protect cleaned areas during reconstruction
+
+9.3 DOCUMENTATION
+□ Before/after photos
+□ Cleaning methods used
+□ Products applied
+□ Odor mitigation techniques employed
+□ Certificate of Completion
+□ Customer signature
+
+═══════════════════════════════════════════════════════════
+
+CRITICAL SAFETY REMINDERS:
+
+🚨 ALWAYS wear full PPE - soot is carcinogenic
+🚫 NEVER use ozone in occupied spaces
+⚠️ NEVER wet clean before dry cleaning (permanent staining)
+🔍 ALWAYS verify structural safety before entry
+📸 ALWAYS photo document for subrogation potential
+🎯 SOURCE REMOVAL is more important than odor treatment
+⏱️ Time is critical - soot etches surfaces quickly
+
+═══════════════════════════════════════════════════════════
+
+DISPOSAL REQUIREMENTS:
+
+Soot-contaminated materials may be hazardous waste.
+Check local regulations for proper disposal.
+Many areas require manifest for disposal.
+
+═══════════════════════════════════════════════════════════
+
+This SOP is based on IICRC S520 Standard for Professional Mold
+Remediation (smoke = soot particulate) and Ready Companies best practices.
+
+For questions or clarification, contact your Ready Companies supervisor.
+
+Version 1.0 - Ready Companies Training Platform
+`
+                },
+
+                'contents-packout-sop': {
+                    name: 'Ready_Contents_PackOut_SOP.txt',
+                    content: `READY COMPANIES
+CONTENTS PACK-OUT STANDARD OPERATING PROCEDURE
+
+═══════════════════════════════════════════════════════════
+
+PURPOSE:
+This SOP ensures proper documentation, inventory, and handling of
+customer contents during pack-out for cleaning or storage during
+restoration project.
+
+═══════════════════════════════════════════════════════════
+
+PHASE 1: PRE-PACK-OUT PREPARATION
+
+1.1 CUSTOMER COMMUNICATION
+□ Explain pack-out process to customer
+□ Obtain signed authorization for pack-out
+□ Discuss valuable items and special handling needs
+□ Provide timeline for cleaning/storage
+□ Explain inventory process
+□ Obtain customer contact information
+
+1.2 SAFETY ASSESSMENT
+□ Identify fragile items requiring special care
+□ Note items requiring professional packing (antiques)
+□ Identify hazardous materials (chemicals, etc.)
+□ PPE assessment based on damage category
+
+1.3 GATHER SUPPLIES
+□ Boxes (various sizes)
+□ Packing paper
+□ Bubble wrap
+□ Packing tape
+□ Markers
+□ Inventory forms
+□ Condition code stickers
+□ Camera/tablet for documentation
+□ Room labels
+
+═══════════════════════════════════════════════════════════
+
+PHASE 2: PHOTOGRAPHIC DOCUMENTATION
+
+2.1 "AS THEY LIE" PHOTOGRAPHY
+Before touching anything:
+□ 4-corner photos each affected room
+□ Close-ups of damaged items in place
+□ Overall room condition shots
+□ Items in closets/cabinets (before moving)
+
+CRITICAL: Photos must show condition BEFORE pack-out
+This prevents "you broke it" claims later
+
+2.2 DETAILED ITEM PHOTOGRAPHY
+□ High-value items individual photos
+□ Pre-existing damage close-ups
+□ Serial numbers/model numbers
+□ Brand labels visible
+□ Condition of upholstery/finishes
+
+═══════════════════════════════════════════════════════════
+
+PHASE 3: INVENTORY SYSTEM
+
+3.1 ROOM DESIGNATION
+Assign each room a number/code:
+- Kitchen = K
+- Master Bedroom = MB
+- Living Room = LR
+- Dining Room = DR
+- Bathroom 1 = B1
+- etc.
+
+3.2 BOX NUMBERING SYSTEM
+Format: [ROOM]-[BOX#]
+Examples:
+- MB-1 (Master Bedroom, Box 1)
+- K-5 (Kitchen, Box 5)
+- LR-3 (Living Room, Box 3)
+
+3.3 INVENTORY FORM COMPLETION
+For each box record:
+□ Box number
+□ Room of origin
+□ General contents description
+□ Number of items (estimate if many small items)
+□ Condition code
+□ Special handling notes
+□ Pack-out date
+□ Technician initials
+
+═══════════════════════════════════════════════════════════
+
+PHASE 4: CONDITION CODING
+
+4.1 CONDITION CODE SYSTEM
+Use color-coded stickers:
+
+🟢 GREEN - GOOD CONDITION
+- Clean, undamaged items
+- Normal wear only
+- No restoration needed
+
+🟡 YELLOW - AFFECTED
+- Moderate damage
+- Requires cleaning/restoration
+- Salvageable with treatment
+
+🔴 RED - HEAVILY DAMAGED
+- Significant damage
+- May not be salvageable
+- Requires specialized restoration or disposal
+
+4.2 APPLYING CONDITION CODES
+□ Apply sticker to box and inventory form
+□ Note specific damage on inventory form
+□ Photo document red-coded items
+□ Customer review recommended for red items
+
+═══════════════════════════════════════════════════════════
+
+PHASE 5: PACKING PROCEDURES
+
+5.1 GENERAL PACKING GUIDELINES
+□ Pack room by room
+□ Heavy items in small boxes
+□ Light items in large boxes
+□ No box over 50 lbs
+□ Fill box voids with packing paper
+□ Label all sides of box
+□ Write "FRAGILE" on appropriate boxes
+
+5.2 KITCHEN PACKING
+Dishes/Glassware:
+□ Wrap each item individually
+□ Use dish barrel boxes
+□ Layer with packing paper between plates
+□ Stand glasses upright
+□ Mark "FRAGILE - DISHES - THIS SIDE UP"
+
+Pantry Items:
+□ Check expiration dates
+□ Seal open containers
+□ Group by type
+□ Note if refrigerated items (special handling)
+
+Small Appliances:
+□ Photo with model/serial number
+□ Wrap cords separately
+□ Pad with bubble wrap
+□ Original boxes preferred
+
+5.3 BEDROOM PACKING
+Clothing:
+□ Hanging clothes in wardrobe boxes
+□ Folded clothes in standard boxes
+□ Separate by owner if possible
+□ Note if dry clean only
+
+Linens:
+□ Clean linens in boxes
+□ Affected linens bagged separately for cleaning
+
+Furniture:
+□ Photo all sides
+□ Wrap in moving blankets
+□ Protect corners
+□ Remove loose items from drawers
+
+5.4 ELECTRONICS PACKING
+□ Photo all connections before unplugging
+□ Photo model/serial numbers
+□ Wrap cords, label which device
+□ Pad heavily with bubble wrap
+□ Original boxes if available
+□ Mark "FRAGILE - ELECTRONICS"
+
+5.5 ARTWORK & PICTURES
+□ Photo each piece
+□ Wrap in paper, then bubble wrap
+□ Mirror/picture boxes for framed items
+□ Stand upright, never lay flat
+□ Mark "FRAGILE - GLASS"
+
+5.6 BOOKS & DOCUMENTS
+□ Pack books spine down
+□ Alternate direction for stability
+□ Don't overfill boxes (get heavy quick)
+□ Important documents in separate labeled box
+
+═══════════════════════════════════════════════════════════
+
+PHASE 6: SPECIALTY ITEMS
+
+6.1 ANTIQUES & VALUABLES
+□ Individual photos and documentation
+□ Customer review before packing
+□ Professional packing materials
+□ Separate inventory list
+□ Climate-controlled storage if needed
+
+6.2 ELECTRONICS & COMPUTERS
+□ Photo all connections
+□ Unplug properly
+□ Anti-static wrap if available
+□ Note which cables go with which devices
+□ Customer backup data before pack-out
+
+6.3 ARTWORK & COLLECTIBLES
+□ Individual appraisal recommended
+□ Museum-quality packing if high value
+□ Climate-controlled storage
+□ Restoration specialist consultation if damaged
+
+═══════════════════════════════════════════════════════════
+
+PHASE 7: LOADING & TRANSPORT
+
+7.1 LOADING PROCEDURES
+□ Load heaviest boxes on bottom
+□ Stack boxes of same size
+□ Fragile boxes on top
+□ Secure load with straps
+□ No shifting during transport
+
+7.2 TRANSPORT LOG
+□ Date/time loaded
+□ Number of boxes
+□ Condition of items at loading
+□ Driver name
+□ Destination
+□ Mileage/route
+
+7.3 DELIVERY TO FACILITY
+□ Climate-controlled area
+□ Organized by customer/job number
+□ Maintain room groupings
+□ Secure storage
+□ Pest-free environment
+
+═══════════════════════════════════════════════════════════
+
+PHASE 8: STORAGE MANAGEMENT
+
+8.1 FACILITY ORGANIZATION
+□ Assign storage area by job number
+□ Keep contents from same job together
+□ Maintain climate control
+□ Regular pest control
+□ Security system
+
+8.2 INVENTORY TRACKING
+□ Digital inventory system entry
+□ Box location in facility noted
+□ Condition code visible
+□ Cleaning status tracked
+□ Return date projected
+
+═══════════════════════════════════════════════════════════
+
+PHASE 9: CONTENT CLEANING
+
+9.1 CLEANING TRIAGE
+Sort by cleaning method needed:
+- Dry clean only
+- Wet clean
+- Ozone treatment
+- Specialty restoration
+- Discard (non-salvageable)
+
+9.2 CLEANING PROCEDURES
+□ Follow manufacturer recommendations
+□ Test cleaning methods on inconspicuous areas
+□ Document cleaning process
+□ Photo before/after cleaning
+□ Quality control inspection
+
+═══════════════════════════════════════════════════════════
+
+PHASE 10: PACK-BACK & RETURN
+
+10.1 RETURN PREPARATION
+□ Coordinate with customer on timing
+□ Verify reconstruction complete
+□ Clean items inspected
+□ Organize boxes by room
+□ Update inventory status
+
+10.2 DELIVERY PROCESS
+□ Schedule delivery window with customer
+□ Customer present for delivery
+□ Unpack and place items where customer directs
+□ Remove all packing materials
+□ Conduct walkthrough with customer
+□ Obtain sign-off on inventory return
+
+10.3 FINAL INVENTORY RECONCILIATION
+□ Check off all returned items
+□ Note any damaged items
+□ Note any non-salvageable items
+□ Customer signature on final inventory
+□ Address any concerns immediately
+
+═══════════════════════════════════════════════════════════
+
+CRITICAL REMINDERS:
+
+📸 Photo EVERYTHING - before touching, during packing, after packing
+📋 Inventory accuracy prevents disputes later
+🏷️ Condition codes protect both you and customer
+📦 Pack quality = customer satisfaction
+🔍 High-value items get extra documentation
+⏱️ Communication with customer throughout process
+✅ Customer signature at every major step
+
+═══════════════════════════════════════════════════════════
+
+COMMON MISTAKES TO AVOID:
+
+❌ Not photographing items "as they lie" before packing
+❌ Poor labeling resulting in wrong room returns
+❌ Not noting pre-existing damage (blame later)
+❌ Over-packing boxes (breakage and safety)
+❌ Not getting customer sign-off on inventory
+❌ Mixing rooms in same box
+❌ Not condition coding items
+❌ Inadequate packing materials for fragile items
+
+═══════════════════════════════════════════════════════════
+
+Version 1.0 - Ready Companies Training Platform
+For questions, contact your Ready Companies supervisor.
+`
+                },
+
+                'reconstruction-workflow-sop': {
+                    name: 'Ready_Reconstruction_Workflow_SOP.txt',
+                    content: `READY COMPANIES
+RECONSTRUCTION WORKFLOW STANDARD OPERATING PROCEDURE
+From Estimate to Certificate of Completion
+
+═══════════════════════════════════════════════════════════
+
+PHASE 1: TRANSITION FROM MITIGATION TO RECONSTRUCTION
+
+1.1 MITIGATION COMPLETION VERIFICATION
+□ Certificate of Completion received from mitigation
+□ All moisture readings at dry standard
+□ All equipment removed
+□ Structure 100% dry and ready for rebuild
+□ Final mitigation photos reviewed
+
+1.2 HANDOFF DOCUMENTATION REVIEW
+□ Scope of loss documentation
+□ Moisture map history
+□ Demo documentation
+□ Material removal list
+□ Before photos (all affected areas)
+□ Estimate from mitigation (if applicable)
+
+1.3 PROJECT MANAGER ASSIGNMENT
+□ Assign PM based on project size/complexity
+□ Review all mitigation documentation
+□ Schedule initial reconstruction meeting
+□ Begin estimate preparation
+
+═══════════════════════════════════════════════════════════
+
+PHASE 2: ESTIMATING & SCOPE DEVELOPMENT
+
+2.1 ON-SITE ASSESSMENT (Post-Mitigation)
+□ Walk entire affected area
+□ Verify all demo complete
+□ Check for hidden damage not previously noted
+□ Confirm structural integrity
+□ Identify any additional scope items
+□ Take reconstruction "before" photos
+
+2.2 XACTIMATE ESTIMATE DEVELOPMENT
+□ Input all room dimensions
+□ Select appropriate material grades
+□ Include all demo already completed
+□ Include all reconstruction line items
+□ Apply local pricing
+□ Include O&P (Overhead & Profit)
+□ Review for accuracy
+□ Export estimate PDF
+
+2.3 SCOPE OF WORK DOCUMENT
+Create detailed SOW including:
+□ Project address and insured information
+□ Detailed description of work
+□ Materials to be used (with specifications)
+□ Timeline estimate
+□ Payment terms
+□ Change order process
+
+═══════════════════════════════════════════════════════════
+
+PHASE 3: ESTIMATE APPROVAL & AUTHORIZATION
+
+3.1 CUSTOMER PRESENTATION
+□ Schedule estimate review meeting
+□ Walk property with estimate in hand
+□ Explain each line item
+□ Answer customer questions
+□ Discuss material selections
+□ Review timeline and payment schedule
+
+3.2 INSURANCE ADJUSTER COORDINATION
+□ Submit estimate to adjuster
+□ Schedule adjuster walkthrough if needed
+□ Address any pricing discrepancies
+□ Negotiate supplements if required
+□ Obtain approval letter
+
+3.3 CONTRACT EXECUTION
+□ Finalize scope of work
+□ Present contract to customer
+□ Review payment terms
+□ Obtain customer signature
+□ Provide copy to customer
+
+═══════════════════════════════════════════════════════════
+
+PHASE 4: PRE-CONSTRUCTION
+
+4.1 PERMIT ACQUISITION
+□ Determine if permits required
+□ Prepare permit application
+□ Submit plans if needed
+□ Pay permit fees
+□ Post permit on site
+□ Schedule inspections
+
+4.2 MATERIAL ORDERING
+□ Create detailed material list from estimate
+□ Order long-lead items first
+□ Verify material specifications match estimate
+□ Confirm delivery dates
+□ Arrange delivery logistics
+
+4.3 SUBCONTRACTOR COORDINATION
+Schedule subcontractors:
+□ Electrician (rough-in date)
+□ Plumber (rough-in date)
+□ HVAC (rough-in date)
+□ Insulation (after rough-ins)
+□ Drywall (after insulation)
+□ Flooring (after paint)
+
+4.4 PROJECT SCHEDULE DEVELOPMENT
+□ Create detailed timeline
+□ Identify critical path items
+□ Build in buffer for delays
+□ Communicate schedule to customer
+
+═══════════════════════════════════════════════════════════
+
+PHASE 5: CONSTRUCTION EXECUTION
+
+5.1 WEEK 1 - FRAMING & ROUGH-INS
+□ Site protection setup
+□ Rough framing installation
+□ Rough-in electrical, plumbing, HVAC
+□ Inspection (if required)
+□ Photo document all work
+
+5.2 WEEK 2 - INSULATION & DRYWALL
+□ Install insulation
+□ Inspection (if required)
+□ Hang drywall
+□ Photo document
+
+5.3 WEEK 3 - DRYWALL FINISH
+□ Mud and tape drywall
+□ Sand smooth
+□ Texture application
+□ Prime all new drywall
+
+5.4 WEEK 4 - PAINT & PREP
+□ Paint walls and ceilings
+□ Paint trim
+□ Floor prep for installation
+
+5.5 WEEK 5 - FLOORING & TRIM
+□ Install flooring
+□ Install baseboards and trim
+□ Install doors and hardware
+
+5.6 WEEK 6 - FINAL FIXTURES & PUNCH
+□ Install light and plumbing fixtures
+□ Final caulking and touch-up
+□ Punch list completion
+
+═══════════════════════════════════════════════════════════
+
+PHASE 6: QUALITY CONTROL
+
+6.1 DAILY QC CHECKS
+□ Take daily progress photos
+□ Check work quality each day
+□ Verify materials match estimate
+□ Address issues immediately
+□ Document corrections made
+
+6.2 PRE-FINAL WALKTHROUGH
+□ Complete all punch list items
+□ Clean entire work area
+□ Touch up any scuffs/marks
+□ Test all fixtures
+□ Take final photos
+
+═══════════════════════════════════════════════════════════
+
+PHASE 7: PROJECT COMPLETION
+
+7.1 CUSTOMER FINAL WALKTHROUGH
+□ Walk entire project with customer
+□ Demonstrate all new fixtures
+□ Answer any questions
+□ Note any concerns
+□ Address minor items immediately
+
+7.2 CERTIFICATE OF COMPLETION
+□ Obtain customer signature on COC
+□ Request testimonial/review
+□ Provide warranty information
+□ Leave product documentation
+
+7.3 FINAL BILLING & CLOSEOUT
+□ Submit final invoice
+□ Process final payment
+□ Archive project file
+
+═══════════════════════════════════════════════════════════
+
+CHANGE ORDER MANAGEMENT
+
+When scope changes occur:
+□ Document change immediately
+□ Photo document reason
+□ Create change order form
+□ Never proceed without approval
+
+═══════════════════════════════════════════════════════════
+
+CRITICAL REMINDERS:
+
+📸 Photo document EVERYTHING at every phase
+📋 Signed change orders prevent payment disputes
+🎯 Quality control catches problems early
+⏱️ Communicate delays immediately
+💰 Job costing weekly prevents profit loss
+✅ Never skip permit requirements
+
+═══════════════════════════════════════════════════════════
+
+Version 1.0 - Ready Companies Training Platform
+For questions, contact your Ready Companies supervisor.
+`
+                },
+
+                'xactimate-estimating-sop': {
+                    name: 'Ready_Xactimate_Estimating_SOP.txt',
+                    content: `READY COMPANIES
+XACTIMATE ESTIMATING STANDARD OPERATING PROCEDURE
+Creating Accurate, Defensible Estimates
+
+═══════════════════════════════════════════════════════════
+
+PURPOSE:
+Ensure consistent, accurate estimates that capture all work,
+use appropriate pricing, and get approved by insurance adjusters.
+
+═══════════════════════════════════════════════════════════
+
+PHASE 1: PROJECT SETUP
+
+1.1 CREATE NEW ESTIMATE
+□ File > New Estimate
+□ Enter property address and insured name
+□ Enter claim number and date of loss
+□ Select local price list
+
+1.2 SKETCH CREATION
+□ Measure all affected rooms accurately
+□ Label each room appropriately
+□ Note ceiling heights
+□ Mark doors and windows with dimensions
+
+═══════════════════════════════════════════════════════════
+
+PHASE 2: LINE ITEM SELECTION
+
+DEMOLITION:
+□ Always use "R&R" when replacing
+□ R&R includes both removal AND replacement
+□ Separate "Remove" only when not replacing
+
+DRYWALL:
+□ Specify thickness: 1/2" or 5/8"
+□ R&R DRY - 1/2" for walls
+□ R&R DRY - 5/8" for ceilings
+□ Always include texture and paint
+
+INSULATION:
+□ Specify R-value (R-13, R-19, R-30)
+□ Must match local code minimum
+
+FLOORING - CARPET:
+□ Specify grade (Budget, Standard, Premium)
+□ Include carpet AND pad
+□ Include transition strips
+
+FLOORING - HARDWOOD:
+□ Specify species and grade
+□ Specify width (2-1/4", 3-1/4", etc.)
+□ Include sand and finish if applicable
+
+FLOORING - TILE:
+□ Specify size (12x12, 18x18, etc.)
+□ Include thin-set, grout, installation
+
+PAINT:
+□ Always include prime + 2 coats
+□ Specify sheen (flat, eggshell, semi-gloss)
+□ Interior vs Exterior
+
+TRIM/BASEBOARDS:
+□ Specify profile and material
+□ Include material, installation, prime and paint
+
+DOORS:
+□ Specify style and material
+□ Include casing both sides
+□ Include hardware
+□ Include prime and paint
+
+═══════════════════════════════════════════════════════════
+
+PHASE 3: QUANTITIES & MEASUREMENTS
+
+3.1 ACCURATE TAKEOFFS
+□ Use sketch for auto-calculated quantities
+□ Verify auto-calculated quantities
+□ Add waste factor where appropriate:
+   - Flooring: 10% waste
+   - Tile: 15% waste
+   - Hardwood: 10-15% waste
+
+3.2 UNITS OF MEASURE
+- SQ = 100 square feet (roofing)
+- EA = Each (individual items)
+- LF = Linear Foot (trim, baseboards)
+- SF = Square Foot (flooring, drywall)
+- SY = Square Yard (carpet)
+- CY = Cubic Yard (concrete, debris)
+
+3.3 COMMON ERRORS TO AVOID
+❌ Don't forget both sides of walls for paint
+❌ Don't forget ceiling height affects wall area
+❌ Don't forget to subtract door/window openings
+❌ Don't forget transition strips between rooms
+
+═══════════════════════════════════════════════════════════
+
+PHASE 4: PRICING ACCURACY
+
+4.1 MATERIAL GRADE SELECTION
+Use photos to select appropriate grade:
+
+BUDGET: Builder-grade, basic finishes
+STANDARD: Mid-grade, typical residential
+PREMIUM: High-end, luxury products
+
+4.2 OVERHEAD & PROFIT (O&P)
+□ 10% Overhead + 10% Profit = 20% total
+□ Applied to subtotal of all line items
+□ Formula: (Subtotal × 1.10) × 1.10 = Total
+
+═══════════════════════════════════════════════════════════
+
+PHASE 5: ESTIMATE REVIEW & QC
+
+COMPLETENESS CHECK:
+□ All rooms in sketch
+□ All affected areas included
+□ All materials specified with grade
+□ All demo and reconstruction items listed
+□ Permits included if needed
+□ Dumpster/trash-out included
+
+ACCURACY CHECK:
+□ Quantities look reasonable
+□ Material grades match photos
+□ No duplicate line items
+□ Math checks out
+□ O&P applied correctly
+
+PRESENTATION:
+□ Professional appearance
+□ Clear room labels
+□ Organized by room/area
+□ Photos attached
+□ Sketch attached
+
+═══════════════════════════════════════════════════════════
+
+PHASE 6: SUPPLEMENT PROCEDURES
+
+6.1 DOCUMENTING SUPPLEMENTS
+□ Photo document new damage
+□ Note why not in original estimate
+□ Create detailed description
+□ Explain reasoning to adjuster
+
+6.2 COMMON SUPPLEMENT SCENARIOS
+- Hidden damage behind walls
+- Mold discovered during demo
+- Structural damage not visible initially
+- Code upgrade requirements
+
+═══════════════════════════════════════════════════════════
+
+CRITICAL REMINDERS:
+
+📸 Photos = proper material grade selection
+📏 Accurate measurements = accurate estimates
+💰 Correct O&P = profitability
+✅ Peer review = fewer errors
+📋 Complete estimates = faster approval
+
+═══════════════════════════════════════════════════════════
+
+XACTIMATE SHORTCUTS:
+- Ctrl+N: New estimate
+- Ctrl+S: Save
+- Ctrl+F: Find line item
+- F2: Edit line item
+- Delete: Remove line item
+
+═══════════════════════════════════════════════════════════
+
+Version 1.0 - Ready Companies Training Platform
+For questions, contact your Ready Companies supervisor.
+`
+                },
+
+                'customer-communication-sop': {
+                    name: 'Ready_Customer_Communication_SOP.txt',
+                    content: `READY COMPANIES
+CUSTOMER COMMUNICATION STANDARD OPERATING PROCEDURE
+Excellence in Every Interaction
+
+═══════════════════════════════════════════════════════════
+
+THE READY STANDARD:
+Every customer interaction should leave them feeling:
+✓ Informed
+✓ Confident
+✓ Valued
+✓ Heard
+
+═══════════════════════════════════════════════════════════
+
+PHASE 1: INITIAL CONTACT (Emergency Call)
+
+1.1 ANSWERING THE CALL (Within 2 rings)
+"Thank you for calling Ready Companies, this is [NAME]. 
+How can I help you today?"
+
+□ Speak clearly and professionally
+□ Use customer's name once learned
+□ Express empathy for their emergency
+□ Remain calm and reassuring
+
+1.2 GATHERING CRITICAL INFORMATION
+□ "What is your name?"
+□ "What is the property address?"
+□ "What type of damage occurred?"
+□ "When did this happen?"
+□ "Is the source stopped?"
+□ "Do you have insurance?"
+
+1.3 SETTING EXPECTATIONS
+□ "We can have a team there within 2 hours"
+□ "Here's what to expect when we arrive..."
+□ "Our technician will call 30 minutes before arrival"
+
+═══════════════════════════════════════════════════════════
+
+PHASE 2: ON-SITE ARRIVAL
+
+2.1 FIRST IMPRESSION
+□ Arrive in clean, logo'd vehicle
+□ Wear clean uniform with name tag
+□ Introduce yourself professionally
+
+2.2 INITIAL WALKTHROUGH
+□ "Let me take a look and explain everything I find"
+□ Think out loud (appropriate level)
+□ Point out what you're seeing
+□ Answer questions patiently
+
+2.3 ASSESSMENT SUMMARY
+□ Sit down with customer
+□ Review what you found
+□ Explain what needs to be done
+□ Discuss timeline and next steps
+□ Get authorization to proceed
+
+═══════════════════════════════════════════════════════════
+
+PHASE 3: DAILY COMMUNICATION
+
+EVERY DAY OF ACTIVE WORK:
+□ Call or text customer by 5pm
+□ Report progress
+□ Share today's readings
+□ Explain tomorrow's plan
+
+Update Template:
+"Hi [NAME], wanted to update you on today's progress. 
+We [WHAT WAS DONE]. The readings show [PROGRESS]. 
+Tomorrow we'll [NEXT STEPS]. Any questions?"
+
+═══════════════════════════════════════════════════════════
+
+PHASE 4: WHEN RUNNING LATE
+
+If delayed >30 minutes:
+□ Call BEFORE you're late
+□ Explain situation honestly
+□ Give revised ETA
+□ Apologize for inconvenience
+
+═══════════════════════════════════════════════════════════
+
+PHASE 5: DIFFICULT CONVERSATIONS
+
+WHEN CUSTOMER IS UPSET:
+
+DO:
+□ Listen without interrupting
+□ Acknowledge their feelings
+□ Empathize sincerely
+□ Take ownership
+□ Explain what you'll do to fix it
+
+DON'T:
+□ Get defensive
+□ Make excuses
+□ Blame others
+□ Argue
+
+Script:
+"I understand you're frustrated, and I would be too. 
+Let me see what I can do to make this right."
+
+WHEN YOU MADE A MISTAKE:
+□ Admit it immediately
+□ Don't make excuses
+□ Apologize sincerely
+□ Explain how you'll fix it
+
+═══════════════════════════════════════════════════════════
+
+PHASE 6: INSURANCE COMMUNICATION
+
+DO SAY:
+□ "Your insurance should cover this"
+□ "We'll work with your adjuster"
+□ "We'll help document everything"
+
+DON'T SAY:
+□ "Insurance will definitely pay" (not your call)
+□ "You won't pay anything" (deductible exists)
+□ "Insurance always covers this" (policies vary)
+
+═══════════════════════════════════════════════════════════
+
+PHASE 7: PROJECT COMPLETION
+
+7.1 FINAL WALKTHROUGH
+□ "Let's walk through everything together"
+□ "Please let me know if you see anything to address"
+□ "Here's how everything works..."
+
+7.2 REQUESTING REVIEWS
+Only ask if project went well:
+"If you were happy with our work, would you mind 
+leaving us a review? Here's a card with the link."
+
+═══════════════════════════════════════════════════════════
+
+FORBIDDEN PHRASES
+
+NEVER SAY:
+❌ "That's not my job"
+❌ "I don't know" (without adding "but I'll find out")
+❌ "That's impossible"
+❌ "It's not our fault"
+
+INSTEAD SAY:
+✓ "Let me find the right person to help"
+✓ "Great question - let me find out and get back to you"
+✓ "Here's what we can do..."
+✓ "We'll take care of it"
+
+═══════════════════════════════════════════════════════════
+
+CRITICAL REMINDERS:
+
+📞 Return calls within 4 hours
+💬 Daily updates keep customers happy
+😊 Positive attitude is contagious
+🎯 Under-promise, over-deliver
+⏱️ Communicate delays BEFORE you're late
+✅ Follow through on every commitment
+
+═══════════════════════════════════════════════════════════
+
+Remember: Technical skill gets the job done.
+Communication skill gets you referred.
+
+═══════════════════════════════════════════════════════════
+
+Version 1.0 - Ready Companies Training Platform
+For questions, contact your Ready Companies supervisor.
+`
+                },
+
+                'safety-ppe-sop': {
+                    name: 'Ready_Safety_PPE_Protocols_SOP.txt',
+                    content: `READY COMPANIES
+SAFETY & PPE PROTOCOLS STANDARD OPERATING PROCEDURE
+
+═══════════════════════════════════════════════════════════
+
+SAFETY FIRST - ALWAYS
+
+No job is so important that we cannot take time to do it safely.
+If you see something unsafe, STOP WORK and address it.
+
+═══════════════════════════════════════════════════════════
+
+PHASE 1: DAILY SAFETY REQUIREMENTS
+
+EVERY DAY, EVERY JOB:
+□ Inspect PPE before use
+□ Identify hazards before starting work
+□ Communicate hazards to team
+□ Have first aid kit accessible
+□ Know emergency exit routes
+□ Have fire extinguisher on site
+
+═══════════════════════════════════════════════════════════
+
+PHASE 2: PPE BY JOB TYPE
+
+WATER MITIGATION (Category 1 - Clean Water):
+□ Safety glasses
+□ Work gloves
+□ Steel-toe boots
+□ Hearing protection (if using loud equipment)
+
+WATER MITIGATION (Category 2 - Gray Water):
+□ Safety glasses
+□ Nitrile gloves (double layer recommended)
+□ Steel-toe boots
+□ Respirator (N95 minimum)
+□ Long sleeves and pants
+
+WATER MITIGATION (Category 3 - Black Water):
+□ Full-face respirator with P100 filters
+□ Full Tyvek suit or rubber coveralls
+□ Rubber boots
+□ Nitrile gloves (double layer, taped to suit)
+□ Eye protection under respirator
+
+FIRE & SMOKE RESTORATION:
+⚠️ MANDATORY FULL PPE:
+□ Respirator with P100 filters (minimum)
+□ Disposable Tyvek coveralls
+□ Nitrile gloves (double layer)
+□ Safety glasses
+□ Boot covers
+□ Soot is CARCINOGENIC - protect yourself!
+
+MOLD REMEDIATION:
+□ Full-face respirator with P100 filters
+□ Disposable coveralls
+□ Nitrile gloves (double layer, taped)
+□ Boot covers
+□ Never eat or drink in contaminated area
+
+DEMOLITION:
+□ Hard hat
+□ Safety glasses
+□ Dust mask (N95 minimum)
+□ Work gloves
+□ Steel-toe boots
+□ Hearing protection
+
+RECONSTRUCTION:
+□ Hard hat (if overhead work)
+□ Safety glasses
+□ Work gloves appropriate to task
+□ Steel-toe boots
+□ Hearing protection (power tools)
+
+═══════════════════════════════════════════════════════════
+
+PHASE 3: ELECTRICAL SAFETY
+
+BEFORE WORKING IN WET AREAS:
+□ Turn off electricity at breaker
+□ Test outlets with voltage tester
+□ NEVER stand in water with electricity on
+□ Use GFCI protected outlets
+
+EXTENSION CORDS:
+□ Inspect for damage before use
+□ Never run through water
+□ Never overload circuits
+□ Keep cords away from traffic areas
+
+═══════════════════════════════════════════════════════════
+
+PHASE 4: CHEMICAL SAFETY
+
+BEFORE USING ANY CHEMICAL:
+□ Read Safety Data Sheet (SDS)
+□ Wear appropriate PPE
+□ Ensure adequate ventilation
+□ Never mix chemicals unless directed
+□ Know location of eyewash station
+
+COMMON CHEMICALS:
+- Bleach: Gloves, eye protection, ventilation
+- Disinfectants: Read label for PPE requirements
+- Solvents: Respirator, gloves, ventilation
+- Acids: Face shield, chemical gloves, apron
+
+═══════════════════════════════════════════════════════════
+
+PHASE 5: LADDER SAFETY
+
+EVERY TIME YOU USE A LADDER:
+□ Inspect for damage
+□ Set on level, stable surface
+□ Maintain 3-point contact
+□ Never stand on top 2 rungs
+□ Face ladder when climbing
+□ Don't overreach - move ladder instead
+□ Have someone stabilize if possible
+
+═══════════════════════════════════════════════════════════
+
+PHASE 6: LIFTING & ERGONOMICS
+
+PROPER LIFTING TECHNIQUE:
+□ Bend at knees, not waist
+□ Keep load close to body
+□ Lift with legs, not back
+□ Don't twist while lifting
+□ Ask for help if load >50 lbs
+□ Use equipment (dollies, carts) when possible
+
+═══════════════════════════════════════════════════════════
+
+PHASE 7: VEHICLE SAFETY
+
+BEFORE DRIVING:
+□ Do vehicle walk-around inspection
+□ Check fluid levels
+□ Secure all equipment and materials
+□ Clean windshield
+□ Adjust mirrors
+
+WHILE DRIVING:
+□ Obey all traffic laws
+□ No phone use while driving
+□ Wear seatbelt
+□ Allow extra stopping distance
+□ Drive defensively
+
+═══════════════════════════════════════════════════════════
+
+PHASE 8: SITE SAFETY
+
+CUSTOMER'S HOME:
+□ Use floor protection
+□ Protect furnishings
+□ Keep work area clean
+□ No smoking on property
+□ Respect customer's belongings
+
+WORK SITE:
+□ Keep exits clear
+□ Store materials safely
+□ Clean up trip hazards immediately
+□ Proper disposal of sharps/debris
+□ Lock up tools and equipment
+
+═══════════════════════════════════════════════════════════
+
+PHASE 9: EMERGENCY PROCEDURES
+
+INJURY ON SITE:
+1. Stop work immediately
+2. Provide first aid if trained
+3. Call 911 if serious
+4. Notify supervisor immediately
+5. Complete incident report
+6. Preserve scene if serious injury
+
+FIRE:
+1. Alert everyone - evacuate
+2. Call 911
+3. Use fire extinguisher only if:
+   - Fire is small
+   - You're trained
+   - You have clear exit
+4. Never fight large fires
+
+CHEMICAL EXPOSURE:
+1. Remove from exposure
+2. Flush with water (eyes: 15 min minimum)
+3. Call Poison Control: 1-800-222-1222
+4. Have SDS available for medical personnel
+
+═══════════════════════════════════════════════════════════
+
+PHASE 10: HAZARD RECOGNITION
+
+STOP WORK IF YOU SEE:
+□ Structural instability
+□ Live electrical in wet areas
+□ Asbestos-containing materials (suspected)
+□ Lead paint (homes built pre-1978)
+□ Gas smell
+□ Biological hazards
+□ Unsafe working conditions
+
+Report to supervisor immediately - do NOT proceed.
+
+═══════════════════════════════════════════════════════════
+
+CRITICAL SAFETY REMINDERS:
+
+🚨 Cat 3 water is SEWAGE - full PPE required
+⚡ Turn off power before working in wet areas
+🎭 Soot is carcinogenic - ALWAYS wear respirator
+🧤 Double glove for contaminated water
+⛑️ Hard hats required for demolition
+🚫 NEVER mix chemicals
+📞 When in doubt, call supervisor
+
+═══════════════════════════════════════════════════════════
+
+YOUR SAFETY IS YOUR RESPONSIBILITY
+
+You have the right and obligation to refuse unsafe work.
+No production goal is worth an injury.
+
+If it's not safe, don't do it.
+
+═══════════════════════════════════════════════════════════
+
+Version 1.0 - Ready Companies Training Platform
+For questions, contact your Ready Companies supervisor.
+`
+                },
+
+                'job-mitigation-tech': {
+                    name: 'Ready_Job_Description_Mitigation_Technician.txt',
+                    content: `JOB DESCRIPTION: MITIGATION TECHNICIAN
+Company: [Your Company Name]
+Department: Mitigation / Emergency Services
+
+═══════════════════════════════════════════════════════════
+
+POSITION OVERVIEW
+
+We're looking for dependable and motivated Mitigation Technicians to join our field team. You'll work under the direction of a Project Manager to perform the hands-on work of water extraction, demolition, equipment setup, and cleanup. You'll help customers through one of the most stressful events in their lives—and make a real difference every day.
+
+═══════════════════════════════════════════════════════════
+
+CORE RESPONSIBILITIES
+
+□ Perform water extraction, demolition, and cleanup of affected areas
+□ Set up and monitor drying equipment including air movers and dehumidifiers
+□ Follow IICRC standards and company protocols for effective mitigation
+□ Take moisture readings and document progress using company software
+□ Assist with packing out and protecting customer belongings
+□ Maintain a clean, professional jobsite and positive customer experience
+□ Communicate with Project Manager and team throughout each job
+□ Participate in on-call rotation for emergency response work
+□ Load/unload trucks and maintain equipment
+□ Follow all safety protocols and PPE requirements
+
+═══════════════════════════════════════════════════════════
+
+QUALIFICATIONS
+
+REQUIRED:
+□ High school diploma or GED
+□ Strong work ethic and willingness to learn
+□ Ability to lift 50+ lbs and work in attics, crawlspaces, or confined areas
+□ Positive attitude and good communication skills
+□ Valid driver's license and clean driving record
+□ Reliable transportation
+□ Willingness to work after-hours and weekends (on-call rotation)
+□ Pass background check and drug screening
+
+PREFERRED:
+□ Restoration or construction experience
+□ IICRC certifications (WRT, ASD)
+□ Experience with power tools and equipment
+□ Bilingual English/Spanish
+
+═══════════════════════════════════════════════════════════
+
+COMPENSATION & BENEFITS
+
+💵 Competitive hourly wage + overtime
+💸 On-call pay and performance bonuses
+📱 Company phone or tablet access
+📚 Paid IICRC training & certifications
+🛠️ Tools, equipment, and uniforms provided
+🩺 Health insurance & retirement options
+🌴 PTO & holidays
+🚀 Clear path for advancement to Lead Tech or Project Manager
+
+═══════════════════════════════════════════════════════════
+
+WORKING CONDITIONS
+
+□ Fast-paced emergency response environment
+□ Work in various conditions (wet, dirty, damaged structures)
+□ Exposure to Category 1, 2, and 3 water (with proper PPE)
+□ Standing, bending, climbing for extended periods
+□ Work in residential and commercial properties
+□ Some travel within service area
+□ Flexible schedule including nights, weekends, holidays
+
+═══════════════════════════════════════════════════════════
+
+PERFORMANCE METRICS
+
+□ Job completion time vs. estimate
+□ Equipment setup accuracy and quality
+□ Documentation completeness
+□ Customer feedback scores
+□ Safety compliance record
+□ Attendance and reliability
+□ Teamwork and communication
+
+═══════════════════════════════════════════════════════════
+
+CAREER PATH
+
+Entry: Mitigation Technician
+↓
+Lead Mitigation Technician
+↓
+Project Manager - Mitigation
+↓
+Department Manager
+
+We promote from within and invest in developing great people!
+
+═══════════════════════════════════════════════════════════
+
+[Company Name] is an Equal Opportunity Employer
+`
+                },
+
+                'job-mitigation-pm': {
+                    name: 'Ready_Job_Description_Project_Manager_Mitigation.txt',
+                    content: `JOB DESCRIPTION: PROJECT MANAGER - MITIGATION
+Company: [Your Company Name]
+Department: Mitigation / Emergency Services
+
+═══════════════════════════════════════════════════════════
+
+POSITION OVERVIEW
+
+We're looking for a top-performing Project Manager to join our mitigation team. In this role, you'll be the first person onsite after a water, fire, or storm event. You'll be responsible for assessing the damage, closing the sale, and managing every aspect of the mitigation project from start to finish. That includes overseeing technicians, communicating with customers, capturing documentation, and preparing files for insurance submission.
+
+This is a fast-paced, field-based position that requires leadership, technical knowledge, and people skills. The right candidate is equal parts closer, coach, and chaos-calmer.
+
+═══════════════════════════════════════════════════════════
+
+CORE RESPONSIBILITIES
+
+SALES & CUSTOMER RELATIONS:
+□ Close mitigation jobs onsite with homeowners and property managers
+□ Build rapport and trust with customers during crisis situations
+□ Conduct damage assessments and explain scope of work
+□ Provide accurate timeline and cost expectations
+□ Maintain excellent customer communication throughout project
+
+PROJECT MANAGEMENT:
+□ Manage all aspects of mitigation from dry-out to documentation
+□ Lead and support assigned field technicians
+□ Schedule work, equipment, and personnel efficiently
+□ Monitor moisture readings and adjust drying strategy as needed
+□ Ensure jobs meet timeline and profitability targets
+
+DOCUMENTATION & COMPLIANCE:
+□ Capture photos, moisture logs, and notes in real-time
+□ Follow IICRC standards and company SOPs
+□ Prepare complete job files for insurance submission
+□ Coordinate with estimators and office staff
+□ Complete Certificates of Completion with customer signatures
+
+TEAM LEADERSHIP:
+□ Train and mentor mitigation technicians
+□ Conduct daily job planning and team coordination
+□ Address performance issues and provide feedback
+□ Model professionalism and company values
+
+═══════════════════════════════════════════════════════════
+
+QUALIFICATIONS
+
+REQUIRED:
+□ 3+ years restoration or construction experience
+□ Strong closing skills with face-to-face sales experience
+□ Proven leadership managing field crews
+□ Knowledge of water mitigation tools and drying science
+□ Excellent communication and conflict resolution skills
+□ Valid driver's license and clean driving record
+□ Ability to be on call for emergency jobs
+□ Tech-savvy (job management software, moisture meters, cameras)
+
+PREFERRED:
+□ IICRC certifications (WRT, ASD required within 6 months)
+□ Xactimate experience
+□ Previous restoration Project Manager role
+□ Customer service or sales background
+
+═══════════════════════════════════════════════════════════
+
+COMPENSATION & BENEFITS
+
+💵 Competitive base salary + performance bonuses
+💸 Commissions on job sales and profitability
+🚗 Company vehicle or vehicle stipend
+📱 Company phone and tablet
+📚 Paid IICRC training & certifications
+🛠️ Tools, equipment, and uniforms provided
+🩺 Health insurance & retirement options
+🌴 PTO & holidays
+🎯 Uncapped earning potential
+
+═══════════════════════════════════════════════════════════
+
+PERFORMANCE METRICS
+
+□ Onsite sales conversion rate (target: 85%+)
+□ Cycle time (job start to dry-out complete)
+□ Customer satisfaction and review scores
+□ Documentation completeness and timeliness
+□ Project profitability and labor efficiency
+□ Revenue per job
+□ Technician development and retention
+
+═══════════════════════════════════════════════════════════
+
+WORKING CONDITIONS
+
+□ Field-based position with office coordination
+□ Emergency response 24/7 on-call rotation
+□ Work in damaged structures (wet, fire, storm)
+□ Significant driving throughout service area
+□ Flexible hours including nights and weekends
+□ Customer-facing role requiring professional appearance
+
+═══════════════════════════════════════════════════════════
+
+CAREER PATH
+
+Project Manager - Mitigation
+↓
+Senior Project Manager
+↓
+Mitigation Department Manager
+↓
+Operations Manager
+
+═══════════════════════════════════════════════════════════
+
+[Company Name] is an Equal Opportunity Employer
+`
+                },
+
+                'job-contents-supervisor': {
+                    name: 'Ready_Job_Description_Contents_Supervisor.txt',
+                    content: `JOB DESCRIPTION: CONTENTS SUPERVISOR
+Company: [Your Company Name]
+Department: Contents / Pack-Out Services
+
+═══════════════════════════════════════════════════════════
+
+POSITION OVERVIEW
+
+We are seeking a detail-oriented and organized Contents Supervisor to oversee the pack-out, handling, cleaning, and inventory of customer contents during mitigation and restoration projects. This is a hands-on leadership position that requires excellent logistics coordination, team leadership, and care for customer belongings. You'll be in charge of maintaining high-quality standards throughout the entire contents process—from onsite pack-outs to warehouse inventory.
+
+═══════════════════════════════════════════════════════════
+
+CORE RESPONSIBILITIES
+
+PACK-OUT OPERATIONS:
+□ Oversee pack-out and pack-back of personal property during restoration projects
+□ Ensure proper "as they lie" photography before touching items
+□ Direct team in proper packing techniques by item type
+□ Verify condition coding (Green/Yellow/Red) accuracy
+□ Coordinate transportation logistics to/from job sites
+
+INVENTORY MANAGEMENT:
+□ Maintain detailed and accurate inventory using contents management software
+□ Implement room/box numbering system consistently
+□ Ensure all items are photographed and documented
+□ Track item location in warehouse
+□ Manage inventory database updates
+
+CLEANING & RESTORATION:
+□ Oversee contents cleaning and deodorization processes
+□ Assign items to appropriate cleaning methods
+□ Conduct quality inspections of cleaned items
+□ Coordinate specialty restoration (electronics, artwork, etc.)
+□ Ensure proper storage conditions (climate, security)
+
+TEAM LEADERSHIP:
+□ Lead and direct team members for safe and efficient handling
+□ Train staff on proper packing, cleaning, and documentation
+□ Schedule pack-out and pack-back crews
+□ Conduct performance reviews and provide feedback
+□ Model professionalism and attention to detail
+
+CUSTOMER COMMUNICATION:
+□ Communicate with customers regarding their contents
+□ Handle sensitive situations with care and empathy
+□ Conduct final inventory reconciliation at pack-back
+□ Address customer concerns professionally
+□ Obtain signatures on inventory forms
+
+═══════════════════════════════════════════════════════════
+
+QUALIFICATIONS
+
+REQUIRED:
+□ 3+ years experience in restoration, moving, or contents handling
+□ Strong leadership and team coordination skills
+□ Excellent organizational skills and attention to detail
+□ Ability to manage multiple jobs and shifting priorities
+□ Computer skills for inventory and documentation (Excel, CRM)
+□ Valid driver's license and clean driving record
+□ Ability to lift 50+ lbs
+
+PREFERRED:
+□ IICRC Contents Processing Technician certification
+□ Experience with contents management software
+□ Restoration industry knowledge
+□ Bilingual English/Spanish
+
+═══════════════════════════════════════════════════════════
+
+COMPENSATION & BENEFITS
+
+💵 Competitive salary or hourly rate
+💸 Performance bonuses based on job volume and quality
+📱 Company phone and system access
+📚 Paid IICRC training & certifications
+🛠️ All necessary tools and equipment provided
+🩺 Health insurance & retirement options
+🌴 PTO & holidays
+
+═══════════════════════════════════════════════════════════
+
+PERFORMANCE METRICS
+
+□ Pack-out/pack-back cycle time
+□ Inventory accuracy rate
+□ Customer satisfaction scores
+□ Item damage/loss rate
+□ Documentation completeness
+□ Team productivity and morale
+□ On-time delivery percentage
+
+═══════════════════════════════════════════════════════════
+
+WORKING CONDITIONS
+
+□ Warehouse and residential/commercial job sites
+□ Physically demanding (lifting, bending, standing)
+□ Work with damaged and contaminated items (with PPE)
+□ Climate-controlled warehouse environment
+□ Some weekend and after-hours work
+□ Travel to job sites in service area
+
+═══════════════════════════════════════════════════════════
+
+CAREER PATH
+
+Contents Supervisor
+↓
+Contents Department Manager
+↓
+Operations Manager
+
+═══════════════════════════════════════════════════════════
+
+[Company Name] is an Equal Opportunity Employer
+`
+                },
+
+                'job-mitigation-admin': {
+                    name: 'Ready_Job_Description_Mitigation_Administrator.txt',
+                    content: `JOB DESCRIPTION: MITIGATION ADMINISTRATOR
+Company: [Your Company Name]
+Department: Mitigation / Administrative Support
+
+═══════════════════════════════════════════════════════════
+
+POSITION OVERVIEW
+
+The Mitigation Administrator is responsible for overseeing the administrative health of all active and completed mitigation jobs. You'll be the engine behind invoicing accuracy, documentation compliance, and successful collections from insurance carriers. This role requires strong organization, persuasive communication skills, and a fearless attitude when it comes to pushing for full invoice approvals.
+
+You'll work closely with project managers, technicians, estimators, and adjusters to ensure nothing slips through the cracks—from photo uploads to moisture logs to Xactimate invoices.
+
+═══════════════════════════════════════════════════════════
+
+CORE RESPONSIBILITIES
+
+JOB DOCUMENTATION & COMPLIANCE:
+□ Review job files daily to ensure all documentation is complete and accurate
+□ Flag missing or incorrect items to field staff and ensure timely corrections
+□ Maintain up-to-date file progress in internal systems (Job-Dox, CRM, etc.)
+□ Ensure all job statuses reflect current stage in workflow
+□ Verify photos, moisture readings, and notes meet insurance standards
+□ Audit job files before submission to carriers
+
+INVOICING & CARRIER COMMUNICATION:
+□ Prepare and submit mitigation invoices to insurance carriers
+□ Follow up persistently with adjusters to secure approvals and payments
+□ Respond to carrier inquiries or pushbacks with clarity and professionalism
+□ Appeal invoice reductions when appropriate using proper justification
+□ Track invoice aging and payment status across all jobs
+□ Escalate non-payment issues to management
+
+INTERNAL COORDINATION:
+□ Collaborate with mitigation project managers to ensure efficient job closeouts
+□ Coordinate with accounting team on billing, collections, and financial reporting
+□ Serve as resource for field staff on documentation best practices
+□ Update project management systems with current information
+□ Support estimators with scope verification
+
+═══════════════════════════════════════════════════════════
+
+QUALIFICATIONS
+
+REQUIRED:
+□ 3+ years in insurance billing, invoicing, or administrative support
+□ Exceptionally organized with ability to manage multiple open files
+□ Strong written and verbal communication skills
+□ Comfortable communicating with insurance adjusters
+□ Detail-oriented with high sense of urgency and follow-through
+□ Tech-savvy with project management and CRM software experience
+□ Proficiency in Microsoft Office (Excel, Word, Outlook)
+
+PREFERRED:
+□ Restoration industry experience
+□ Working knowledge of Xactimate
+□ Experience with insurance mitigation billing practices
+□ Familiarity with Job-Dox or similar platforms
+□ Understanding of IICRC standards and documentation requirements
+
+═══════════════════════════════════════════════════════════
+
+COMPENSATION & BENEFITS
+
+💵 Competitive hourly or salary rate
+💸 Performance bonuses based on collections
+📱 Company phone or system access provided
+🩺 Health, dental, vision, and retirement benefits
+🌴 PTO and paid holidays
+📚 Training on Xactimate, insurance processes, and restoration workflows
+
+═══════════════════════════════════════════════════════════
+
+PERFORMANCE METRICS
+
+□ Invoice approval rate (target: 95%+)
+□ Average days to invoice submission
+□ Average days to payment collection
+□ Documentation compliance rate
+□ Carrier communication response time
+□ Job file accuracy
+□ Accounts receivable aging reduction
+
+═══════════════════════════════════════════════════════════
+
+WORKING CONDITIONS
+
+□ Office-based position with occasional field visits
+□ Standard business hours with flexibility as needed
+□ Fast-paced environment with multiple priorities
+□ Regular computer use and phone communication
+□ Interaction with field staff, adjusters, and management
+□ Minimal physical demands
+
+═══════════════════════════════════════════════════════════
+
+CAREER PATH
+
+Mitigation Administrator
+↓
+Senior Administrator / Billing Manager
+↓
+Operations Coordinator
+↓
+Department Manager
+
+═══════════════════════════════════════════════════════════
+
+[Company Name] is an Equal Opportunity Employer
+`
+                },
+
+                'job-reconstruction-admin': {
+                    name: 'Ready_Job_Description_Reconstruction_Administrator.txt',
+                    content: `JOB DESCRIPTION: RECONSTRUCTION ADMINISTRATOR
+Company: [Your Company Name]
+Department: Reconstruction / Administrative Support
+
+═══════════════════════════════════════════════════════════
+
+POSITION OVERVIEW
+
+The Reconstruction Administrator ensures that every reconstruction project is properly documented, invoiced, and supported through the full administrative lifecycle. You'll work closely with project managers, estimators, subcontractors, and insurance adjusters to ensure timely closeouts, clear invoicing, and successful collections.
+
+This role is ideal for someone who thrives in a structured, high-accountability environment and isn't afraid to push for full payment when documentation supports it.
+
+═══════════════════════════════════════════════════════════
+
+CORE RESPONSIBILITIES
+
+PROJECT ADMINISTRATION:
+□ Review reconstruction job files for completeness before invoicing
+□ Track progress milestones and ensure documentation is submitted at each stage
+□ Coordinate with field teams and estimators to address missing items
+□ Maintain internal systems with accurate, up-to-date status on all open jobs
+□ Verify permits, contracts, and change orders are properly filed
+□ Conduct pre-invoice quality checks
+
+INVOICING & CARRIER COMMUNICATION:
+□ Prepare and submit reconstruction invoices based on Xactimate estimates
+□ Communicate with insurance adjusters to resolve billing questions
+□ Push back confidently when underpaid, with supporting documentation
+□ Escalate and appeal denials using proper records and project narratives
+□ Track payment schedules and follow up on outstanding balances
+□ Coordinate final invoice submissions and lien releases
+
+SUBCONTRACTOR COORDINATION:
+□ Collect and maintain subcontractor COIs (Certificates of Insurance)
+□ Process lien waivers and payment documentation
+□ Verify subcontractor invoices match approved scopes
+□ Coordinate vendor payment schedules with accounting
+□ Maintain vendor files and compliance records
+
+INTERNAL COORDINATION:
+□ Work with Reconstruction Department Manager to prioritize project closings
+□ Assist accounting with reconciliation of payments and AR tracking
+□ Support project managers with administrative tasks
+□ Generate reports on job status, aging, and profitability
+□ Facilitate communication between field, office, and finance teams
+
+═══════════════════════════════════════════════════════════
+
+QUALIFICATIONS
+
+REQUIRED:
+□ 3+ years in construction, restoration, or admin roles with invoicing responsibility
+□ Highly organized and attentive to detail
+□ Strong written and verbal communication skills
+□ Confident and assertive when dealing with insurance carriers
+□ Proficient in job management platforms and cloud-based systems
+□ Ability to manage dozens of active files simultaneously
+□ Microsoft Office proficiency (Excel, Word, Outlook)
+
+PREFERRED:
+□ Familiarity with Xactimate and construction documentation
+□ Restoration industry experience
+□ Understanding of construction draw schedules and lien law
+□ Experience with Job-Dox or similar platforms
+□ Knowledge of insurance billing processes
+
+═══════════════════════════════════════════════════════════
+
+COMPENSATION & BENEFITS
+
+💵 Competitive salary or hourly rate
+💸 Performance-based bonus potential
+🩺 Health, dental, vision, and retirement benefits
+📱 Company system access and tech support
+🌴 Paid time off and holidays
+📚 Ongoing training in restoration workflows and billing systems
+
+═══════════════════════════════════════════════════════════
+
+PERFORMANCE METRICS
+
+□ Invoice approval rate
+□ Average days to invoice submission
+□ Average days to payment collection
+□ Documentation completeness percentage
+□ Change order processing time
+□ AR aging improvement
+□ Customer and PM satisfaction scores
+
+═══════════════════════════════════════════════════════════
+
+WORKING CONDITIONS
+
+□ Office-based with occasional job site visits
+□ Standard business hours with flexibility
+□ Fast-paced, multi-project environment
+□ Regular communication with field staff and insurance adjusters
+□ Computer-intensive work
+□ Professional office setting
+
+═══════════════════════════════════════════════════════════
+
+CAREER PATH
+
+Reconstruction Administrator
+↓
+Senior Administrator / Billing Manager
+↓
+Operations Coordinator
+↓
+Department Manager
+
+═══════════════════════════════════════════════════════════
+
+[Company Name] is an Equal Opportunity Employer
+`
+                },
+
+                'job-mitigation-dept-manager': {
+                    name: 'Ready_Job_Description_Mitigation_Contents_Department_Manager.txt',
+                    content: `JOB DESCRIPTION: MITIGATION & CONTENTS DEPARTMENT MANAGER
+Company: [Your Company Name]
+Department: Operations / Department Management
+
+═══════════════════════════════════════════════════════════
+
+POSITION OVERVIEW
+
+As the Mitigation & Contents Department Manager, you will oversee daily operations, staffing, and performance across all active mitigation and contents jobs. You'll manage field technicians, lead technicians, and supervisors—ensuring that every job meets scope, documentation, timeline, and quality standards. You'll be the go-to leader for executing timely emergency response, drying science best practices, and contents handling with care and compliance.
+
+This is a fast-paced, field-heavy leadership role requiring strong people management skills, attention to detail, and operational discipline.
+
+═══════════════════════════════════════════════════════════
+
+CORE RESPONSIBILITIES
+
+TEAM LEADERSHIP & SUPERVISION:
+□ Manage all mitigation and contents staff (technicians, supervisors, leads)
+□ Hire, onboard, train, and develop team members to meet IICRC standards
+□ Conduct daily check-ins, job planning, and performance feedback
+□ Oversee after-hours/emergency rotation schedules and ensure coverage
+□ Address performance issues and provide coaching
+□ Foster a culture of safety, quality, and customer service
+
+PROJECT OVERSIGHT:
+□ Ensure all emergency response jobs are deployed quickly and executed accurately
+□ Maintain real-time oversight of job status, equipment usage, and documentation
+□ Monitor moisture logs and drying progress across active jobs
+□ Oversee proper pack-out, inventory, cleaning, and return of contents
+□ Track timelines and minimize delays in dry-outs or contents workflows
+□ Approve job completions and Certificates of Completion
+
+QUALITY CONTROL & COMPLIANCE:
+□ Enforce safety standards and equipment usage protocols on all job sites
+□ Ensure job documentation (photos, notes, readings) is accurate and timely
+□ Verify contents handling complies with SOPs and insurance expectations
+□ Perform jobsite inspections and quality audits regularly
+□ Address customer complaints and escalations professionally
+□ Ensure IICRC and company standards are consistently met
+
+CROSS-FUNCTIONAL COLLABORATION:
+□ Work with project managers, estimators, and customer service for job coordination
+□ Support scheduling and dispatch to optimize technician efficiency
+□ Serve as escalation point for customer concerns during mitigation/pack-out
+□ Collaborate with reconstruction team for seamless project handoffs
+□ Coordinate with vendors for equipment, supplies, and specialty services
+
+REPORTING & ACCOUNTABILITY:
+□ Track departmental KPIs (response times, cycle times, job profitability)
+□ Use company software (Job-Dox, etc.) to maintain visibility on all active jobs
+□ Report performance and bottlenecks to executive leadership regularly
+□ Monitor labor efficiency and equipment utilization
+□ Ensure accurate time tracking and payroll submission
+
+═══════════════════════════════════════════════════════════
+
+QUALIFICATIONS
+
+REQUIRED:
+□ 5+ years experience in restoration, construction, or field service operations
+□ 2+ years in supervisory or department leadership role
+□ Strong knowledge of drying equipment, moisture mapping, and IICRC standards
+□ Understanding of contents handling, inventory systems, and customer sensitivity
+□ Ability to manage people, processes, and emergencies calmly and decisively
+□ Exceptional communication and leadership skills
+□ Valid driver's license and clean driving record
+
+PREFERRED:
+□ IICRC certifications (WRT, ASD required; CMP preferred)
+□ Experience with job management systems and mobile apps
+□ Previous department manager role in restoration industry
+□ Xactimate knowledge
+□ Bilingual English/Spanish
+
+═══════════════════════════════════════════════════════════
+
+COMPENSATION & BENEFITS
+
+💵 Competitive salary + performance-based bonuses
+🚗 Company vehicle or allowance
+📱 Company-provided phone/tablet
+🛠️ All tools, PPE, and technology provided
+🩺 Health, dental, vision, and retirement benefits
+🌴 Paid time off and holidays
+📚 IICRC certification reimbursement and professional development
+
+═══════════════════════════════════════════════════════════
+
+PERFORMANCE METRICS
+
+□ Average emergency response time (target: <2 hours)
+□ Average job cycle time (start to completion)
+□ Documentation compliance rate
+□ Customer satisfaction scores
+□ Job profitability and labor efficiency
+□ Employee retention and development
+□ Safety incident rate
+
+═══════════════════════════════════════════════════════════
+
+WORKING CONDITIONS
+
+□ Field-heavy role with significant job site visits
+□ Office coordination and administrative duties
+□ On-call availability for emergency situations
+□ Fast-paced environment with shifting priorities
+□ Travel within service area
+□ Flexible hours including nights and weekends
+
+═══════════════════════════════════════════════════════════
+
+CAREER PATH
+
+Mitigation & Contents Department Manager
+↓
+Regional Operations Manager
+↓
+Director of Operations
+↓
+VP of Operations
+
+═══════════════════════════════════════════════════════════
+
+[Company Name] is an Equal Opportunity Employer
+`
+                },
+
+                'job-reconstruction-dept-manager': {
+                    name: 'Ready_Job_Description_Reconstruction_Department_Manager.txt',
+                    content: `JOB DESCRIPTION: RECONSTRUCTION DEPARTMENT MANAGER
+Company: [Your Company Name]
+Department: Operations / Department Management
+
+═══════════════════════════════════════════════════════════
+
+POSITION OVERVIEW
+
+As the Reconstruction Department Manager, you'll oversee all reconstruction and repair jobs within a designated office or market. You'll manage a team of project managers, subcontractors, and field crews—ensuring timelines are met, work is high-quality, and customers are satisfied. You'll also serve as the key link between the field and executive leadership, reporting up to the Superintendent or COO.
+
+This role requires strong field experience, excellent communication, and the ability to manage multiple active jobs simultaneously.
+
+═══════════════════════════════════════════════════════════
+
+CORE RESPONSIBILITIES
+
+PROJECT OVERSIGHT:
+□ Supervise all active reconstruction jobs in assigned region or branch
+□ Monitor schedules, material orders, and labor for on-time, in-budget completion
+□ Conduct site visits and verify milestone completion and quality standards
+□ Troubleshoot delays, resource gaps, or customer issues quickly
+□ Approve project phases and coordinate inspections
+□ Ensure jobs stay within scope or change orders are properly documented
+
+TEAM LEADERSHIP:
+□ Lead and support team of reconstruction project managers and coordinators
+□ Assign projects, set clear expectations, and hold team accountable
+□ Provide guidance, mentorship, and discipline as needed
+□ Conduct performance reviews and professional development
+□ Hire and onboard new team members
+□ Foster culture of quality, safety, and customer service
+
+SUBCONTRACTOR MANAGEMENT:
+□ Coordinate subcontractor assignments and schedules
+□ Ensure vendor compliance (COIs, licenses, quality standards)
+□ Resolve subcontractor performance or payment issues
+□ Build and maintain relationships with reliable trade partners
+□ Negotiate pricing and scope with subs
+
+OPERATIONAL REPORTING & COORDINATION:
+□ Maintain accurate reporting on job status, timelines, and cost overruns
+□ Collaborate with estimators to ensure scopes are understood and followed
+□ Liaise with mitigation and customer service for seamless handoffs
+□ Use internal systems (Job-Dox, etc.) to track documentation and milestones
+□ Report KPIs and challenges to executive leadership
+□ Monitor departmental profitability and efficiency
+
+CUSTOMER EXPERIENCE:
+□ Serve as escalation point for customer questions or concerns
+□ Ensure final walkthroughs are completed with attention to detail
+□ Promote customer-first mindset throughout department
+□ Resolve complaints professionally and promptly
+□ Build long-term customer relationships for referrals
+
+═══════════════════════════════════════════════════════════
+
+QUALIFICATIONS
+
+REQUIRED:
+□ 5+ years construction or restoration project management experience
+□ 2+ years in supervisory or department leadership role
+□ Strong knowledge of residential/light commercial rebuilds
+□ Excellent organizational and multitasking skills
+□ Effective communicator with teams, customers, and leadership
+□ Highly detail-oriented and quality-focused
+□ Calm and confident leadership style
+□ Valid driver's license
+
+PREFERRED:
+□ Familiarity with Xactimate scopes and estimates
+□ Understanding of permitting processes and code compliance
+□ Experience with job management software (Job-Dox preferred)
+□ IICRC or construction certifications
+□ Previous restoration department manager role
+
+═══════════════════════════════════════════════════════════
+
+COMPENSATION & BENEFITS
+
+💵 Competitive salary + performance bonuses
+🚙 Company vehicle or vehicle allowance
+🛠️ Company tools, tablet, and software access
+🩺 Health, dental, vision, and retirement benefits
+🌴 Paid time off and holiday schedule
+📚 Continuing education, certification support, and leadership training
+
+═══════════════════════════════════════════════════════════
+
+PERFORMANCE METRICS
+
+□ On-time project completion rate
+□ Project profitability margin
+□ Customer satisfaction scores
+□ Change order management
+□ Safety compliance record
+□ Team retention and development
+□ Quality audit scores
+
+═══════════════════════════════════════════════════════════
+
+WORKING CONDITIONS
+
+□ Field-based with office coordination
+□ Regular job site visits and inspections
+□ Flexible hours to accommodate project needs
+□ Some travel within service area
+□ Professional office and construction environments
+□ Occasional weekend or after-hours work
+
+═══════════════════════════════════════════════════════════
+
+CAREER PATH
+
+Reconstruction Department Manager
+↓
+Regional Operations Manager
+↓
+Superintendent
+↓
+VP of Operations
+
+═══════════════════════════════════════════════════════════
+
+[Company Name] is an Equal Opportunity Employer
+`
+                },
+
+                'job-superintendent': {
+                    name: 'Ready_Job_Description_Superintendent.txt',
+                    content: `JOB DESCRIPTION: SUPERINTENDENT - RECONSTRUCTION
+Company: [Your Company Name]
+Department: Executive Leadership / Operations
+
+═══════════════════════════════════════════════════════════
+
+POSITION OVERVIEW
+
+The Superintendent is the highest-ranking field operations leader for the reconstruction division. You'll oversee all aspects of rebuild project performance across multiple offices—ensuring timelines, quality standards, budgets, and customer expectations are consistently met or exceeded. This includes supervising project managers, tradesmen, and subcontractors, as well as collaborating with estimators, the mitigation team, and client service personnel.
+
+This role blends operational leadership, personnel management, quality control, and customer-facing professionalism—while supporting strategic company goals around efficiency, reputation, and margin growth.
+
+═══════════════════════════════════════════════════════════
+
+CORE RESPONSIBILITIES
+
+PROJECT OVERSIGHT:
+□ Provide top-down management for all reconstruction projects across regions
+□ Ensure job timelines, budgets, and quality benchmarks are met for every site
+□ Oversee site inspections, milestone approvals, and contractor scheduling
+□ Resolve field escalations and jobsite complications quickly and professionally
+□ Monitor critical path items and resource allocation
+□ Approve major project decisions and change orders
+
+TEAM LEADERSHIP:
+□ Supervise team of in-market project managers, assistant supers, and field crews
+□ Ensure alignment between corporate expectations and regional execution
+□ Recruit, train, and mentor team members with focus on accountability
+□ Build high-performance, results-driven culture across all field operations
+□ Conduct performance reviews and succession planning
+□ Provide leadership development and career pathing
+
+PROCESS & QUALITY CONTROL:
+□ Implement and enforce standardized SOPs and checklists across all projects
+□ Ensure work meets IICRC, OSHA, building code, and insurance standards
+□ Drive continuous improvement by identifying operational inefficiencies
+□ Oversee final walk-throughs and ensure client satisfaction at closeout
+□ Conduct regular quality audits and safety inspections
+□ Maintain company reputation for excellence
+
+CROSS-FUNCTIONAL COORDINATION:
+□ Partner with Estimators, Mitigation PMs, and Customer Success team
+□ Maintain accurate project documentation and timelines in systems
+□ Coordinate with executive team to align capacity with growth forecasts
+□ Collaborate with sales and marketing on customer experience
+□ Work with HR on staffing, training, and retention strategies
+
+FINANCIAL OVERSIGHT:
+□ Monitor project costs and ensure jobs are completed within budget
+□ Manage labor efficiency, subcontractor negotiations, and material usage
+□ Support CFO and CEO with project margin insights and field cost trends
+□ Track departmental profitability and efficiency metrics
+□ Identify cost-saving opportunities without compromising quality
+
+═══════════════════════════════════════════════════════════
+
+QUALIFICATIONS
+
+REQUIRED:
+□ 10+ years experience in residential or light commercial construction management
+□ Previous leadership role managing field teams across multiple regions/offices
+□ Strong technical knowledge of construction sequencing, permits, and project controls
+□ Proven track record managing multiple projects with exceptional outcomes
+□ Clear communicator who can lead high-output teams
+□ Strong tech literacy—comfortable with project management software
+□ Ability to travel regularly to job sites across markets
+□ Valid driver's license
+
+PREFERRED:
+□ Familiarity with insurance restoration work and Xactimate-scoped jobs
+□ IICRC or construction certifications
+□ Experience with Job-Dox or similar platforms
+□ Previous Superintendent or Director-level role
+□ MBA or business management education
+
+═══════════════════════════════════════════════════════════
+
+COMPENSATION & BENEFITS
+
+💵 Executive salary + bonus based on division performance
+💸 Incentive pay for on-time/on-budget job completion
+🚙 Company vehicle or vehicle allowance
+🛠️ Technology, uniforms, and equipment provided
+🩺 Health, dental, vision, and retirement benefits
+🌴 PTO and generous holiday schedule
+📚 Continuing education, licensing support, and leadership development
+🎯 Equity or profit-sharing opportunities (based on company structure)
+
+═══════════════════════════════════════════════════════════
+
+PERFORMANCE METRICS
+
+□ Overall reconstruction division profitability
+□ On-time project completion rate across all markets
+□ Customer satisfaction scores (target: 4.8+/5.0)
+□ Project margin percentage
+□ Safety incident rate
+□ Employee retention in reconstruction department
+□ Quality audit scores
+
+═══════════════════════════════════════════════════════════
+
+WORKING CONDITIONS
+
+□ Executive leadership position with field oversight
+□ Significant travel to job sites across multiple markets
+□ Balance of office strategy work and field execution
+□ Flexible hours to accommodate project and team needs
+□ Professional office and construction environments
+□ Some weekend or after-hours availability required
+
+═══════════════════════════════════════════════════════════
+
+CAREER PATH
+
+Superintendent
+↓
+VP of Operations
+↓
+Chief Operating Officer (COO)
+↓
+CEO / Partner / Owner
+
+═══════════════════════════════════════════════════════════
+
+[Company Name] is an Equal Opportunity Employer
+`
+                }
+            };
 
     </script>
 </body>
