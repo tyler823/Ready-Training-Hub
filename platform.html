@@ -50,7 +50,8 @@
         .affected-line { border-top: 2px dashed #ef4444; position: relative; }
         .affected-line::after { content: 'THRESHOLD (16%)'; position: absolute; right: 0; top: -12px; font-size: 8px; font-weight: 800; color: #ef4444; background: white; padding: 0 4px; }
         
-        .detail-expansion { transition: max-height 0.5s ease-out; overflow: hidden; }
+        .detail-expansion { overflow: hidden; max-height: 0; transition: border-width 0.2s ease; }
+        .detail-expansion.is-open { max-height: none !important; overflow: visible; }
         .nav-lock-icon { font-size: 10px; vertical-align: middle; }
         
         /* Upgrade Modal */
@@ -5687,11 +5688,15 @@ document.addEventListener('keydown', function(e) {
 
         function toggleDetails(id) {
             const el = document.getElementById(id);
-            if (el.style.maxHeight && el.style.maxHeight !== '0px') {
-                el.style.maxHeight = '0px';
+            if (!el) return;
+            
+            if (el.classList.contains('is-open')) {
+                // Close
+                el.classList.remove('is-open');
                 el.style.borderWidth = '0px';
             } else {
-                el.style.maxHeight = el.scrollHeight + 100 + 'px';
+                // Open
+                el.classList.add('is-open');
                 el.style.borderWidth = '1px';
             }
         }
