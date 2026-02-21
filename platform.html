@@ -208,8 +208,9 @@
             z-index: 999;
             opacity: 0;
             transition: opacity 0.3s;
+            pointer-events: none;
         }
-        .mobile-menu-overlay.active { opacity: 1; }
+        .mobile-menu-overlay.active { opacity: 1; pointer-events: auto; }
         .mobile-menu {
             display: none;
             position: fixed;
