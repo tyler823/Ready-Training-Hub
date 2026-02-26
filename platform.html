@@ -711,13 +711,29 @@
                         <div class="dropdown-content">
                             <a onclick="nav('team-scaling')">Team Scaling & Leadership</a>
                             <a onclick="nav('exit-strategy')">Exit Strategy & Sale Prep</a>
+                            <a onclick="nav('mgmt-development')">Managerial Development</a>
+                            <a onclick="nav('maturity-models')">Employee Maturity Models</a>
                         </div>
                     </div>
                     
                     <button onclick="nav('resources')" class="nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-resources">Resources</button>
                     <button onclick="nav('dashboard')" class="nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-dashboard" data-ms-membership="ready-team,ready-pro" style="display:none;">Team Dashboard</button>
-                    <button onclick="nav('quiz')" class="bg-slate-900 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-600 transition shadow-md" id="link-quiz">MITIGATION QUIZ</button>
-                    <button onclick="startReconQuiz()" class="bg-violet-600 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-700 transition shadow-md" id="link-recon-quiz" data-ms-membership="ready-team,ready-pro" style="display:none;">RECONSTRUCTION QUIZ</button>
+                    <div class="dropdown" id="nav-exams">
+                        <span class="dropbtn bg-slate-900 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-600 transition shadow-md cursor-pointer" id="link-exams">
+                            Exams ▾
+                        </span>
+                        <div class="dropdown-content" style="right:0; left:auto; min-width:240px;">
+                            <div style="padding: 8px 16px; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em;">Mitigation</div>
+                            <a onclick="nav('quiz')">📝 Practice Exam</a>
+                            <a onclick="startCertificationQuiz()">🏆 Certification Exam</a>
+                            <div style="padding: 8px 16px; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em; border-top: 1px solid #e2e8f0; margin-top: 4px; padding-top: 12px; display:none;" id="exam-recon-header" data-ms-membership="ready-team,ready-pro">Reconstruction</div>
+                            <a onclick="startReconQuiz()" id="exam-recon-practice" data-ms-membership="ready-team,ready-pro" style="display:none;">📝 Practice Exam</a>
+                            <a onclick="startReconCertificationQuiz()" id="exam-recon-cert" data-ms-membership="ready-team,ready-pro" style="display:none;">🏆 Certification Exam</a>
+                            <div style="padding: 8px 16px; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em; border-top: 1px solid #e2e8f0; margin-top: 4px; padding-top: 12px; display:none;" id="exam-mgmt-header" data-ms-membership="ready-pro">Management</div>
+                            <a onclick="startMgmtQuiz()" id="exam-mgmt-practice" data-ms-membership="ready-pro" style="display:none;">📝 Practice Exam</a>
+                            <a onclick="startMgmtCertQuiz()" id="exam-mgmt-cert" data-ms-membership="ready-pro" style="display:none;">🏆 Certification Exam</a>
+                        </div>
+                    </div>
                     <button onclick="logout()" class="logout-btn">Logout</button>
                 </div>
             </div>
@@ -786,6 +802,8 @@
             <div class="mobile-submenu" id="pro-sub">
                 <a onclick="nav('team-scaling'); closeMobileMenu();">Team Scaling & Leadership</a>
                 <a onclick="nav('exit-strategy'); closeMobileMenu();">Exit Strategy & Sale Prep</a>
+                <a onclick="nav('mgmt-development'); closeMobileMenu();">Managerial Development</a>
+                <a onclick="nav('maturity-models'); closeMobileMenu();">Employee Maturity Models</a>
             </div>
         </div>
         
@@ -799,15 +817,22 @@
             <a onclick="nav('dashboard'); closeMobileMenu();">📊 Team Dashboard</a>
         </div>
         
-        <!-- Quizzes -->
+        <!-- Exams -->
         <div class="mobile-menu-item">
             <button onclick="toggleMobileSubmenu('quiz-sub')">
-                <span>📝 Quizzes</span>
+                <span>📝 Exams</span>
                 <span class="mobile-menu-arrow" id="quiz-arrow">▼</span>
             </button>
             <div class="mobile-submenu" id="quiz-sub">
-                <a onclick="nav('quiz'); closeMobileMenu();">Mitigation Quiz</a>
-                <a onclick="startReconQuiz(); closeMobileMenu();">Reconstruction Quiz</a>
+                <div style="padding: 6px 16px; font-size: 10px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em;">Mitigation</div>
+                <a onclick="nav('quiz'); closeMobileMenu();">📝 Practice Exam</a>
+                <a onclick="startCertificationQuiz(); closeMobileMenu();">🏆 Certification Exam</a>
+                <div style="padding: 6px 16px; font-size: 10px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em; border-top: 1px solid #334155; margin-top: 4px; padding-top: 8px;">Reconstruction</div>
+                <a onclick="startReconQuiz(); closeMobileMenu();">📝 Practice Exam</a>
+                <a onclick="startReconCertificationQuiz(); closeMobileMenu();">🏆 Certification Exam</a>
+                <div style="padding: 6px 16px; font-size: 10px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em; border-top: 1px solid #334155; margin-top: 4px; padding-top: 8px;">Management</div>
+                <a onclick="startMgmtQuiz(); closeMobileMenu();">📝 Practice Exam</a>
+                <a onclick="startMgmtCertQuiz(); closeMobileMenu();">🏆 Certification Exam</a>
             </div>
         </div>
         
@@ -1055,7 +1080,7 @@ document.addEventListener('keydown', function(e) {
                     Advanced leadership and business strategy training for restoration business owners ready to scale and optimize their operations. Available with Ready Enterprise membership.
                 </p>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <!-- Team Scaling -->
                     <div class="locked-content bg-white rounded-2xl p-8 border-2 border-slate-200 opacity-75">
                         <div class="flex items-start gap-4 mb-4">
@@ -1081,7 +1106,37 @@ document.addEventListener('keydown', function(e) {
                             </div>
                         </div>
                         <p class="text-sm text-slate-600 mb-4">
-                            Position your company for maximum valuation with buyer preparation, financial optimization, due diligence readiness, and transition planning.
+                            Position your company for maximum valuation with buyer preparation, financial optimization, and transition planning.
+                        </p>
+                        <div class="text-xs text-slate-500 italic">Available with Ready Enterprise</div>
+                    </div>
+
+                    <!-- Managerial Development -->
+                    <div class="locked-content bg-white rounded-2xl p-8 border-2 border-slate-200 opacity-75">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="text-4xl">🎯</div>
+                            <div>
+                                <span class="phase-badge bg-emerald-100 text-emerald-700 mb-2">Ready Enterprise</span>
+                                <h3 class="text-xl font-bold text-slate-900 mt-2">Managerial Development</h3>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Transform top performers into exceptional leaders. Branch Manager &amp; Regional Manager role frameworks.
+                        </p>
+                        <div class="text-xs text-slate-500 italic">Available with Ready Enterprise</div>
+                    </div>
+
+                    <!-- Employee Maturity Models -->
+                    <div class="locked-content bg-white rounded-2xl p-8 border-2 border-slate-200 opacity-75">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="text-4xl">📈</div>
+                            <div>
+                                <span class="phase-badge bg-emerald-100 text-emerald-700 mb-2">Ready Enterprise</span>
+                                <h3 class="text-xl font-bold text-slate-900 mt-2">Employee Maturity Models</h3>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Career progression pathways for every department. Inspired by Cardone Ventures EMM framework.
                         </p>
                         <div class="text-xs text-slate-500 italic">Available with Ready Enterprise</div>
                     </div>
@@ -5012,6 +5067,655 @@ document.addEventListener('keydown', function(e) {
             </div>
         </section>
 
+
+        <!-- SECTION: MANAGERIAL DEVELOPMENT & LEADERSHIP -->
+        <section id="sec-mgmt-development" class="tab-content hidden fade-in" data-ms-membership="ready-pro">
+            <!-- Hero -->
+            <div class="bg-gradient-to-br from-indigo-700 to-indigo-500 rounded-3xl p-12 mb-12 text-white text-center shadow-2xl">
+                <div class="text-6xl mb-4">🎯</div>
+                <h1 class="text-5xl font-black mb-4 tracking-tight">Managerial Development &amp; Leadership</h1>
+                <p class="text-xl font-medium text-indigo-50 max-w-3xl mx-auto leading-relaxed">
+                    Transform top performers into exceptional leaders. Build the management infrastructure that allows your company to scale beyond your personal capacity.
+                </p>
+            </div>
+
+            <!-- Module 1: The Promotion Problem -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="phase-badge bg-indigo-100 text-indigo-700 mb-3">Module 1</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-2">The Promotion Problem: Why Great Techs Make Terrible Managers (Without Training)</h2>
+                    </div>
+                    <button onclick="toggleDetails('det-mgmt-promo')" class="text-[10px] font-bold uppercase text-indigo-600 bg-indigo-50 px-3 py-2 rounded hover:bg-indigo-100 transition-all">More</button>
+                </div>
+
+                <div id="det-mgmt-promo" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4">
+                    <div class="p-6 text-sm leading-relaxed">
+                        <p class="font-bold text-indigo-800 mb-3">The Peter Principle in Restoration:</p>
+                        <p class="mb-4">The most common mistake in the restoration industry is promoting the best technician to crew lead or project manager without any leadership training. Being excellent at water extraction and drying science has almost nothing to do with managing people, budgets, schedules, and customer relationships. Research shows that only about 10% of people naturally possess the skills needed to be effective managers. The other 90% need structured development.</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">The Mindset Shift: Individual Contributor to People Leader</p>
+                        <p class="mb-2">As an individual contributor, success is measured by personal output — how many jobs you completed, how fast you dried a structure, how accurate your moisture readings were. As a manager, success is measured by your team's output. This is the single hardest mental shift for new managers to make, and it's where most fail.</p>
+                        <p class="mb-2">&bull; <strong>IC Mindset:</strong> "I need to be the best at the work." &rarr; <strong>Manager Mindset:</strong> "I need to make my team the best at the work."</p>
+                        <p class="mb-2">&bull; <strong>IC Mindset:</strong> "I'll just do it myself, it's faster." &rarr; <strong>Manager Mindset:</strong> "I need to teach them so they can do it without me."</p>
+                        <p class="mb-4">&bull; <strong>IC Mindset:</strong> "My value is my technical skill." &rarr; <strong>Manager Mindset:</strong> "My value is developing other people's skills."</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">When to Promote &mdash; The Readiness Signals:</p>
+                        <p class="mb-2">&bull; They already informally mentor newer team members without being asked</p>
+                        <p class="mb-2">&bull; They think beyond their immediate task and consider how their work affects the broader project</p>
+                        <p class="mb-2">&bull; They handle conflict and frustration constructively rather than reactively</p>
+                        <p class="mb-2">&bull; They take ownership of problems rather than passing them up the chain</p>
+                        <p class="mb-2">&bull; They communicate proactively with customers, adjusters, and team members</p>
+                        <p class="mb-4">&bull; They demonstrate emotional intelligence — they can read a room, manage their own reactions, and empathize with others</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">When NOT to Promote:</p>
+                        <p class="mb-2">&bull; Their only qualification is tenure — "they've been here the longest"</p>
+                        <p class="mb-2">&bull; They're technically brilliant but have poor interpersonal skills</p>
+                        <p class="mb-2">&bull; They want the title and pay but haven't demonstrated leadership behaviors</p>
+                        <p class="mb-2">&bull; They struggle to delegate and insist on doing everything themselves</p>
+                        <p class="mb-4">&bull; Promoting them is a retention strategy rather than a capability decision — consider a dual career ladder (senior technical track) instead</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">The Pre-Promotion Development Plan:</p>
+                        <p class="mb-2">Before formalizing any promotion, give the candidate 60&ndash;90 days of leadership exposure:</p>
+                        <p class="mb-2">&bull; Assign them as team lead on 2&ndash;3 projects with coaching support</p>
+                        <p class="mb-2">&bull; Have them run morning briefings and daily huddles</p>
+                        <p class="mb-2">&bull; Include them in scheduling, job costing, and scope review conversations</p>
+                        <p class="mb-2">&bull; Let them handle a customer escalation with your guidance</p>
+                        <p>&bull; Debrief weekly — what went well, what was hard, what did they learn?</p>
+                    </div>
+                </div>
+
+                <!-- Promotion Decision Framework -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <div class="bg-red-50 p-5 rounded-xl border border-red-200">
+                        <h4 class="font-bold text-red-900 mb-3 text-sm">❌ Wrong Reasons to Promote</h4>
+                        <div class="space-y-2 text-xs text-red-800">
+                            <p>&bull; Longest tenure on the team</p>
+                            <p>&bull; Retention strategy / fear they'll leave</p>
+                            <p>&bull; Best individual performer</p>
+                            <p>&bull; They asked for it</p>
+                            <p>&bull; No one else is available</p>
+                        </div>
+                    </div>
+                    <div class="bg-emerald-50 p-5 rounded-xl border border-emerald-200">
+                        <h4 class="font-bold text-emerald-900 mb-3 text-sm">✅ Right Reasons to Promote</h4>
+                        <div class="space-y-2 text-xs text-emerald-800">
+                            <p>&bull; Demonstrates leadership behaviors naturally</p>
+                            <p>&bull; Mentors others without being asked</p>
+                            <p>&bull; Thinks beyond their own tasks</p>
+                            <p>&bull; Handles conflict constructively</p>
+                            <p>&bull; Completed pre-promotion development</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 2: The Branch Manager Role -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="phase-badge bg-indigo-100 text-indigo-700 mb-3">Module 2</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-2">Defining the Branch Manager Role</h2>
+                    </div>
+                    <button onclick="toggleDetails('det-mgmt-branch')" class="text-[10px] font-bold uppercase text-indigo-600 bg-indigo-50 px-3 py-2 rounded hover:bg-indigo-100 transition-all">More</button>
+                </div>
+
+                <div id="det-mgmt-branch" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4">
+                    <div class="p-6 text-sm leading-relaxed">
+                        <p class="font-bold text-indigo-800 mb-3">What a Branch Manager Actually Does:</p>
+                        <p class="mb-4">The Branch Manager is the general manager of a single location. They own the P&amp;L, the team, the customer relationships, and the operational output of that location. They are NOT a senior technician who also handles paperwork. The role is fundamentally a business management position that requires competence across five domains simultaneously.</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">The Five Domains of Branch Management:</p>
+
+                        <div class="bg-indigo-50 p-4 rounded-lg border-2 border-indigo-200 mb-4">
+                            <p class="font-bold text-indigo-900 mb-2">1. People Management (40% of time)</p>
+                            <p class="text-xs text-slate-700 mb-2">This is the largest and most important domain. It includes hiring, onboarding, training, scheduling, performance management, coaching, discipline, and termination. A branch manager who cannot manage people cannot manage a branch — everything else falls apart.</p>
+                            <p class="text-xs text-slate-700 mb-1">&bull; Conduct weekly one-on-ones with every direct report</p>
+                            <p class="text-xs text-slate-700 mb-1">&bull; Run daily morning huddles (15 min max) — priorities, assignments, safety topics</p>
+                            <p class="text-xs text-slate-700 mb-1">&bull; Deliver quarterly performance reviews using standardized rubrics</p>
+                            <p class="text-xs text-slate-700 mb-1">&bull; Own the hiring pipeline — always be recruiting, even when fully staffed</p>
+                            <p class="text-xs text-slate-700">&bull; Manage conflict between team members before it escalates</p>
+                        </div>
+
+                        <div class="bg-blue-50 p-4 rounded-lg border-2 border-blue-200 mb-4">
+                            <p class="font-bold text-blue-900 mb-2">2. Financial Performance (20% of time)</p>
+                            <p class="text-xs text-slate-700 mb-2">The branch manager owns the location's profitability. This means understanding revenue targets, job costing, margins, overhead allocation, and AR/collections. They must be able to read a P&amp;L statement and take corrective action when numbers trend wrong.</p>
+                            <p class="text-xs text-slate-700 mb-1">&bull; Review weekly revenue vs. target and job margin reports</p>
+                            <p class="text-xs text-slate-700 mb-1">&bull; Manage DSO (Days Sales Outstanding) — ensure timely billing and collections</p>
+                            <p class="text-xs text-slate-700 mb-1">&bull; Control overhead costs — equipment maintenance, fuel, supplies</p>
+                            <p class="text-xs text-slate-700">&bull; Ensure every job hits minimum margin thresholds before work begins</p>
+                        </div>
+
+                        <div class="bg-emerald-50 p-4 rounded-lg border-2 border-emerald-200 mb-4">
+                            <p class="font-bold text-emerald-900 mb-2">3. Operations &amp; Quality Control (20% of time)</p>
+                            <p class="text-xs text-slate-700 mb-2">Ensuring every job meets company standards, IICRC protocols, and customer expectations. This means quality inspections, process compliance, equipment management, fleet readiness, and safety program oversight.</p>
+                            <p class="text-xs text-slate-700 mb-1">&bull; Conduct random quality inspections on active jobs weekly</p>
+                            <p class="text-xs text-slate-700 mb-1">&bull; Review documentation quality — photos, moisture maps, daily logs</p>
+                            <p class="text-xs text-slate-700 mb-1">&bull; Ensure equipment calibration and maintenance schedules are current</p>
+                            <p class="text-xs text-slate-700">&bull; Maintain fleet readiness and safety compliance</p>
+                        </div>
+
+                        <div class="bg-violet-50 p-4 rounded-lg border-2 border-violet-200 mb-4">
+                            <p class="font-bold text-violet-900 mb-2">4. Customer &amp; Relationship Management (15% of time)</p>
+                            <p class="text-xs text-slate-700 mb-2">Building and maintaining relationships with insurance adjusters, TPAs, agents, plumbers, and commercial property managers. The branch manager is the face of the company in the market.</p>
+                            <p class="text-xs text-slate-700 mb-1">&bull; Handle escalated customer complaints personally</p>
+                            <p class="text-xs text-slate-700 mb-1">&bull; Maintain regular contact with top 10 referral sources</p>
+                            <p class="text-xs text-slate-700">&bull; Attend industry events and networking functions monthly</p>
+                        </div>
+
+                        <div class="bg-amber-50 p-4 rounded-lg border-2 border-amber-200 mb-4">
+                            <p class="font-bold text-amber-900 mb-2">5. Strategic Planning &amp; Reporting (5% of time)</p>
+                            <p class="text-xs text-slate-700 mb-2">Contributing to long-term business strategy, reporting to ownership/regional leadership, and identifying growth opportunities or market threats.</p>
+                            <p class="text-xs text-slate-700 mb-1">&bull; Monthly branch performance report to ownership</p>
+                            <p class="text-xs text-slate-700 mb-1">&bull; Quarterly business review with goals and gap analysis</p>
+                            <p class="text-xs text-slate-700">&bull; Identify market opportunities — new service lines, geographic expansion, commercial accounts</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Allocation Chart -->
+                <div class="bg-slate-50 p-6 rounded-xl border mt-4">
+                    <h4 class="font-bold text-slate-800 mb-4 text-sm uppercase">Branch Manager Time Allocation</h4>
+                    <div class="space-y-3">
+                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>👥 People Management</span><span>40%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-indigo-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:40%"><span class="text-[10px] font-bold text-white">40%</span></div></div></div>
+                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>💰 Financial Performance</span><span>20%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-blue-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:20%"><span class="text-[10px] font-bold text-white">20%</span></div></div></div>
+                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>⚙️ Operations &amp; QC</span><span>20%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-emerald-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:20%"><span class="text-[10px] font-bold text-white">20%</span></div></div></div>
+                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>🤝 Customer &amp; Relationships</span><span>15%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-violet-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:15%"><span class="text-[10px] font-bold text-white">15%</span></div></div></div>
+                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>📊 Strategy &amp; Reporting</span><span>5%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-amber-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:5%"><span class="text-[10px] font-bold text-white">5%</span></div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 3: The Regional Manager Role -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="phase-badge bg-indigo-100 text-indigo-700 mb-3">Module 3</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-2">Defining the Regional Manager Role</h2>
+                    </div>
+                    <button onclick="toggleDetails('det-mgmt-regional')" class="text-[10px] font-bold uppercase text-indigo-600 bg-indigo-50 px-3 py-2 rounded hover:bg-indigo-100 transition-all">More</button>
+                </div>
+
+                <div id="det-mgmt-regional" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4">
+                    <div class="p-6 text-sm leading-relaxed">
+                        <p class="font-bold text-indigo-800 mb-3">The Regional Manager: Managing Managers</p>
+                        <p class="mb-4">The Regional Manager oversees multiple branches and their Branch Managers. This is a fundamentally different role from branch management because you are no longer managing individual contributors — you are managing managers. Your job is to develop leadership capability in others, ensure consistency across locations, and drive strategic growth across a geographic region.</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">Critical Shift: From Doing to Developing</p>
+                        <p class="mb-2">&bull; <strong>Branch Manager:</strong> Manages people who do the work</p>
+                        <p class="mb-4">&bull; <strong>Regional Manager:</strong> Develops the managers who manage the people who do the work</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">Core Responsibilities:</p>
+                        <p class="mb-2">&bull; <strong>Branch Manager Development:</strong> Bi-weekly one-on-ones with each BM focused on their leadership growth, not just operational metrics. Coach them through difficult people situations. Review their one-on-one notes with their teams to ensure quality management is happening at every level.</p>
+                        <p class="mb-2">&bull; <strong>Performance Standardization:</strong> Ensure every branch operates to the same quality standards, documentation requirements, and customer experience. Create and enforce standard operating procedures that apply across all locations.</p>
+                        <p class="mb-2">&bull; <strong>Financial Oversight:</strong> Review P&amp;L for each branch monthly. Identify underperforming locations early and work with the BM on corrective action plans. Ensure margin targets, DSO, and revenue goals are being met across the region.</p>
+                        <p class="mb-2">&bull; <strong>Talent Pipeline:</strong> Identify high-potential employees across all branches who could be future Branch Managers. Ensure cross-training and development plans are in place. The regional manager's #1 long-term deliverable is building a leadership bench.</p>
+                        <p class="mb-2">&bull; <strong>Strategic Growth:</strong> Evaluate market opportunities for new locations, service line expansion, and commercial account development. Present growth proposals to ownership with data-driven business cases.</p>
+                        <p class="mb-4">&bull; <strong>Culture Carrier:</strong> You are the connective tissue between ownership's vision and frontline execution. Ensure company mission, vision, and values are consistently lived across every branch — not just posted on the wall.</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">The Regional Manager's Weekly Rhythm:</p>
+                        <p class="mb-1">&bull; Monday: Review all branch dashboards — revenue, jobs in progress, AR aging, staffing levels</p>
+                        <p class="mb-1">&bull; Tues&ndash;Thurs: Branch visits (rotate), BM one-on-ones, quality inspections, customer relationship meetings</p>
+                        <p class="mb-1">&bull; Friday: Weekly report to ownership, strategic planning, next-week preparation</p>
+                        <p>&bull; Monthly: Full regional performance review, BM team meeting, talent pipeline review</p>
+                    </div>
+                </div>
+
+                <!-- Branch vs Regional Comparison -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <div class="bg-indigo-50 p-5 rounded-xl border-2 border-indigo-200">
+                        <h4 class="font-bold text-indigo-900 mb-3 text-sm">🏢 Branch Manager Focus</h4>
+                        <div class="space-y-2 text-xs text-indigo-800">
+                            <p>&bull; Manages individual contributors</p>
+                            <p>&bull; Owns single-location P&amp;L</p>
+                            <p>&bull; Day-to-day operations</p>
+                            <p>&bull; Direct customer relationships</p>
+                            <p>&bull; Executes company standards</p>
+                        </div>
+                    </div>
+                    <div class="bg-emerald-50 p-5 rounded-xl border-2 border-emerald-200">
+                        <h4 class="font-bold text-emerald-900 mb-3 text-sm">🌐 Regional Manager Focus</h4>
+                        <div class="space-y-2 text-xs text-emerald-800">
+                            <p>&bull; Develops and coaches managers</p>
+                            <p>&bull; Owns multi-location performance</p>
+                            <p>&bull; Standardization &amp; consistency</p>
+                            <p>&bull; Strategic market growth</p>
+                            <p>&bull; Builds the leadership pipeline</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 4: First-Time Manager Training Framework -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="phase-badge bg-indigo-100 text-indigo-700 mb-3">Module 4</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-2">First-Time Manager Training Framework</h2>
+                    </div>
+                    <button onclick="toggleDetails('det-mgmt-firsttime')" class="text-[10px] font-bold uppercase text-indigo-600 bg-indigo-50 px-3 py-2 rounded hover:bg-indigo-100 transition-all">More</button>
+                </div>
+
+                <div id="det-mgmt-firsttime" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4">
+                    <div class="p-6 text-sm leading-relaxed">
+                        <p class="font-bold text-indigo-800 mb-3">The 90-Day Manager Development Program:</p>
+                        <p class="mb-4">Research from McKinsey indicates that on average, managers don't receive formal leadership training until 10 years into the role. That's a decade of managing by instinct, developing bad habits, and losing good employees. The following framework ensures new managers are supported from Day 1 of their promotion.</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">Days 1&ndash;30: Learning to Lead</p>
+                        <p class="mb-2">&bull; <strong>The Identity Shift Workshop:</strong> Structured conversation about what changes when you become a manager. Your peers are now your direct reports. Your success metric changes from personal output to team output. You will make unpopular decisions. You will feel lonely sometimes. This is all normal.</p>
+                        <p class="mb-2">&bull; <strong>One-on-One Training:</strong> How to conduct effective 15&ndash;30 minute weekly one-on-ones. Template: personal check-in (2 min), wins/progress (5 min), challenges/blockers (5 min), priorities for next week (5 min), development goals (5 min). Practice with their own manager first.</p>
+                        <p class="mb-2">&bull; <strong>Expectations Setting:</strong> How to clearly communicate performance expectations using specific, measurable, observable language. "I need jobs documented within 15 minutes of leaving site" not "I need better documentation."</p>
+                        <p class="mb-4">&bull; <strong>Delegation Framework:</strong> What to delegate, what to keep, and how to delegate effectively. The delegation spectrum: Tell → Sell → Consult → Agree → Advise → Inquire → Delegate fully. New managers almost always under-delegate.</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">Days 31&ndash;60: Building Confidence</p>
+                        <p class="mb-2">&bull; <strong>Feedback &amp; Coaching Skills:</strong> The SBI model (Situation, Behavior, Impact) for constructive feedback. Practice delivering both positive recognition and corrective feedback in role-play scenarios before doing it live.</p>
+                        <p class="mb-2">&bull; <strong>Difficult Conversations:</strong> How to address attendance issues, quality problems, interpersonal conflicts, and performance gaps. Script the first 30 seconds. Stay factual. Listen. Agree on next steps. Document.</p>
+                        <p class="mb-2">&bull; <strong>Team Meeting Facilitation:</strong> How to run productive morning huddles, weekly team meetings, and quarterly reviews. Every meeting needs an agenda, a time limit, and action items.</p>
+                        <p class="mb-4">&bull; <strong>Basic HR &amp; Legal Awareness:</strong> What you can and cannot say/do as a manager. Harassment policies, documentation requirements, termination procedures, OSHA responsibilities. When to escalate to HR or ownership.</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">Days 61&ndash;90: Leading with Confidence</p>
+                        <p class="mb-2">&bull; <strong>Financial Literacy for Managers:</strong> How to read the P&amp;L, understand job costing reports, and make decisions that protect margins. Managers who understand the numbers make better operational decisions.</p>
+                        <p class="mb-2">&bull; <strong>Hiring &amp; Interviewing:</strong> How to screen candidates, conduct structured interviews, avoid bias, and assess cultural fit. The branch manager should own their hiring pipeline.</p>
+                        <p class="mb-2">&bull; <strong>Performance Review Execution:</strong> Conducting 30/60/90-day and annual reviews using standardized rubrics. How to rate fairly, provide development guidance, and document everything.</p>
+                        <p>&bull; <strong>90-Day Manager Assessment:</strong> Their own manager evaluates their leadership development using the same competency framework they use for their team.</p>
+                    </div>
+                </div>
+
+                <!-- 90-Day Training Timeline -->
+                <div class="bg-slate-50 p-6 rounded-xl border mt-4">
+                    <h4 class="font-bold text-slate-800 mb-4 text-sm uppercase">90-Day Manager Development Timeline</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-28 text-xs font-bold text-indigo-700 bg-indigo-100 py-1 px-2 rounded text-center shrink-0">Days 1&ndash;30</div>
+                            <div class="flex-1 bg-indigo-500 text-white text-xs font-semibold py-2 px-3 rounded">Learning to Lead: Identity shift, one-on-ones, expectations, delegation</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-28 text-xs font-bold text-violet-700 bg-violet-100 py-1 px-2 rounded text-center shrink-0">Days 31&ndash;60</div>
+                            <div class="flex-1 bg-violet-500 text-white text-xs font-semibold py-2 px-3 rounded">Building Confidence: Feedback, difficult conversations, meetings, HR basics</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-28 text-xs font-bold text-emerald-700 bg-emerald-100 py-1 px-2 rounded text-center shrink-0">Days 61&ndash;90</div>
+                            <div class="flex-1 bg-emerald-500 text-white text-xs font-semibold py-2 px-3 rounded">Leading Confidently: Financials, hiring, performance reviews, assessment</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 5: Managing in a Restoration Setting -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="phase-badge bg-indigo-100 text-indigo-700 mb-3">Module 5</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-2">Managing in a Restoration Setting: Industry-Specific Leadership</h2>
+                    </div>
+                    <button onclick="toggleDetails('det-mgmt-restoration')" class="text-[10px] font-bold uppercase text-indigo-600 bg-indigo-50 px-3 py-2 rounded hover:bg-indigo-100 transition-all">More</button>
+                </div>
+
+                <div id="det-mgmt-restoration" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4">
+                    <div class="p-6 text-sm leading-relaxed">
+                        <p class="font-bold text-indigo-800 mb-3">What Makes Restoration Management Different:</p>
+                        <p class="mb-4">Restoration is not a 9-to-5 industry. Your team works in people's homes during their worst moments. Jobs arrive unpredictably, hours are irregular, conditions are difficult, and the work is physically demanding. These realities create unique management challenges that generic leadership training doesn't address.</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">Managing On-Call &amp; After-Hours Work:</p>
+                        <p class="mb-2">&bull; Create fair, transparent on-call rotation schedules published 4+ weeks in advance</p>
+                        <p class="mb-2">&bull; Define response time expectations clearly — what requires immediate response vs. next-morning</p>
+                        <p class="mb-2">&bull; Compensate on-call fairly — people who sacrifice personal time need to feel valued, not exploited</p>
+                        <p class="mb-4">&bull; Lead by example — if you won't take on-call shifts yourself, don't expect your team to embrace them</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">Managing Field Crews You Can't See:</p>
+                        <p class="mb-2">&bull; Trust but verify — use documentation (Job-Dox uploads, timestamped photos, GPS check-ins) to confirm work quality without micromanaging</p>
+                        <p class="mb-2">&bull; Set clear daily expectations before crews leave the shop — who goes where, what gets done, when to check in</p>
+                        <p class="mb-2">&bull; Make job site visits regularly but unpredictably — not to catch people slacking, but to coach and support</p>
+                        <p class="mb-4">&bull; Use daily documentation review as your quality feedback loop — if the photos and readings are right, the work is probably right</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">Managing the Emotional Weight:</p>
+                        <p class="mb-2">&bull; Your team enters homes where families are in crisis — flooded basements, fire damage, mold fears. This takes an emotional toll over time.</p>
+                        <p class="mb-2">&bull; Acknowledge the difficulty of the work openly. "What we do is hard. The hours are long and the conditions are tough. I see the effort you put in and it matters."</p>
+                        <p class="mb-2">&bull; Watch for burnout indicators — increased callouts, declining documentation quality, short tempers, withdrawal from the team</p>
+                        <p class="mb-4">&bull; Create recovery time after intense jobs — a Cat 3 large-loss that runs 12-hour days for two weeks earns some lighter scheduling afterward</p>
+
+                        <p class="font-bold text-indigo-800 mb-3">Safety as a Non-Negotiable Leadership Responsibility:</p>
+                        <p class="mb-2">&bull; As a manager, you are personally and legally responsible for your team's safety compliance</p>
+                        <p class="mb-2">&bull; Never allow schedule pressure to override safety protocols — "we need to get this done fast" never justifies skipping PPE or ignoring asbestos protocols</p>
+                        <p class="mb-2">&bull; Conduct weekly safety toolbox talks — 5-minute focused topics that keep safety top of mind</p>
+                        <p>&bull; Celebrate safety milestones — days without incidents, near-miss reporting (which should be encouraged, not punished)</p>
+                    </div>
+                </div>
+
+                <!-- Restoration-Specific Challenges Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <div class="bg-slate-50 p-5 rounded-xl border">
+                        <h4 class="font-bold text-slate-800 mb-2 text-sm">🌙 After-Hours Management</h4>
+                        <p class="text-xs text-slate-600">Fair on-call rotation, clear response expectations, appropriate compensation, lead by example.</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl border">
+                        <h4 class="font-bold text-slate-800 mb-2 text-sm">🚛 Remote Crew Management</h4>
+                        <p class="text-xs text-slate-600">Trust through documentation, daily expectations, regular site visits, documentation as feedback loop.</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl border">
+                        <h4 class="font-bold text-slate-800 mb-2 text-sm">💙 Emotional Well-Being</h4>
+                        <p class="text-xs text-slate-600">Acknowledge difficulty, watch for burnout, provide recovery time after intense jobs.</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl border">
+                        <h4 class="font-bold text-slate-800 mb-2 text-sm">🦺 Safety Leadership</h4>
+                        <p class="text-xs text-slate-600">Personal legal responsibility, never compromise for speed, weekly toolbox talks, celebrate milestones.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Knowledge Check -->
+            <div class="knowledge-check" id="kc-mgmt">
+                <div class="knowledge-check-header">
+                    <span class="knowledge-check-icon">🧠</span>
+                    <span class="knowledge-check-title">Quick Knowledge Check</span>
+                </div>
+                <div class="knowledge-check-question">
+                    What is the single largest time allocation for a Branch Manager?
+                </div>
+                <div class="knowledge-check-option" onclick="checkKnowledge('kc-mgmt', 0, 0, 'Correct! People management should consume approximately 40% of a Branch Manager\'s time. Everything else — financials, operations, customers, strategy — depends on having a well-managed, well-developed team.')">
+                    People Management (40%)
+                </div>
+                <div class="knowledge-check-option" onclick="checkKnowledge('kc-mgmt', 1, 0, 'Financial performance is critical, but it only accounts for about 20% of a Branch Manager\'s time. The financials improve as a result of strong people management.')">
+                    Financial Performance (40%)
+                </div>
+                <div class="knowledge-check-option" onclick="checkKnowledge('kc-mgmt', 2, 0, 'Operations is important but represents about 20% of time. A well-managed team handles most operational execution — the manager\'s job is quality assurance and coaching.')">
+                    Operations &amp; Quality Control (40%)
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: EMPLOYEE MATURITY MODELS -->
+        <section id="sec-maturity-models" class="tab-content hidden fade-in" data-ms-membership="ready-pro">
+            <!-- Hero -->
+            <div class="bg-gradient-to-br from-purple-700 to-purple-500 rounded-3xl p-12 mb-12 text-white text-center shadow-2xl">
+                <div class="text-6xl mb-4">📈</div>
+                <h1 class="text-5xl font-black mb-4 tracking-tight">Employee Maturity Models</h1>
+                <p class="text-xl font-medium text-purple-50 max-w-3xl mx-auto leading-relaxed">
+                    Clear career progression pathways for every role in your company. Inspired by the Cardone Ventures Employee Maturity Model framework &mdash; adapted for restoration operations.
+                </p>
+            </div>
+
+            <!-- EMM Overview -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="phase-badge bg-purple-100 text-purple-700 mb-3">Framework</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-2">What Is an Employee Maturity Model?</h2>
+                    </div>
+                    <button onclick="toggleDetails('det-emm-overview')" class="text-[10px] font-bold uppercase text-purple-600 bg-purple-50 px-3 py-2 rounded hover:bg-purple-100 transition-all">More</button>
+                </div>
+
+                <div id="det-emm-overview" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4">
+                    <div class="p-6 text-sm leading-relaxed">
+                        <p class="font-bold text-purple-800 mb-3">From Natalie Dawson's "TeamWork" Framework:</p>
+                        <p class="mb-4">An Employee Maturity Model (EMM) turns every role in your company into a career pathway rather than a dead-end job. As Natalie Dawson describes it, the EMM removes the guesswork and provides a clear roadmap for advancement, outlining the specific competencies, knowledge, and skills necessary to progress through different roles and pay levels within the organization. It's the difference between an employee asking "where do I go from here?" and already knowing the answer.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">The Three Components of an EMM:</p>
+                        <p class="mb-2">&bull; <strong>Alignment:</strong> Employees who have joined within the last 6 months. They're absorbing institutional knowledge, learning company culture, and understanding how their role fits into the bigger picture. Your job is to immerse them in the mission, vision, and values.</p>
+                        <p class="mb-2">&bull; <strong>Development:</strong> Where most of your team should be. These employees are developing within their current roles or growing into new ones. They need resources, progress tracking, and visibility into what's next for them.</p>
+                        <p class="mb-4">&bull; <strong>Transition:</strong> Employees who are either being promoted into new roles, moving laterally, or exiting the organization. Each transition should be handled deliberately, not reactively.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Core EMM Principles:</p>
+                        <p class="mb-2">&bull; <strong>Every tier has defined salary ranges</strong> — transparency in compensation builds trust and motivates progression</p>
+                        <p class="mb-2">&bull; <strong>Every level has documented competencies</strong> — specific, measurable skills that must be demonstrated (not just time-in-role)</p>
+                        <p class="mb-2">&bull; <strong>Progression is earned, not automatic</strong> — moving up requires mastery of current-level competencies AND demonstration of next-level readiness</p>
+                        <p class="mb-2">&bull; <strong>Leadership actively coaches progression</strong> — managers should be having career development conversations in every one-on-one, helping employees see possibilities they might not see for themselves</p>
+                        <p>&bull; <strong>The EMM aligns individual growth with company growth</strong> — as the company scales from 1 branch to 5 branches, the roles and tiers expand, creating opportunity that keeps your best people</p>
+                    </div>
+                </div>
+
+                <!-- EMM Flow Chart -->
+                <div class="bg-purple-50 p-6 rounded-xl border-2 border-purple-200 mt-4">
+                    <h4 class="font-bold text-purple-900 mb-4 text-sm uppercase text-center">The Employee Lifecycle</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-5 rounded-xl text-center border-2 border-blue-200">
+                            <div class="text-3xl mb-2">🎯</div>
+                            <h5 class="font-black text-blue-800 mb-1 text-sm">ALIGNMENT</h5>
+                            <p class="text-[10px] text-slate-600">First 6 months. Learning culture, processes, and role expectations.</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl text-center border-2 border-emerald-200">
+                            <div class="text-3xl mb-2">🌱</div>
+                            <h5 class="font-black text-emerald-800 mb-1 text-sm">DEVELOPMENT</h5>
+                            <p class="text-[10px] text-slate-600">Ongoing. Growing skills, tracking progress, pursuing next-level competencies.</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl text-center border-2 border-violet-200">
+                            <div class="text-3xl mb-2">🚀</div>
+                            <h5 class="font-black text-violet-800 mb-1 text-sm">TRANSITION</h5>
+                            <p class="text-[10px] text-slate-600">Promotion, lateral move, or exit. Every transition handled deliberately.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EMM: Operations / Field Department -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="phase-badge bg-purple-100 text-purple-700 mb-3">Operations / Field</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-2">Operations &amp; Field Department EMM</h2>
+                    </div>
+                    <button onclick="toggleDetails('det-emm-ops')" class="text-[10px] font-bold uppercase text-purple-600 bg-purple-50 px-3 py-2 rounded hover:bg-purple-100 transition-all">More</button>
+                </div>
+
+                <div id="det-emm-ops" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4">
+                    <div class="p-6 text-sm leading-relaxed">
+                        <p class="font-bold text-purple-800 mb-3">Level 1 &mdash; Technician I (Entry-Level)</p>
+                        <p class="text-xs text-slate-500 mb-2">Typical Timeline: 0&ndash;12 months | Alignment &amp; Early Development</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Basic water extraction, equipment setup/teardown, moisture reading under supervision, photo documentation, vehicle readiness, PPE compliance, customer greeting protocols, daily paperwork completion.</p>
+                        <p class="mb-2"><strong>Certifications:</strong> OSHA 10-Hour, company safety orientation completed.</p>
+                        <p class="mb-4"><strong>Promotion Criteria:</strong> Pass mitigation competency assessment, zero safety violations, consistent documentation quality, demonstrated reliability (attendance &amp; punctuality).</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Level 2 &mdash; Technician II (Experienced)</p>
+                        <p class="text-xs text-slate-500 mb-2">Typical Timeline: 12&ndash;24 months | Development</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Independent moisture mapping, psychrometric monitoring, equipment set optimization, controlled demolition, antimicrobial application, scope capture documentation, customer communication, mentoring Tech I teammates.</p>
+                        <p class="mb-2"><strong>Certifications:</strong> IICRC WRT (Water Restoration Technician).</p>
+                        <p class="mb-4"><strong>Promotion Criteria:</strong> Can run a standard mitigation job independently, trains new Tech I hires, handles routine customer questions without escalation, consistent 50%+ job margins.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Level 3 &mdash; Lead Technician / Crew Lead</p>
+                        <p class="text-xs text-slate-500 mb-2">Typical Timeline: 24&ndash;36 months | Development &amp; Pre-Management</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Runs multi-crew jobs, assigns tasks to team members, manages job timelines, coordinates with estimators and project managers, handles customer escalations, conducts daily job site briefings, reviews team documentation quality.</p>
+                        <p class="mb-2"><strong>Certifications:</strong> IICRC WRT + ASD (Applied Structural Drying) or FSRT (Fire &amp; Smoke Restoration Technician).</p>
+                        <p class="mb-4"><strong>Promotion Criteria:</strong> Successfully led 5+ multi-day projects, positive customer feedback on led jobs, demonstrates delegation rather than doing everything themselves, completed pre-promotion leadership development.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Level 4 &mdash; Project Manager</p>
+                        <p class="text-xs text-slate-500 mb-2">Typical Timeline: 36&ndash;60 months | Advanced Development</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Full project lifecycle management (mitigation through reconstruction handoff), scope negotiation with adjusters, job costing and margin management, Xactimate proficiency, multiple simultaneous project oversight, team scheduling, hiring input.</p>
+                        <p class="mb-2"><strong>Certifications:</strong> Multiple IICRC certifications, Xactimate certification preferred.</p>
+                        <p class="mb-4"><strong>Promotion Criteria:</strong> Manages 15+ concurrent jobs profitably, maintains adjuster/TPA relationships independently, demonstrates financial acumen, shows interest in branch-level operations.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Level 5 &mdash; Branch Manager</p>
+                        <p class="text-xs text-slate-500 mb-2">Typical Timeline: 5+ years | Leadership</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Full P&amp;L ownership, team hiring/development/termination, branch revenue targets, quality standards enforcement, adjuster and TPA relationship management, safety program oversight, strategic planning contribution.</p>
+                        <p class="mb-2"><strong>Certifications:</strong> Management certification (Ready Platform or equivalent), advanced IICRC certifications.</p>
+                        <p><strong>Promotion Criteria:</strong> Branch meets revenue and margin targets consistently, strong employee retention, high customer satisfaction scores, identified and developed successor.</p>
+                    </div>
+                </div>
+
+                <!-- Operations Career Ladder Visual -->
+                <div class="bg-gradient-to-r from-purple-500 to-violet-500 p-6 rounded-xl text-white mt-4">
+                    <h4 class="font-bold text-lg mb-4 text-center">Operations Career Ladder</h4>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-2 text-xs font-bold">
+                        <div class="bg-white bg-opacity-20 px-4 py-3 rounded-lg text-center">Tech I</div>
+                        <div class="hidden md:block">→</div><div class="md:hidden">↓</div>
+                        <div class="bg-white bg-opacity-25 px-4 py-3 rounded-lg text-center">Tech II</div>
+                        <div class="hidden md:block">→</div><div class="md:hidden">↓</div>
+                        <div class="bg-white bg-opacity-30 px-4 py-3 rounded-lg text-center">Lead Tech</div>
+                        <div class="hidden md:block">→</div><div class="md:hidden">↓</div>
+                        <div class="bg-white bg-opacity-35 px-4 py-3 rounded-lg text-center">Project Mgr</div>
+                        <div class="hidden md:block">→</div><div class="md:hidden">↓</div>
+                        <div class="bg-white bg-opacity-40 px-4 py-3 rounded-lg text-center border-2 border-white">Branch Mgr</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EMM: Estimating / Scoping Department -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="phase-badge bg-purple-100 text-purple-700 mb-3">Estimating</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-2">Estimating &amp; Scoping Department EMM</h2>
+                    </div>
+                    <button onclick="toggleDetails('det-emm-est')" class="text-[10px] font-bold uppercase text-purple-600 bg-purple-50 px-3 py-2 rounded hover:bg-purple-100 transition-all">More</button>
+                </div>
+
+                <div id="det-emm-est" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4">
+                    <div class="p-6 text-sm leading-relaxed">
+                        <p class="font-bold text-purple-800 mb-3">Level 1 &mdash; Estimating Assistant / Coordinator</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Basic Xactimate navigation, data entry from field notes, file organization, supplement tracking, assist senior estimators with documentation gathering, understanding of line-item categories.</p>
+                        <p class="mb-4"><strong>Promotion Criteria:</strong> Accurate data entry, Xactimate Level 1 proficiency, understanding of mitigation vs. reconstruction scope differences.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Level 2 &mdash; Estimator I</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Write complete mitigation estimates independently, basic reconstruction estimates, field inspection and measurement, adjuster communication on standard claims, supplement preparation and defense, understanding of insurance carrier guidelines.</p>
+                        <p class="mb-4"><strong>Promotion Criteria:</strong> Consistently accurate estimates (within 5% variance on audits), handles standard adjuster negotiations, Xactimate Level 2 certification.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Level 3 &mdash; Senior Estimator</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Complex reconstruction estimates, large-loss scoping, TPA program compliance, carrier-specific pricing negotiation, mentoring junior estimators, dispute resolution, expert-level Xactimate including macros and templates.</p>
+                        <p class="mb-4"><strong>Promotion Criteria:</strong> Manages highest-value estimates, training junior estimators, maintaining carrier relationships, consistent supplement approval rates above 80%.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Level 4 &mdash; Estimating Manager</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Oversees all estimating output and quality, develops estimating standards and templates, manages estimating team workload, reviews and approves estimates before submission, trains on carrier-specific requirements, tracks approval/denial rates, negotiates complex disputes.</p>
+                        <p><strong>Promotion Criteria:</strong> Team-wide accuracy targets met, strong carrier relationships across the board, developed and documented estimating SOPs.</p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-blue-500 to-indigo-500 p-4 rounded-xl text-white mt-4">
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-2 text-xs font-bold">
+                        <div class="bg-white bg-opacity-20 px-4 py-3 rounded-lg text-center">Est. Assistant</div>
+                        <div class="hidden md:block">→</div><div class="md:hidden">↓</div>
+                        <div class="bg-white bg-opacity-25 px-4 py-3 rounded-lg text-center">Estimator I</div>
+                        <div class="hidden md:block">→</div><div class="md:hidden">↓</div>
+                        <div class="bg-white bg-opacity-30 px-4 py-3 rounded-lg text-center">Sr. Estimator</div>
+                        <div class="hidden md:block">→</div><div class="md:hidden">↓</div>
+                        <div class="bg-white bg-opacity-40 px-4 py-3 rounded-lg text-center border-2 border-white">Est. Manager</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EMM: Admin / Office Department -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="phase-badge bg-purple-100 text-purple-700 mb-3">Admin / Office</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-2">Administrative &amp; Office Department EMM</h2>
+                    </div>
+                    <button onclick="toggleDetails('det-emm-admin')" class="text-[10px] font-bold uppercase text-purple-600 bg-purple-50 px-3 py-2 rounded hover:bg-purple-100 transition-all">More</button>
+                </div>
+
+                <div id="det-emm-admin" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4">
+                    <div class="p-6 text-sm leading-relaxed">
+                        <p class="font-bold text-purple-800 mb-3">Level 1 &mdash; Administrative Assistant / Dispatcher</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Phone handling and dispatch, initial loss intake, job file creation, calendar and schedule management, basic invoicing support, work order processing, customer follow-up calls.</p>
+                        <p class="mb-4"><strong>Promotion Criteria:</strong> Consistent call handling quality, accurate file creation, reliable scheduling support.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Level 2 &mdash; Job File Coordinator</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Full job file lifecycle management, invoicing and billing, insurance carrier communication, AR tracking and follow-up, compliance documentation, certificate of completion processing, subcontractor coordination.</p>
+                        <p class="mb-4"><strong>Promotion Criteria:</strong> DSO targets met, billing accuracy, handles carrier communications independently, manages multiple concurrent files.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Level 3 &mdash; Office Manager</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Oversees all administrative operations, manages office staff, AR/AP oversight, vendor relationships, office budget management, reporting preparation, onboarding administration, compliance tracking across all active jobs.</p>
+                        <p class="mb-4"><strong>Promotion Criteria:</strong> Office runs efficiently without daily owner/BM involvement, strong vendor relationships, consistently low AR aging, developed and trained admin team members.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Level 4 &mdash; Operations Coordinator / Assistant GM</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Cross-functional oversight between field and office, financial reporting, branch KPI tracking, process improvement, assistant to Branch Manager in all operational areas, can run the branch when BM is absent.</p>
+                        <p><strong>Promotion Criteria:</strong> Branch operates normally during BM absence, has improved at least 2 operational processes, financial reporting accuracy and timeliness.</p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-4 rounded-xl text-white mt-4">
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-2 text-xs font-bold">
+                        <div class="bg-white bg-opacity-20 px-4 py-3 rounded-lg text-center">Admin / Dispatch</div>
+                        <div class="hidden md:block">→</div><div class="md:hidden">↓</div>
+                        <div class="bg-white bg-opacity-25 px-4 py-3 rounded-lg text-center">File Coordinator</div>
+                        <div class="hidden md:block">→</div><div class="md:hidden">↓</div>
+                        <div class="bg-white bg-opacity-30 px-4 py-3 rounded-lg text-center">Office Manager</div>
+                        <div class="hidden md:block">→</div><div class="md:hidden">↓</div>
+                        <div class="bg-white bg-opacity-40 px-4 py-3 rounded-lg text-center border-2 border-white">Ops Coordinator</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EMM: Sales / Business Development Department -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="phase-badge bg-purple-100 text-purple-700 mb-3">Sales / BD</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-2">Sales &amp; Business Development EMM</h2>
+                    </div>
+                    <button onclick="toggleDetails('det-emm-sales')" class="text-[10px] font-bold uppercase text-purple-600 bg-purple-50 px-3 py-2 rounded hover:bg-purple-100 transition-all">More</button>
+                </div>
+
+                <div id="det-emm-sales" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4">
+                    <div class="p-6 text-sm leading-relaxed">
+                        <p class="font-bold text-purple-800 mb-3">Level 1 &mdash; Marketing Coordinator / Jr. Sales Rep</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Agent and adjuster visit scheduling, CE course coordination, lunch-and-learn setup, social media and marketing material distribution, CRM data entry, networking event attendance, plumber and referral partner outreach.</p>
+                        <p class="mb-4"><strong>Promotion Criteria:</strong> Consistent outreach activity volume, CRM accuracy, demonstrates comfort building professional relationships.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Level 2 &mdash; Business Development Representative</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Manages assigned territory independently, builds and maintains agent/adjuster referral relationships, delivers CE courses and presentations, tracks pipeline in CRM, generates measurable referral revenue, understands insurance claim workflows to speak credibly with partners.</p>
+                        <p class="mb-4"><strong>Promotion Criteria:</strong> Meets monthly referral targets, attributable revenue growth in territory, positive feedback from referral partners.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Level 3 &mdash; Senior BD / Commercial Account Manager</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Manages high-value commercial accounts and TPA relationships, negotiates program agreements, develops strategic partnerships, mentors junior sales staff, contributes to sales strategy and market analysis.</p>
+                        <p class="mb-4"><strong>Promotion Criteria:</strong> Landed and maintained 3+ commercial or TPA accounts, mentored junior reps to target achievement, developed repeatable sales playbooks.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Level 4 &mdash; Sales Manager / VP of Business Development</p>
+                        <p class="mb-2"><strong>Core Competencies:</strong> Manages full sales team, sets territory assignments and quotas, develops compensation and incentive plans, owns overall revenue pipeline, coordinates sales with operations capacity, market expansion strategy.</p>
+                        <p><strong>Promotion Criteria:</strong> Team consistently meets revenue targets, low sales team turnover, expanded market presence, developed and documented sales processes.</p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-emerald-500 to-teal-500 p-4 rounded-xl text-white mt-4">
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-2 text-xs font-bold">
+                        <div class="bg-white bg-opacity-20 px-4 py-3 rounded-lg text-center">Mkt. Coordinator</div>
+                        <div class="hidden md:block">→</div><div class="md:hidden">↓</div>
+                        <div class="bg-white bg-opacity-25 px-4 py-3 rounded-lg text-center">BD Rep</div>
+                        <div class="hidden md:block">→</div><div class="md:hidden">↓</div>
+                        <div class="bg-white bg-opacity-30 px-4 py-3 rounded-lg text-center">Sr. BD / Commercial</div>
+                        <div class="hidden md:block">→</div><div class="md:hidden">↓</div>
+                        <div class="bg-white bg-opacity-40 px-4 py-3 rounded-lg text-center border-2 border-white">Sales Manager</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Implementation Guide -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="phase-badge bg-purple-100 text-purple-700 mb-3">Implementation</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-2">Implementing EMMs in Your Company</h2>
+                    </div>
+                    <button onclick="toggleDetails('det-emm-implement')" class="text-[10px] font-bold uppercase text-purple-600 bg-purple-50 px-3 py-2 rounded hover:bg-purple-100 transition-all">More</button>
+                </div>
+
+                <div id="det-emm-implement" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4">
+                    <div class="p-6 text-sm leading-relaxed">
+                        <p class="font-bold text-purple-800 mb-3">Step 1: Customize to Your Company</p>
+                        <p class="mb-4">The models above are frameworks, not prescriptions. Your company's version should reflect your specific roles, your market, your service lines, and your growth plans. A 5-person company will have fewer levels than a 50-person company. Start with what's realistic and expand as you grow.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Step 2: Attach Salary Ranges to Each Level</p>
+                        <p class="mb-4">Transparency in compensation eliminates guesswork and political games. Each level should have a defined salary range based on your market. When employees can see exactly what they need to achieve AND what they'll earn, motivation becomes self-sustaining. Reference Cardone Ventures' principle: "Making salary ranges known fosters trust and highlights the clear link between pay, responsibility, and results."</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Step 3: Define Incentive Opportunities Per Level</p>
+                        <p class="mb-4">Beyond base salary, define what "above and beyond" performance looks like at each level and how it's rewarded. As Natalie Dawson advises, target 10&ndash;25% of additional opportunity if employees hit incentive metrics. This gives every team member three compensation levers: base salary, incentives, and (where applicable) commissions.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Step 4: Introduce Through One-on-Ones</p>
+                        <p class="mb-4">Don't mass-roll-out the EMM in an all-hands meeting. Have each manager walk through the model with their direct reports individually. Identify where each person currently falls, discuss what's needed for the next level, and collaboratively set a development plan. This conversation is the most impactful retention tool you'll ever deploy.</p>
+
+                        <p class="font-bold text-purple-800 mb-3">Step 5: Review Quarterly</p>
+                        <p>The EMM isn't a static document. Review each employee's progress quarterly in one-on-ones. Celebrate advancement. Address stagnation with coaching and resources. Update the model itself annually as roles evolve and new positions are created.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom CTA -->
+            <div class="bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-8 text-center text-white mt-8">
+                <div class="text-4xl mb-4">📚</div>
+                <h3 class="text-2xl font-black mb-3">Recommended Reading</h3>
+                <p class="text-slate-300 max-w-2xl mx-auto mb-4">"TeamWork: How to Build a High-Performance Team" by Natalie Dawson provides the full Employee Maturity Model framework along with systems for hiring, onboarding, meetings, performance management, and team culture. The concepts in this module are inspired by that framework, adapted for the restoration industry.</p>
+            </div>
+        </section>
+
+
         <!-- SECTION: RESOURCES -->
 
 
@@ -5066,6 +5770,29 @@ document.addEventListener('keydown', function(e) {
                     <div id="recon-quiz-feedback" class="mt-10 hidden p-6 rounded-2xl border-2">
                         <p id="recon-quiz-feedback-text" class="text-base font-bold"></p>
                         <button onclick="nextReconQ()" class="mt-6 w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-violet-600 transition shadow-lg">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: MANAGEMENT CERTIFICATION QUIZ -->
+        <section id="sec-mgmt-quiz" class="tab-content hidden fade-in text-center" data-ms-membership="ready-pro">
+            <div class="max-w-2xl mx-auto text-center">
+                <div class="mb-6">
+                    <span id="mgmt-quiz-mode-badge" class="quiz-mode-indicator bg-blue-100 text-blue-700">📝 Practice Mode</span>
+                </div>
+                <div id="mgmt-quiz-box" class="bg-white p-8 rounded-3xl shadow-2xl border border-slate-100 text-center">
+                    <div id="mgmt-quiz-question-area">
+                        <div class="flex justify-between items-center mb-8">
+                            <span id="mgmt-quiz-counter" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full uppercase tracking-widest">Question 1/25</span>
+                            <span id="mgmt-quiz-score" class="text-xs font-black text-slate-400">Score: 0</span>
+                        </div>
+                        <h3 id="mgmt-quiz-q" class="text-2xl font-bold text-slate-800 mb-10 leading-tight">Question goes here?</h3>
+                        <div id="mgmt-quiz-opts" class="space-y-4"></div>
+                    </div>
+                    <div id="mgmt-quiz-feedback" class="mt-10 hidden p-6 rounded-2xl border-2">
+                        <p id="mgmt-quiz-feedback-text" class="text-base font-bold"></p>
+                        <button onclick="nextMgmtQ()" class="mt-6 w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-indigo-600 transition shadow-lg">Continue</button>
                     </div>
                 </div>
             </div>
@@ -5860,6 +6587,25 @@ document.addEventListener('keydown', function(e) {
         // Quiz State
         let qIdx = 0, qScore = 0;
         let quizMode = 'practice'; // 'practice' or 'certification'
+        let shuffledQuiz = [];
+        
+        // Fisher-Yates shuffle utility
+        function shuffleArray(arr) {
+            const a = arr.slice();
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+        
+        // Shuffle options and remap correct answer index
+        function shuffleQuestion(q) {
+            const correctText = q.o[q.c];
+            const shuffledOpts = shuffleArray(q.o);
+            const newCorrectIdx = shuffledOpts.indexOf(correctText);
+            return { q: q.q, o: shuffledOpts, c: newCorrectIdx, f: q.f };
+        }
 
         function startCertificationQuiz() {
             quizMode = 'certification';
@@ -5871,11 +6617,16 @@ document.addEventListener('keydown', function(e) {
             window.scrollTo(0,0);
         }
 
-        function resetQuiz() { qIdx = 0; qScore = 0; loadQ(); }
+        function resetQuiz() { 
+            qIdx = 0; 
+            qScore = 0; 
+            shuffledQuiz = shuffleArray(quizQuestions).map(shuffleQuestion);
+            loadQ(); 
+        }
 
         function loadQ() {
-            const d = quizQuestions[qIdx];
-            document.getElementById('quiz-counter').innerText = `Question ${qIdx + 1}/${quizQuestions.length}`;
+            const d = shuffledQuiz[qIdx];
+            document.getElementById('quiz-counter').innerText = `Question ${qIdx + 1}/${shuffledQuiz.length}`;
             document.getElementById('quiz-score').innerText = `Score: ${qScore}`;
             document.getElementById('quiz-q').innerText = d.q;
             document.getElementById('quiz-feedback').classList.add('hidden');
@@ -5891,7 +6642,7 @@ document.addEventListener('keydown', function(e) {
         }
 
         function checkAns(idx) {
-            const d = quizQuestions[qIdx];
+            const d = shuffledQuiz[qIdx];
             const btns = document.querySelectorAll('#quiz-opts button');
             btns.forEach(b => b.disabled = true);
             const feed = document.getElementById('quiz-feedback');
@@ -5912,12 +6663,12 @@ document.addEventListener('keydown', function(e) {
 
         function nextQ() {
             qIdx++;
-            if (qIdx < quizQuestions.length) loadQ();
+            if (qIdx < shuffledQuiz.length) loadQ();
             else showResults();
         }
 
         function showResults() {
-            const total = quizQuestions.length;
+            const total = shuffledQuiz.length;
             const percent = Math.round((qScore/total)*100);
             const pass = percent >= 80;
 
@@ -6098,7 +6849,7 @@ document.addEventListener('keydown', function(e) {
             doc.text('demonstrated proficiency in restoration field operations by achieving', pageWidth / 2, 108 + yOffset, { align: 'center' });
 
             // Score badge
-            const percent = Math.round((qScore/quizQuestions.length)*100);
+            const percent = Math.round((qScore/shuffledQuiz.length)*100);
             doc.setFillColor(124, 58, 237);
             doc.roundedRect(pageWidth / 2 - 20, 114 + yOffset, 40, 12, 3, 3, 'F');
             doc.setFontSize(16);
@@ -6148,7 +6899,7 @@ document.addEventListener('keydown', function(e) {
             }
             
             const score = qScore;
-            const total = quizQuestions.length;
+            const total = shuffledQuiz.length;
             const percent = Math.round((score/total)*100);
             const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
             
@@ -6190,40 +6941,17 @@ document.addEventListener('keydown', function(e) {
             document.getElementById('recon-quiz-mode-badge').className = 'quiz-mode-indicator bg-blue-100 text-blue-700';
             document.getElementById('recon-quiz-mode-badge').innerHTML = '📝 Practice Mode';
             
-            // Reset and load
+            // Reset, shuffle, and load
             reconQIdx = 0;
             reconQScore = 0;
-            
-            console.log('Checking questions array...');
-            console.log('Questions exist:', typeof reconQuizQuestions !== 'undefined');
-            console.log('Questions count:', reconQuizQuestions ? reconQuizQuestions.length : 'undefined');
             
             if (!reconQuizQuestions || reconQuizQuestions.length === 0) {
                 alert('Error: Quiz questions not loaded. Please refresh the page.');
                 return;
             }
             
-            // Load first question directly
-            console.log('Loading first question...');
-            const q = reconQuizQuestions[0];
-            
-            document.getElementById('recon-quiz-counter').innerText = 'Question 1/' + reconQuizQuestions.length;
-            document.getElementById('recon-quiz-score').innerText = 'Score: 0';
-            document.getElementById('recon-quiz-q').innerText = q.q;
-            document.getElementById('recon-quiz-feedback').classList.add('hidden');
-            
-            const optionsDiv = document.getElementById('recon-quiz-opts');
-            optionsDiv.innerHTML = '';
-            
-            q.o.forEach((option, idx) => {
-                const btn = document.createElement('button');
-                btn.className = "w-full text-left p-5 rounded-xl border-2 border-slate-100 hover:border-violet-400 hover:bg-violet-50 transition-all font-semibold";
-                btn.innerText = option;
-                btn.onclick = function() { checkReconAns(idx); };
-                optionsDiv.appendChild(btn);
-            });
-            
-            console.log('Question loaded successfully!');
+            shuffledReconQuiz = shuffleArray(reconQuizQuestions).map(shuffleQuestion);
+            loadReconQ();
             window.scrollTo(0, 0);
         }
 
@@ -6272,6 +7000,7 @@ document.addEventListener('keydown', function(e) {
         ];
 
         let reconQIdx = 0, reconQScore = 0;
+        let shuffledReconQuiz = [];
 
 
         // Knowledge Check Quiz Handler
@@ -6304,7 +7033,7 @@ document.addEventListener('keydown', function(e) {
 
         let reconQuizMode = 'practice'; // 'practice' or 'certification'
 
-        function resetReconQuiz() { reconQIdx = 0; reconQScore = 0; loadReconQ(); }
+        function resetReconQuiz() { reconQIdx = 0; reconQScore = 0; shuffledReconQuiz = shuffleArray(reconQuizQuestions).map(shuffleQuestion); loadReconQ(); }
 
         function startReconCertificationQuiz() {
             reconQuizMode = 'certification';
@@ -6317,32 +7046,18 @@ document.addEventListener('keydown', function(e) {
         }
 
         function loadReconQ() {
-            console.log('=== loadReconQ called ===');
-            console.log('reconQIdx:', reconQIdx);
-            console.log('reconQuizQuestions exists:', typeof reconQuizQuestions !== 'undefined');
-            console.log('reconQuizQuestions length:', reconQuizQuestions ? reconQuizQuestions.length : 'undefined');
-            
-            if (!reconQuizQuestions || reconQuizQuestions.length === 0) {
-                console.error('ERROR: reconQuizQuestions array is empty or undefined');
+            if (!shuffledReconQuiz || shuffledReconQuiz.length === 0) {
                 document.getElementById('recon-quiz-q').innerText = 'Error: Questions not loaded. Please refresh the page.';
                 return;
             }
             
-            if (reconQIdx >= reconQuizQuestions.length) {
-                console.log('Quiz complete! Showing results...');
+            if (reconQIdx >= shuffledReconQuiz.length) {
                 showReconResults();
                 return;
             }
             
-            console.log('Loading question', reconQIdx + 1, 'of', reconQuizQuestions.length);
-            if (reconQIdx >= reconQuizQuestions.length) {
-                console.log('Quiz complete! Score:', reconQScore);
-                showReconResults();
-                return;
-            }
-            const d = reconQuizQuestions[reconQIdx];
-            console.log('Question data:', d);
-            document.getElementById('recon-quiz-counter').innerText = `Question ${reconQIdx + 1}/${reconQuizQuestions.length}`;
+            const d = shuffledReconQuiz[reconQIdx];
+            document.getElementById('recon-quiz-counter').innerText = `Question ${reconQIdx + 1}/${shuffledReconQuiz.length}`;
             document.getElementById('recon-quiz-score').innerText = `Score: ${reconQScore}`;
             document.getElementById('recon-quiz-q').innerText = d.q;
             document.getElementById('recon-quiz-feedback').classList.add('hidden');
@@ -6355,11 +7070,10 @@ document.addEventListener('keydown', function(e) {
                 b.onclick = () => checkReconAns(idx);
                 o.appendChild(b);
             });
-            console.log('Question loaded successfully');
         }
 
         function checkReconAns(idx) {
-            const d = reconQuizQuestions[reconQIdx];
+            const d = shuffledReconQuiz[reconQIdx];
             const btns = document.querySelectorAll('#recon-quiz-opts button');
             btns.forEach(b => b.disabled = true);
             const feed = document.getElementById('recon-quiz-feedback');
@@ -6380,7 +7094,7 @@ document.addEventListener('keydown', function(e) {
 
         function nextReconQ() {
             reconQIdx++;
-            if (reconQIdx < reconQuizQuestions.length) loadReconQ();
+            if (reconQIdx < shuffledReconQuiz.length) loadReconQ();
             else showReconResults();
         }
 
@@ -6803,6 +7517,137 @@ document.addEventListener('keydown', function(e) {
             console.log('Quiz section element exists:', !!document.getElementById('sec-recon-quiz'));
             console.log('=== VERIFICATION COMPLETE ===');
         });
+
+        // ===== MANAGEMENT CERTIFICATION QUIZ =====
+        const mgmtQuizQuestions = [
+            {q:"What percentage of their time should a Branch Manager spend on people management?",o:["20%","30%","40%","50%"],c:2,f:"People management is the largest domain at 40%. Everything else depends on having a well-managed team."},
+            {q:"What is the primary mindset shift when transitioning from individual contributor to manager?",o:["Focus on personal technical skills","Success measured by team output instead of personal output","Working longer hours than the team","Being the most experienced person in the room"],c:1,f:"The key shift is that your success is now measured by your team's output, not your own individual performance."},
+            {q:"According to McKinsey research, when do most managers first receive formal leadership training?",o:["Before their first management role","Within the first year","After about 5 years","After about 10 years"],c:3,f:"Shockingly, most managers don't receive formal training until about 10 years into the role — far too late to prevent bad habits."},
+            {q:"What is the Employee Maturity Model (EMM) based on the Cardone Ventures framework?",o:["A personality assessment for hiring","A clear roadmap for career advancement with defined competencies at each level","A system for tracking employee attendance","A tool for calculating employee profitability"],c:1,f:"The EMM provides a clear roadmap outlining specific competencies, knowledge, and skills needed to progress through different roles and pay levels."},
+            {q:"What are the three components of the employee lifecycle in the EMM framework?",o:["Hire, Train, Fire","Interview, Onboard, Review","Alignment, Development, Transition","Recruit, Retain, Promote"],c:2,f:"Alignment (first 6 months), Development (ongoing growth), and Transition (promotion, lateral move, or exit)."},
+            {q:"In the SBI feedback model, what does SBI stand for?",o:["Strengths, Barriers, Improvements","Situation, Behavior, Impact","Skills, Benchmarks, Incentives","Standards, Benchmarks, Implementation"],c:1,f:"SBI (Situation, Behavior, Impact) provides a structured way to deliver both positive and constructive feedback."},
+            {q:"What is the recommended on-call management best practice?",o:["Assign it to the newest team members","Make it voluntary with no structure","Create fair rotation schedules published 4+ weeks in advance","Eliminate on-call entirely"],c:2,f:"Fair, transparent rotation schedules published well in advance prevent resentment and ensure equitable distribution of after-hours work."},
+            {q:"What is the typical IICRC certification expected at the Technician II level?",o:["OSHA 30-Hour","IICRC WRT (Water Restoration Technician)","Xactimate Certification","Project Management Professional"],c:1,f:"The IICRC WRT certification is the standard expected at the Technician II level, demonstrating water damage restoration competency."},
+            {q:"Why is promoting the 'best technician' to manager often a mistake?",o:["Technicians don't want management roles","Technical skills don't translate to people management skills","It leaves a gap in the field crew","Technicians earn more than managers"],c:1,f:"Being excellent at technical work has almost nothing to do with managing people, budgets, and customer relationships. Only about 10% of people naturally possess management skills."},
+            {q:"What should a Regional Manager's primary focus be?",o:["Running the largest branch personally","Developing Branch Managers' leadership capabilities","Handling the most complex technical jobs","Managing the company's finances directly"],c:1,f:"The Regional Manager develops the managers who manage the people. Their job is building leadership capability in others."},
+            {q:"How often should a manager conduct one-on-one meetings with direct reports?",o:["Monthly","Quarterly","Weekly","Only when there's a problem"],c:2,f:"Weekly one-on-ones (15-30 minutes) are the foundation of effective people management, providing consistent coaching and connection."},
+            {q:"What is the recommended duration for the first-time manager development program?",o:["30 days","60 days","90 days","6 months"],c:2,f:"A structured 90-day program covers learning to lead (Days 1-30), building confidence (Days 31-60), and leading confidently (Days 61-90)."},
+            {q:"According to the EMM framework, what should be attached to every career level?",o:["A specific job title only","Defined salary ranges and documented competencies","A minimum number of years","A specific certification requirement"],c:1,f:"Every tier should have defined salary ranges (for transparency) and documented competencies (for clarity on what's needed to advance)."},
+            {q:"What is the recommended incentive target range according to Cardone Ventures' framework?",o:["5-10% above base salary","10-25% above base salary","25-50% above base salary","50-100% above base salary"],c:1,f:"Cardone Ventures targets 10-25% of additional opportunity above base salary if employees hit their incentive metrics."},
+            {q:"How should Employee Maturity Models be introduced to the team?",o:["Mass rollout at an all-hands meeting","Individual conversations through one-on-ones","Email announcement with the document attached","Post it on the break room wall"],c:1,f:"Walk through the EMM individually with each direct report in one-on-ones. Identify their current level, discuss what's needed for advancement, and set a development plan together."},
+            {q:"What is the delegation spectrum progression?",o:["Ask, Tell, Do, Review","Tell, Sell, Consult, Agree, Advise, Inquire, Delegate","Observe, Assist, Lead, Own","Plan, Assign, Monitor, Complete"],c:1,f:"The delegation spectrum runs from Tell (most directed) to fully Delegate. New managers almost always under-delegate."},
+            {q:"What percentage of a Branch Manager's time should go to strategic planning and reporting?",o:["5%","15%","25%","35%"],c:0,f:"Strategic planning and reporting is about 5% of time — important but the smallest allocation. The majority of time goes to people management (40%)."},
+            {q:"What is the key difference between a Branch Manager and a Regional Manager?",o:["Regional Managers earn more","Branch Managers manage people who do the work; Regional Managers develop managers","Regional Managers handle technical work across branches","Branch Managers focus on sales while Regional Managers focus on operations"],c:1,f:"The fundamental shift is from managing individual contributors to developing the managers who manage individuals."},
+            {q:"Which of these is a burnout indicator that managers should watch for in their teams?",o:["Asking for more responsibility","Arriving early consistently","Declining documentation quality and increased callouts","Requesting additional training"],c:2,f:"Declining work quality, increased absences, short tempers, and withdrawal are key burnout indicators especially after intense restoration jobs."},
+            {q:"In the Operations EMM, what level corresponds to a Project Manager?",o:["Level 2","Level 3","Level 4","Level 5"],c:2,f:"Level 4 is Project Manager — managing full project lifecycle, multiple simultaneous projects, scope negotiation, and job costing."},
+            {q:"What should a manager NEVER allow schedule pressure to override?",o:["Customer communication timelines","Documentation upload deadlines","Safety protocols","Billing submission windows"],c:2,f:"Safety is non-negotiable. 'We need to get this done fast' never justifies skipping PPE or ignoring safety protocols. Managers are personally and legally responsible."},
+            {q:"According to the pre-promotion development plan, how long should a candidate be given leadership exposure before formalizing a promotion?",o:["1-2 weeks","30 days","60-90 days","6 months"],c:2,f:"Give candidates 60-90 days of leadership exposure — leading projects, running briefings, handling escalations — with coaching support before formalizing any promotion."},
+            {q:"What is the primary purpose of weekly safety toolbox talks?",o:["Compliance paperwork","Keeping safety top of mind through focused 5-minute topics","Documenting incidents for insurance","Training new employees on equipment"],c:1,f:"Short, focused safety topics keep safety awareness high across the team. They should be conversational, not just check-the-box exercises."},
+            {q:"In the Estimating department EMM, what distinguishes a Senior Estimator from an Estimator I?",o:["Longer tenure","Ability to handle complex reconstruction estimates, TPA compliance, and mentor junior estimators","Higher salary","More certifications"],c:1,f:"Senior Estimators handle complex work, manage TPA relationships, mentor junior staff, and maintain supplement approval rates above 80%."},
+            {q:"How often should Employee Maturity Models be reviewed with each team member?",o:["Annually","Semi-annually","Quarterly in one-on-ones","Only at hire and termination"],c:2,f:"Quarterly reviews in one-on-ones keep the EMM active — celebrating advancement, addressing stagnation, and updating development plans."}
+        ];
+
+        let mgmtQIdx = 0, mgmtQScore = 0, shuffledMgmtQuiz = [], mgmtQuizMode = 'practice';
+
+        function startMgmtQuiz() {
+            mgmtQuizMode = 'practice';
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('sec-mgmt-quiz').classList.remove('hidden');
+            document.getElementById('mgmt-quiz-mode-badge').className = 'quiz-mode-indicator bg-blue-100 text-blue-700';
+            document.getElementById('mgmt-quiz-mode-badge').innerHTML = '📝 Practice Mode';
+            resetMgmtQuiz();
+            window.scrollTo(0,0);
+        }
+
+        function startMgmtCertQuiz() {
+            mgmtQuizMode = 'certification';
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('sec-mgmt-quiz').classList.remove('hidden');
+            document.getElementById('mgmt-quiz-mode-badge').className = 'quiz-mode-indicator bg-indigo-100 text-indigo-700';
+            document.getElementById('mgmt-quiz-mode-badge').innerHTML = '🏆 Certification Mode';
+            resetMgmtQuiz();
+            window.scrollTo(0,0);
+        }
+
+        function resetMgmtQuiz() { mgmtQIdx = 0; mgmtQScore = 0; shuffledMgmtQuiz = shuffleArray(mgmtQuizQuestions).map(shuffleQuestion); loadMgmtQ(); }
+
+        function loadMgmtQ() {
+            if (mgmtQIdx >= shuffledMgmtQuiz.length) { showMgmtResults(); return; }
+            const q = shuffledMgmtQuiz[mgmtQIdx];
+            const total = mgmtQuizQuestions.length;
+            document.getElementById('mgmt-quiz-counter').textContent = `Question ${mgmtQIdx+1}/${total}`;
+            document.getElementById('mgmt-quiz-score').textContent = `Score: ${mgmtQScore}`;
+            document.getElementById('mgmt-quiz-q').textContent = q.q;
+            document.getElementById('mgmt-quiz-feedback').classList.add('hidden');
+            document.getElementById('mgmt-quiz-question-area').style.opacity = '1';
+            const optDiv = document.getElementById('mgmt-quiz-opts');
+            optDiv.innerHTML = '';
+            q.o.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full py-4 px-6 rounded-2xl text-left font-semibold transition border-2 border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 text-slate-700';
+                btn.textContent = opt;
+                btn.onclick = function() { checkMgmtAnswer(i, q.c, q.f); };
+                optDiv.appendChild(btn);
+            });
+        }
+
+        function checkMgmtAnswer(sel, correct, feedback) {
+            const isCorrect = sel === correct;
+            if (isCorrect) mgmtQScore++;
+            const fb = document.getElementById('mgmt-quiz-feedback');
+            const fbText = document.getElementById('mgmt-quiz-feedback-text');
+            fb.classList.remove('hidden', 'bg-emerald-50', 'border-emerald-300', 'bg-red-50', 'border-red-300');
+            if (isCorrect) {
+                fb.classList.add('bg-emerald-50', 'border-emerald-300');
+                fbText.innerHTML = `<span class="text-emerald-700">✅ Correct!</span> <span class="text-slate-600 font-normal">${feedback}</span>`;
+            } else {
+                fb.classList.add('bg-red-50', 'border-red-300');
+                fbText.innerHTML = `<span class="text-red-700">❌ Incorrect.</span> <span class="text-slate-600 font-normal">${feedback}</span>`;
+            }
+            document.getElementById('mgmt-quiz-question-area').style.opacity = '0.3';
+        }
+
+        function nextMgmtQ() { mgmtQIdx++; loadMgmtQ(); }
+
+        function showMgmtResults() {
+            const total = mgmtQuizQuestions.length;
+            const percent = Math.round((mgmtQScore/total)*100);
+            const box = document.getElementById('mgmt-quiz-box');
+            const passed = percent >= 80;
+
+            if (mgmtQuizMode === 'certification' && passed) {
+                box.innerHTML = `
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🏆</div>
+                        <h2 class="text-3xl font-black text-indigo-700 mb-2">Management Certification Earned!</h2>
+                        <p class="text-slate-500 mt-2">Final Score: ${mgmtQScore}/${total} (${percent}%)</p>
+                        <p class="text-emerald-600 font-bold mt-4">You have demonstrated management competency.</p>
+                        <button onclick="resetMgmtQuiz()" class="mt-8 bg-indigo-600 text-white py-3 px-8 rounded-xl font-bold hover:bg-indigo-700 transition">Retake Quiz</button>
+                    </div>`;
+            } else if (mgmtQuizMode === 'certification' && !passed) {
+                box.innerHTML = `
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">📚</div>
+                        <h2 class="text-3xl font-black text-red-600 mb-2">Not Yet &mdash; Keep Studying!</h2>
+                        <p class="text-slate-500 mt-2">Final Score: ${mgmtQScore}/${total} (${percent}%)</p>
+                        <p class="text-red-600 font-bold mt-4">You need 80% or higher to earn certification. Review the Managerial Development and Employee Maturity Models modules.</p>
+                        <button onclick="resetMgmtQuiz()" class="mt-8 bg-slate-900 text-white py-3 px-8 rounded-xl font-bold hover:bg-indigo-600 transition">Try Again</button>
+                    </div>`;
+            } else {
+                box.innerHTML = `
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">${percent >= 80 ? '🌟' : '💪'}</div>
+                        <h2 class="text-3xl font-black text-slate-800 mb-2">Practice Complete!</h2>
+                        <p class="text-slate-500 mt-2">Score: ${mgmtQScore}/${total} (${percent}%)</p>
+                        <p class="text-slate-600 mt-4">${percent >= 80 ? 'Great job! You\'re ready for certification mode.' : 'Review the modules and try again to improve your score.'}</p>
+                        <div class="flex gap-4 justify-center mt-8">
+                            <button onclick="resetMgmtQuiz()" class="bg-slate-200 text-slate-800 py-3 px-6 rounded-xl font-bold hover:bg-slate-300 transition">Practice Again</button>
+                            <button onclick="startMgmtCertQuiz()" class="bg-indigo-600 text-white py-3 px-6 rounded-xl font-bold hover:bg-indigo-700 transition">🏆 Certification Mode</button>
+                        </div>
+                    </div>`;
+            }
+        }
+
 
     
         // ===== AUTHENTICATION FUNCTIONS =====
