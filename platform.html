@@ -23,6 +23,7 @@
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-check-compat.js"></script>
     <script>
     // =====================================================
     // FIREBASE CONFIG — Replace with your values from Firebase Console
@@ -41,8 +42,16 @@
     try {
         if (FIREBASE_CONFIG.apiKey !== "YOUR_API_KEY_HERE") {
             firebase.initializeApp(FIREBASE_CONFIG);
+            
+            // App Check — verifies requests come from readytraining.app
+            try {
+                var appCheck = firebase.appCheck();
+                appCheck.activate('6LcrMoEsAAAAAC_N03emlSYAUcbFLkaOT_qNHBVO', true);
+                console.log('🛡️ App Check activated');
+            } catch(acErr) { console.warn('App Check init skipped:', acErr); }
+            
             db = firebase.firestore();
-            console.log('🔥 Firebase initialized');
+            console.log('🔥 Firebase initialized, db:', !!db);
         } else {
             console.warn('⚠️ Firebase not configured — progress tracking disabled');
         }
@@ -340,26 +349,42 @@
         var cc = member.data.customFields && member.data.customFields.companyCode;
         var cr = member.data.customFields && member.data.customFields.companyRole;
 
+        console.log('🔍 Company code from Memberstack:', cc);
+        console.log('🔍 Company role from Memberstack:', cr);
+        console.log('🔍 db exists:', !!db);
+
         if (cc) {
             window.rtUser.companyCode = cc;
             window.rtUser.role = cr || 'member';
         } else if (db) {
             window.rtUser._needsCompanySetup = true;
+            console.log('🔍 Needs company setup: true');
         }
 
         // Defer all DOM operations until the page is fully loaded
         function runAfterDOM() {
+            console.log('🔍 runAfterDOM executing. readyState was:', document.readyState);
+            console.log('🔍 Looking for sec-readiness:', !!document.getElementById('sec-readiness'));
+            console.log('🔍 Looking for company-setup-modal:', !!document.getElementById('company-setup-modal'));
+            
             injectProgressUI();
             if (window.rtUser.companyCode) {
                 loadProgress();
             } else if (window.rtUser._needsCompanySetup) {
-                setTimeout(showCompanyModal, 1500);
+                console.log('🔍 Scheduling showCompanyModal in 1500ms');
+                setTimeout(function() {
+                    console.log('🔍 Calling showCompanyModal now');
+                    showCompanyModal();
+                }, 1500);
             }
         }
 
+        console.log('🔍 document.readyState:', document.readyState);
         if (document.readyState === 'loading') {
+            console.log('🔍 Page still loading, deferring to DOMContentLoaded');
             document.addEventListener('DOMContentLoaded', runAfterDOM);
         } else {
+            console.log('🔍 Page already loaded, running immediately');
             runAfterDOM();
         }
     }
@@ -988,7 +1013,14 @@
                 }
                 
                 // Initialize progress tracking system
-                initProgressSystem(member);
+                try {
+                    console.log('🏗️ Calling initProgressSystem...');
+                    console.log('📦 customFields:', JSON.stringify(member.data.customFields));
+                    console.log('📦 db exists:', !!db);
+                    initProgressSystem(member);
+                } catch(progErr) {
+                    console.error('❌ Progress system error:', progErr);
+                }
                 
                 // Hide auth overlay if it exists
                 const authOverlay = document.getElementById('auth-overlay');
