@@ -20,6 +20,340 @@
     
     <!-- Memberstack Authentication -->
     <script src="https://api.memberstack.com/static/memberstack.js?custom" data-memberstack-id="app_cmli7jujr01wd0ss1bjvffot9"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script>
+    // =====================================================
+    // FIREBASE CONFIG — Replace with your values from Firebase Console
+    // See firebase-setup-guide.md for instructions
+    // =====================================================
+    const FIREBASE_CONFIG = {
+        apiKey: "AIzaSyDbGjssNIei0PLbJbhvbAPDktA2U8ekcnc",
+        authDomain: "ready-training-hub.firebaseapp.com",
+        projectId: "ready-training-hub",
+        storageBucket: "ready-training-hub.firebasestorage.app",
+        messagingSenderId: "789732882977",
+        appId: "1:789732882977:web:074aef70c5b8703bdcc160"
+    };
+
+    let db = null;
+    try {
+        if (FIREBASE_CONFIG.apiKey !== "YOUR_API_KEY_HERE") {
+            firebase.initializeApp(FIREBASE_CONFIG);
+            db = firebase.firestore();
+            console.log('🔥 Firebase initialized');
+        } else {
+            console.warn('⚠️ Firebase not configured — progress tracking disabled');
+        }
+    } catch(e) { console.error('Firebase init error:', e); }
+
+    // Current user state
+    window.rtUser = { id: null, email: null, name: null, companyCode: null, role: null };
+
+    // =====================================================
+    // PROGRESS MODULE DEFINITIONS
+    // =====================================================
+    const PROGRESS_MODULES = {
+        readiness: { name: 'Readiness & Prep', section: 'sec-readiness', tier: 'solo', items: {
+            'rapid-response': 'Rapid Response Checklist', 'vehicle-maint': 'Vehicle Maintenance Protocol',
+            'equip-hygiene': 'Equipment & Sensor Hygiene', 'consumables': 'Consumables Inventory'
+        }},
+        mitigation: { name: 'Mitigation Workflow', section: 'sec-mitigation', tier: 'solo', items: {
+            'work-auth': 'Step 1: Work Authorization', 'investigation': 'Step 2: Investigation & Documentation',
+            'extraction': 'Step 3: Extraction', 'equip-setup': 'Step 4: Equipment Setup',
+            'monitoring': 'Step 5: Daily Monitoring', 'dry-standard': 'Step 6: Dry Standard',
+            'tear-down': 'Step 7: Tear Down & Close-Out'
+        }},
+        contents: { name: 'Contents & Logistics', section: 'sec-contents', tier: 'solo', items: {
+            'encircle': 'Encircle Project Setup', 'trailer': 'Trailer Safety & Loading',
+            'inventory': 'Inventory Control', 'textile': 'Textile Processing'
+        }},
+        reconstruction: { name: 'Reconstruction', section: 'sec-reconstruction', tier: 'team', items: {
+            'transition': 'Transition & Handoff', 'estimating': 'Estimating Software',
+            'scope': 'Scope Development', 'preconstruction': 'Pre-Construction',
+            'construction': 'Construction Sequencing', 'completion': 'Project Completion'
+        }},
+        financial: { name: 'Financial Operations', section: 'sec-financial', tier: 'team', items: {
+            'profitability': 'Business Profitability', 'margins': 'Margins & Markups',
+            'cashflow': 'Break-Even & Cash Flow', 'pricing': 'Pricing Strategy', 'tax': 'Tax Considerations'
+        }},
+        onboarding: { name: 'Employee Onboarding', section: 'sec-onboarding', tier: 'team', items: {
+            'preboarding': 'Pre-Boarding & Day 1', 'training-stages': 'Training Stages',
+            'assessment': 'Competency Assessment', 'retention': 'Retention & Career Paths'
+        }},
+        'team-scaling': { name: 'Team Scaling', section: 'sec-team-scaling', tier: 'enterprise', items: {
+            'owner-dilemma': "The Owner's Dilemma", 'org-structure': 'Organizational Structure',
+            'hiring': 'Systematic Hiring', 'training-systems': 'Training Systems',
+            'delegation': 'Delegation & Systems', 'leadership-dev': 'Leadership Development'
+        }},
+        'exit-strategy': { name: 'Exit Strategy', section: 'sec-exit-strategy', tier: 'enterprise', items: {
+            'valuation': 'Business Valuation', 'roadmap': 'Exit Roadmap', 'deal-structure': 'Deal Structures'
+        }},
+        'mgmt-development': { name: 'Managerial Development', section: 'sec-mgmt-development', tier: 'enterprise', items: {
+            'promotion': 'The Promotion Problem', 'branch-mgr': 'Branch Manager Role',
+            'regional-mgr': 'Regional Manager Role', 'first-time-mgr': 'First-Time Manager Training',
+            'restoration-leadership': 'Restoration-Specific Leadership', 'meetings': 'Meeting Structure'
+        }},
+        'maturity-models': { name: 'Employee Maturity Models', section: 'sec-maturity-models', tier: 'enterprise', items: {
+            'ops-emm': 'Operations/Field EMM', 'estimating-emm': 'Estimating EMM',
+            'admin-emm': 'Admin/Office EMM', 'sales-emm': 'Sales/BD EMM'
+        }}
+    };
+
+    // Local progress cache
+    let localProgress = {};
+
+    // =====================================================
+    // PROGRESS TRACKING FUNCTIONS
+    // =====================================================
+    function getProgressKey(mod, item) { return mod + '.' + item; }
+
+    function calcModuleProgress(mod) {
+        const items = Object.keys(PROGRESS_MODULES[mod].items);
+        let done = 0;
+        items.forEach(function(item) { if (localProgress[getProgressKey(mod, item)]) done++; });
+        return { done: done, total: items.length, pct: items.length ? Math.round((done / items.length) * 100) : 0 };
+    }
+
+    async function saveProgress(mod, item, checked) {
+        const key = getProgressKey(mod, item);
+        localProgress[key] = checked;
+        updateProgressBar(mod);
+        if (!db || !window.rtUser.companyCode || !window.rtUser.id) return;
+        try {
+            const ref = db.collection('companies').doc(window.rtUser.companyCode).collection('members').doc(window.rtUser.id);
+            await ref.set({ progress: { [key]: checked } }, { merge: true });
+        } catch(e) { console.error('Save progress error:', e); }
+    }
+
+    async function loadProgress() {
+        if (!db || !window.rtUser.companyCode || !window.rtUser.id) return;
+        try {
+            const doc = await db.collection('companies').doc(window.rtUser.companyCode).collection('members').doc(window.rtUser.id).get();
+            if (doc.exists && doc.data().progress) {
+                localProgress = doc.data().progress;
+                // Update all checkboxes and progress bars
+                Object.keys(localProgress).forEach(function(key) {
+                    const cb = document.getElementById('prog-cb-' + key.replace('.', '-'));
+                    if (cb) cb.checked = localProgress[key];
+                });
+                Object.keys(PROGRESS_MODULES).forEach(function(mod) { updateProgressBar(mod); });
+            }
+        } catch(e) { console.error('Load progress error:', e); }
+    }
+
+    function updateProgressBar(mod) {
+        const p = calcModuleProgress(mod);
+        const bar = document.getElementById('prog-bar-' + mod);
+        const txt = document.getElementById('prog-txt-' + mod);
+        if (bar) { bar.style.width = p.pct + '%'; bar.className = 'h-full rounded-full transition-all duration-500 ' + (p.pct === 100 ? 'bg-emerald-500' : 'bg-violet-500'); }
+        if (txt) txt.textContent = p.done + '/' + p.total + ' (' + p.pct + '%)';
+    }
+
+    // =====================================================
+    // INJECT CHECKBOXES & PROGRESS BARS INTO SECTIONS
+    // =====================================================
+    function injectProgressUI() {
+        Object.keys(PROGRESS_MODULES).forEach(function(mod) {
+            const section = document.getElementById(PROGRESS_MODULES[mod].section);
+            if (!section) return;
+
+            // Progress bar at top of section (after first child)
+            var barDiv = document.createElement('div');
+            barDiv.className = 'bg-white rounded-xl p-4 mb-8 shadow-sm border border-slate-200';
+            barDiv.innerHTML = '<div class="flex justify-between items-center mb-2">' +
+                '<span class="text-xs font-bold text-slate-600 uppercase tracking-wide">Your Progress: ' + PROGRESS_MODULES[mod].name + '</span>' +
+                '<span class="text-xs font-bold text-violet-600" id="prog-txt-' + mod + '">0/0 (0%)</span></div>' +
+                '<div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden"><div class="h-full rounded-full bg-violet-500 transition-all duration-500" id="prog-bar-' + mod + '" style="width:0%"></div></div>';
+
+            // Insert after first child (hero div)
+            if (section.children.length > 1) {
+                section.insertBefore(barDiv, section.children[1]);
+            } else {
+                section.appendChild(barDiv);
+            }
+
+            // Checklist at bottom of section (before last child which is often a CTA)
+            var checkDiv = document.createElement('div');
+            checkDiv.className = 'bg-white rounded-xl p-6 shadow-sm border-2 border-violet-200 mb-8 mt-8';
+            var html = '<h3 class="text-lg font-bold text-slate-900 mb-4">✅ Section Completion Checklist</h3>' +
+                '<p class="text-xs text-slate-500 mb-4">Check off each topic as you complete it. Your progress is saved automatically and visible to your team owner on the dashboard.</p>' +
+                '<div class="space-y-3">';
+            Object.keys(PROGRESS_MODULES[mod].items).forEach(function(item) {
+                var cbId = 'prog-cb-' + mod + '-' + item;
+                html += '<label class="flex items-center gap-3 p-3 rounded-lg hover:bg-violet-50 transition cursor-pointer" for="' + cbId + '">' +
+                    '<input type="checkbox" id="' + cbId + '" class="w-5 h-5 text-violet-600 rounded border-slate-300 focus:ring-violet-500" ' +
+                    'onchange="saveProgress(\'' + mod + '\', \'' + item + '\', this.checked)">' +
+                    '<span class="text-sm text-slate-700">' + PROGRESS_MODULES[mod].items[item] + '</span></label>';
+            });
+            html += '</div>';
+            checkDiv.innerHTML = html;
+
+            // Find last CTA div or append at end
+            var lastChild = section.lastElementChild;
+            section.insertBefore(checkDiv, lastChild);
+        });
+    }
+
+    // =====================================================
+    // COMPANY CODE FUNCTIONS
+    // =====================================================
+    function generateCompanyCode() {
+        var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        var code = '';
+        for (var i = 0; i < 6; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+        return code;
+    }
+
+    async function createCompany(name) {
+        if (!db) { alert('Firebase not configured. Contact your administrator.'); return; }
+        var code = generateCompanyCode();
+        try {
+            // Check code doesn't already exist
+            var existing = await db.collection('companies').doc(code).get();
+            if (existing.exists) { code = generateCompanyCode(); }
+
+            await db.collection('companies').doc(code).set({
+                name: name, ownerId: window.rtUser.id, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            await db.collection('companies').doc(code).collection('members').doc(window.rtUser.id).set({
+                name: window.rtUser.name || window.rtUser.email, email: window.rtUser.email,
+                role: 'owner', joinedAt: firebase.firestore.FieldValue.serverTimestamp(), progress: {}
+            });
+            window.rtUser.companyCode = code;
+            window.rtUser.role = 'owner';
+
+            // Save to Memberstack custom fields
+            try { await window.$memberstackDom.updateMember({ customFields: { companyCode: code, companyRole: 'owner' } }); } catch(e) { console.warn('Memberstack meta save error:', e); }
+
+            closeCompanyModal();
+            loadProgress();
+            alert('Company created! Your company code is: ' + code + '\n\nShare this code with your team members so they can join.');
+        } catch(e) { console.error('Create company error:', e); alert('Error creating company. Please try again.'); }
+    }
+
+    async function joinCompany(code) {
+        if (!db) { alert('Firebase not configured. Contact your administrator.'); return; }
+        code = code.toUpperCase().trim();
+        try {
+            var companyDoc = await db.collection('companies').doc(code).get();
+            if (!companyDoc.exists) { alert('Company code not found. Please check with your employer and try again.'); return; }
+
+            await db.collection('companies').doc(code).collection('members').doc(window.rtUser.id).set({
+                name: window.rtUser.name || window.rtUser.email, email: window.rtUser.email,
+                role: 'member', joinedAt: firebase.firestore.FieldValue.serverTimestamp(), progress: {}
+            });
+            window.rtUser.companyCode = code;
+            window.rtUser.role = 'member';
+
+            try { await window.$memberstackDom.updateMember({ customFields: { companyCode: code, companyRole: 'member' } }); } catch(e) { console.warn('Memberstack meta save error:', e); }
+
+            closeCompanyModal();
+            loadProgress();
+            alert('You joined ' + companyDoc.data().name + '! Your progress will now be tracked.');
+        } catch(e) { console.error('Join company error:', e); alert('Error joining company. Please try again.'); }
+    }
+
+    function showCompanyModal() { document.getElementById('company-setup-modal').classList.add('active'); }
+    function closeCompanyModal() { document.getElementById('company-setup-modal').classList.remove('active'); }
+    function showJoinForm() { document.getElementById('company-create-form').classList.add('hidden'); document.getElementById('company-join-form').classList.remove('hidden'); }
+    function showCreateForm() { document.getElementById('company-join-form').classList.add('hidden'); document.getElementById('company-create-form').classList.remove('hidden'); }
+
+    // =====================================================
+    // TEAM DASHBOARD FUNCTIONS
+    // =====================================================
+    async function initTeamDashboard() {
+        if (!db || !window.rtUser.companyCode) {
+            document.getElementById('dash-no-company').classList.remove('hidden');
+            document.getElementById('dash-content').classList.add('hidden');
+            return;
+        }
+        document.getElementById('dash-no-company').classList.add('hidden');
+        document.getElementById('dash-content').classList.remove('hidden');
+
+        // Show company code
+        document.getElementById('dash-company-code').textContent = window.rtUser.companyCode;
+
+        try {
+            var snapshot = await db.collection('companies').doc(window.rtUser.companyCode).collection('members').get();
+            var members = [];
+            snapshot.forEach(function(doc) { members.push(Object.assign({ id: doc.id }, doc.data())); });
+
+            // Summary stats
+            document.getElementById('dash-total-members').textContent = members.length;
+            var totalPct = 0;
+            members.forEach(function(m) {
+                var memberTotal = 0, memberDone = 0;
+                Object.keys(PROGRESS_MODULES).forEach(function(mod) {
+                    Object.keys(PROGRESS_MODULES[mod].items).forEach(function(item) {
+                        memberTotal++;
+                        if (m.progress && m.progress[mod + '.' + item]) memberDone++;
+                    });
+                });
+                m._pct = memberTotal ? Math.round((memberDone / memberTotal) * 100) : 0;
+                totalPct += m._pct;
+            });
+            document.getElementById('dash-avg-completion').textContent = members.length ? Math.round(totalPct / members.length) + '%' : '0%';
+
+            // Render member cards
+            var container = document.getElementById('dash-members-grid');
+            container.innerHTML = '';
+            members.forEach(function(m) {
+                var card = document.createElement('div');
+                card.className = 'bg-white rounded-xl p-6 shadow-sm border border-slate-200';
+                var html = '<div class="flex justify-between items-start mb-4">' +
+                    '<div><h3 class="font-bold text-slate-900">' + (m.name || 'Unknown') + '</h3>' +
+                    '<p class="text-xs text-slate-500">' + (m.email || '') + '</p></div>' +
+                    '<span class="text-xs font-bold px-2 py-1 rounded ' + (m.role === 'owner' ? 'bg-violet-100 text-violet-700' : 'bg-slate-100 text-slate-600') + '">' + (m.role || 'member') + '</span></div>' +
+                    '<div class="mb-3"><div class="flex justify-between text-xs mb-1"><span class="font-bold text-slate-600">Overall</span><span class="font-bold text-violet-600">' + m._pct + '%</span></div>' +
+                    '<div class="w-full bg-slate-100 rounded-full h-2.5"><div class="h-full rounded-full ' + (m._pct === 100 ? 'bg-emerald-500' : 'bg-violet-500') + '" style="width:' + m._pct + '%"></div></div></div>' +
+                    '<div class="space-y-2">';
+
+                Object.keys(PROGRESS_MODULES).forEach(function(mod) {
+                    var items = Object.keys(PROGRESS_MODULES[mod].items);
+                    var done = 0;
+                    items.forEach(function(item) { if (m.progress && m.progress[mod + '.' + item]) done++; });
+                    var pct = items.length ? Math.round((done / items.length) * 100) : 0;
+                    html += '<div class="flex items-center gap-2"><span class="text-[10px] text-slate-500 w-24 truncate" title="' + PROGRESS_MODULES[mod].name + '">' + PROGRESS_MODULES[mod].name + '</span>' +
+                        '<div class="flex-1 bg-slate-100 rounded-full h-1.5"><div class="h-full rounded-full ' + (pct === 100 ? 'bg-emerald-400' : 'bg-violet-400') + '" style="width:' + pct + '%"></div></div>' +
+                        '<span class="text-[10px] font-bold text-slate-500 w-8 text-right">' + pct + '%</span></div>';
+                });
+
+                html += '</div>';
+                card.innerHTML = html;
+                container.appendChild(card);
+            });
+
+        } catch(e) { console.error('Dashboard load error:', e); }
+    }
+
+    // =====================================================
+    // POST-AUTH INITIALIZATION
+    // =====================================================
+    function initProgressSystem(member) {
+        window.rtUser.id = member.data.id;
+        window.rtUser.email = member.data.auth.email;
+        window.rtUser.name = (member.data.customFields && member.data.customFields.name) || member.data.auth.email;
+
+        // Check for existing company code
+        var cc = member.data.customFields && member.data.customFields.companyCode;
+        var cr = member.data.customFields && member.data.customFields.companyRole;
+
+        if (cc) {
+            window.rtUser.companyCode = cc;
+            window.rtUser.role = cr || 'member';
+            injectProgressUI();
+            loadProgress();
+        } else if (db) {
+            // No company code yet — show setup modal after short delay
+            injectProgressUI();
+            setTimeout(showCompanyModal, 1500);
+        } else {
+            injectProgressUI();
+        }
+    }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         
@@ -642,6 +976,9 @@
                     if (lockEnt) lockEnt.style.display = 'none';
                     if (lockEntMobile) lockEntMobile.style.display = 'none';
                 }
+                
+                // Initialize progress tracking system
+                initProgressSystem(member);
                 
                 // Hide auth overlay if it exists
                 const authOverlay = document.getElementById('auth-overlay');
@@ -6495,139 +6832,49 @@ document.addEventListener('keydown', function(e) {
             <div class="max-w-7xl mx-auto px-4 py-16">
                 <div class="mb-12 text-center">
                     <h1 class="text-5xl font-black mb-4">Team Dashboard</h1>
-                    <p class="text-xl text-slate-600">Manage your team and track training progress</p>
+                    <p class="text-xl text-slate-600">Track your team&rsquo;s training progress in real time</p>
                 </div>
 
-                <!-- Dashboard Overview Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-                    <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-violet-200">
-                        <div class="text-sm font-bold text-violet-700 mb-2">TEAM MEMBERS</div>
-                        <div class="text-4xl font-black text-slate-900" id="dash-total-members">0</div>
-                        <div class="text-xs text-slate-500 mt-2">Active Users</div>
-                    </div>
-                    
-                    <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-green-200">
-                        <div class="text-sm font-bold text-green-700 mb-2">AVG COMPLETION</div>
-                        <div class="text-4xl font-black text-green-900" id="dash-avg-completion">0%</div>
-                        <div class="text-xs text-slate-500 mt-2">Across All Members</div>
-                    </div>
-                    
-                    <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-200">
-                        <div class="text-sm font-bold text-blue-700 mb-2">CERTIFICATES</div>
-                        <div class="text-4xl font-black text-blue-900" id="dash-total-certs">0</div>
-                        <div class="text-xs text-slate-500 mt-2">Earned by Team</div>
-                    </div>
-                    
-                    <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-orange-200">
-                        <div class="text-sm font-bold text-orange-700 mb-2">AVG QUIZ SCORE</div>
-                        <div class="text-4xl font-black text-orange-900" id="dash-avg-score">0%</div>
-                        <div class="text-xs text-slate-500 mt-2">Across All Quizzes</div>
-                    </div>
+                <!-- No Company Setup -->
+                <div id="dash-no-company" class="hidden text-center py-16">
+                    <div class="text-6xl mb-4">🏢</div>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-3">Set Up Your Company First</h2>
+                    <p class="text-slate-600 mb-6 max-w-md mx-auto">Create a company or join an existing one to start tracking team progress.</p>
+                    <button onclick="showCompanyModal()" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-violet-700 transition">Set Up Company</button>
                 </div>
 
-                <!-- Add Team Member Section -->
-                <div class="bg-white rounded-xl p-8 shadow-lg border-2 border-violet-200 mb-8">
-                    <h2 class="text-2xl font-black mb-6">Add Team Member</h2>
-                    <form id="add-member-form" class="grid grid-cols-1 md:grid-cols-4 gap-4" onsubmit="addTeamMember(event)">
+                <!-- Dashboard Content (shown when company exists) -->
+                <div id="dash-content" class="hidden">
+                    <!-- Company Code Banner -->
+                    <div class="bg-gradient-to-r from-violet-600 to-violet-500 rounded-xl p-6 mb-8 text-white flex justify-between items-center">
                         <div>
-                            <label class="block text-sm font-bold mb-2">First Name *</label>
-                            <input type="text" id="member-firstname" required 
-                                class="w-full px-4 py-2 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none">
+                            <p class="text-sm text-violet-200 mb-1">Your Company Code</p>
+                            <p class="text-3xl font-black tracking-widest" id="dash-company-code">------</p>
+                            <p class="text-xs text-violet-200 mt-1">Share this code with team members so they can join</p>
                         </div>
-                        <div>
-                            <label class="block text-sm font-bold mb-2">Last Name *</label>
-                            <input type="text" id="member-lastname" required
-                                class="w-full px-4 py-2 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold mb-2">Email *</label>
-                            <input type="email" id="member-email" required
-                                class="w-full px-4 py-2 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none">
-                        </div>
-                        <div class="flex items-end">
-                            <button type="submit" 
-                                class="w-full bg-violet-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-700 transition">
-                                Add Member
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Team Members Table -->
-                <div class="bg-white rounded-xl p-8 shadow-lg border-2 border-slate-200 mb-8">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-black">Team Members</h2>
-                        <button onclick="exportTeamReport()" 
-                            class="bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700 transition flex items-center gap-2">
-                            <span>📥</span> Export Report
-                        </button>
+                        <button onclick="navigator.clipboard.writeText(document.getElementById('dash-company-code').textContent).then(function(){alert('Code copied!')})" class="bg-white bg-opacity-20 text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-30 transition text-sm">📋 Copy Code</button>
                     </div>
-                    
-                    <div class="overflow-x-auto">
-                        <table class="w-full" style="border-collapse: collapse;">
-                            <thead>
-                                <tr class="border-b-2 border-slate-200">
-                                    <th class="text-left py-3 px-4 font-bold text-sm bg-slate-50">Name</th>
-                                    <th class="text-left py-3 px-4 font-bold text-sm bg-slate-50">Email</th>
-                                    <th class="text-center py-3 px-4 font-bold text-sm bg-slate-50">Completion</th>
-                                    <th class="text-center py-3 px-4 font-bold text-sm bg-slate-50">Avg Score</th>
-                                    <th class="text-center py-3 px-4 font-bold text-sm bg-slate-50">Certificates</th>
-                                    <th class="text-center py-3 px-4 font-bold text-sm bg-slate-50">Last Login</th>
-                                    <th class="text-center py-3 px-4 font-bold text-sm bg-slate-50">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="team-members-tbody">
-                                <tr>
-                                    <td colspan="7" class="text-center py-8 text-slate-500">
-                                        No team members yet. Add your first team member above!
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
 
-                <!-- Individual Member Progress Modal (Hidden by default) -->
-                <div id="member-progress-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" style="animation: fadeIn 0.2s ease-in;">
-                    <div class="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8">
-                        <div class="flex justify-between items-start mb-6">
-                            <div>
-                                <h2 class="text-3xl font-black" id="modal-member-name">Member Name</h2>
-                                <p class="text-slate-600" id="modal-member-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c4a1a9a5ada884a1bca5a9b4a8a1eaa7aba9">[email&#160;protected]</a></p>
-                            </div>
-                            <button onclick="closeProgressModal()" class="text-3xl font-bold text-slate-400 hover:text-slate-600">&times;</button>
+                    <!-- Summary Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-white rounded-xl p-6 shadow-sm border-2 border-violet-200">
+                            <div class="text-sm font-bold text-violet-700 mb-2">TEAM MEMBERS</div>
+                            <div class="text-4xl font-black text-slate-900" id="dash-total-members">0</div>
                         </div>
-                        
-                        <div class="grid grid-cols-3 gap-4 mb-8">
-                            <div class="bg-violet-50 rounded-lg p-4 border-2 border-violet-200">
-                                <div class="text-xs font-bold text-violet-700 mb-1">COMPLETION</div>
-                                <div class="text-2xl font-black text-violet-900" id="modal-completion">0%</div>
-                            </div>
-                            <div class="bg-green-50 rounded-lg p-4 border-2 border-green-200">
-                                <div class="text-xs font-bold text-green-700 mb-1">AVG SCORE</div>
-                                <div class="text-2xl font-black text-green-900" id="modal-avg-score">0%</div>
-                            </div>
-                            <div class="bg-blue-50 rounded-lg p-4 border-2 border-blue-200">
-                                <div class="text-xs font-bold text-blue-700 mb-1">CERTIFICATES</div>
-                                <div class="text-2xl font-black text-blue-900" id="modal-certificates">0</div>
-                            </div>
+                        <div class="bg-white rounded-xl p-6 shadow-sm border-2 border-emerald-200">
+                            <div class="text-sm font-bold text-emerald-700 mb-2">AVG COMPLETION</div>
+                            <div class="text-4xl font-black text-emerald-900" id="dash-avg-completion">0%</div>
                         </div>
-                        
-                        <h3 class="text-xl font-black mb-4">Quiz Progress</h3>
-                        <div id="modal-quiz-progress" class="space-y-3">
-                            <!-- Quiz progress will be populated here -->
+                        <div class="bg-white rounded-xl p-6 shadow-sm border-2 border-blue-200">
+                            <div class="text-sm font-bold text-blue-700 mb-2">TOTAL MODULES</div>
+                            <div class="text-4xl font-black text-blue-900">10</div>
                         </div>
-                        
-                        <div class="mt-8 flex gap-4">
-                            <button onclick="downloadMemberCertificate()" 
-                                class="bg-violet-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-violet-700 transition flex-1">
-                                Download Certificate
-                            </button>
-                            <button onclick="closeProgressModal()" 
-                                class="bg-slate-200 text-slate-700 font-bold py-3 px-6 rounded-lg hover:bg-slate-300 transition flex-1">
-                                Close
-                            </button>
-                        </div>
+                    </div>
+
+                    <!-- Member Progress Cards -->
+                    <h2 class="text-2xl font-black text-slate-900 mb-4">Team Member Progress</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="dash-members-grid">
+                        <div class="text-center py-8 text-slate-500 col-span-full">Loading team data...</div>
                     </div>
                 </div>
             </div>
@@ -11834,6 +12081,39 @@ HR Signature: _________________________________ Date: ___________
     </script>
 
     <!-- Footer -->
+    <!-- Company Setup Modal -->
+    <div class="upgrade-modal-overlay" id="company-setup-modal">
+        <div class="upgrade-modal" onclick="event.stopPropagation()" style="max-width:480px;">
+            <div class="text-5xl mb-4">🏢</div>
+            <h2 class="text-2xl font-black text-slate-900 mb-2">Welcome to Ready Training</h2>
+            <p class="text-slate-600 mb-6">Set up your company to track team progress, or join an existing company with a code from your employer.</p>
+
+            <!-- Create Company Form -->
+            <div id="company-create-form">
+                <div class="mb-4 text-left">
+                    <label class="block text-sm font-bold mb-2 text-slate-700">Company Name</label>
+                    <input type="text" id="create-company-name" placeholder="e.g. ABC Restoration" class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none">
+                </div>
+                <button onclick="var n=document.getElementById('create-company-name').value.trim(); if(n) createCompany(n); else alert('Please enter a company name.');" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-6 rounded-lg transition mb-3">Create My Company</button>
+                <button onclick="showJoinForm()" class="w-full text-violet-600 hover:text-violet-700 font-semibold py-2 text-sm">I have a company code &rarr;</button>
+            </div>
+
+            <!-- Join Company Form -->
+            <div id="company-join-form" class="hidden">
+                <div class="mb-4 text-left">
+                    <label class="block text-sm font-bold mb-2 text-slate-700">Company Code</label>
+                    <input type="text" id="join-company-code" placeholder="e.g. AB3X7K" maxlength="6" class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none text-center text-2xl tracking-widest font-bold uppercase">
+                </div>
+                <button onclick="var c=document.getElementById('join-company-code').value.trim(); if(c.length===6) joinCompany(c); else alert('Please enter a 6-character company code.');" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-6 rounded-lg transition mb-3">Join Company</button>
+                <button onclick="showCreateForm()" class="w-full text-violet-600 hover:text-violet-700 font-semibold py-2 text-sm">&larr; I want to create a company</button>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-slate-200">
+                <button onclick="closeCompanyModal()" class="text-sm text-slate-400 hover:text-slate-600">Skip for now</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Upgrade Modal -->
     <div class="upgrade-modal-overlay" id="upgrade-modal" onclick="closeUpgradeModal(event)">
         <div class="upgrade-modal" onclick="event.stopPropagation()">
