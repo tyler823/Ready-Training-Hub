@@ -51,7 +51,7 @@
             // } catch(acErr) { console.warn('App Check init skipped:', acErr); }
             
             db = firebase.firestore();
-            db.settings({ experimentalForceLongPolling: true, merge: true });
+            db.settings({ experimentalForceLongPolling: true, experimentalAutoDetectLongPolling: false });
             console.log('🔥 Firebase initialized, db:', !!db);
         } else {
             console.warn('⚠️ Firebase not configured — progress tracking disabled');
