@@ -343,14 +343,24 @@
         if (cc) {
             window.rtUser.companyCode = cc;
             window.rtUser.role = cr || 'member';
-            injectProgressUI();
-            loadProgress();
         } else if (db) {
-            // No company code yet — show setup modal after short delay
+            window.rtUser._needsCompanySetup = true;
+        }
+
+        // Defer all DOM operations until the page is fully loaded
+        function runAfterDOM() {
             injectProgressUI();
-            setTimeout(showCompanyModal, 1500);
+            if (window.rtUser.companyCode) {
+                loadProgress();
+            } else if (window.rtUser._needsCompanySetup) {
+                setTimeout(showCompanyModal, 1500);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', runAfterDOM);
         } else {
-            injectProgressUI();
+            runAfterDOM();
         }
     }
     </script>
