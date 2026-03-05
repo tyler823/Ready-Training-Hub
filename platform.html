@@ -43,14 +43,15 @@
         if (FIREBASE_CONFIG.apiKey !== "YOUR_API_KEY_HERE") {
             firebase.initializeApp(FIREBASE_CONFIG);
             
-            // App Check — verifies requests come from readytraining.app
-            try {
-                var appCheck = firebase.appCheck();
-                appCheck.activate('6LcrMoEsAAAAAC_N03emlSYAUcbFLkaOT_qNHBVO', true);
-                console.log('🛡️ App Check activated');
-            } catch(acErr) { console.warn('App Check init skipped:', acErr); }
+            // App Check — temporarily disabled for testing
+            // try {
+            //     var appCheck = firebase.appCheck();
+            //     appCheck.activate('6LcrMoEsAAAAAC_N03emlSYAUcbFLkaOT_qNHBVO', true);
+            //     console.log('🛡️ App Check activated');
+            // } catch(acErr) { console.warn('App Check init skipped:', acErr); }
             
             db = firebase.firestore();
+            db.settings({ experimentalForceLongPolling: true, merge: true });
             console.log('🔥 Firebase initialized, db:', !!db);
         } else {
             console.warn('⚠️ Firebase not configured — progress tracking disabled');
@@ -216,30 +217,39 @@
     }
 
     async function createCompany(name) {
+        console.log('📝 createCompany called with name:', name);
+        console.log('📝 db exists:', !!db);
+        console.log('📝 rtUser:', JSON.stringify(window.rtUser));
         if (!db) { alert('Firebase not configured. Contact your administrator.'); return; }
         var code = generateCompanyCode();
+        console.log('📝 Generated code:', code);
         try {
             // Check code doesn't already exist
+            console.log('📝 Checking if code exists...');
             var existing = await db.collection('companies').doc(code).get();
+            console.log('📝 Code exists:', existing.exists);
             if (existing.exists) { code = generateCompanyCode(); }
 
+            console.log('📝 Writing company doc...');
             await db.collection('companies').doc(code).set({
                 name: name, ownerId: window.rtUser.id, createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
+            console.log('📝 Company doc written. Writing member doc...');
             await db.collection('companies').doc(code).collection('members').doc(window.rtUser.id).set({
                 name: window.rtUser.name || window.rtUser.email, email: window.rtUser.email,
                 role: 'owner', joinedAt: firebase.firestore.FieldValue.serverTimestamp(), progress: {}
             });
+            console.log('📝 Member doc written. Saving to Memberstack...');
             window.rtUser.companyCode = code;
             window.rtUser.role = 'owner';
 
             // Save to Memberstack custom fields
-            try { await window.$memberstackDom.updateMember({ customFields: { companyCode: code, companyRole: 'owner' } }); } catch(e) { console.warn('Memberstack meta save error:', e); }
+            try { await window.$memberstackDom.updateMember({ customFields: { companyCode: code, companyRole: 'owner' } }); console.log('📝 Memberstack updated'); } catch(e) { console.warn('Memberstack meta save error:', e); }
 
             closeCompanyModal();
             loadProgress();
             alert('Company created! Your company code is: ' + code + '\n\nShare this code with your team members so they can join.');
-        } catch(e) { console.error('Create company error:', e); alert('Error creating company. Please try again.'); }
+        } catch(e) { console.error('❌ Create company error:', e); alert('Error creating company: ' + e.message); }
     }
 
     async function joinCompany(code) {
