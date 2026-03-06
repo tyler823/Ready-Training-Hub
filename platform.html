@@ -333,6 +333,16 @@
     // =====================================================
     // TEAM DASHBOARD FUNCTIONS
     // =====================================================
+    async function removeMember(memberId, memberName) {
+        if (!db || !window.rtUser.companyCode) return;
+        if (!confirm('Remove ' + memberName + ' from your team?\n\nThis removes their progress tracking data. To also revoke their plan access, use the "Manage Team" button to remove them from your Memberstack team.')) return;
+        try {
+            await db.collection('companies').doc(window.rtUser.companyCode).collection('members').doc(memberId).delete();
+            console.log('🗑️ Removed member:', memberId);
+            initTeamDashboard(); // Refresh
+        } catch(e) { console.error('Remove member error:', e); alert('Error removing member. Please try again.'); }
+    }
+
     async function initTeamDashboard() {
         if (!db || !window.rtUser.companyCode) {
             document.getElementById('dash-no-company').classList.remove('hidden');
@@ -372,13 +382,16 @@
             members.forEach(function(m) {
                 var card = document.createElement('div');
                 card.className = 'bg-white rounded-xl p-6 shadow-sm border border-slate-200';
+                var isOwner = (m.role === 'owner');
+                var isSelf = (m.id === window.rtUser.id);
+
                 var html = '<div class="flex justify-between items-start mb-4">' +
                     '<div><h3 class="font-bold text-slate-900">' + (m.name || 'Unknown') + '</h3>' +
                     '<p class="text-xs text-slate-500">' + (m.email || '') + '</p></div>' +
-                    '<span class="text-xs font-bold px-2 py-1 rounded ' + (m.role === 'owner' ? 'bg-violet-100 text-violet-700' : 'bg-slate-100 text-slate-600') + '">' + (m.role || 'member') + '</span></div>' +
+                    '<span class="text-xs font-bold px-2 py-1 rounded ' + (isOwner ? 'bg-violet-100 text-violet-700' : 'bg-slate-100 text-slate-600') + '">' + (m.role || 'member') + '</span></div>' +
                     '<div class="mb-3"><div class="flex justify-between text-xs mb-1"><span class="font-bold text-slate-600">Overall</span><span class="font-bold text-violet-600">' + m._pct + '%</span></div>' +
                     '<div class="w-full bg-slate-100 rounded-full h-2.5"><div class="h-full rounded-full ' + (m._pct === 100 ? 'bg-emerald-500' : 'bg-violet-500') + '" style="width:' + m._pct + '%"></div></div></div>' +
-                    '<div class="space-y-2">';
+                    '<div class="space-y-2 mb-4">';
 
                 Object.keys(PROGRESS_MODULES).forEach(function(mod) {
                     var items = Object.keys(PROGRESS_MODULES[mod].items);
@@ -391,9 +404,19 @@
                 });
 
                 html += '</div>';
+
+                // Remove button (only shown for non-owners, and only if current user is the owner)
+                if (!isOwner && !isSelf && window.rtUser.role === 'owner') {
+                    html += '<button onclick="removeMember(\'' + m.id + '\', \'' + (m.name || m.email || '').replace(/'/g, "\\'") + '\')" class="w-full mt-2 text-xs text-red-500 hover:text-red-700 hover:bg-red-50 py-2 rounded-lg transition border border-red-200">Remove from Team</button>';
+                }
+
                 card.innerHTML = html;
                 container.appendChild(card);
             });
+
+            if (members.length === 0) {
+                container.innerHTML = '<div class="text-center py-8 text-slate-500 col-span-full">No team members yet. Share your company code or use the invite link above.</div>';
+            }
 
         } catch(e) { console.error('Dashboard load error:', e); }
     }
@@ -6985,13 +7008,19 @@ document.addEventListener('keydown', function(e) {
                 <!-- Dashboard Content (shown when company exists) -->
                 <div id="dash-content" class="hidden">
                     <!-- Company Code Banner -->
-                    <div class="bg-gradient-to-r from-violet-600 to-violet-500 rounded-xl p-6 mb-8 text-white flex justify-between items-center">
-                        <div>
-                            <p class="text-sm text-violet-200 mb-1">Your Company Code</p>
-                            <p class="text-3xl font-black tracking-widest" id="dash-company-code">------</p>
-                            <p class="text-xs text-violet-200 mt-1">Share this code with team members so they can join</p>
+                    <div class="bg-gradient-to-r from-violet-600 to-violet-500 rounded-xl p-6 mb-8 text-white">
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <p class="text-sm text-violet-200 mb-1">Your Company Code</p>
+                                <p class="text-3xl font-black tracking-widest" id="dash-company-code">------</p>
+                                <p class="text-xs text-violet-200 mt-1">Share this code with team members so they can join progress tracking</p>
+                            </div>
+                            <button onclick="navigator.clipboard.writeText(document.getElementById('dash-company-code').textContent).then(function(){alert('Code copied!')})" class="bg-white bg-opacity-20 text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-30 transition text-sm">📋 Copy Code</button>
                         </div>
-                        <button onclick="navigator.clipboard.writeText(document.getElementById('dash-company-code').textContent).then(function(){alert('Code copied!')})" class="bg-white bg-opacity-20 text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-30 transition text-sm">📋 Copy Code</button>
+                        <div class="flex gap-3 pt-4 border-t border-white border-opacity-20">
+                            <button data-ms-modal="profile" class="bg-white text-violet-700 font-bold py-2 px-5 rounded-lg hover:bg-violet-50 transition text-sm">👥 Manage Team &amp; Invite Members</button>
+                            <p class="text-xs text-violet-200 flex items-center">Use this to invite staff via link, manage seats, and remove members from your plan</p>
+                        </div>
                     </div>
 
                     <!-- Summary Cards -->
