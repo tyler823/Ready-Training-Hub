@@ -243,8 +243,9 @@
             window.rtUser.companyCode = code;
             window.rtUser.role = 'owner';
 
-            // Save to Memberstack custom fields
-            try { await window.$memberstackDom.updateMember({ customFields: { companyCode: code, companyRole: 'owner' } }); console.log('📝 Memberstack updated'); } catch(e) { console.warn('Memberstack meta save error:', e); }
+            // Save to Memberstack custom fields + localStorage backup
+            try { await window.$memberstackDom.updateMember({ customFields: { 'company-code': code, 'company-role': 'owner' } }); console.log('📝 Memberstack updated'); } catch(e) { console.warn('Memberstack meta save error:', e); }
+            try { localStorage.setItem('rt_companyCode', code); localStorage.setItem('rt_companyRole', 'owner'); } catch(e) {}
 
             closeCompanyModal();
             loadProgress();
@@ -262,11 +263,12 @@
             await db.collection('companies').doc(code).collection('members').doc(window.rtUser.id).set({
                 name: window.rtUser.name || window.rtUser.email, email: window.rtUser.email,
                 role: 'member', joinedAt: firebase.firestore.FieldValue.serverTimestamp(), progress: {}
-            });
+            }, { merge: true });
             window.rtUser.companyCode = code;
             window.rtUser.role = 'member';
 
-            try { await window.$memberstackDom.updateMember({ customFields: { companyCode: code, companyRole: 'member' } }); } catch(e) { console.warn('Memberstack meta save error:', e); }
+            try { await window.$memberstackDom.updateMember({ customFields: { 'company-code': code, 'company-role': 'member' } }); } catch(e) { console.warn('Memberstack meta save error:', e); }
+            try { localStorage.setItem('rt_companyCode', code); localStorage.setItem('rt_companyRole', 'member'); } catch(e) {}
 
             closeCompanyModal();
             loadProgress();
@@ -356,8 +358,12 @@
         window.rtUser.name = (member.data.customFields && member.data.customFields.name) || member.data.auth.email;
 
         // Check for existing company code
-        var cc = member.data.customFields && member.data.customFields.companyCode;
-        var cr = member.data.customFields && member.data.customFields.companyRole;
+        var cc = member.data.customFields && (member.data.customFields['company-code'] || member.data.customFields.companyCode);
+        var cr = member.data.customFields && (member.data.customFields['company-role'] || member.data.customFields.companyRole);
+        
+        // Fallback to localStorage if Memberstack doesn't have it
+        if (!cc) { try { cc = localStorage.getItem('rt_companyCode'); } catch(e) {} }
+        if (!cr) { try { cr = localStorage.getItem('rt_companyRole'); } catch(e) {} }
 
         console.log('🔍 Company code from Memberstack:', cc);
         console.log('🔍 Company role from Memberstack:', cr);
