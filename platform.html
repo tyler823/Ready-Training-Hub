@@ -376,7 +376,7 @@
             window.rtUser.companyCode = cc;
             window.rtUser.role = cr || 'member';
             
-            // Auto-create Firestore member doc if it doesn't exist yet
+            // Auto-create or update Firestore member doc on every login
             if (db) {
                 (async function() {
                     try {
@@ -392,8 +392,16 @@
                                 progress: {}
                             });
                             console.log('✅ Firestore member doc created');
+                        } else {
+                            // Update name and email in case they changed
+                            await memberRef.set({
+                                name: window.rtUser.name || window.rtUser.email,
+                                email: window.rtUser.email,
+                                lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                            }, { merge: true });
+                            console.log('✅ Firestore member doc updated');
                         }
-                    } catch(e) { console.warn('Auto-create member doc error:', e); }
+                    } catch(e) { console.warn('Auto-create/update member doc error:', e); }
                 })();
             }
         } else if (db) {
