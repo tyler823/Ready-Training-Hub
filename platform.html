@@ -484,7 +484,7 @@
 
         if (cc) {
             window.rtUser.companyCode = cc;
-            window.rtUser.role = cr || 'member';
+            window.rtUser.role = cr || 'member'; // Temporary — will be overwritten by Firestore below
             
             // Auto-create or update Firestore member doc on every login
             if (db) {
@@ -503,13 +503,19 @@
                             });
                             console.log('✅ Firestore member doc created');
                         } else {
-                            // Update name and email in case they changed
+                            // Update name and email but NEVER overwrite role — Firestore role is the source of truth
                             await memberRef.set({
                                 name: window.rtUser.name || window.rtUser.email,
                                 email: window.rtUser.email,
                                 lastLogin: firebase.firestore.FieldValue.serverTimestamp()
                             }, { merge: true });
-                            console.log('✅ Firestore member doc updated');
+                            
+                            // Read role from Firestore — this is the real role set by owner/promote
+                            var firestoreRole = memberDoc.data().role;
+                            if (firestoreRole) {
+                                window.rtUser.role = firestoreRole;
+                                console.log('✅ Role from Firestore:', firestoreRole);
+                            }
                         }
                     } catch(e) { console.warn('Auto-create/update member doc error:', e); }
                 })();
