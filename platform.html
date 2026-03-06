@@ -66,48 +66,72 @@
     // =====================================================
     const PROGRESS_MODULES = {
         readiness: { name: 'Readiness & Prep', section: 'sec-readiness', tier: 'solo', items: {
-            'rapid-response': 'Rapid Response Checklist', 'vehicle-maint': 'Vehicle Maintenance Protocol',
-            'equip-hygiene': 'Equipment & Sensor Hygiene', 'consumables': 'Consumables Inventory'
+            'rapid-response': { label: 'Rapid Response Checklist', detId: 'det-rapid-response' },
+            'vehicle-maint': { label: 'Vehicle Maintenance Protocol', detId: 'det-veh-maint' },
+            'equip-hygiene': { label: 'Equipment & Sensor Hygiene', detId: 'det-equip-maint' },
+            'consumables': { label: 'Consumables Inventory', detId: 'det-consumables' }
         }},
         mitigation: { name: 'Mitigation Workflow', section: 'sec-mitigation', tier: 'solo', items: {
-            'work-auth': 'Step 1: Work Authorization', 'investigation': 'Step 2: Investigation & Documentation',
-            'extraction': 'Step 3: Extraction', 'equip-setup': 'Step 4: Equipment Setup',
-            'monitoring': 'Step 5: Daily Monitoring', 'dry-standard': 'Step 6: Dry Standard',
-            'tear-down': 'Step 7: Tear Down & Close-Out'
+            'work-auth': { label: 'Step 1: Work Authorization', detId: 'det-step1' },
+            'investigation': { label: 'Step 2: Investigation & Documentation', detId: 'det-step2' },
+            'extraction': { label: 'Step 3: Extraction', detId: 'det-step3' },
+            'equip-setup': { label: 'Step 4: Equipment Setup', detId: 'det-step4' },
+            'monitoring': { label: 'Step 5: Daily Monitoring', detId: 'det-step5' },
+            'dry-standard': { label: 'Step 6: Dry Standard', detId: 'det-step6' },
+            'tear-down': { label: 'Step 7: Tear Down & Close-Out', detId: 'det-step7' }
         }},
         contents: { name: 'Contents & Logistics', section: 'sec-contents', tier: 'solo', items: {
-            'encircle': 'Encircle Project Setup', 'trailer': 'Trailer Safety & Loading',
-            'inventory': 'Inventory Control', 'textile': 'Textile Processing'
+            'encircle': { label: 'Encircle Project Setup', detId: 'det-encircle' },
+            'trailer': { label: 'Trailer Safety & Loading', detId: 'det-trailer' }
         }},
         reconstruction: { name: 'Reconstruction', section: 'sec-reconstruction', tier: 'team', items: {
-            'transition': 'Transition & Handoff', 'estimating': 'Estimating Software',
-            'scope': 'Scope Development', 'preconstruction': 'Pre-Construction',
-            'construction': 'Construction Sequencing', 'completion': 'Project Completion'
+            'transition': { label: 'Transition & Handoff', detId: 'det-transition' },
+            'estimating': { label: 'Estimating Software', detId: 'det-estimating' },
+            'preconstruction': { label: 'Pre-Construction', detId: 'det-preconstruction' },
+            'construction': { label: 'Construction Sequencing', detId: 'det-construction' },
+            'completion': { label: 'Project Completion', detId: 'det-closeout' }
         }},
         financial: { name: 'Financial Operations', section: 'sec-financial', tier: 'team', items: {
-            'profitability': 'Business Profitability', 'margins': 'Margins & Markups',
-            'cashflow': 'Break-Even & Cash Flow', 'pricing': 'Pricing Strategy', 'tax': 'Tax Considerations'
+            'profitability': { label: 'Business Profitability', detId: 'det-profitability' },
+            'margins': { label: 'Margins & Markups', detId: 'det-margins' },
+            'cashflow': { label: 'Break-Even & Cash Flow', detId: 'det-cashflow' },
+            'pricing': { label: 'Pricing Strategy', detId: 'det-pricing' },
+            'tax': { label: 'Tax Considerations', detId: 'det-taxes' }
         }},
         onboarding: { name: 'Employee Onboarding', section: 'sec-onboarding', tier: 'team', items: {
-            'preboarding': 'Pre-Boarding & Day 1', 'training-stages': 'Training Stages',
-            'assessment': 'Competency Assessment', 'retention': 'Retention & Career Paths'
+            'preboarding': { label: 'Pre-Boarding & Day 1', detId: 'det-onb-preboard' },
+            'week1': { label: 'Week 1: Foundation', detId: 'det-onb-week1' },
+            'weeks24': { label: 'Weeks 2-4: Building Skills', detId: 'det-onb-weeks24' },
+            'days3190': { label: 'Days 31-90: Independence', detId: 'det-onb-3190' },
+            'assessment': { label: 'Competency Assessment', detId: 'det-onb-assess' },
+            'retention': { label: 'Retention & Career Paths', detId: 'det-onb-retention' }
         }},
         'team-scaling': { name: 'Team Scaling', section: 'sec-team-scaling', tier: 'enterprise', items: {
-            'owner-dilemma': "The Owner's Dilemma", 'org-structure': 'Organizational Structure',
-            'hiring': 'Systematic Hiring', 'training-systems': 'Training Systems',
-            'delegation': 'Delegation & Systems', 'leadership-dev': 'Leadership Development'
+            'owner-dilemma': { label: "The Owner's Dilemma", detId: 'det-owner-dilemma' },
+            'org-structure': { label: 'Organizational Structure', detId: 'det-org-structure' },
+            'hiring': { label: 'Systematic Hiring', detId: 'det-hiring' },
+            'training-systems': { label: 'Training Systems', detId: 'det-training' },
+            'delegation': { label: 'Delegation & Systems', detId: 'det-delegation' },
+            'leadership-dev': { label: 'Leadership Development', detId: 'det-leadership' }
         }},
         'exit-strategy': { name: 'Exit Strategy', section: 'sec-exit-strategy', tier: 'enterprise', items: {
-            'valuation': 'Business Valuation', 'roadmap': 'Exit Roadmap', 'deal-structure': 'Deal Structures'
+            'valuation': { label: 'Business Valuation', detId: 'det-valuation' },
+            'sale-prep': { label: 'Sale Preparation', detId: 'det-sale-prep' },
+            'exit-options': { label: 'Exit Options & Deal Structures', detId: 'det-exit-options' }
         }},
         'mgmt-development': { name: 'Managerial Development', section: 'sec-mgmt-development', tier: 'enterprise', items: {
-            'promotion': 'The Promotion Problem', 'branch-mgr': 'Branch Manager Role',
-            'regional-mgr': 'Regional Manager Role', 'first-time-mgr': 'First-Time Manager Training',
-            'restoration-leadership': 'Restoration-Specific Leadership', 'meetings': 'Meeting Structure'
+            'promotion': { label: 'The Promotion Problem', detId: 'det-mgmt-promo' },
+            'branch-mgr': { label: 'Branch Manager Role', detId: 'det-mgmt-branch' },
+            'regional-mgr': { label: 'Regional Manager Role', detId: 'det-mgmt-regional' },
+            'first-time-mgr': { label: 'First-Time Manager Training', detId: 'det-mgmt-firsttime' },
+            'restoration-leadership': { label: 'Restoration-Specific Leadership', detId: 'det-mgmt-restoration' },
+            'meetings': { label: 'Meeting Structure', detId: 'det-meetings' }
         }},
         'maturity-models': { name: 'Employee Maturity Models', section: 'sec-maturity-models', tier: 'enterprise', items: {
-            'ops-emm': 'Operations/Field EMM', 'estimating-emm': 'Estimating EMM',
-            'admin-emm': 'Admin/Office EMM', 'sales-emm': 'Sales/BD EMM'
+            'ops-emm': { label: 'Operations/Field EMM', detId: 'det-emm-ops' },
+            'estimating-emm': { label: 'Estimating EMM', detId: 'det-emm-est' },
+            'admin-emm': { label: 'Admin/Office EMM', detId: 'det-emm-admin' },
+            'sales-emm': { label: 'Sales/BD EMM', detId: 'det-emm-sales' }
         }}
     };
 
@@ -120,8 +144,8 @@
     function getProgressKey(mod, item) { return mod + '.' + item; }
 
     function calcModuleProgress(mod) {
-        const items = Object.keys(PROGRESS_MODULES[mod].items);
-        let done = 0;
+        var items = Object.keys(PROGRESS_MODULES[mod].items);
+        var done = 0;
         items.forEach(function(item) { if (localProgress[getProgressKey(mod, item)]) done++; });
         return { done: done, total: items.length, pct: items.length ? Math.round((done / items.length) * 100) : 0 };
     }
@@ -166,7 +190,7 @@
     // =====================================================
     function injectProgressUI() {
         Object.keys(PROGRESS_MODULES).forEach(function(mod) {
-            const section = document.getElementById(PROGRESS_MODULES[mod].section);
+            var section = document.getElementById(PROGRESS_MODULES[mod].section);
             if (!section) return;
 
             // Progress bar at top of section (after first child)
@@ -177,32 +201,30 @@
                 '<span class="text-xs font-bold text-violet-600" id="prog-txt-' + mod + '">0/0 (0%)</span></div>' +
                 '<div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden"><div class="h-full rounded-full bg-violet-500 transition-all duration-500" id="prog-bar-' + mod + '" style="width:0%"></div></div>';
 
-            // Insert after first child (hero div)
             if (section.children.length > 1) {
                 section.insertBefore(barDiv, section.children[1]);
             } else {
                 section.appendChild(barDiv);
             }
 
-            // Checklist at bottom of section (before last child which is often a CTA)
-            var checkDiv = document.createElement('div');
-            checkDiv.className = 'bg-white rounded-xl p-6 shadow-sm border-2 border-violet-200 mb-8 mt-8';
-            var html = '<h3 class="text-lg font-bold text-slate-900 mb-4">✅ Section Completion Checklist</h3>' +
-                '<p class="text-xs text-slate-500 mb-4">Check off each topic as you complete it. Your progress is saved automatically and visible to your team owner on the dashboard.</p>' +
-                '<div class="space-y-3">';
+            // Embed a checkbox at the bottom of each detail-expansion div
             Object.keys(PROGRESS_MODULES[mod].items).forEach(function(item) {
+                var info = PROGRESS_MODULES[mod].items[item];
+                var detDiv = document.getElementById(info.detId);
+                if (!detDiv) return;
+
+                var innerDiv = detDiv.querySelector('div[class*="p-"]') || detDiv;
                 var cbId = 'prog-cb-' + mod + '-' + item;
-                html += '<label class="flex items-center gap-3 p-3 rounded-lg hover:bg-violet-50 transition cursor-pointer" for="' + cbId + '">' +
+                var cbDiv = document.createElement('div');
+                cbDiv.className = 'mt-6 pt-4 border-t border-slate-200';
+                cbDiv.innerHTML = '<label class="flex items-center gap-3 p-3 rounded-lg bg-white border-2 border-violet-200 hover:border-violet-400 transition cursor-pointer shadow-sm" for="' + cbId + '">' +
                     '<input type="checkbox" id="' + cbId + '" class="w-5 h-5 text-violet-600 rounded border-slate-300 focus:ring-violet-500" ' +
                     'onchange="saveProgress(\'' + mod + '\', \'' + item + '\', this.checked)">' +
-                    '<span class="text-sm text-slate-700">' + PROGRESS_MODULES[mod].items[item] + '</span></label>';
-            });
-            html += '</div>';
-            checkDiv.innerHTML = html;
+                    '<div><span class="text-sm font-bold text-violet-700">Mark Complete</span>' +
+                    '<p class="text-xs text-slate-500">I have reviewed and understand: ' + info.label + '</p></div></label>';
 
-            // Find last CTA div or append at end
-            var lastChild = section.lastElementChild;
-            section.insertBefore(checkDiv, lastChild);
+                innerDiv.appendChild(cbDiv);
+            });
         });
     }
 
