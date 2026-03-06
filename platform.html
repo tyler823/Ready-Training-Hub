@@ -343,6 +343,17 @@
         } catch(e) { console.error('Remove member error:', e); alert('Error removing member. Please try again.'); }
     }
 
+    async function setMemberRole(memberId, memberName, newRole) {
+        if (!db || !window.rtUser.companyCode) return;
+        var action = newRole === 'manager' ? 'promote to Manager' : 'set back to Member';
+        if (!confirm(action.charAt(0).toUpperCase() + action.slice(1) + ': ' + memberName + '?\n\nManagers can view the Team Dashboard and remove team members.')) return;
+        try {
+            await db.collection('companies').doc(window.rtUser.companyCode).collection('members').doc(memberId).set({ role: newRole }, { merge: true });
+            console.log('🔄 Changed role for', memberId, 'to', newRole);
+            initTeamDashboard(); // Refresh
+        } catch(e) { console.error('Set role error:', e); alert('Error updating role. Please try again.'); }
+    }
+
     async function initTeamDashboard() {
         if (!db || !window.rtUser.companyCode) {
             document.getElementById('dash-no-company').classList.remove('hidden');
@@ -379,16 +390,25 @@
             // Render member cards
             var container = document.getElementById('dash-members-grid');
             container.innerHTML = '';
+            var currentRole = window.rtUser.role;
+            var canManage = (currentRole === 'owner' || currentRole === 'manager');
+
             members.forEach(function(m) {
                 var card = document.createElement('div');
                 card.className = 'bg-white rounded-xl p-6 shadow-sm border border-slate-200';
                 var isOwner = (m.role === 'owner');
+                var isManager = (m.role === 'manager');
                 var isSelf = (m.id === window.rtUser.id);
+
+                // Role badge colors
+                var badgeClass = 'bg-slate-100 text-slate-600';
+                if (isOwner) badgeClass = 'bg-violet-100 text-violet-700';
+                else if (isManager) badgeClass = 'bg-amber-100 text-amber-700';
 
                 var html = '<div class="flex justify-between items-start mb-4">' +
                     '<div><h3 class="font-bold text-slate-900">' + (m.name || 'Unknown') + '</h3>' +
                     '<p class="text-xs text-slate-500">' + (m.email || '') + '</p></div>' +
-                    '<span class="text-xs font-bold px-2 py-1 rounded ' + (isOwner ? 'bg-violet-100 text-violet-700' : 'bg-slate-100 text-slate-600') + '">' + (m.role || 'member') + '</span></div>' +
+                    '<span class="text-xs font-bold px-2 py-1 rounded ' + badgeClass + '">' + (m.role || 'member') + '</span></div>' +
                     '<div class="mb-3"><div class="flex justify-between text-xs mb-1"><span class="font-bold text-slate-600">Overall</span><span class="font-bold text-violet-600">' + m._pct + '%</span></div>' +
                     '<div class="w-full bg-slate-100 rounded-full h-2.5"><div class="h-full rounded-full ' + (m._pct === 100 ? 'bg-emerald-500' : 'bg-violet-500') + '" style="width:' + m._pct + '%"></div></div></div>' +
                     '<div class="space-y-2 mb-4">';
@@ -405,9 +425,27 @@
 
                 html += '</div>';
 
-                // Remove button (only shown for non-owners, and only if current user is the owner)
-                if (!isOwner && !isSelf && window.rtUser.role === 'owner') {
-                    html += '<button onclick="removeMember(\'' + m.id + '\', \'' + (m.name || m.email || '').replace(/'/g, "\\'") + '\')" class="w-full mt-2 text-xs text-red-500 hover:text-red-700 hover:bg-red-50 py-2 rounded-lg transition border border-red-200">Remove from Team</button>';
+                var escapedName = (m.name || m.email || '').replace(/'/g, "\\'");
+
+                // Action buttons
+                if (!isSelf && canManage) {
+                    html += '<div class="flex gap-2 mt-2">';
+
+                    // Remove button — owners can remove anyone except themselves; managers can remove regular members only
+                    if (!isOwner && (currentRole === 'owner' || (!isManager && currentRole === 'manager'))) {
+                        html += '<button onclick="removeMember(\'' + m.id + '\', \'' + escapedName + '\')" class="flex-1 text-xs text-red-500 hover:text-red-700 hover:bg-red-50 py-2 rounded-lg transition border border-red-200">Remove</button>';
+                    }
+
+                    // Promote/Demote buttons — only owners can change roles
+                    if (currentRole === 'owner' && !isOwner) {
+                        if (isManager) {
+                            html += '<button onclick="setMemberRole(\'' + m.id + '\', \'' + escapedName + '\', \'member\')" class="flex-1 text-xs text-slate-500 hover:text-slate-700 hover:bg-slate-50 py-2 rounded-lg transition border border-slate-200">Demote to Member</button>';
+                        } else {
+                            html += '<button onclick="setMemberRole(\'' + m.id + '\', \'' + escapedName + '\', \'manager\')" class="flex-1 text-xs text-amber-600 hover:text-amber-700 hover:bg-amber-50 py-2 rounded-lg transition border border-amber-200">Promote to Manager</button>';
+                        }
+                    }
+
+                    html += '</div>';
                 }
 
                 card.innerHTML = html;
