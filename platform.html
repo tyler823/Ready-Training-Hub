@@ -272,12 +272,12 @@
                 
                 // Try Memberstack 2.0 format
                 if (window.$memberstackDom && window.$memberstackDom.updateMember) {
-                    var result = await window.$memberstackDom.updateMember({ customFields: { companyCode: code, companyRole: 'owner' } });
+                    var result = await window.$memberstackDom.updateMember({ customFields: { 'company-code': code, 'company-role': 'owner' } });
                     console.log('📝 updateMember result:', JSON.stringify(result));
                 } else if (window.MemberStack && window.MemberStack.onReady) {
                     // Try legacy Memberstack format
                     window.MemberStack.onReady.then(function(member) {
-                        member.updateProfile({ companyCode: code, companyRole: 'owner' });
+                        member.updateProfile({ 'company-code': code, 'company-role': 'owner' });
                         console.log('📝 Legacy updateProfile called');
                     });
                 } else {
@@ -309,11 +309,11 @@
             // Save to Memberstack custom fields
             try {
                 if (window.$memberstackDom && window.$memberstackDom.updateMember) {
-                    var result = await window.$memberstackDom.updateMember({ customFields: { companyCode: code, companyRole: 'member' } });
+                    var result = await window.$memberstackDom.updateMember({ customFields: { 'company-code': code, 'company-role': 'member' } });
                     console.log('📝 Join updateMember result:', JSON.stringify(result));
                 } else if (window.MemberStack && window.MemberStack.onReady) {
                     window.MemberStack.onReady.then(function(member) {
-                        member.updateProfile({ companyCode: code, companyRole: 'member' });
+                        member.updateProfile({ 'company-code': code, 'company-role': 'member' });
                     });
                 }
             } catch(e) { console.error('❌ Join Memberstack save error:', e.message, e); }
