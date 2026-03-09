@@ -81,7 +81,7 @@
             'tear-down': { label: 'Step 7: Tear Down & Close-Out', detId: 'det-step7' }
         }},
         contents: { name: 'Contents & Logistics', section: 'sec-contents', tier: 'solo', items: {
-            'encircle': { label: 'Encircle Project Setup', detId: 'det-encircle' },
+            'encircle': { label: 'Project Documentation Setup', detId: 'det-encircle' },
             'trailer': { label: 'Trailer Safety & Loading', detId: 'det-trailer' }
         }},
         reconstruction: { name: 'Reconstruction', section: 'sec-reconstruction', tier: 'team', items: {
@@ -1488,10 +1488,10 @@ document.addEventListener('keydown', function(e) {
                         <span class="phase-badge bg-violet-100 text-violet-700 mb-4">Phase 3</span>
                         <h3 class="text-xl font-bold text-slate-900 mt-4 mb-3">Contents & Logistics</h3>
                         <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                            Precise handling of personal property from Encircle initialization through safe transport and clean materials exchange.
+                            Precise handling of personal property from initial documentation through safe transport and clean materials exchange.
                         </p>
                         <ul class="text-xs text-left text-slate-700 space-y-2">
-                            <li>✓ Encircle Project Setup</li>
+                            <li>✓ Project Documentation Setup</li>
                             <li>✓ Trailer Safety & Loading</li>
                             <li>✓ Inventory Control Standards</li>
                             <li>✓ Textile Processing Protocol</li>
@@ -2119,6 +2119,9 @@ document.addEventListener('keydown', function(e) {
                                 <button onclick="toggleDetails('det-step1')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-3 py-1.5 rounded hover:bg-violet-100 transition-all mb-2">Expand Details</button>
                                 <div id="det-step1" class="detail-expansion max-h-0 bg-slate-50 rounded-xl">
                                     <div class="p-4 text-xs leading-relaxed">
+                                        <p class="font-bold text-violet-800 mb-2">Arrive as an Investigator, Not a Salesperson:</p>
+                                        <p class="mb-3">Before any paperwork comes out, take a few minutes to genuinely listen. Ask the homeowner what happened, when they noticed it, and what they're most worried about. Understand the emotional weight of what they're experiencing — their home is disrupted and they may be scared about what this means financially or structurally. Customers who feel heard are dramatically more cooperative throughout the project. Rushing to the Work Auth before you've built even minimal trust is the fastest way to create friction, disputes, and bad reviews. Speak first. Investigate thoroughly. Then document and authorize.</p>
+
                                         <p class="font-bold text-violet-800 mb-2">Why This Step Cannot Be Skipped:</p>
                                         <p class="mb-3">The Work Authorization is the legal foundation of every restoration project. Without a signed Work Auth, your company is trespassing on private property and has no legal right to perform services. If the homeowner later disputes charges or claims work was unauthorized, your company has zero legal standing and faces a complete write-off of labor and materials &mdash; averaging $3,000&ndash;$15,000 per incident industry-wide.</p>
                                         
@@ -2160,23 +2163,23 @@ document.addEventListener('keydown', function(e) {
                                         <p class="font-bold text-violet-800 mb-2">4-Corner Photography Protocol:</p>
                                         <p class="mb-3">Stand in each corner of every affected room and shoot diagonally across to the opposite corner. This creates overlapping fields of view that capture 100% of room contents, wall surfaces, floor conditions, and ceiling damage. Four diagonal shots create zero blind spots. Take photos BEFORE moving anything &mdash; digital photos embed EXIF data (date, time, GPS coordinates) that serve as timestamped litigation defense if pre-existing damage is later disputed.</p>
                                         
+                                        <p class="font-bold text-violet-800 mb-2">Thermal Imaging — Do This First:</p>
+                                        <p class="mb-3">Before taking moisture readings, scan every affected room with your thermal camera. Infrared cameras detect temperature differentials caused by moisture — wet materials are cooler than dry materials due to evaporative cooling, and this difference shows up clearly on camera. This tells you exactly where to take readings and prevents you from missing hidden moisture behind walls, under flooring, and above ceilings that a meter alone would never find. Water follows gravity and capillary action through wall cavities and often appears far from the original source. Thermal images also serve as powerful visual evidence for justifying expanded demo scope — an adjuster is far more likely to approve additional demolition when they can see moisture migration on an infrared image. Save all thermal images with timestamps immediately.</p>
+
                                         <p class="font-bold text-violet-800 mb-2">Moisture Mapping Requirements:</p>
-                                        <p class="mb-2">&bull; <strong>Baseline readings.</strong> Take moisture readings at floor level, 24&quot;, 36&quot;, and 48&quot; elevations on every affected wall. The 16% threshold per IICRC S500 determines &quot;affected&quot; vs. &quot;unaffected&quot; materials for wood and drywall.</p>
+                                        <p class="mb-2">&bull; <strong>Baseline readings.</strong> Use your thermal scan to identify all elevated moisture areas first, then take readings at floor level and at the highest visible point of moisture elevation on each affected wall. The critical concept: find the highest point where readings are still elevated above 16%, then assume everything below that height is more significantly impacted — moisture wicks upward, meaning the floor and lower wall cavity hold more water than the highest reading point suggests. You don't need to document exact heights at fixed intervals; document the highest affected elevation and work downward from there.</p>
                                         <p class="mb-2">&bull; <strong>Use both meter types.</strong> Non-invasive meters for rapid scanning, then pin-type penetrating meters for precise readings on flagged areas. Cross-reference readings for accuracy.</p>
                                         <p class="mb-2">&bull; <strong>Cap readings at 60%.</strong> Meters above 60% indicate complete saturation &mdash; the meter cannot differentiate between 65% and 99%. Logging &quot;60%&quot; standardizes data across the industry.</p>
                                         <p class="mb-2">&bull; <strong>Map unaffected areas too.</strong> Document dry areas adjacent to wet zones to establish the boundary of damage. This prevents scope creep disputes with adjusters.</p>
-                                        
-                                        <p class="font-bold text-violet-800 mb-2">Thermal Imaging:</p>
-                                        <p class="mb-3">Use infrared cameras to identify hidden moisture behind walls, under flooring, and above ceilings. Thermal imaging reveals moisture intrusion pathways invisible to the naked eye &mdash; water follows gravity and capillary action through wall cavities, often appearing far from the original source. Thermal images are powerful evidence for justifying expanded demo scope.</p>
                                         
                                         <p class="font-bold text-violet-800 mb-2">Water Category &amp; Class Determination:</p>
                                         <p class="mb-3">Classify the water category (1, 2, or 3) and class (1 through 4) per IICRC S500 standards. This classification directly determines PPE requirements, salvageability of materials, equipment needs, and drying timeline. Category 1 water degrades to Category 2 after 48 hours, and Category 2 to Category 3 &mdash; document the time-of-loss to support your classification decisions.</p>
                                         
                                         <p class="font-bold text-violet-800 mb-2">Complete Documentation Checklist:</p>
                                         <p class="mb-1">&square; 4-corner photos of every affected room (before touching anything)</p>
+                                        <p class="mb-1">&square; Thermal imaging scans with saved images (completed before moisture mapping)</p>
                                         <p class="mb-1">&square; Close-up photos of affected materials (wet drywall, saturated carpet, stains)</p>
-                                        <p class="mb-1">&square; Thermal imaging scans with saved images</p>
-                                        <p class="mb-1">&square; Moisture map with readings at all four elevations</p>
+                                        <p class="mb-1">&square; Moisture map with floor-level and highest-elevation readings on all affected walls</p>
                                         <p class="mb-1">&square; Water category and class determination with justification</p>
                                         <p class="mb-1">&square; Affected materials inventory</p>
                                         <p class="mb-1">&square; Source of loss identified and documented</p>
@@ -2205,8 +2208,9 @@ document.addEventListener('keydown', function(e) {
                                         <p class="mb-2">&bull; <strong>Upholstery and contents.</strong> Extract water from salvageable soft contents. Move wet contents to a dry area or elevate on blocks to allow airflow underneath.</p>
                                         
                                         <p class="font-bold text-violet-800 mb-2">Controlled Demolition Protocol:</p>
-                                        <p class="mb-2">&bull; <strong>Cut height determination.</strong> Use your vertical moisture map to determine the demo cut line. Standard practice: cut 12&ndash;18 inches above the highest point of moisture detection to ensure all affected material is removed.</p>
-                                        <p class="mb-2">&bull; <strong>Flood cuts.</strong> Make clean, straight horizontal cuts with oscillating tools or utility knives. Ragged cuts require more reconstruction material and labor &mdash; this directly impacts rebuild cost and timeline.</p>
+                                        <p class="mb-2">&bull; <strong>Drying in place is the first option.</strong> The goal is always to dry materials without removing them when doing so is viable. If the loss is caught early and drying can begin effectively within the first 24 hours, many wall assemblies can be dried in place with proper equipment and monitoring. Demo should be performed when materials are saturated beyond recovery, when moisture is trapped behind assemblies with no drying path, or when the 48–72 hour window has passed and mold risk is elevated.</p>
+                                        <p class="mb-2">&bull; <strong>MC (Moisture Content) cut line determination.</strong> Your vertical moisture map establishes the MC cut line — the height at which materials still read elevated moisture. Standard practice: cut 12–18 inches above the highest elevated MC reading to ensure all affected material is removed and a dry buffer zone is captured. The MC cut line is your documentation justification for the demo scope — insurance adjusters review it to approve or deny vertical demo height.</p>
+                                        <p class="mb-2">&bull; <strong>Flood cuts.</strong> Make clean, straight horizontal cuts with oscillating tools or utility knives. Ragged cuts require more reconstruction material and labor — this directly impacts rebuild cost and timeline.</p>
                                         <p class="mb-2">&bull; <strong>Insulation removal.</strong> All wet insulation must be removed &mdash; fiberglass and cellulose insulation cannot be dried in place and will harbor mold growth. Bag and dispose of properly.</p>
                                         <p class="mb-2">&bull; <strong>Baseboard and trim removal.</strong> Remove all baseboards in affected areas to expose the wall cavity for drying. Label and store salvageable trim for reinstallation.</p>
                                         <p class="mb-2">&bull; <strong>Cabinet toe-kick removal.</strong> In kitchen and bathroom losses, remove cabinet toe-kicks to allow airflow into the cavity behind and beneath cabinets. This is a commonly missed area that leads to hidden mold.</p>
@@ -2271,15 +2275,15 @@ document.addEventListener('keydown', function(e) {
                                 <button onclick="toggleDetails('det-step5')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-3 py-1.5 rounded hover:bg-violet-100 transition-all mb-2">Expand Details</button>
                                 <div id="det-step5" class="detail-expansion max-h-0 bg-slate-50 rounded-xl">
                                     <div class="p-4 text-xs leading-relaxed">
-                                        <p class="font-bold text-violet-800 mb-2">Why Daily Monitoring Is Non-Negotiable:</p>
-                                        <p class="mb-3">Drying is not set-it-and-forget-it. Conditions change daily &mdash; equipment may malfunction, the customer may turn off units, weather changes can alter humidity, and moisture migrates through materials over time. Missing a single day of monitoring can add 2&ndash;3 extra days of drying time, costing equipment rental fees and delaying project completion.</p>
-                                        
+                                        <p class="font-bold text-violet-800 mb-2">Why Daily Monitoring Matters:</p>
+                                        <p class="mb-3">Daily monitoring is the standard — but realistically, job volume, drive time, and scheduling constraints sometimes make it difficult to visit every site every day. That doesn't change what the goal is. When monitoring gets skipped, conditions can change without you knowing: equipment gets turned off by the homeowner, a dehumidifier fills up and stops collecting, weather shifts push ambient humidity higher, or moisture migrates into a new area. Any of these scenarios can add 2–3 extra days of drying time. Every extra day means additional equipment rental costs accumulating on the job, which either eats into your margin or creates a billing dispute with the adjuster. More importantly, incomplete monitoring documentation is a liability exposure — if litigation arises, the absence of daily records is treated as evidence of negligent restoration practice.</p>
+
                                         <p class="font-bold text-violet-800 mb-2">Daily Monitoring Checklist:</p>
-                                        <p class="mb-2">&bull; <strong>Moisture readings at all mapped points.</strong> Repeat readings at the same locations from your initial moisture map &mdash; floor, 24&quot;, 36&quot;, 48&quot; elevations. Use the same meter type and settings for consistency.</p>
+                                        <p class="mb-2">&bull; <strong>Moisture readings at all mapped points.</strong> Repeat readings at the same locations from your initial moisture map — floor level and at the highest elevation documented on initial mapping. Use the same meter type and settings for consistency.</p>
                                         <p class="mb-2">&bull; <strong>Psychrometric readings.</strong> Record ambient temperature, relative humidity, and calculate GPP (grains per pound) inside the affected area AND outside. Indoor GPP should be consistently lower than outdoor GPP &mdash; if not, equipment is undersized or malfunctioning.</p>
                                         <p class="mb-2">&bull; <strong>Equipment verification.</strong> Confirm every air mover and dehumidifier is running. Check dehumidifier collection rates &mdash; a unit collecting no water may indicate a mechanical failure or that the space is near target. Record equipment run hours.</p>
                                         <p class="mb-2">&bull; <strong>Adjust equipment as needed.</strong> As areas dry, redistribute air movers from dry zones to remaining wet zones. This &quot;stepping down&quot; focuses drying energy where it's still needed and reduces equipment rental costs. Document every adjustment with the reason.</p>
-                                        <p class="mb-2">&bull; <strong>Inspect for secondary damage.</strong> Check for new mold growth, odors, delamination, warping, or other signs of ongoing damage. Catching secondary issues early prevents scope escalation.</p>
+                                        <p class="mb-2">&bull; <strong>Inspect for secondary damage.</strong> Check for new secondary damage — odors, delamination, warping, buckling, or any signs that conditions are worsening. Catching secondary issues early prevents scope escalation and protects against negligence claims.</p>
                                         <p class="mb-2">&bull; <strong>Customer communication.</strong> Brief the homeowner on progress every visit. Explain when you expect dry-down to be achieved. Managing expectations prevents complaints.</p>
                                         
                                         <p class="font-bold text-violet-800 mb-2">Documentation Standard:</p>
@@ -2310,8 +2314,8 @@ document.addEventListener('keydown', function(e) {
                                         <p class="mb-2">&bull; <strong>Every piece of equipment.</strong> Each air mover, dehumidifier, air scrubber &mdash; with serial numbers, placement dates, and daily run-time. Equipment charges represent 30&ndash;50% of total mitigation invoice value.</p>
                                         <p class="mb-2">&bull; <strong>Every ancillary service.</strong> Emergency service call, after-hours response, biohazard handling, temporary repairs, board-up, tarp, content pack-out/pack-back.</p>
                                         
-                                        <p class="font-bold text-violet-800 mb-2">Docusketch Floor Plan:</p>
-                                        <p class="mb-3">Complete an accurate floor plan with room dimensions, door and window locations, and affected area boundaries. The floor plan is the visual foundation for the Xactimate estimate &mdash; inaccurate measurements mean inaccurate line items. Use Docusketch or equivalent laser-measurement tool for precision.</p>
+                                        <p class="font-bold text-violet-800 mb-2">Floor Plan Sketch:</p>
+                                        <p class="mb-3">Complete an accurate floor plan with room dimensions, door and window locations, and affected area boundaries. For mitigation, this is done by hand on site — a clear, measured sketch is all that's needed to establish the scope. Accuracy matters because the floor plan is the visual foundation for the estimate; inaccurate measurements mean inaccurate line items. A laser measurement tool speeds this up significantly. This sketch will later be used by the reconstruction team or estimator as the basis for a formal digital floor plan.</p>
                                         
                                         <p class="font-bold text-violet-800 mb-2">Real-Time Capture &mdash; Not After the Fact:</p>
                                         <p class="mb-3">Scope must be captured as work is performed &mdash; not reconstructed from memory days later. Build the habit: do the work, document the work, enter the line item. Every time.</p>
@@ -2382,7 +2386,7 @@ document.addEventListener('keydown', function(e) {
                         <div id="det-moisture" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4 border-violet-100 text-left">
                             <div class="p-4 text-xs leading-relaxed text-left text-left text-left">
                                 <p class="font-bold text-violet-800 mb-2 text-left">Expectation:</p>
-                                <p class="mb-3 text-left">Take moisture readings at floor level, 24" elevation, 36" elevation, and 48" elevation. The 16% threshold determines "affected" vs "unaffected" materials per IICRC S500. Any reading ≥60% is logged as exactly "60%"—do not log higher percentages.</p>
+                                <p class="mb-3 text-left">Take moisture readings at floor level and at the highest visible point of elevated moisture on each affected wall. The 16% threshold determines "affected" vs "unaffected" materials per IICRC S500. The key principle: find the highest elevation where readings are still elevated, then assume everything below that point is more significantly impacted — moisture wicks upward. Any reading ≥60% is logged as exactly "60%"—do not log higher percentages.</p>
                                 
                                 <p class="font-bold text-violet-800 mb-2 text-left">The "Why" - Standard Data Collection & Insurance Approval:</p>
                                 <p class="mb-3 text-left"><strong>16% Threshold = Industry Standard:</strong> IICRC S500 establishes 16% as the affected material threshold for wood and drywall. Below 16% = dry/normal conditions. Above 16% = affected material requiring drying or removal. This threshold is based on decades of research on microbial growth conditions. Materials consistently above 16% moisture content support mold colonization within 48-72 hours.</p>
@@ -2485,36 +2489,38 @@ document.addEventListener('keydown', function(e) {
                 </div>
             </div>
 
-            <!-- ENCIRCLE INITIALIZATION -->
-            <div class="mb-8 bg-violet-600 text-white p-6 rounded-2xl shadow-xl border-b-4 border-violet-800 text-left text-left text-left text-left text-left text-left">
-                <div class="flex justify-between items-center mb-4 text-left text-left text-left text-left text-left">
-                    <div class="flex items-center gap-4 text-left text-left text-left text-left">
-                        <span class="text-3xl text-left text-left text-left text-left text-left text-left text-left">🔄</span>
-                        <h3 class="text-xl font-bold uppercase tracking-tight text-left">Encircle Project Initialization</h3>
+            <!-- PROJECT DOCUMENTATION SETUP -->
+            <div class="mb-8 bg-violet-600 text-white p-6 rounded-2xl shadow-xl border-b-4 border-violet-800 text-left">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="flex items-center gap-4">
+                        <span class="text-3xl">🔄</span>
+                        <h3 class="text-xl font-bold uppercase tracking-tight">Project Documentation Setup</h3>
                     </div>
                     <button onclick="toggleDetails('det-encircle')" class="text-[10px] font-bold uppercase text-violet-900 bg-violet-200 px-2 py-1 rounded hover:bg-violet-100 transition-all">More</button>
                 </div>
 
-                <div id="det-encircle" class="detail-expansion max-h-0 bg-violet-700 rounded-xl mb-4 text-left text-left text-left text-left text-left">
-                    <div class="p-4 text-xs leading-relaxed text-left text-left text-left text-left">
-                        <p class="font-bold text-white mb-1 text-left text-left">Expectation:</p>
-                        <p class="mb-2 text-left text-left">Ensure Job-Dox work types ("Contents Clean" or "Contents Pack") are toggled BEFORE leaving the job site. This triggers automatic Encircle project creation. Technicians must then manually add each room structure in Encircle and photograph ALL contents in original location before touching.</p>
-                        <p class="font-bold text-white mb-1 text-left text-left text-left text-left">The "Why":</p>
-                        <p class="text-left text-left text-left text-left">Digital accountability prevents lost paperwork and ensures Contents team has immediate access to field inventory data. In-place photos establish condition and location, protecting company from false damage claims. Average contents inventory contains 500-2,000 items worth $50,000-$250,000 total value—proper documentation is essential liability protection.</p>
+                <div id="det-encircle" class="detail-expansion max-h-0 bg-violet-700 rounded-xl mb-4">
+                    <div class="p-4 text-xs leading-relaxed">
+                        <p class="font-bold text-white mb-1">Expectation:</p>
+                        <p class="mb-2">Before leaving the job site, ensure your project documentation tool is initialized and all work types are correctly set. Technicians must document each room with in-place photos of ALL contents before touching or moving anything.</p>
+                        <p class="font-bold text-white mb-1">The "Why":</p>
+                        <p class="mb-3">Digital accountability prevents lost paperwork and ensures the Contents team has immediate access to field inventory data. In-place photos establish condition and location, protecting your company from false damage claims. Average contents inventory contains 500–2,000 items worth $50,000–$250,000 total value — proper documentation is essential liability protection.</p>
+                        <p class="font-bold text-white mb-1">A Note on Tools:</p>
+                        <p>Whatever documentation platform your company uses, the requirement is the same: photos, room structure, and item-level inventory captured in real time at the job site. If you're evaluating field documentation tools, Job-Dox offers unlimited media storage specifically built for restoration workflows — photos, videos, and field notes tied directly to each job without storage caps or extra fees.</p>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left text-left">
-                    <div class="bg-violet-700 p-4 rounded-xl border border-violet-500 text-left text-left">
-                        <p class="text-xs font-black uppercase mb-1 text-violet-200">Job-Dox Sync Protocol:</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-violet-700 p-4 rounded-xl border border-violet-500">
+                        <p class="text-xs font-black uppercase mb-1 text-violet-200">Initialization Protocol:</p>
                         <p class="text-sm leading-relaxed">
-                            Projects generate automatically in Encircle once <strong>Contents Clean</strong> or <strong>Contents Pack</strong> is enabled in Job-Dox work types.
+                            Confirm your project documentation tool is active and the correct job type is set <strong>before leaving the site</strong>. This ensures the Contents team can access field data immediately without waiting for manual entry later.
                         </p>
                     </div>
-                    <div class="bg-violet-700 p-4 rounded-xl border border-violet-500 text-left text-left text-left">
+                    <div class="bg-violet-700 p-4 rounded-xl border border-violet-500">
                         <p class="text-xs font-black uppercase mb-1 text-violet-200">Room Setup Rule:</p>
-                        <p class="text-sm leading-relaxed text-left">
-                            Technicians must manually <strong>add each room</strong> in Encircle. Each room requires in-place photos of ALL contents <strong>before packing or moving anything</strong>.
+                        <p class="text-sm leading-relaxed">
+                            Manually document <strong>each room</strong> in your tool. Every room requires in-place photos of ALL contents <strong>before packing or moving anything</strong>.
                         </p>
                     </div>
                 </div>
@@ -2561,7 +2567,7 @@ document.addEventListener('keydown', function(e) {
 
                     <div class="bg-white p-6 rounded-2xl border-2 border-emerald-100 shadow-sm text-left">
                         <h4 class="font-bold text-emerald-900 uppercase tracking-tight mb-3">📦 Inventory Control</h4>
-                        <p class="text-xs text-slate-600 mb-3">Document everything in-place with photos. Log Make/Model/Serial# for electronics and appliances. Use Encircle 'box' field for unique numbering.</p>
+                        <p class="text-xs text-slate-600 mb-3">Document everything in-place with photos. Log Make/Model/Serial# for electronics and appliances. Use your documentation tool's item numbering field for unique identification.</p>
                     </div>
                 </div>
             </div>
@@ -7292,12 +7298,12 @@ document.addEventListener('keydown', function(e) {
             { q: "How long do you have to enter Job-Dox notes after leaving a site?", o: ["5 minutes", "15 minutes", "1 hour", "End of day"], c: 1, f: "15 minutes is the standard for documentation accuracy." },
 
             // Contents (21-30)
-            { q: "Which Job-Dox work types trigger an automatic Encircle project?", o: ["Mitigation only", "Recon only", "Contents Clean or Pack", "Lead Testing"], c: 2, f: "These work types trigger the automated Encircle sync." },
-            { q: "What is the room setup requirement in Encircle?", o: ["Syncs automatically", "Technicians manually add each room", "Adjuster adds rooms", "Office handles this"], c: 1, f: "Technicians must manually build the room structure in Encircle." },
+            { q: "When should your project documentation tool be initialized on a contents job?", o: ["After completing the job", "Before leaving the job site", "At the office the next day", "When the adjuster requests it"], c: 1, f: "Documentation must be initialized before leaving the site so the Contents team has immediate access to field data." },
+            { q: "What is the room setup requirement for contents documentation?", o: ["Syncs automatically from your estimating tool", "Technicians manually document each room", "Adjuster adds rooms remotely", "Office handles room setup"], c: 1, f: "Technicians must manually build the room structure and photograph all contents in place before moving anything." },
             { q: "When must photos of contents be taken for the inventory?", o: ["After packing", "In place and on site", "In the trailer", "At the facility"], c: 1, f: "Photo items exactly as found BEFORE touching them per IICRC S800." },
             { q: "What detailing info is required for electronics and appliances?", o: ["Color and age", "Weight and size", "Make, Model, and Serial #", "Owner name"], c: 2, f: "Serial numbers and model details are critical for insurance detailing." },
-            { q: "In which Encircle field is the unique item/box number assigned?", o: ["Notes", "Category", "Box", "Room"], c: 2, f: "Use the 'box' field for unique identification numbers." },
-            { q: "Once numbered, how are items categorized in Encircle?", o: ["Wet/Dry", "Small/Large", "Medium Box or Unboxed Item", "High/Low Value"], c: 2, f: "Categorize as either 'medium box' or 'unboxed item'." },
+            { q: "How should individual items be identified within a contents inventory?", o: ["By color and size only", "Using a unique item or box number in your documentation tool", "By room name only", "No numbering needed"], c: 1, f: "Each item or box should be assigned a unique number in your documentation tool for tracking and chain of custody." },
+            { q: "How are packed items typically categorized in a contents inventory?", o: ["Wet/Dry", "Small/Large", "Medium Box or Unboxed Item", "High/Low Value"], c: 2, f: "Categorize packed items as either 'medium box' or 'unboxed item' to standardize inventory tracking." },
             { q: "What info must be on every box and unboxed item tag?", o: ["Job ID only", "Room and Date", "Customer Name & Original Room", "Weight"], c: 2, f: "Labels must identify the owner and origin per tracking protocols." },
             { q: "What is the trailer loading hierarchy?", o: ["Heavy top", "Heavy bottom, Boxes middle, Fragile top", "Fragile bottom", "Random order"], c: 1, f: "Heavy bottom layer provides stable center of gravity and prevents damage." },
             { q: "When should packing materials be exchanged on Fire/Mold jobs?", o: ["Upon arrival at facility", "Once the contents have been processed", "After 1 week", "They are never exchanged"], c: 1, f: "Exchange materials once contents are clean and processed to prevent recontamination." },
@@ -7333,6 +7339,19 @@ document.addEventListener('keydown', function(e) {
             document.getElementById('sec-quiz').classList.remove('hidden');
             document.getElementById('quiz-mode-badge').className = 'quiz-mode-indicator bg-violet-100 text-violet-700';
             document.getElementById('quiz-mode-badge').innerHTML = '🏆 Certification Mode';
+            // Restore quiz-box structure in case it was replaced by practice quiz pass/fail screen
+            document.getElementById('quiz-box').innerHTML = `
+                <div id="quiz-question-area">
+                    <div class="flex justify-between items-center mb-8">
+                        <span id="quiz-counter" class="text-xs font-bold text-violet-600 bg-violet-50 px-3 py-1 rounded-full uppercase tracking-widest">Question 1/30</span>
+                        <span id="quiz-score" class="text-xs font-black text-slate-400">Score: 0</span>
+                    </div>
+                    <h3 id="quiz-q" class="text-2xl font-bold text-slate-800 mb-10 leading-tight">Question goes here?</h3>
+                    <div id="quiz-opts" class="space-y-4"></div>
+                </div>
+                <div id="quiz-feedback" class="mt-10 hidden p-6 rounded-2xl border-2">
+                    <p id="quiz-feedback-text" class="text-base font-bold"></p>
+                </div>`;
             resetQuiz();
             window.scrollTo(0,0);
         }
@@ -7609,9 +7628,35 @@ document.addEventListener('keydown', function(e) {
             doc.save(`Ready_Certified_Technician_${name.replace(/\s+/g, '_')}.pdf`);
         }
 
+        // ── Shared helper: resolve account owner's email from Firestore ──────────
+        async function getOwnerEmail() {
+            const FALLBACK = '';
+            try {
+                if (!db || !window.rtUser || !window.rtUser.companyCode) return FALLBACK;
+                // If the current user IS the owner, their own email is the answer
+                if (window.rtUser.role === 'owner') return window.rtUser.email || FALLBACK;
+                // Otherwise query the members subcollection for the owner doc
+                const snap = await db
+                    .collection('companies')
+                    .doc(window.rtUser.companyCode)
+                    .collection('members')
+                    .where('role', '==', 'owner')
+                    .limit(1)
+                    .get();
+                if (!snap.empty) {
+                    const ownerEmail = snap.docs[0].data().email;
+                    if (ownerEmail) return ownerEmail;
+                }
+            } catch(e) {
+                console.warn('getOwnerEmail error:', e);
+            }
+            return FALLBACK;
+        }
+        // ─────────────────────────────────────────────────────────────────────
+
         function emailResults() {
-            const name = document.getElementById('cert-name').value;
-            const company = document.getElementById('cert-company').value;
+            const name = document.getElementById('cert-name').value.trim();
+            const company = document.getElementById('cert-company').value.trim();
             
             if(!name) {
                 alert("Please enter your name before sending results.");
@@ -7622,18 +7667,28 @@ document.addEventListener('keydown', function(e) {
             const total = shuffledQuiz.length;
             const percent = Math.round((score/total)*100);
             const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-            
-            let body = `Technician Name: ${name}%0D%0A`;
-            if (company) body += `Company: ${company}%0D%0A`;
-            body += `Certification Exam Score: ${score} / ${total} (${percent}%)%0D%0A`;
-            body += `Certification Date: ${today}%0D%0A`;
-            body += `Status: READY CERTIFIED TECHNICIAN%0D%0A%0D%0A`;
-            body += `${name} has successfully completed the Ready Field Operations certification program and demonstrated comprehensive knowledge of:%0D%0A`;
-            body += `- Vehicle and Equipment Readiness%0D%0A`;
-            body += `- IICRC S500 Mitigation Standards%0D%0A`;
-            body += `- Contents Handling and Logistics%0D%0A`;
-            
-            window.location.href = `mailto:pnoble@mrrestore.com?subject=Ready Certified Technician - ${name}&body=${body}`;
+
+            // Auto-generate and download the certificate PDF first
+            generateCertificate();
+
+            // Resolve owner email then open mail client
+            getOwnerEmail().then(function(toEmail) {
+                setTimeout(function() {
+                    const subject = encodeURIComponent(`${name} Just Completed an Exam`);
+                    let body = `Hi,%0D%0A%0D%0A`;
+                    body += `${name} has just completed the Ready Certified Technician (Mitigation) exam.%0D%0A%0D%0A`;
+                    body += `--- EXAM RESULTS ---%0D%0A`;
+                    body += `Name: ${name}%0D%0A`;
+                    if (company) body += `Company: ${company}%0D%0A`;
+                    body += `Exam: Ready Certified Technician — Mitigation%0D%0A`;
+                    body += `Score: ${score} / ${total} (${percent}%)%0D%0A`;
+                    body += `Result: PASSED%0D%0A`;
+                    body += `Date: ${today}%0D%0A%0D%0A`;
+                    body += `The certificate PDF has been downloaded to this device. Please attach it to this email before sending.%0D%0A%0D%0A`;
+                    body += `— Ready Training Platform`;
+                    window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+                }, 800);
+            });
         }
 
         // ============================================
@@ -8191,8 +8246,8 @@ document.addEventListener('keydown', function(e) {
         }
 
         function emailReconResults() {
-            const name = document.getElementById('recon-cert-name').value;
-            const company = document.getElementById('recon-cert-company').value;
+            const name = document.getElementById('recon-cert-name').value.trim();
+            const company = document.getElementById('recon-cert-company').value.trim();
             
             if(!name) {
                 alert("Please enter your name before sending results.");
@@ -8203,21 +8258,28 @@ document.addEventListener('keydown', function(e) {
             const total = reconQuizQuestions.length;
             const percent = Math.round((score/total)*100);
             const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-            
-            let body = `Contractor Name: ${name}%0D%0A`;
-            if (company) body += `Company: ${company}%0D%0A`;
-            body += `Certification Exam Score: ${score} / ${total} (${percent}%)%0D%0A`;
-            body += `Certification Date: ${today}%0D%0A`;
-            body += `Status: READY CERTIFIED CONTRACTOR%0D%0A%0D%0A`;
-            body += `${name} has successfully completed the Ready Companies reconstruction certification program and demonstrated comprehensive knowledge of:%0D%0A`;
-            body += `- Mitigation to Reconstruction Transition%0D%0A`;
-            body += `- Xactimate and Estimating Software%0D%0A`;
-            body += `- Scope Development and Negotiation%0D%0A`;
-            body += `- Pre-Construction Planning and Permits%0D%0A`;
-            body += `- Construction Sequencing and Quality Control%0D%0A`;
-            body += `- Project Completion and Closeout%0D%0A`;
-            
-            window.location.href = `mailto:pnoble@mrrestore.com?subject=Ready Certified Contractor - ${name}&body=${body}`;
+
+            // Auto-generate and download the certificate PDF first
+            generateReconCertificate();
+
+            // Resolve owner email then open mail client
+            getOwnerEmail().then(function(toEmail) {
+                setTimeout(function() {
+                    const subject = encodeURIComponent(`${name} Just Completed an Exam`);
+                    let body = `Hi,%0D%0A%0D%0A`;
+                    body += `${name} has just completed the Ready Certified Contractor (Reconstruction) exam.%0D%0A%0D%0A`;
+                    body += `--- EXAM RESULTS ---%0D%0A`;
+                    body += `Name: ${name}%0D%0A`;
+                    if (company) body += `Company: ${company}%0D%0A`;
+                    body += `Exam: Ready Certified Contractor — Reconstruction%0D%0A`;
+                    body += `Score: ${score} / ${total} (${percent}%)%0D%0A`;
+                    body += `Result: PASSED%0D%0A`;
+                    body += `Date: ${today}%0D%0A%0D%0A`;
+                    body += `The certificate PDF has been downloaded to this device. Please attach it to this email before sending.%0D%0A%0D%0A`;
+                    body += `— Ready Training Platform`;
+                    window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+                }, 800);
+            });
         }
 
                 window.onload = function() { initCharts(); drawFloorPlan(); nav('home'); };
@@ -8337,12 +8399,29 @@ document.addEventListener('keydown', function(e) {
 
             if (mgmtQuizMode === 'certification' && passed) {
                 box.innerHTML = `
-                    <div class="text-center">
+                    <div class="py-12 text-center">
                         <div class="text-6xl mb-4">🏆</div>
                         <h2 class="text-3xl font-black text-indigo-700 mb-2">Management Certification Earned!</h2>
+                        <p class="text-xl font-bold text-slate-800">Ready Certified Manager</p>
                         <p class="text-slate-500 mt-2">Final Score: ${mgmtQScore}/${total} (${percent}%)</p>
-                        <p class="text-emerald-600 font-bold mt-4">You have demonstrated management competency.</p>
-                        <button onclick="resetMgmtQuiz()" class="mt-8 bg-indigo-600 text-white py-3 px-8 rounded-xl font-bold hover:bg-indigo-700 transition">Retake Quiz</button>
+
+                        <div class="mt-8 p-6 bg-indigo-50 rounded-xl border-2 border-indigo-200">
+                            <h3 class="font-bold text-indigo-900 mb-3 text-lg">📜 Get Your Certificate</h3>
+                            <p class="text-sm text-indigo-800 mb-4">Enter your information to generate and download your official Ready Certified Manager certificate.</p>
+
+                            <input type="text" id="mgmt-cert-name" placeholder="Enter Your Full Name" class="w-full p-3 rounded-lg border-2 border-slate-200 mb-3 focus:border-indigo-500 outline-none transition text-center">
+                            <input type="text" id="mgmt-cert-company" placeholder="Company Name (Optional)" class="w-full p-3 rounded-lg border-2 border-slate-200 mb-4 focus:border-indigo-500 outline-none transition text-center">
+
+                            <button onclick="generateMgmtCertificate()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-4 rounded-xl font-bold transition shadow-lg mb-3">
+                                📥 Download Certificate PDF
+                            </button>
+
+                            <button onclick="emailMgmtResults()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-xl font-bold transition shadow-lg">
+                                📧 Email Results to Supervisor
+                            </button>
+                        </div>
+
+                        <button onclick="resetMgmtQuiz()" class="mt-6 text-slate-400 text-sm font-bold hover:text-indigo-600 underline">Retake Quiz</button>
                     </div>`;
             } else if (mgmtQuizMode === 'certification' && !passed) {
                 box.innerHTML = `
@@ -8370,6 +8449,140 @@ document.addEventListener('keydown', function(e) {
 
 
     
+        // ===== MANAGEMENT CERTIFICATE FUNCTIONS =====
+
+        function generateMgmtCertificate() {
+            const name = document.getElementById('mgmt-cert-name') ? document.getElementById('mgmt-cert-name').value.trim() : '';
+            const company = document.getElementById('mgmt-cert-company') ? document.getElementById('mgmt-cert-company').value.trim() : '';
+            if (!name) { alert('Please enter your name to generate the certificate.'); return; }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+
+            // Background
+            doc.setFillColor(245, 243, 255);
+            doc.rect(0, 0, pageWidth, pageHeight, 'F');
+
+            // Border
+            doc.setDrawColor(79, 70, 229);
+            doc.setLineWidth(3);
+            doc.rect(8, 8, pageWidth - 16, pageHeight - 16, 'S');
+            doc.setLineWidth(1);
+            doc.setDrawColor(167, 139, 250);
+            doc.rect(12, 12, pageWidth - 24, pageHeight - 24, 'S');
+
+            // Header accent
+            doc.setFillColor(79, 70, 229);
+            doc.rect(8, 8, pageWidth - 16, 22, 'F');
+
+            // Title
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(255, 255, 255);
+            doc.text('READY TRAINING PLATFORM', pageWidth / 2, 22, { align: 'center' });
+
+            // Certificate of completion
+            doc.setFontSize(28);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(79, 70, 229);
+            doc.text('Certificate of Achievement', pageWidth / 2, 52, { align: 'center' });
+
+            doc.setFontSize(13);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(100, 116, 139);
+            doc.text('This is to certify that', pageWidth / 2, 66, { align: 'center' });
+
+            // Name
+            doc.setFontSize(36);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(15, 23, 42);
+            doc.text(name, pageWidth / 2, 84, { align: 'center' });
+
+            // Underline
+            const nameWidth = doc.getTextWidth(name);
+            doc.setDrawColor(79, 70, 229);
+            doc.setLineWidth(1);
+            doc.line((pageWidth - nameWidth) / 2, 87, (pageWidth + nameWidth) / 2, 87);
+
+            if (company) {
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(100, 116, 139);
+                doc.text(company, pageWidth / 2, 96, { align: 'center' });
+            }
+
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(71, 85, 105);
+            doc.text('has successfully earned the designation of', pageWidth / 2, company ? 108 : 100, { align: 'center' });
+
+            // Credential title
+            doc.setFontSize(24);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(79, 70, 229);
+            doc.text('Ready Certified Manager', pageWidth / 2, company ? 122 : 114, { align: 'center' });
+
+            // Score
+            const total = mgmtQuizQuestions.length;
+            const percent = Math.round((mgmtQScore / total) * 100);
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(100, 116, 139);
+            doc.text(`Final Score: ${mgmtQScore}/${total} (${percent}%)`, pageWidth / 2, company ? 133 : 125, { align: 'center' });
+
+            // Date
+            const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            doc.setFontSize(11);
+            doc.text(`Issued: ${today}`, pageWidth / 2, pageHeight - 28, { align: 'center' });
+
+            // Footer seal
+            doc.setFillColor(79, 70, 229);
+            doc.circle(pageWidth / 2, pageHeight - 14, 10, 'F');
+            doc.setFontSize(14);
+            doc.setTextColor(255, 255, 255);
+            doc.text('✓', pageWidth / 2, pageHeight - 10, { align: 'center' });
+
+            doc.save(`Ready_Certified_Manager_${name.replace(/\s+/g, '_')}.pdf`);
+        }
+
+        function emailMgmtResults() {
+            const name = document.getElementById('mgmt-cert-name') ? document.getElementById('mgmt-cert-name').value.trim() : '';
+            const company = document.getElementById('mgmt-cert-company') ? document.getElementById('mgmt-cert-company').value.trim() : '';
+
+            if (!name) {
+                alert('Please enter your name before sending results.');
+                return;
+            }
+
+            const total = mgmtQuizQuestions.length;
+            const percent = Math.round((mgmtQScore / total) * 100);
+            const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            // Auto-generate and download the certificate PDF first
+            generateMgmtCertificate();
+
+            // Resolve owner email then open mail client
+            getOwnerEmail().then(function(toEmail) {
+                setTimeout(function() {
+                    const subject = encodeURIComponent(`${name} Just Completed an Exam`);
+                    let body = `Hi,%0D%0A%0D%0A`;
+                    body += `${name} has just completed the Ready Certified Manager (Management) exam.%0D%0A%0D%0A`;
+                    body += `--- EXAM RESULTS ---%0D%0A`;
+                    body += `Name: ${name}%0D%0A`;
+                    if (company) body += `Company: ${company}%0D%0A`;
+                    body += `Exam: Ready Certified Manager — Management%0D%0A`;
+                    body += `Score: ${mgmtQScore} / ${total} (${percent}%)%0D%0A`;
+                    body += `Result: PASSED%0D%0A`;
+                    body += `Date: ${today}%0D%0A%0D%0A`;
+                    body += `The certificate PDF has been downloaded to this device. Please attach it to this email before sending.%0D%0A%0D%0A`;
+                    body += `— Ready Training Platform`;
+                    window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+                }, 800);
+            });
+        }
+
         // ===== AUTHENTICATION FUNCTIONS =====
         
         // Toggle between login and signup forms
