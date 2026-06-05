@@ -2588,14 +2588,24 @@
 
         <!-- SECTION: EMPLOYEE ONBOARDING -->
         <section id="sec-onboarding" class="tab-content hidden fade-in" data-ms-membership="ready-team,ready-pro">
-            <!-- Onboarding Hero -->
-            <div class="bg-gradient-to-br from-teal-600 to-teal-500 rounded-3xl p-12 mb-12 text-white text-center shadow-2xl">
-                <div class="text-6xl mb-4">👤</div>
-                <h1 class="text-5xl font-black mb-4 tracking-tight">Employee Onboarding</h1>
-                <p class="text-xl font-medium text-teal-50 max-w-3xl mx-auto leading-relaxed">
-                    Build a structured 90-day onboarding process that transforms new hires into confident, productive team members. Reduce turnover, accelerate time-to-productivity, and create a scalable hiring system.
-                </p>
-            </div>
+            <div id="onb-player" class="lesson-player" data-current="0">
+                <div class="lp-topbar">
+                    <button type="button" class="lp-menu-btn" onclick="lpToggleMenu('onb')" aria-label="Open lessons menu"><span class="lp-menu-btn-icon">&#9776;</span> Lessons</button>
+                    <div class="lp-progress" role="progressbar" aria-label="Employee Onboarding progress"><div class="lp-progress-fill" id="onb-progress-fill"></div></div>
+                    <span class="lp-progress-label" id="onb-progress-label">0/6</span>
+                </div>
+                <div class="lp-body">
+                    <div class="lp-menu-overlay" id="onb-menu-overlay" onclick="lpCloseMenu('onb')"></div>
+                    <nav class="lp-menu" id="onb-menu" aria-label="Lesson menu">
+                        <div class="lp-menu-head"><span>Lessons</span><button type="button" class="lp-menu-close" onclick="lpCloseMenu('onb')" aria-label="Close lessons menu">&times;</button></div>
+                        <ol class="lp-menu-list" id="onb-menu-list"></ol>
+                    </nav>
+                    <div class="lp-content" id="onb-content">
+
+                <article class="lp-lesson" data-lesson="0" id="onb-lesson-0" hidden>
+                    <h2 class="lp-lesson-title">Employee Onboarding Overview</h2>
+                    <div class="lp-video"><div class="lp-video-frame"><div class="lp-video-ph"><span class="lp-video-ph-icon">&#9654;</span><span class="lp-video-ph-text">Module Overview &mdash; Here&rsquo;s what we&rsquo;ll cover &mdash; coming soon</span></div></div></div>
+                    <p class="text-lg text-slate-600 mb-6">Build a structured 90-day onboarding process that transforms new hires into confident, productive team members. Reduce turnover, accelerate time-to-productivity, and create a scalable hiring system.</p>
 
             <!-- Why Onboarding Matters -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
@@ -2650,6 +2660,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="1" data-key="preboarding" id="onb-lesson-1" hidden>
             <!-- Module 1: Pre-Boarding -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -2687,20 +2700,23 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                     <div class="bg-teal-50 p-5 rounded-xl border border-teal-100">
-                        <h4 class="font-bold text-teal-900 mb-2 text-sm">📋 Administrative</h4>
+                        <h4 class="font-bold text-teal-900 mb-2 text-sm">Administrative</h4>
                         <p class="text-xs text-teal-800">Complete all paperwork digitally before Day 1. I-9, W-4, direct deposit, benefits, handbook sign-off.</p>
                     </div>
                     <div class="bg-teal-50 p-5 rounded-xl border border-teal-100">
-                        <h4 class="font-bold text-teal-900 mb-2 text-sm">🛠️ Equipment Setup</h4>
+                        <h4 class="font-bold text-teal-900 mb-2 text-sm">Equipment Setup</h4>
                         <p class="text-xs text-teal-800">Uniforms, PPE, phone, vehicle, keys, badges all ready. System logins tested and working.</p>
                     </div>
                     <div class="bg-teal-50 p-5 rounded-xl border border-teal-100">
-                        <h4 class="font-bold text-teal-900 mb-2 text-sm">🤝 Team Preparation</h4>
+                        <h4 class="font-bold text-teal-900 mb-2 text-sm">Team Preparation</h4>
                         <p class="text-xs text-teal-800">Mentor assigned. Team notified. Welcome schedule shared. First-day plan confirmed.</p>
                     </div>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="2" data-key="week1" id="onb-lesson-2" hidden>
             <!-- Module 2: Week 1 -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -2760,6 +2776,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="3" data-key="weeks24" id="onb-lesson-3" hidden>
             <!-- Module 3: Weeks 2-4 -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -2801,25 +2820,25 @@
                     <h4 class="font-bold text-slate-800 mb-4 text-sm uppercase">Training Progression Model</h4>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
                         <div class="bg-white p-4 rounded-lg border-2 border-teal-200 text-center">
-                            <div class="text-2xl mb-2">👀</div>
+                            <div class="text-2xl mb-2"></div>
                             <p class="text-xs font-black text-teal-800 mb-1">WEEK 1</p>
                             <p class="text-xs font-bold text-slate-700">I Do, You Watch</p>
                             <p class="text-[10px] text-slate-500 mt-1">Shadow &amp; observe</p>
                         </div>
                         <div class="bg-white p-4 rounded-lg border-2 border-teal-300 text-center">
-                            <div class="text-2xl mb-2">🤝</div>
+                            <div class="text-2xl mb-2"></div>
                             <p class="text-xs font-black text-teal-800 mb-1">WEEK 2</p>
                             <p class="text-xs font-bold text-slate-700">I Do, You Help</p>
                             <p class="text-[10px] text-slate-500 mt-1">Guided participation</p>
                         </div>
                         <div class="bg-white p-4 rounded-lg border-2 border-teal-400 text-center">
-                            <div class="text-2xl mb-2">💪</div>
+                            <div class="text-2xl mb-2"></div>
                             <p class="text-xs font-black text-teal-800 mb-1">WEEK 3</p>
                             <p class="text-xs font-bold text-slate-700">You Do, I Help</p>
                             <p class="text-[10px] text-slate-500 mt-1">Mentor-observed practice</p>
                         </div>
                         <div class="bg-white p-4 rounded-lg border-2 border-emerald-400 text-center">
-                            <div class="text-2xl mb-2">⭐</div>
+                            <div class="text-2xl mb-2"></div>
                             <p class="text-xs font-black text-emerald-800 mb-1">WEEK 4</p>
                             <p class="text-xs font-bold text-slate-700">You Do, I Watch</p>
                             <p class="text-[10px] text-slate-500 mt-1">Supervised independence</p>
@@ -2828,6 +2847,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="4" data-key="days3190" id="onb-lesson-4" hidden>
             <!-- Module 4: Days 31-90 -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -2916,6 +2938,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="5" data-key="assessment" id="onb-lesson-5" hidden>
             <!-- Module 5: Competency Assessment Framework -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -2946,7 +2971,7 @@
                 <!-- Assessment Scorecard Visual -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                     <div class="bg-amber-50 p-5 rounded-xl border-2 border-amber-200">
-                        <h4 class="font-bold text-amber-900 mb-3 text-sm">📋 30-Day Review</h4>
+                        <h4 class="font-bold text-amber-900 mb-3 text-sm">30-Day Review</h4>
                         <div class="space-y-2 text-xs">
                             <div class="flex justify-between"><span class="text-slate-700">Technical Skills</span><span class="font-bold text-amber-700">Target: 2/5</span></div>
                             <div class="flex justify-between"><span class="text-slate-700">Safety Compliance</span><span class="font-bold text-amber-700">Target: 4/5</span></div>
@@ -2957,7 +2982,7 @@
                         <p class="text-[10px] text-amber-600 mt-3 font-semibold">Focus: Learning fundamentals, zero safety issues</p>
                     </div>
                     <div class="bg-teal-50 p-5 rounded-xl border-2 border-teal-200">
-                        <h4 class="font-bold text-teal-900 mb-3 text-sm">📋 60-Day Review</h4>
+                        <h4 class="font-bold text-teal-900 mb-3 text-sm">60-Day Review</h4>
                         <div class="space-y-2 text-xs">
                             <div class="flex justify-between"><span class="text-slate-700">Technical Skills</span><span class="font-bold text-teal-700">Target: 3/5</span></div>
                             <div class="flex justify-between"><span class="text-slate-700">Safety Compliance</span><span class="font-bold text-teal-700">Target: 5/5</span></div>
@@ -2968,7 +2993,7 @@
                         <p class="text-[10px] text-teal-600 mt-3 font-semibold">Focus: 70-80% productivity, minimal supervision</p>
                     </div>
                     <div class="bg-emerald-50 p-5 rounded-xl border-2 border-emerald-200">
-                        <h4 class="font-bold text-emerald-900 mb-3 text-sm">📋 90-Day Review</h4>
+                        <h4 class="font-bold text-emerald-900 mb-3 text-sm">90-Day Review</h4>
                         <div class="space-y-2 text-xs">
                             <div class="flex justify-between"><span class="text-slate-700">Technical Skills</span><span class="font-bold text-emerald-700">Target: 4/5</span></div>
                             <div class="flex justify-between"><span class="text-slate-700">Safety Compliance</span><span class="font-bold text-emerald-700">Target: 5/5</span></div>
@@ -2981,6 +3006,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="6" data-key="retention" id="onb-lesson-6" hidden>
             <!-- Module 6: Retention & Ongoing Development -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -3013,7 +3041,7 @@
 
                 <!-- Retention Impact Visual -->
                 <div class="bg-gradient-to-r from-teal-500 to-emerald-500 p-6 rounded-xl text-white mt-4">
-                    <h4 class="font-bold text-lg mb-4">📊 Retention Impact: Structured vs. Unstructured Onboarding</h4>
+                    <h4 class="font-bold text-lg mb-4">Retention Impact: Structured vs. Unstructured Onboarding</h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <p class="text-sm font-bold text-teal-100 mb-3 uppercase">Without Structured Onboarding</p>
@@ -3035,6 +3063,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="7" id="onb-lesson-7" hidden>
             <!-- Module: Workplace Policies & Standards of Conduct -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -3087,20 +3118,23 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                     <div class="bg-teal-50 p-5 rounded-xl border border-teal-100">
-                        <h4 class="font-bold text-teal-900 mb-2 text-sm">📅 Attendance</h4>
+                        <h4 class="font-bold text-teal-900 mb-2 text-sm">Attendance</h4>
                         <p class="text-xs text-teal-800">Show up on time, every day. Contact your supervisor directly before start time if you can't make it in — never just skip without notice.</p>
                     </div>
                     <div class="bg-teal-50 p-5 rounded-xl border border-teal-100">
-                        <h4 class="font-bold text-teal-900 mb-2 text-sm">👔 Professional Conduct</h4>
+                        <h4 class="font-bold text-teal-900 mb-2 text-sm">Professional Conduct</h4>
                         <p class="text-xs text-teal-800">Represent the company brand on every job. Clean uniform, professional language, no smoking in front of customers or inside job sites.</p>
                     </div>
                     <div class="bg-teal-50 p-5 rounded-xl border border-teal-100">
-                        <h4 class="font-bold text-teal-900 mb-2 text-sm">🚫 Zero Tolerance</h4>
+                        <h4 class="font-bold text-teal-900 mb-2 text-sm">Zero Tolerance</h4>
                         <p class="text-xs text-teal-800">Theft, substance use on the job, violence, and falsifying records are grounds for immediate termination — no warnings required.</p>
                     </div>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="8" id="onb-lesson-8" hidden>
             <!-- Module: Safety Orientation for New Hires -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -3156,28 +3190,31 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
                     <div class="bg-red-50 p-4 rounded-xl border border-red-200 text-center">
-                        <div class="text-2xl mb-1">🛑</div>
+                        <div class="text-2xl mb-1"></div>
                         <h4 class="font-bold text-red-900 mb-1 text-sm">Stop Work Authority</h4>
                         <p class="text-xs text-red-800">If it feels unsafe, stop. Notify your supervisor. No job is worth someone's safety.</p>
                     </div>
                     <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 text-center">
-                        <div class="text-2xl mb-1">🦺</div>
+                        <div class="text-2xl mb-1"></div>
                         <h4 class="font-bold text-amber-900 mb-1 text-sm">Wear Your PPE</h4>
                         <p class="text-xs text-amber-800">Gloves, eye protection, respirators, steel-toe boots. Required PPE is non-negotiable.</p>
                     </div>
                     <div class="bg-teal-50 p-4 rounded-xl border border-teal-100 text-center">
-                        <div class="text-2xl mb-1">📋</div>
+                        <div class="text-2xl mb-1"></div>
                         <h4 class="font-bold text-teal-900 mb-1 text-sm">Report Everything</h4>
                         <p class="text-xs text-teal-800">Accidents, near-misses, unsafe conditions. Report immediately, even if nothing happened.</p>
                     </div>
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
-                        <div class="text-2xl mb-1">🚪</div>
+                        <div class="text-2xl mb-1"></div>
                         <h4 class="font-bold text-slate-900 mb-1 text-sm">Know Your Exits</h4>
                         <p class="text-xs text-slate-700">Emergency exit routes, extinguisher locations, and emergency phone numbers on every job.</p>
                     </div>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="9" id="onb-lesson-9" hidden>
             <!-- Module: Fleet & Vehicle Safety for New Hires -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -3252,24 +3289,27 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                     <div class="bg-teal-50 p-5 rounded-xl border border-teal-100">
-                        <h4 class="font-bold text-teal-900 mb-2 text-sm">✅ Pre-Trip Inspection</h4>
+                        <h4 class="font-bold text-teal-900 mb-2 text-sm">Pre-Trip Inspection</h4>
                         <p class="text-xs text-teal-800">Check lights, tires, mirrors, fuel, registration, and load securement before every single drive. If it's not safe, don't drive — report it.</p>
                     </div>
                     <div class="bg-amber-50 p-5 rounded-xl border border-amber-200">
-                        <h4 class="font-bold text-amber-900 mb-2 text-sm">📵 No Distractions</h4>
+                        <h4 class="font-bold text-amber-900 mb-2 text-sm">No Distractions</h4>
                         <p class="text-xs text-amber-800">Hands-free only. No texting, no handheld calls, no scrolling. The logo on your truck is visible to every driver around you.</p>
                     </div>
                     <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
-                        <h4 class="font-bold text-slate-900 mb-2 text-sm">🚗 After a Collision</h4>
+                        <h4 class="font-bold text-slate-900 mb-2 text-sm">After a Collision</h4>
                         <p class="text-xs text-slate-700">Stop, check for injuries, call 911 if needed, notify your supervisor within 15 minutes, document everything, complete the incident report by end of shift.</p>
                     </div>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="10" id="onb-lesson-10" hidden>
             <!-- Knowledge Check -->
             <div class="knowledge-check" id="kc-onboarding">
                 <div class="knowledge-check-header">
-                    <span class="knowledge-check-icon">🧠</span>
+                    <span class="knowledge-check-icon"></span>
                     <span class="knowledge-check-title">Quick Knowledge Check</span>
                 </div>
                 <div class="knowledge-check-question">
@@ -3288,22 +3328,35 @@
 
             <!-- Bottom CTA -->
             <div class="bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-8 text-center text-white mt-8">
-                <div class="text-4xl mb-4">🎯</div>
+                <div class="text-4xl mb-4"></div>
                 <h3 class="text-2xl font-black mb-3">Build Your Onboarding System</h3>
                 <p class="text-slate-300 max-w-2xl mx-auto mb-6">Download the complete 90-Day Onboarding SOP template from the Free Resources section. Customize it for your company, your roles, and your culture. A documented onboarding process is the foundation of a scalable business.</p>
                 <button onclick="nav('resources')" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 rounded-lg transition">Go to Free Resources</button>
             </div>
 
-            <!-- Cortex CTA -->
-            <div class="bg-gradient-to-r from-slate-700 to-slate-600 rounded-xl p-6 text-white mt-8">
-                <div class="flex items-start gap-4">
-                    <div class="text-3xl">👥</div>
-                    <div>
+                </article>
+
+                <article class="lp-lesson lp-end" data-lesson="11" id="onb-lesson-11" hidden>
+                    <div class="lp-complete">
+                        <div class="lp-complete-icon">&#9989;</div>
+                        <h2>Employee Onboarding module complete</h2>
+                        <p>Nice work &mdash; you&rsquo;ve finished every lesson in Employee Onboarding.</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-slate-700 to-slate-600 rounded-xl p-6 text-white mb-8">
                         <h4 class="font-bold text-lg mb-2">Onboard New Hires Into Your Operations System</h4>
                         <p class="text-sm text-slate-300 mb-3">A great onboarding SOP needs a great system to operate within. <strong>Cortex</strong> gives your new hires the tools from day one &mdash; job assignments, crew scheduling, documentation workflows, and field communication all in one platform. New techs learn the system as they learn the job.</p>
-                        <a href="https://jobdox.ai" target="_blank" class="inline-block bg-violet-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-400 transition shadow-md text-sm">Learn More at JobDox.ai &rarr;</a>
+                        <a href="https://jobdox.ai" target="_blank" rel="noopener" class="inline-block bg-violet-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-400 transition shadow-md text-sm">Learn More at JobDox.ai &rarr;</a>
+                    </div>
+                </article>
+
                     </div>
                 </div>
+
+                <div class="lp-nav">
+                    <button type="button" class="lp-back" id="onb-back" onclick="lpPrev('onb')">Back</button>
+                    <button type="button" class="lp-next" id="onb-next" onclick="lpNext('onb')">Next</button>
+                </div>
+
             </div>
         </section>
 

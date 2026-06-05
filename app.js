@@ -1197,6 +1197,26 @@ document.addEventListener('keydown', function(e) {
         // Back-compat: nav() still calls mitInit() for the Mitigation section.
         function mitInit() { lpInit('mit'); }
 
+        // EMPLOYEE ONBOARDING (no short quiz / no cert). Denominator 6. Pages
+        // 7-10 are view-tracked (policies, safety, fleet, wrap-up knowledge check).
+        lpRegister({
+            prefix: 'onb', module: 'onboarding', section: 'onboarding',
+            hasQuiz: false,
+            lessons: [
+                { title: 'Employee Onboarding Overview',           key: null },
+                { title: 'Pre-Boarding & Day 1',                   key: 'preboarding' },
+                { title: 'Week 1: Foundation',                     key: 'week1' },
+                { title: 'Weeks 2-4: Building Skills',             key: 'weeks24' },
+                { title: 'Days 31-90: Independence',               key: 'days3190' },
+                { title: 'Competency Assessment',                  key: 'assessment' },
+                { title: 'Retention & Career Paths',               key: 'retention' },
+                { title: 'Workplace Policies & Conduct',           key: null },
+                { title: 'Safety Orientation',                     key: null },
+                { title: 'Fleet & Vehicle Safety',                 key: null },
+                { title: 'Wrap-Up Knowledge Check',                key: null }
+            ]
+        });
+
         // FINANCIAL OPERATIONS (no short quiz — no slice in quizQuestions; no
         // certification). Denominator 5.
         lpRegister({
