@@ -1197,6 +1197,35 @@ document.addEventListener('keydown', function(e) {
         // Back-compat: nav() still calls mitInit() for the Mitigation section.
         function mitInit() { lpInit('mit'); }
 
+        // READINESS & PREP (short quiz = Readiness slice 0-10; rolls into the
+        // Ready Certified Technician certification). Page 1 hosts prepChart; resize
+        // it once visible so the doughnut sizes to its container.
+        lpRegister({
+            prefix: 'rd', module: 'readiness', section: 'readiness',
+            hasQuiz: true, quizSlice: [0, 10], quizCount: 5,
+            hooks: { 1: function () { if (typeof readinessChart !== 'undefined' && readinessChart) readinessChart.resize(); } },
+            lessons: [
+                { title: 'Readiness & Prep Overview',              key: null },
+                { title: 'Rapid Response Status',                  key: 'rapid-response' },
+                { title: 'Vehicle Maintenance Protocol',           key: 'vehicle-maint' },
+                { title: 'Equipment & Sensor Hygiene',             key: 'equip-hygiene' },
+                { title: 'Consumables Inventory',                  key: 'consumables' }
+            ]
+        });
+
+        // CONTENTS & LOGISTICS (short quiz = Contents slice 20-30; rolls into the
+        // Ready Certified Technician certification via startCertificationQuiz).
+        lpRegister({
+            prefix: 'ct', module: 'contents', section: 'contents',
+            hasQuiz: true, quizSlice: [20, 30], quizCount: 5,
+            lessons: [
+                { title: 'Contents & Logistics Overview',          key: null },
+                { title: 'Project Documentation Setup',            key: 'encircle' },
+                { title: 'Trailer Safety & Loading',               key: 'trailer' },
+                { title: 'Clean Materials & Inventory Control',    key: null }
+            ]
+        });
+
         const quizQuestions = [
             // Readiness (1-10)
             { q: "What is the minimum fuel level required for response vehicles at all times?", o: ["1/4 Tank", "1/2 Tank", "3/4 Tank", "Full Tank"], c: 1, f: "Maintain at least 1/2 tank for immediate response capability." },

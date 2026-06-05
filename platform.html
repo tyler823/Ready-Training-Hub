@@ -506,94 +506,101 @@
 
 <!-- SECTION: READINESS -->
         <section id="sec-readiness" class="tab-content hidden fade-in">
-            <div class="mb-8 max-w-4xl text-center md:text-left">
-                <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-4 text-left">Phase 1: Readiness & Prep</h1>
-                <p class="text-lg text-slate-600 mb-6">
-                    Fleet maintenance, equipment hygiene, and consumable inventory to ensure 24/7 rapid response capability per IICRC standards and OSHA safety requirements.
-                </p>
-                <div class="bg-violet-50 border-l-4 border-violet-600 p-4 rounded">
-                    <p class="text-sm text-slate-700 leading-relaxed">
-                        <strong>Industry Context:</strong> The restoration industry operates on immediate-response timelines. According to IICRC S500 standards, water damage mitigation should begin within 24-48 hours to prevent Category 1 (clean water) from degrading into Category 2 (grey water) or Category 3 (black water). Equipment readiness is not optional—it's the foundation of professional restoration services and directly impacts customer outcomes, insurance adjuster relationships, and your company's liability exposure.
-                    </p>
+            <div id="rd-player" class="lesson-player" data-current="0">
+
+                <div class="lp-topbar">
+                    <button type="button" class="lp-menu-btn" onclick="lpToggleMenu('rd')" aria-label="Open lessons menu"><span class="lp-menu-btn-icon">&#9776;</span> Lessons</button>
+                    <div class="lp-progress" role="progressbar" aria-label="Readiness module progress"><div class="lp-progress-fill" id="rd-progress-fill"></div></div>
+                    <span class="lp-progress-label" id="rd-progress-label">0/4</span>
                 </div>
-            </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 text-left">
-                <!-- Vehicle Readiness -->
-                <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <div class="flex justify-between items-start mb-6">
-                        <h3 class="text-lg font-bold text-slate-800 flex items-center">
-                            <span class="mr-2">🚛</span> Rapid Response Status
-                        </h3>
-                        <button onclick="toggleDetails('det-rapid-response')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-2 py-1 rounded hover:bg-violet-100 transition-all">More</button>
-                    </div>
+                <div class="lp-body">
+                    <div class="lp-menu-overlay" id="rd-menu-overlay" onclick="lpCloseMenu('rd')"></div>
+                    <nav class="lp-menu" id="rd-menu" aria-label="Lesson menu">
+                        <div class="lp-menu-head"><span>Lessons</span><button type="button" class="lp-menu-close" onclick="lpCloseMenu('rd')" aria-label="Close lessons menu">&times;</button></div>
+                        <ol class="lp-menu-list" id="rd-menu-list"><!-- built by lpBuildMenu() --></ol>
+                    </nav>
 
-                    <div id="det-rapid-response" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4 border-violet-100">
-                        <div class="p-4 text-xs leading-relaxed">
-                            <p class="font-bold text-violet-800 mb-2">Expectation:</p>
-                            <p class="mb-3">Vehicles must be mission-ready before every shift. This includes minimum 1/2 tank fuel, backed-in parking for immediate deployment, security locking, and complete equipment stocking per PAR (Periodic Automatic Replenishment) list posted in van.</p>
-                            
-                            <p class="font-bold text-violet-800 mb-2">The "Why" - Response Time Economics:</p>
-                            <p class="mb-3">The average restoration response generates $2,000-$8,000 in initial billing. Every 30-minute delay costs the company potential revenue and damages customer trust. A van needing fuel or missing critical equipment (fans, dehumidifiers, moisture meters) creates a 20-45 minute delay on arrival time. During that delay, water continues migrating through building materials—drywall wicks moisture upward at approximately 1 inch per hour, subfloor saturation spreads laterally, and microbial growth risk increases exponentially after 24-48 hours.</p>
-                            
-                            <p class="font-bold text-violet-800 mb-2">Insurance Industry Standards:</p>
-                            <p class="mb-3">Third-Party Administrators (TPAs) and insurance companies track response times. Consistent delays result in removal from preferred vendor lists. The industry standard is 1-hour response time for emergency water mitigation. Fuel stops, equipment runs to shop, or improper van stocking directly threaten this metric.</p>
-                            
-                            <p class="font-bold text-violet-800 mb-2">Liability Protection:</p>
-                            <p>Backed-in parking ensures technicians can load/unload equipment safely without backing into traffic or property. Security locks prevent equipment theft (average loss: $15,000-$35,000 per incident) and protect company assets. Complete stocking prevents improvised solutions that violate IICRC protocols and create liability exposure.</p>
+                    <div class="lp-content" id="rd-content">
+
+                <article class="lp-lesson" data-lesson="0" id="rd-lesson-0" hidden>
+                    <h2 class="lp-lesson-title">Readiness &amp; Prep Overview</h2>
+                    <div class="lp-video">
+                        <div class="lp-video-frame">
+                            <div class="lp-video-ph">
+                                <span class="lp-video-ph-icon">&#9654;</span>
+                                <span class="lp-video-ph-text">Module Overview &mdash; Here&rsquo;s what we&rsquo;ll cover &mdash; coming soon</span>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="chart-container" style="height: 220px;">
-                        <canvas id="prepChart"></canvas>
+                    <div class="max-w-4xl text-left">
+                        <p class="text-lg text-slate-600 mb-6">
+                            Fleet maintenance, equipment hygiene, and consumable inventory to ensure 24/7 rapid response capability per IICRC standards and OSHA safety requirements.
+                        </p>
+                        <div class="bg-violet-50 border-l-4 border-violet-600 p-4 rounded">
+                            <p class="text-sm text-slate-700 leading-relaxed">
+                                <strong>Industry Context:</strong> The restoration industry operates on immediate-response timelines. According to IICRC S500 standards, water damage mitigation should begin within 24-48 hours to prevent Category 1 (clean water) from degrading into Category 2 (grey water) or Category 3 (black water). Equipment readiness is not optional—it's the foundation of professional restoration services and directly impacts customer outcomes, insurance adjuster relationships, and your company's liability exposure.
+                            </p>
+                        </div>
                     </div>
-                    <div class="mt-8 space-y-2 text-left">
-                        <label class="flex items-center justify-between p-2 bg-slate-50 rounded-lg border border-slate-100 cursor-pointer">
-                            <span class="text-xs font-bold">Fuel Level (Min 1/2 Tank)</span>
-                            <input type="checkbox" onchange="updateReadiness()" class="readiness-check w-4 h-4 rounded text-violet-600" checked>
-                        </label>
-                        <label class="flex items-center justify-between p-2 bg-slate-50 rounded-lg border border-slate-100 cursor-pointer">
-                            <span class="text-xs font-bold">Backed-In & Locked</span>
-                            <input type="checkbox" onchange="updateReadiness()" class="readiness-check w-4 h-4 rounded text-violet-600" checked>
-                        </label>
-                        <label class="flex items-center justify-between p-2 bg-slate-50 rounded-lg border border-slate-100 cursor-pointer">
-                            <span class="text-xs font-bold text-left">Van fully loaded and stocked</span>
-                            <input type="checkbox" onchange="updateReadiness()" class="readiness-check w-4 h-4 rounded text-violet-600" checked>
-                        </label>
-                        <label class="flex items-center justify-between p-2 bg-slate-50 rounded-lg border border-slate-100 cursor-pointer">
-                            <span class="text-xs font-bold">Vehicle Inspection Form Completed</span>
-                            <input type="checkbox" onchange="updateReadiness()" class="readiness-check w-4 h-4 rounded text-violet-600">
-                        </label>
-                    </div>
-                </div>
+                </article>
 
-                <div class="lg:col-span-2 space-y-6">
-                    <!-- VEHICLE MAINTENANCE -->
+                <article class="lp-lesson" data-lesson="1" data-key="rapid-response" id="rd-lesson-1" hidden>
+                    <h2 class="lp-lesson-title">Rapid Response Status</h2>
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-left">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-lg font-bold text-slate-800 flex items-center">
-                                <span class="mr-2 text-xl">🔧</span> Vehicle Maintenance Protocol
-                            </h3>
-                            <button onclick="toggleDetails('det-veh-maint')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-2 py-1 rounded hover:bg-violet-100 transition-all">More</button>
+                        <div id="det-rapid-response" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4 border-violet-100">
+                            <div class="p-4 text-xs leading-relaxed">
+                                <p class="font-bold text-violet-800 mb-2">Expectation:</p>
+                                <p class="mb-3">Vehicles must be mission-ready before every shift. This includes minimum 1/2 tank fuel, backed-in parking for immediate deployment, security locking, and complete equipment stocking per PAR (Periodic Automatic Replenishment) list posted in van.</p>
+                                <p class="font-bold text-violet-800 mb-2">The "Why" - Response Time Economics:</p>
+                                <p class="mb-3">The average restoration response generates $2,000-$8,000 in initial billing. Every 30-minute delay costs the company potential revenue and damages customer trust. A van needing fuel or missing critical equipment (fans, dehumidifiers, moisture meters) creates a 20-45 minute delay on arrival time. During that delay, water continues migrating through building materials—drywall wicks moisture upward at approximately 1 inch per hour, subfloor saturation spreads laterally, and microbial growth risk increases exponentially after 24-48 hours.</p>
+                                <p class="font-bold text-violet-800 mb-2">Insurance Industry Standards:</p>
+                                <p class="mb-3">Third-Party Administrators (TPAs) and insurance companies track response times. Consistent delays result in removal from preferred vendor lists. The industry standard is 1-hour response time for emergency water mitigation. Fuel stops, equipment runs to shop, or improper van stocking directly threaten this metric.</p>
+                                <p class="font-bold text-violet-800 mb-2">Liability Protection:</p>
+                                <p>Backed-in parking ensures technicians can load/unload equipment safely without backing into traffic or property. Security locks prevent equipment theft (average loss: $15,000-$35,000 per incident) and protect company assets. Complete stocking prevents improvised solutions that violate IICRC protocols and create liability exposure.</p>
+                            </div>
                         </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                            <div class="chart-container" style="height: 220px;">
+                                <canvas id="prepChart"></canvas>
+                            </div>
+                            <div class="space-y-2 text-left">
+                                <label class="flex items-center justify-between p-2 bg-slate-50 rounded-lg border border-slate-100 cursor-pointer">
+                                    <span class="text-xs font-bold">Fuel Level (Min 1/2 Tank)</span>
+                                    <input type="checkbox" onchange="updateReadiness()" class="readiness-check w-4 h-4 rounded text-violet-600" checked>
+                                </label>
+                                <label class="flex items-center justify-between p-2 bg-slate-50 rounded-lg border border-slate-100 cursor-pointer">
+                                    <span class="text-xs font-bold">Backed-In &amp; Locked</span>
+                                    <input type="checkbox" onchange="updateReadiness()" class="readiness-check w-4 h-4 rounded text-violet-600" checked>
+                                </label>
+                                <label class="flex items-center justify-between p-2 bg-slate-50 rounded-lg border border-slate-100 cursor-pointer">
+                                    <span class="text-xs font-bold">Van fully loaded and stocked</span>
+                                    <input type="checkbox" onchange="updateReadiness()" class="readiness-check w-4 h-4 rounded text-violet-600" checked>
+                                </label>
+                                <label class="flex items-center justify-between p-2 bg-slate-50 rounded-lg border border-slate-100 cursor-pointer">
+                                    <span class="text-xs font-bold">Vehicle Inspection Form Completed</span>
+                                    <input type="checkbox" onchange="updateReadiness()" class="readiness-check w-4 h-4 rounded text-violet-600">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </article>
 
+                <article class="lp-lesson" data-lesson="2" data-key="vehicle-maint" id="rd-lesson-2" hidden>
+                    <h2 class="lp-lesson-title">Vehicle Maintenance Protocol</h2>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-left">
                         <div id="det-veh-maint" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4 border-violet-100">
                             <div class="p-4 text-xs leading-relaxed">
                                 <p class="font-bold text-violet-800 mb-2">Expectation:</p>
                                 <p class="mb-3">Bi-weekly inspection of tires (PSI and tread depth), lights (headlights, brake lights, indicators), and fluids (oil, coolant, brake fluid, windshield washer) via digital Cortex form. Any deficiency must be reported to Supervisor immediately—vehicle is grounded until resolved.</p>
-                                
                                 <p class="font-bold text-violet-800 mb-2">The "Why" - Safety & Asset Protection:</p>
                                 <p class="mb-3"><strong>Catastrophic Prevention:</strong> Restoration vans carry 2,000-5,000 lbs of equipment (fans, dehumidifiers, generators, air scrubbers, tools, consumables). Under-inflated tires combined with heavy loads cause blowouts at highway speeds. Tire blowout incidents result in vehicle rollover, technician injury/death, and equipment loss averaging $45,000-$150,000 per incident.</p>
-                                
                                 <p class="mb-3"><strong>Operational Continuity:</strong> Engine failure from low oil or coolant creates 2-5 day downtime. During peak storm season, this removes a van from active deployment when demand is 300-500% above baseline. One grounded vehicle can cost $20,000-$50,000 in lost opportunity revenue during CAT (catastrophic loss) events.</p>
-                                
                                 <p class="mb-3"><strong>OSHA Compliance:</strong> Federal law requires employers to maintain vehicles in safe operating condition. Brake failure, lighting defects, or tire issues that cause accidents trigger OSHA investigations. Penalties range from $7,000-$70,000 per violation, plus civil liability for injuries.</p>
-                                
                                 <p class="font-bold text-violet-800 mb-2">Documented Inspection = Liability Shield:</p>
                                 <p>Digital Cortex forms create timestamped records proving systematic maintenance. In litigation, documented inspections demonstrate "reasonable care" and defeat negligence claims. Missing documentation shifts liability burden to company, with potential multi-million dollar exposure in injury/death cases.</p>
                             </div>
                         </div>
-
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-3">
                                 <div class="flex items-start gap-3 text-left">
@@ -617,33 +624,24 @@
                             </div>
                         </div>
                     </div>
+                </article>
 
-                    <!-- EQUIPMENT MAINTENANCE -->
+                <article class="lp-lesson" data-lesson="3" data-key="equip-hygiene" id="rd-lesson-3" hidden>
+                    <h2 class="lp-lesson-title">Equipment &amp; Sensor Hygiene</h2>
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-left">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-lg font-bold text-slate-800 text-left">Equipment & Sensor Hygiene</h3>
-                            <button onclick="toggleDetails('det-equip-maint')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-2 py-1 rounded hover:bg-violet-100 transition-all">More</button>
-                        </div>
-
                         <div id="det-equip-maint" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4 border-violet-100 text-left">
                             <div class="p-4 text-xs leading-relaxed text-left">
                                 <p class="font-bold text-violet-800 mb-2 text-left">Expectation:</p>
                                 <p class="mb-3 text-left">All air movers, dehumidifiers, and air scrubbers must be cleaned BEFORE entering customer property. All moisture meters, thermal cameras, and hygrometers must be calibrated, functional, and have fully charged batteries. Extra meter pins and batteries stocked in van at all times.</p>
-                                
                                 <p class="font-bold text-violet-800 mb-2 text-left">The "Why" - Professional Standards & Data Integrity:</p>
                                 <p class="mb-3 text-left"><strong>Indoor Air Quality (IAQ) Concerns:</strong> Fans and dehumidifiers that aren't cleaned carry dust, pollen, mold spores, and construction debris from previous jobs. When deployed in a customer's home, these particles become airborne and circulate throughout the property. This triggers allergic reactions, respiratory complaints, and creates secondary contamination—turning a water loss into an indoor air quality incident. Insurance adjusters classify this as "aggravated damage" which can void coverage and create massive liability exposure.</p>
-                                
                                 <p class="mb-3 text-left"><strong>Cross-Contamination Protocol:</strong> IICRC S500 Section 10.2.1 requires that equipment used in Category 2 or Category 3 water losses (grey water/black water) must be thoroughly decontaminated before use on Category 1 (clean water) losses. Failure to decontaminate equipment transports bacteria, viruses, and pathogens between job sites—creating disease transmission pathways and massive liability. Equipment contamination incidents have resulted in six-figure settlements and loss of IICRC Certified Firm status.</p>
-                                
                                 <p class="mb-3 text-left"><strong>Sensor Calibration = Accurate Drying Decisions:</strong> Moisture meters drift ±2-5% over time. An uncalibrated meter reading 14% might actually be 18%—which is above the 16% "affected material" threshold per IICRC standards. This leads to premature equipment removal, incomplete drying, and secondary mold growth (typically discovered 30-90 days post-mitigation). Mold remediation costs $5,000-$50,000 and often triggers "negligent restoration" litigation.</p>
-                                
                                 <p class="mb-3 text-left"><strong>Thermal Imaging Accuracy:</strong> Thermal cameras map temperature differentials that indicate moisture intrusion behind walls and ceilings (wet materials are cooler due to evaporative cooling). Uncalibrated cameras miss moisture pockets, leading to hidden water damage that causes structural rot, mold growth, and insurance claim disputes. Thermal cameras must be calibrated quarterly per manufacturer specifications.</p>
-                                
                                 <p class="font-bold text-violet-800 mb-2 text-left">Equipment Hygiene = Customer Trust:</p>
                                 <p class="text-left">Customers judge restoration companies within 60 seconds of equipment arrival. Dirty, dusty fans communicate unprofessionalism and create immediate trust deficits. Clean, well-maintained equipment demonstrates competence and establishes customer confidence—directly impacting online reviews, referrals, and repeat business opportunities.</p>
                             </div>
                         </div>
-
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
                             <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                                 <h4 class="text-xs font-black text-slate-400 uppercase mb-2">Meters, Sensors & Cameras</h4>
@@ -665,47 +663,72 @@
                             </div>
                         </div>
                     </div>
+                </article>
 
-                    <!-- CONSUMABLES -->
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-lg font-bold text-slate-800 text-left text-left">Consumables Inventory</h3>
-                            <button onclick="toggleDetails('det-consumables')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-2 py-1 rounded hover:bg-violet-100 transition-all">More</button>
-                        </div>
-
+                <article class="lp-lesson" data-lesson="4" data-key="consumables" id="rd-lesson-4" hidden>
+                    <h2 class="lp-lesson-title">Consumables Inventory</h2>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-left">
                         <div id="det-consumables" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4 border-violet-100">
                             <div class="p-4 text-xs leading-relaxed">
                                 <p class="font-bold text-violet-800 mb-2">Expectation:</p>
                                 <p class="mb-3">Inventory must be checked against the PAR (Periodic Automatic Replenishment) list every morning before shift start. No technician leaves the shop without standard stock levels. PAR list posted inside rear van door for reference.</p>
-                                
                                 <p class="font-bold text-violet-800 mb-2">The "Why" - Operational Flow & Billing Efficiency:</p>
                                 <p class="mb-3"><strong>Mid-Job Supply Runs Kill Profitability:</strong> Running out of containment poly, trash bags, antimicrobial spray, or painter's tape mid-job forces a technician to leave for a hardware store. This creates a 45-90 minute gap where labor is non-billable but still incurs cost. On a $150/hour labor rate, this represents $112-$225 in lost billing plus increased total job duration.</p>
-                                
                                 <p class="mb-3"><strong>Customer Perception Impact:</strong> Technicians leaving to "get supplies" communicates poor preparation and reduces customer confidence. This directly impacts online reviews and word-of-mouth referrals—the two primary lead sources for restoration companies.</p>
-                                
                                 <p class="mb-3"><strong>Insurance Documentation Requirements:</strong> IICRC S500 mandates comprehensive photo documentation (4-corner photography, moisture mapping, affected materials). Missing supplies like batteries, memory cards, or documentation tags delays proper documentation—which insurance adjusters use to approve or deny line items on estimates. Incomplete documentation results in 20-40% claim reduction on average.</p>
-                                
                                 <p class="font-bold text-violet-800 mb-2">Standard PAR Levels:</p>
                                 <p>PAR levels are calculated based on average daily consumption across all active jobs. Minimum stock levels ensure 2-3 day supply without restocking. Critical items (N95 masks, gloves, shoe covers) have higher PAR levels due to OSHA and safety requirements.</p>
                             </div>
                         </div>
-
                         <div class="inventory-grid text-center">
                             <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center">Trash Bags (Heavy Duty)</div>
                             <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center">Antimicrobial Spray</div>
-                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center text-center">Shoe Covers (Disposable)</div>
-                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center text-center">N95 Masks</div>
-                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center text-center">Nitrile Gloves (L/XL)</div>
-                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center text-center">Painter's Tape</div>
-                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center text-center text-center">Containment Poly</div>
-                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center text-center text-center">Packing Boxes</div>
-                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center text-center text-center">Batteries (AAA/AA/9V)</div>
-                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center text-center text-center">Lay-flat Ducting</div>
-                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center text-center text-center">Heavy Poly (6 mil)</div>
-                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 uppercase text-center text-center text-center">HEPA Filters</div>
+                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center">Shoe Covers (Disposable)</div>
+                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center">N95 Masks</div>
+                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center">Nitrile Gloves (L/XL)</div>
+                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center">Painter's Tape</div>
+                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center">Containment Poly</div>
+                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center">Packing Boxes</div>
+                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center">Batteries (AAA/AA/9V)</div>
+                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center">Lay-flat Ducting</div>
+                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 text-center">Heavy Poly (6 mil)</div>
+                            <div class="p-2 border rounded bg-slate-50 text-[10px] font-bold text-slate-600 uppercase text-center">HEPA Filters</div>
                         </div>
                     </div>
+                </article>
+
+                <article class="lp-lesson lp-quiz" data-lesson="5" id="rd-lesson-5" hidden>
+                    <h2 class="lp-lesson-title">Quick Module Check</h2>
+                    <p class="lp-quiz-intro">A short 5-question wrap-up on the Readiness &amp; Prep module. This is a quick knowledge check &mdash; not a graded exam &mdash; with instant feedback on each answer. Your score won&rsquo;t block anything.</p>
+                    <div class="lp-quiz-stage" id="rd-quiz-stage" aria-live="polite"><!-- built by lpQuizRender() --></div>
+                </article>
+
+                <article class="lp-lesson lp-end" data-lesson="6" id="rd-lesson-6" hidden>
+                    <div class="lp-complete">
+                        <div class="lp-complete-icon">&#9989;</div>
+                        <h2>Readiness module complete</h2>
+                        <p>Nice work &mdash; you&rsquo;ve finished every lesson in Readiness &amp; Prep and the wrap-up check.</p>
+                        <p class="lp-complete-score" id="rd-complete-score">Short quiz: results will appear here.</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-slate-800 to-slate-700 rounded-xl p-6 text-white mb-8">
+                        <h4 class="font-bold text-lg mb-2">Manage All of This in One Place</h4>
+                        <p class="text-sm text-slate-300 mb-3">Vehicle inspections, PAR lists, equipment logs, and bi-weekly maintenance forms all live in one place in <strong>Cortex</strong> &mdash; the AI-powered field service platform built for restoration. Timestamped, audit-ready, and tied to every vehicle and job.</p>
+                        <a href="https://jobdox.ai" target="_blank" rel="noopener" class="inline-block bg-violet-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-400 transition shadow-md text-sm">Learn More at JobDox.ai &rarr;</a>
+                    </div>
+                    <div class="lp-cert-cta">
+                        <p class="lp-cert-cta-note">Readiness is part of the Ready Certified Technician certification &mdash; a separate, combined assessment covering Readiness, Mitigation, and Contents. The short quiz above is this module&rsquo;s wrap-up.</p>
+                        <button type="button" class="lp-cert-link" onclick="startCertificationQuiz()">Take the full certification exam &rarr;</button>
+                    </div>
+                </article>
+
+                    </div>
                 </div>
+
+                <div class="lp-nav">
+                    <button type="button" class="lp-back" id="rd-back" onclick="lpPrev('rd')">Back</button>
+                    <button type="button" class="lp-next" id="rd-next" onclick="lpNext('rd')">Next</button>
+                </div>
+
             </div>
         </section>
 
@@ -1305,98 +1328,147 @@
         </section>
 
         <!-- SECTION: CONTENTS (keeping original for brevity - would expand similarly) -->
-        <section id="sec-contents" class="tab-content hidden fade-in text-center text-center text-center text-center">
-            <div class="mb-8 max-w-4xl text-center md:text-left text-center md:text-left text-center md:text-left text-center md:text-left text-center md:text-left">
-                <h2 class="text-3xl font-extrabold text-slate-900 text-center md:text-left text-center md:text-left text-center md:text-left">Phase 3: Contents & Logistics</h2>
-                <p class="text-slate-600 mt-2 text-center md:text-left text-center md:text-left text-center text-center text-center mb-6">Precise handling of personal property from initial sync to safe transport per IICRC S800 standards.</p>
-                <div class="bg-violet-50 border-l-4 border-violet-600 p-4 rounded text-left">
-                    <p class="text-sm text-slate-700 leading-relaxed">
-                        <strong>Contents Restoration Standards:</strong> IICRC S800 (Standard for Professional Contents Restoration) governs the handling, inventory, cleaning, and return of personal property. Contents claims represent 40-60% of total water damage loss value. Proper contents handling protects high-value items, reduces claim disputes, and differentiates professional restoration companies from competitors. Poor contents management results in loss/damage claims averaging $15,000-$50,000 per incident.
-                    </p>
-                </div>
-            </div>
+        <section id="sec-contents" class="tab-content hidden fade-in">
+            <div id="ct-player" class="lesson-player" data-current="0">
 
-            <!-- PROJECT DOCUMENTATION SETUP -->
-            <div class="mb-8 bg-violet-600 text-white p-6 rounded-2xl shadow-xl border-b-4 border-violet-800 text-left">
-                <div class="flex justify-between items-center mb-4">
-                    <div class="flex items-center gap-4">
-                        <span class="text-3xl">🔄</span>
-                        <h3 class="text-xl font-bold uppercase tracking-tight">Project Documentation Setup</h3>
-                    </div>
-                    <button onclick="toggleDetails('det-encircle')" class="text-[10px] font-bold uppercase text-violet-900 bg-violet-200 px-2 py-1 rounded hover:bg-violet-100 transition-all">More</button>
+                <div class="lp-topbar">
+                    <button type="button" class="lp-menu-btn" onclick="lpToggleMenu('ct')" aria-label="Open lessons menu"><span class="lp-menu-btn-icon">&#9776;</span> Lessons</button>
+                    <div class="lp-progress" role="progressbar" aria-label="Contents module progress"><div class="lp-progress-fill" id="ct-progress-fill"></div></div>
+                    <span class="lp-progress-label" id="ct-progress-label">0/2</span>
                 </div>
 
-                <div id="det-encircle" class="detail-expansion max-h-0 bg-violet-700 rounded-xl mb-4">
-                    <div class="p-4 text-xs leading-relaxed">
-                        <p class="font-bold text-white mb-1">Expectation:</p>
-                        <p class="mb-2">Before leaving the job site, ensure your project documentation tool is initialized and all work types are correctly set. Technicians must document each room with in-place photos of ALL contents before touching or moving anything.</p>
-                        <p class="font-bold text-white mb-1">The "Why":</p>
-                        <p class="mb-3">Digital accountability prevents lost paperwork and ensures the Contents team has immediate access to field inventory data. In-place photos establish condition and location, protecting your company from false damage claims. Average contents inventory contains 500–2,000 items worth $50,000–$250,000 total value — proper documentation is essential liability protection.</p>
-                        <p class="font-bold text-white mb-1">A Note on Tools:</p>
-                        <p>Whatever documentation platform your company uses, the requirement is the same: photos, room structure, and item-level inventory captured in real time at the job site. If you're evaluating field documentation tools, Cortex offers unlimited media storage specifically built for restoration workflows — photos, videos, and field notes tied directly to each job without storage caps or extra fees.</p>
-                    </div>
-                </div>
+                <div class="lp-body">
+                    <div class="lp-menu-overlay" id="ct-menu-overlay" onclick="lpCloseMenu('ct')"></div>
+                    <nav class="lp-menu" id="ct-menu" aria-label="Lesson menu">
+                        <div class="lp-menu-head"><span>Lessons</span><button type="button" class="lp-menu-close" onclick="lpCloseMenu('ct')" aria-label="Close lessons menu">&times;</button></div>
+                        <ol class="lp-menu-list" id="ct-menu-list"><!-- built by lpBuildMenu() --></ol>
+                    </nav>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-violet-700 p-4 rounded-xl border border-violet-500">
-                        <p class="text-xs font-black uppercase mb-1 text-violet-200">Initialization Protocol:</p>
-                        <p class="text-sm leading-relaxed">
-                            Confirm your project documentation tool is active and the correct job type is set <strong>before leaving the site</strong>. This ensures the Contents team can access field data immediately without waiting for manual entry later.
-                        </p>
-                    </div>
-                    <div class="bg-violet-700 p-4 rounded-xl border border-violet-500">
-                        <p class="text-xs font-black uppercase mb-1 text-violet-200">Room Setup Rule:</p>
-                        <p class="text-sm leading-relaxed">
-                            Manually document <strong>each room</strong> in your tool. Every room requires in-place photos of ALL contents <strong>before packing or moving anything</strong>.
-                        </p>
-                    </div>
-                </div>
-            </div>
+                    <div class="lp-content" id="ct-content">
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-center text-center text-center text-center text-center text-center text-center text-center">
-                <!-- TRAILER SAFETY -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-center text-center">
-                    <div class="flex justify-between items-start mb-6">
-                        <h3 class="text-xl font-bold text-slate-800 uppercase tracking-tight text-center text-center">Trailer Safety & Loading</h3>
-                        <button onclick="toggleDetails('det-trailer')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-2 py-1 rounded hover:bg-violet-100 transition-all">More</button>
-                    </div>
-
-                    <div id="det-trailer" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4 border-violet-100 text-left text-left text-left">
-                        <div class="p-4 text-xs leading-relaxed text-left text-left text-left text-left">
-                            <p class="font-bold text-violet-800 mb-1 text-left text-left">Expectation:</p>
-                            <p class="mb-2 text-left text-left text-left text-left">Follow loading hierarchy: Heavy base (appliances, furniture), uniform boxes middle, light/fragile top. Blanket and shrink-wrap all unboxed items to prevent "rub damage" during transport.</p>
-                            <p class="font-bold text-violet-800 mb-1 text-left text-left text-left text-left">The "Why":</p>
-                            <p class="text-left text-left text-left text-left text-left">Professional loading prevents transport damage and ensures trailer stability. Heavy base lowers center of gravity preventing rollover. Rub damage (scratches, dents, finish damage) results in replacement costs averaging $500-$3,000 per item and damages customer trust. Proper loading demonstrates professional contents handling standards.</p>
-                        </div>
-                    </div>
-
-                    <div class="loading-stack space-y-2 text-center text-center text-center text-center">
-                        <div class="h-28 bg-slate-800 rounded-xl flex items-center justify-center text-white font-bold p-4 text-center cursor-help group relative shadow-md text-center text-center text-center text-center text-center text-center text-center text-center">
-                            BOTTOM: HEAVY BASE
-                            <div class="hidden group-hover:flex flex-col items-center justify-center absolute top-0 left-0 w-full h-full bg-slate-900 rounded-xl p-4 text-xs font-medium text-slate-300 text-center text-center text-center text-center text-center text-center text-center text-center text-center text-center">
-                                <span>Appliances, furniture, safes.</span>
-                                <span class="text-[9px] mt-2 uppercase text-violet-400 font-bold text-center text-center text-center text-center text-center text-center text-center text-center text-center text-center text-center text-center text-center text-center text-center">Protocol: Blanket & Shrink wrap EVERYTHING.</span>
+                <article class="lp-lesson" data-lesson="0" id="ct-lesson-0" hidden>
+                    <h2 class="lp-lesson-title">Contents &amp; Logistics Overview</h2>
+                    <div class="lp-video">
+                        <div class="lp-video-frame">
+                            <div class="lp-video-ph">
+                                <span class="lp-video-ph-icon">&#9654;</span>
+                                <span class="lp-video-ph-text">Module Overview &mdash; Here&rsquo;s what we&rsquo;ll cover &mdash; coming soon</span>
                             </div>
                         </div>
-                        <div class="h-20 bg-violet-500 rounded-xl flex items-center justify-center text-white font-bold p-4 text-center shadow-md text-center text-center text-center text-center text-center text-center">MIDDLE: UNIFORM BOXES</div>
-                        <div class="h-14 bg-violet-100 rounded-xl flex items-center justify-center text-violet-800 font-bold p-4 text-center border border-violet-200 text-center text-center text-center text-center">TOP: LIGHT & FRAGILE</div>
+                    </div>
+                    <div class="max-w-4xl text-left">
+                        <p class="text-slate-600 mb-6">Precise handling of personal property from initial sync to safe transport per IICRC S800 standards.</p>
+                        <div class="bg-violet-50 border-l-4 border-violet-600 p-4 rounded text-left">
+                            <p class="text-sm text-slate-700 leading-relaxed">
+                                <strong>Contents Restoration Standards:</strong> IICRC S800 (Standard for Professional Contents Restoration) governs the handling, inventory, cleaning, and return of personal property. Contents claims represent 40-60% of total water damage loss value. Proper contents handling protects high-value items, reduces claim disputes, and differentiates professional restoration companies from competitors. Poor contents management results in loss/damage claims averaging $15,000-$50,000 per incident.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="lp-lesson" data-lesson="1" data-key="encircle" id="ct-lesson-1" hidden>
+                    <h2 class="lp-lesson-title">Project Documentation Setup</h2>
+                    <div class="bg-violet-600 text-white p-6 rounded-2xl shadow-xl border-b-4 border-violet-800 text-left">
+                        <div id="det-encircle" class="detail-expansion max-h-0 bg-violet-700 rounded-xl mb-4">
+                            <div class="p-4 text-xs leading-relaxed">
+                                <p class="font-bold text-white mb-1">Expectation:</p>
+                                <p class="mb-2">Before leaving the job site, ensure your project documentation tool is initialized and all work types are correctly set. Technicians must document each room with in-place photos of ALL contents before touching or moving anything.</p>
+                                <p class="font-bold text-white mb-1">The "Why":</p>
+                                <p class="mb-3">Digital accountability prevents lost paperwork and ensures the Contents team has immediate access to field inventory data. In-place photos establish condition and location, protecting your company from false damage claims. Average contents inventory contains 500–2,000 items worth $50,000–$250,000 total value — proper documentation is essential liability protection.</p>
+                                <p class="font-bold text-white mb-1">A Note on Tools:</p>
+                                <p>Whatever documentation platform your company uses, the requirement is the same: photos, room structure, and item-level inventory captured in real time at the job site. If you're evaluating field documentation tools, Cortex offers unlimited media storage specifically built for restoration workflows — photos, videos, and field notes tied directly to each job without storage caps or extra fees.</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-violet-700 p-4 rounded-xl border border-violet-500">
+                                <p class="text-xs font-black uppercase mb-1 text-violet-200">Initialization Protocol:</p>
+                                <p class="text-sm leading-relaxed">
+                                    Confirm your project documentation tool is active and the correct job type is set <strong>before leaving the site</strong>. This ensures the Contents team can access field data immediately without waiting for manual entry later.
+                                </p>
+                            </div>
+                            <div class="bg-violet-700 p-4 rounded-xl border border-violet-500">
+                                <p class="text-xs font-black uppercase mb-1 text-violet-200">Room Setup Rule:</p>
+                                <p class="text-sm leading-relaxed">
+                                    Manually document <strong>each room</strong> in your tool. Every room requires in-place photos of ALL contents <strong>before packing or moving anything</strong>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="lp-lesson" data-lesson="2" data-key="trailer" id="ct-lesson-2" hidden>
+                    <h2 class="lp-lesson-title">Trailer Safety &amp; Loading</h2>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-left">
+                        <div id="det-trailer" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4 border-violet-100 text-left">
+                            <div class="p-4 text-xs leading-relaxed text-left">
+                                <p class="font-bold text-violet-800 mb-1 text-left">Expectation:</p>
+                                <p class="mb-2 text-left">Follow loading hierarchy: Heavy base (appliances, furniture), uniform boxes middle, light/fragile top. Blanket and shrink-wrap all unboxed items to prevent "rub damage" during transport.</p>
+                                <p class="font-bold text-violet-800 mb-1 text-left">The "Why":</p>
+                                <p class="text-left">Professional loading prevents transport damage and ensures trailer stability. Heavy base lowers center of gravity preventing rollover. Rub damage (scratches, dents, finish damage) results in replacement costs averaging $500-$3,000 per item and damages customer trust. Proper loading demonstrates professional contents handling standards.</p>
+                            </div>
+                        </div>
+                        <div class="loading-stack space-y-2">
+                            <div class="h-28 bg-slate-800 rounded-xl flex items-center justify-center text-white font-bold p-4 text-center cursor-help group relative shadow-md">
+                                BOTTOM: HEAVY BASE
+                                <div class="hidden group-hover:flex flex-col items-center justify-center absolute top-0 left-0 w-full h-full bg-slate-900 rounded-xl p-4 text-xs font-medium text-slate-300 text-center">
+                                    <span>Appliances, furniture, safes.</span>
+                                    <span class="text-[9px] mt-2 uppercase text-violet-400 font-bold">Protocol: Blanket &amp; Shrink wrap EVERYTHING.</span>
+                                </div>
+                            </div>
+                            <div class="h-20 bg-violet-500 rounded-xl flex items-center justify-center text-white font-bold p-4 text-center shadow-md">MIDDLE: UNIFORM BOXES</div>
+                            <div class="h-14 bg-violet-100 rounded-xl flex items-center justify-center text-violet-800 font-bold p-4 text-center border border-violet-200">TOP: LIGHT &amp; FRAGILE</div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="lp-lesson" data-lesson="3" id="ct-lesson-3" hidden>
+                    <h2 class="lp-lesson-title">Clean Materials &amp; Inventory Control</h2>
+                    <div class="space-y-4">
+                        <div class="bg-emerald-600 text-white p-6 rounded-2xl shadow-lg text-left">
+                            <h4 class="font-bold text-emerald-100 mb-3 uppercase text-xs tracking-widest">Clean Materials Exchange</h4>
+                            <p class="text-sm leading-relaxed">
+                                On Fire or Mold projects, exchange original packing materials for clean ones <strong>once contents are processed</strong> at facility. Original materials absorb soot and mold spores—returning items in contaminated boxes creates health risks and insurance rejections.
+                            </p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border-2 border-emerald-100 shadow-sm text-left">
+                            <h4 class="font-bold text-emerald-900 uppercase tracking-tight mb-3">Inventory Control</h4>
+                            <p class="text-xs text-slate-600 mb-3">Document everything in-place with photos. Log Make/Model/Serial# for electronics and appliances. Use your documentation tool's item numbering field for unique identification.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="lp-lesson lp-quiz" data-lesson="4" id="ct-lesson-4" hidden>
+                    <h2 class="lp-lesson-title">Quick Module Check</h2>
+                    <p class="lp-quiz-intro">A short 5-question wrap-up on the Contents &amp; Logistics module. This is a quick knowledge check &mdash; not a graded exam &mdash; with instant feedback on each answer. Your score won&rsquo;t block anything.</p>
+                    <div class="lp-quiz-stage" id="ct-quiz-stage" aria-live="polite"><!-- built by lpQuizRender() --></div>
+                </article>
+
+                <article class="lp-lesson lp-end" data-lesson="5" id="ct-lesson-5" hidden>
+                    <div class="lp-complete">
+                        <div class="lp-complete-icon">&#9989;</div>
+                        <h2>Contents module complete</h2>
+                        <p>Nice work &mdash; you&rsquo;ve finished every lesson in Contents &amp; Logistics and the wrap-up check.</p>
+                        <p class="lp-complete-score" id="ct-complete-score">Short quiz: results will appear here.</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-slate-800 to-slate-700 rounded-xl p-6 text-white mb-8">
+                        <h4 class="font-bold text-lg mb-2">Manage All of This in One Place</h4>
+                        <p class="text-sm text-slate-300 mb-3">Contents inventories, in-place photos, room structure, and chain-of-custody tracking all live in one place in <strong>Cortex</strong> &mdash; the AI-powered field service platform built for restoration. Unlimited media storage means every item photo is tied directly to the job, audit-ready.</p>
+                        <a href="https://jobdox.ai" target="_blank" rel="noopener" class="inline-block bg-violet-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-400 transition shadow-md text-sm">Learn More at JobDox.ai &rarr;</a>
+                    </div>
+                    <div class="lp-cert-cta">
+                        <p class="lp-cert-cta-note">Contents is part of the Ready Certified Technician certification &mdash; a separate, combined assessment covering Readiness, Mitigation, and Contents. The short quiz above is this module&rsquo;s wrap-up.</p>
+                        <button type="button" class="lp-cert-link" onclick="startCertificationQuiz()">Take the full certification exam &rarr;</button>
+                    </div>
+                </article>
+
                     </div>
                 </div>
 
-                <div class="space-y-4 text-center text-center">
-                    <!-- Additional contents sections would be expanded here with similar detail -->
-                    <div class="bg-emerald-600 text-white p-6 rounded-2xl shadow-lg text-left">
-                        <h4 class="font-bold text-emerald-100 mb-3 uppercase text-xs tracking-widest">Clean Materials Exchange</h4>
-                        <p class="text-sm leading-relaxed">
-                            On Fire or Mold projects, exchange original packing materials for clean ones <strong>once contents are processed</strong> at facility. Original materials absorb soot and mold spores—returning items in contaminated boxes creates health risks and insurance rejections.
-                        </p>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-2xl border-2 border-emerald-100 shadow-sm text-left">
-                        <h4 class="font-bold text-emerald-900 uppercase tracking-tight mb-3">📦 Inventory Control</h4>
-                        <p class="text-xs text-slate-600 mb-3">Document everything in-place with photos. Log Make/Model/Serial# for electronics and appliances. Use your documentation tool's item numbering field for unique identification.</p>
-                    </div>
+                <div class="lp-nav">
+                    <button type="button" class="lp-back" id="ct-back" onclick="lpPrev('ct')">Back</button>
+                    <button type="button" class="lp-next" id="ct-next" onclick="lpNext('ct')">Next</button>
                 </div>
+
             </div>
         </section>
 
