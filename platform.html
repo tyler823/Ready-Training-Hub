@@ -210,325 +210,290 @@
         
         <!-- SECTION: HOME -->
         <section id="sec-home" class="tab-content fade-in">
-            <!-- Hero Section -->
-            <div class="gradient-bg rounded-3xl p-12 mb-12 text-white text-center shadow-2xl">
-                <h1 class="text-5xl font-black mb-4 tracking-tight">Welcome to Ready</h1>
-                <p class="text-xl font-medium mb-8 text-violet-100 max-w-3xl mx-auto">
-                    Complete Restoration Training Platform
-                </p>
-                <p class="text-lg text-violet-50 max-w-2xl mx-auto leading-relaxed">
-                    Master the complete restoration lifecycle—from emergency mitigation through final reconstruction—earning Ready Certification while learning industry-standard IICRC protocols and best practices.
-                </p>
-            </div>
 
-            <!-- Platform Overview -->
-            <div class="mb-16">
-                <h2 class="text-3xl font-extrabold text-slate-900 mb-4 text-center">What's Inside the Platform</h2>
-                <p class="text-lg text-slate-600 text-center max-w-3xl mx-auto mb-12">
-                    Ready is designed to transform field technicians into Ready Certified restoration professionals through structured, phase-based learning modules teaching IICRC standards and industry best practices.
-                </p>
-
-                <!-- ================================================================ -->
-<!-- HOMEPAGE: BASE TIER MODULES (Visible to all) -->
-<!-- ================================================================ -->
-<!-- Core Phases Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                    <!-- Phase 1 -->
-                    <div class="feature-card bg-white rounded-2xl p-8 border border-slate-200 shadow-sm text-center">
-                        <div class="text-5xl mb-4">🚛</div>
-                        <span class="phase-badge bg-violet-100 text-violet-700 mb-4">Phase 1</span>
-                        <h3 class="text-xl font-bold text-slate-900 mt-4 mb-3">Readiness & Prep</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                            Master vehicle maintenance protocols, equipment hygiene standards, and consumable inventory management for 24/7 rapid response capability.
-                        </p>
-                        <ul class="text-xs text-left text-slate-700 space-y-2">
-                            <li>✓ Rapid Response Checklists</li>
-                            <li>✓ Vehicle Maintenance Protocol</li>
-                            <li>✓ Equipment & Sensor Hygiene</li>
-                            <li>✓ Consumables Inventory System</li>
-                        </ul>
-                    </div>
-
-                    <!-- Phase 2 -->
-                    <div class="feature-card bg-white rounded-2xl p-8 border border-slate-200 shadow-sm text-center">
-                        <div class="text-5xl mb-4">🔧</div>
-                        <span class="phase-badge bg-violet-100 text-violet-700 mb-4">Phase 2</span>
-                        <h3 class="text-xl font-bold text-slate-900 mt-4 mb-3">Mitigation Workflow</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                            Learn the complete technical lifecycle from customer onboarding through dry-out completion, including critical safety protocols per IICRC S500.
-                        </p>
-                        <ul class="text-xs text-left text-slate-700 space-y-2">
-                            <li>✓ 7-Step Project Lifecycle SOP</li>
-                            <li>✓ Asbestos Investigation Protocol</li>
-                            <li>✓ Water Categories & Classes</li>
-                            <li>✓ Moisture Mapping Standards</li>
-                        </ul>
-                    </div>
-
-                    <!-- Phase 3 -->
-                    <div class="feature-card bg-white rounded-2xl p-8 border border-slate-200 shadow-sm text-center">
-                        <div class="text-5xl mb-4">📦</div>
-                        <span class="phase-badge bg-violet-100 text-violet-700 mb-4">Phase 3</span>
-                        <h3 class="text-xl font-bold text-slate-900 mt-4 mb-3">Contents & Logistics</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                            Precise handling of personal property from initial documentation through safe transport and clean materials exchange.
-                        </p>
-                        <ul class="text-xs text-left text-slate-700 space-y-2">
-                            <li>✓ Project Documentation Setup</li>
-                            <li>✓ Trailer Safety & Loading</li>
-                            <li>✓ Inventory Control Standards</li>
-                            <li>✓ Textile Processing Protocol</li>
-                        </ul>
+            <!-- Hero: compact, layered gradient + dot-grid motif, primary action + overall progress sliver -->
+            <div class="home-hero">
+                <div class="home-hero-inner">
+                    <span class="home-eyebrow">Complete Restoration Training Platform</span>
+                    <h1 class="home-hero-title">Welcome to Ready</h1>
+                    <p class="home-hero-lead">
+                        Master the complete restoration lifecycle—from emergency mitigation through final reconstruction—earning Ready Certification while learning industry-standard IICRC protocols and best practices.
+                    </p>
+                    <div class="home-hero-actions">
+                        <button type="button" class="home-cta" id="home-cta" onclick="nav('readiness')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+                            <span id="home-cta-label">Start with Readiness</span>
+                        </button>
+                        <div class="home-hero-progress" role="progressbar" aria-label="Overall training progress">
+                            <div class="home-hero-progress-bar"><span id="home-overall-fill"></span></div>
+                            <span class="home-hero-progress-label" id="home-overall-label">Loading your progress…</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- ================================================================ -->
-<!-- HOMEPAGE: READY TEAM TIER MODULES (Show only to Ready Team subscribers) -->
-<!-- ================================================================ -->
-<!-- Ready Team Exclusive Modules -->
-            <div class="mb-16">
-                <h2 class="text-3xl font-extrabold text-slate-900 mb-4 text-center">Ready Team Exclusive Training</h2>
-                <p class="text-lg text-slate-600 text-center max-w-3xl mx-auto mb-12">
-                    Advanced modules for Ready Team subscribers covering reconstruction operations, business financial management, and team development.
-                </p>
+            <!-- HOMEPAGE: BASE TIER MODULES (Visible to all) -->
+            <!-- ================================================================ -->
+            <div class="home-section">
+                <div class="home-section-head">
+                    <h2 class="home-section-title">What's Inside the Platform</h2>
+                    <p class="home-section-sub">
+                        Ready transforms field technicians into Ready Certified restoration professionals through structured, phase-based learning modules teaching IICRC standards and industry best practices.
+                    </p>
+                </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Reconstruction Module -->
-                    <div class="feature-card bg-white rounded-2xl p-8 border-2 border-violet-600 shadow-sm text-center cursor-pointer hover:shadow-lg transition" onclick="nav('reconstruction')">
-                        <div class="text-5xl mb-4">🏗️</div>
-                        <span class="phase-badge bg-violet-100 text-violet-700 mb-4">Ready Team</span>
-                        <h3 class="text-xl font-bold text-slate-900 mt-4 mb-3">Reconstruction Operations</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                            Master the complete reconstruction lifecycle from estimating and scope negotiation through construction sequencing and final closeout.
-                        </p>
-                        <ul class="text-xs text-left text-slate-700 space-y-2">
-                            <li>✓ Transition & Handoff Protocols</li>
-                            <li>✓ Xactimate & Estimating Software</li>
-                            <li>✓ Pre-Construction Planning & Permits</li>
-                            <li>✓ Construction Sequencing & QC</li>
-                            <li>✓ Project Completion & Closeout</li>
-                        </ul>
+                <div class="home-grid">
+                    <!-- Phase 1: Readiness -->
+                    <div class="home-card is-clickable" onclick="nav('readiness')">
+                        <div class="home-card-tier"><span class="home-tier-chip">Phase 1</span></div>
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5h11v9H3z"/><path d="M14 9.5h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.5"/><circle cx="17.5" cy="18" r="1.5"/></svg></div>
+                        <div class="home-card-label">Readiness</div>
+                        <h3 class="home-card-title">Readiness &amp; Prep</h3>
+                        <p class="home-card-desc">Vehicle maintenance, equipment hygiene, and consumable inventory for 24/7 rapid response capability.</p>
+                        <div class="home-card-prog">
+                            <div class="home-card-prog-bar"><span data-home-fill="readiness"></span></div>
+                            <span class="home-card-prog-label" data-home-label="readiness">0% complete</span>
+                        </div>
                     </div>
 
-                    <!-- Financial Operations Module -->
-                    <div class="feature-card bg-white rounded-2xl p-8 border-2 border-violet-600 shadow-sm text-center cursor-pointer hover:shadow-lg transition" onclick="nav('financial')">
-                        <div class="text-5xl mb-4">💰</div>
-                        <span class="phase-badge bg-violet-100 text-violet-700 mb-4">Ready Team</span>
-                        <h3 class="text-xl font-bold text-slate-900 mt-4 mb-3">Financial Operations</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                            Master job costing, profitability analysis, pricing strategy, cash flow management, and tax considerations for sustainable business growth.
-                        </p>
-                        <ul class="text-xs text-left text-slate-700 space-y-2">
-                            <li>✓ Understanding Business Profitability</li>
-                            <li>✓ Margins & Markups (50%+ Standards)</li>
-                            <li>✓ Break-Even Analysis & Cash Flow</li>
-                            <li>✓ Pricing Strategy & Value Communication</li>
-                            <li>✓ Tax Considerations & Compliance</li>
-                        </ul>
+                    <!-- Phase 2: Mitigation -->
+                    <div class="home-card is-clickable" onclick="nav('mitigation')">
+                        <div class="home-card-tier"><span class="home-tier-chip">Phase 2</span></div>
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 10.5a6 6 0 0 1-12 0C6 9.5 12 3 12 3z"/></svg></div>
+                        <div class="home-card-label">Mitigation</div>
+                        <h3 class="home-card-title">Mitigation Workflow</h3>
+                        <p class="home-card-desc">The complete technical lifecycle from customer onboarding through dry-out completion, per IICRC S500.</p>
+                        <div class="home-card-prog">
+                            <div class="home-card-prog-bar"><span data-home-fill="mitigation"></span></div>
+                            <span class="home-card-prog-label" data-home-label="mitigation">0% complete</span>
+                        </div>
                     </div>
 
-                    <!-- Employee Onboarding Module -->
-                    <div class="feature-card bg-white rounded-2xl p-8 border-2 border-violet-600 shadow-sm text-center cursor-pointer hover:shadow-lg transition" onclick="nav('onboarding')">
-                        <div class="text-5xl mb-4">👤</div>
-                        <span class="phase-badge bg-violet-100 text-violet-700 mb-4">Ready Team</span>
-                        <h3 class="text-xl font-bold text-slate-900 mt-4 mb-3">Employee Onboarding</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                            Build a structured 90-day onboarding system that reduces turnover, accelerates productivity, and creates a scalable hiring process.
-                        </p>
-                        <ul class="text-xs text-left text-slate-700 space-y-2">
-                            <li>✓ Pre-Boarding & Day 1 Frameworks</li>
-                            <li>✓ 4-Stage Training Progression</li>
-                            <li>✓ Competency Assessment System</li>
-                            <li>✓ Retention & Career Pathways</li>
-                            <li>✓ 30/60/90 Day Review Templates</li>
-                        </ul>
+                    <!-- Phase 3: Contents -->
+                    <div class="home-card is-clickable" onclick="nav('contents')">
+                        <div class="home-card-tier"><span class="home-tier-chip">Phase 3</span></div>
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v10l8 4 8-4V7z"/><path d="M4 7l8 4 8-4"/><path d="M12 11v10"/></svg></div>
+                        <div class="home-card-label">Contents</div>
+                        <h3 class="home-card-title">Contents &amp; Logistics</h3>
+                        <p class="home-card-desc">Handling of personal property from documentation through safe transport and clean materials exchange.</p>
+                        <div class="home-card-prog">
+                            <div class="home-card-prog-bar"><span data-home-fill="contents"></span></div>
+                            <span class="home-card-prog-label" data-home-label="contents">0% complete</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!-- HOMEPAGE: READY TEAM TIER MODULES -->
+            <!-- ================================================================ -->
+            <div class="home-section">
+                <div class="home-section-head">
+                    <h2 class="home-section-title">Ready Team Exclusive Training</h2>
+                    <p class="home-section-sub">
+                        Advanced modules covering reconstruction operations, business financial management, and team development.
+                    </p>
+                </div>
+
+                <div class="home-grid">
+                    <!-- Reconstruction -->
+                    <div class="home-card is-clickable" onclick="nav('reconstruction')">
+                        <div class="home-card-tier"><span class="home-tier-chip">Ready Team</span></div>
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1.2"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/></svg></div>
+                        <div class="home-card-label">Ready Team</div>
+                        <h3 class="home-card-title">Reconstruction Operations</h3>
+                        <p class="home-card-desc">The full reconstruction lifecycle from estimating and scope negotiation through sequencing and closeout.</p>
+                        <div class="home-card-prog">
+                            <div class="home-card-prog-bar"><span data-home-fill="reconstruction"></span></div>
+                            <span class="home-card-prog-label" data-home-label="reconstruction">0% complete</span>
+                        </div>
+                    </div>
+
+                    <!-- Financial Operations -->
+                    <div class="home-card is-clickable" onclick="nav('financial')">
+                        <div class="home-card-tier"><span class="home-tier-chip">Ready Team</span></div>
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 6.5C17 4.6 14.8 4 12.5 4 9.9 4 8 5.2 8 7.3c0 4.5 9 2.2 9 6.8 0 2.2-2.2 3.4-4.8 3.4-2.4 0-4.7-.8-4.7-2.8"/></svg></div>
+                        <div class="home-card-label">Ready Team</div>
+                        <h3 class="home-card-title">Financial Operations</h3>
+                        <p class="home-card-desc">Job costing, profitability, pricing strategy, cash flow, and tax considerations for sustainable growth.</p>
+                        <div class="home-card-prog">
+                            <div class="home-card-prog-bar"><span data-home-fill="financial"></span></div>
+                            <span class="home-card-prog-label" data-home-label="financial">0% complete</span>
+                        </div>
+                    </div>
+
+                    <!-- Employee Onboarding -->
+                    <div class="home-card is-clickable" onclick="nav('onboarding')">
+                        <div class="home-card-tier"><span class="home-tier-chip">Ready Team</span></div>
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M18 8v6M15 11h6"/></svg></div>
+                        <div class="home-card-label">Ready Team</div>
+                        <h3 class="home-card-title">Employee Onboarding</h3>
+                        <p class="home-card-desc">A structured 90-day onboarding system that reduces turnover and creates a scalable hiring process.</p>
+                        <div class="home-card-prog">
+                            <div class="home-card-prog-bar"><span data-home-fill="onboarding"></span></div>
+                            <span class="home-card-prog-label" data-home-label="onboarding">0% complete</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Certification Section -->
-            <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-10 mb-12 text-white">
-                <div class="max-w-5xl mx-auto text-center">
-                    <div class="text-5xl mb-4">🏆</div>
-                    <h2 class="text-3xl font-bold mb-4">Ready Certification Pathways</h2>
-                    <p class="text-lg text-slate-300 mb-8 leading-relaxed">
-                        Earn Ready Certification in two specialties. Each follows a practice-then-certify structure with 80% pass requirement and downloadable PDF certificates upon completion.
+            <div class="home-panel">
+                <div class="home-panel-head">
+                    <div class="home-ic home-ic-onpanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M9 13.5 7.5 21l4.5-2.5L16.5 21 15 13.5"/></svg></div>
+                    <h2 class="home-panel-title">Ready Certification Pathways</h2>
+                    <p class="home-panel-sub">
+                        Earn Ready Certification in two specialties. Each follows a practice-then-certify structure with an 80% pass requirement and downloadable PDF certificates.
                     </p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-                        <!-- Mitigation Certification Path -->
-                        <div class="bg-slate-800 p-6 rounded-xl border-2 border-violet-600">
-                            <div class="text-4xl mb-3">🚨</div>
-                            <h3 class="text-2xl font-bold mb-3 text-violet-400">Mitigation Certification</h3>
-                            <p class="text-sm text-slate-300 mb-4">Master emergency response, water/fire mitigation, and contents handling per IICRC S500 standards.</p>
-                            <div class="text-left text-xs text-slate-400 mb-4">
-                                <p>✓ Vehicle & Equipment Readiness</p>
-                                <p>✓ Mitigation Workflow (7-Step Lifecycle)</p>
-                                <p>✓ Contents & Logistics Management</p>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3">
-                                <button onclick="nav('quiz')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition text-sm">Practice Quiz</button>
-                                <button onclick="startCertificationQuiz()" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-4 rounded-lg transition text-sm">Certify</button>
-                            </div>
-                            <p class="text-xs text-violet-300 mt-4 font-semibold">Earn: Ready Certified Technician</p>
+                </div>
+                <div class="home-cert-grid">
+                    <!-- Mitigation Certification -->
+                    <div class="home-cert-card">
+                        <h3 class="home-cert-title">Mitigation Certification</h3>
+                        <p class="home-cert-desc">Master emergency response, water/fire mitigation, and contents handling per IICRC S500 standards.</p>
+                        <ul class="home-cert-list">
+                            <li>Vehicle &amp; Equipment Readiness</li>
+                            <li>Mitigation Workflow (7-Step Lifecycle)</li>
+                            <li>Contents &amp; Logistics Management</li>
+                        </ul>
+                        <div class="home-cert-actions">
+                            <button type="button" class="home-btn home-btn-ghost" onclick="nav('quiz')">Practice Quiz</button>
+                            <button type="button" class="home-btn home-btn-solid" onclick="startCertificationQuiz()">Certify</button>
                         </div>
-
-                        <!-- Reconstruction Certification Path -->
-                        <div class="bg-slate-800 p-6 rounded-xl border-2 border-violet-600">
-                            <div class="text-4xl mb-3">🏗️</div>
-                            <h3 class="text-2xl font-bold mb-3 text-violet-400">Reconstruction Certification</h3>
-                            <p class="text-sm text-slate-300 mb-4">Master estimating, scope negotiation, construction sequencing, and project closeout for insurance repairs.</p>
-                            <div class="text-left text-xs text-slate-400 mb-4">
-                                <p>✓ Xactimate & Estimating Software</p>
-                                <p>✓ Construction Sequencing & Quality Control</p>
-                                <p>✓ Pre-Construction Planning & Closeout</p>
-                            </div>
-                            <div class="grid grid-cols-2 gap-3">
-                                <button onclick="startReconQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition text-sm">Practice Quiz</button>
-                                <button onclick="startReconCertificationQuiz()" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-4 rounded-lg transition text-sm">Certify</button>
-                            </div>
-                            <p class="text-xs text-violet-300 mt-4 font-semibold">Earn: Ready Certified Contractor</p>
-                        </div>
+                        <p class="home-cert-earn">Earn: Ready Certified Technician</p>
                     </div>
 
-                    <p class="text-sm text-slate-400 mt-8">Both certifications available to Ready members</p>
+                    <!-- Reconstruction Certification -->
+                    <div class="home-cert-card">
+                        <h3 class="home-cert-title">Reconstruction Certification</h3>
+                        <p class="home-cert-desc">Master estimating, scope negotiation, construction sequencing, and project closeout for insurance repairs.</p>
+                        <ul class="home-cert-list">
+                            <li>Xactimate &amp; Estimating Software</li>
+                            <li>Construction Sequencing &amp; Quality Control</li>
+                            <li>Pre-Construction Planning &amp; Closeout</li>
+                        </ul>
+                        <div class="home-cert-actions">
+                            <button type="button" class="home-btn home-btn-ghost" onclick="startReconQuiz()">Practice Quiz</button>
+                            <button type="button" class="home-btn home-btn-solid" onclick="startReconCertificationQuiz()">Certify</button>
+                        </div>
+                        <p class="home-cert-earn">Earn: Ready Certified Contractor</p>
+                    </div>
                 </div>
+                <p class="home-panel-foot">Both certifications available to Ready members</p>
             </div>
 
             <!-- ================================================================ -->
-<!-- HOMEPAGE: READY ENTERPRISE MODULES (Show only to Ready Enterprise subscribers) -->
-<!-- ================================================================ -->
-<!-- Coming Soon Section -->
-            <div class="mb-12">
-                <h2 class="text-3xl font-extrabold text-slate-900 mb-6 text-center">Ready Enterprise Modules</h2>
-                <p class="text-center text-slate-600 mb-10 max-w-2xl mx-auto">
-                    Advanced leadership and business strategy training for restoration business owners ready to scale and optimize their operations. Available with Ready Enterprise membership.
-                </p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- HOMEPAGE: READY ENTERPRISE MODULES -->
+            <!-- ================================================================ -->
+            <div class="home-section">
+                <div class="home-section-head">
+                    <h2 class="home-section-title">Ready Enterprise Modules</h2>
+                    <p class="home-section-sub">
+                        Advanced leadership and business strategy training for restoration owners ready to scale and optimize their operations. Available with Ready Enterprise membership.
+                    </p>
+                </div>
+
+                <div class="home-grid">
                     <!-- Team Scaling -->
-                    <div class="locked-content bg-white rounded-2xl p-8 border-2 border-slate-200 opacity-75 cursor-pointer hover:opacity-90 transition" onclick="showUpgradeModal('enterprise')">
-                        <div class="flex items-start gap-4 mb-4">
-                            <div class="text-4xl">👥</div>
-                            <div>
-                                <span class="phase-badge bg-emerald-100 text-emerald-700 mb-2">Ready Enterprise</span>
-                                <h3 class="text-xl font-bold text-slate-900 mt-2">Team Scaling & Leadership</h3>
-                            </div>
-                        </div>
-                        <p class="text-sm text-slate-600 mb-4">
-                            Build high-performing teams with hiring frameworks, training systems, performance management, and organizational structure design.
-                        </p>
-                        <div class="text-xs text-violet-600 font-semibold">🔒 Click to upgrade</div>
+                    <div class="home-card is-clickable is-locked" onclick="showUpgradeModal('enterprise')">
+                        <div class="home-card-tier"><span class="home-tier-chip">Enterprise</span></div>
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="3"/><path d="M2.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 6.2a3 3 0 0 1 0 5.6"/><path d="M15 13.5a5.5 5.5 0 0 1 6.5 5.5"/></svg></div>
+                        <div class="home-card-label">Enterprise</div>
+                        <h3 class="home-card-title">Team Scaling &amp; Leadership</h3>
+                        <p class="home-card-desc">Hiring frameworks, training systems, performance management, and organizational structure design.</p>
+                        <span class="home-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Click to upgrade</span>
                     </div>
 
-                    <!-- Exit/Sale Prep -->
-                    <div class="locked-content bg-white rounded-2xl p-8 border-2 border-slate-200 opacity-75 cursor-pointer hover:opacity-90 transition" onclick="showUpgradeModal('enterprise')">
-                        <div class="flex items-start gap-4 mb-4">
-                            <div class="text-4xl">🚀</div>
-                            <div>
-                                <span class="phase-badge bg-emerald-100 text-emerald-700 mb-2">Ready Enterprise</span>
-                                <h3 class="text-xl font-bold text-slate-900 mt-2">Exit Strategy & Sale Prep</h3>
-                            </div>
-                        </div>
-                        <p class="text-sm text-slate-600 mb-4">
-                            Position your company for maximum valuation with buyer preparation, financial optimization, and transition planning.
-                        </p>
-                        <div class="text-xs text-violet-600 font-semibold">🔒 Click to upgrade</div>
+                    <!-- Exit Strategy -->
+                    <div class="home-card is-clickable is-locked" onclick="showUpgradeModal('enterprise')">
+                        <div class="home-card-tier"><span class="home-tier-chip">Enterprise</span></div>
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+                        <div class="home-card-label">Enterprise</div>
+                        <h3 class="home-card-title">Exit Strategy &amp; Sale Prep</h3>
+                        <p class="home-card-desc">Position your company for maximum valuation with buyer prep, financial optimization, and transition planning.</p>
+                        <span class="home-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Click to upgrade</span>
                     </div>
 
                     <!-- Managerial Development -->
-                    <div class="locked-content bg-white rounded-2xl p-8 border-2 border-slate-200 opacity-75 cursor-pointer hover:opacity-90 transition" onclick="showUpgradeModal('enterprise')">
-                        <div class="flex items-start gap-4 mb-4">
-                            <div class="text-4xl">🎯</div>
-                            <div>
-                                <span class="phase-badge bg-emerald-100 text-emerald-700 mb-2">Ready Enterprise</span>
-                                <h3 class="text-xl font-bold text-slate-900 mt-2">Managerial Development</h3>
-                            </div>
-                        </div>
-                        <p class="text-sm text-slate-600 mb-4">
-                            Transform top performers into exceptional leaders. Branch Manager &amp; Regional Manager role frameworks.
-                        </p>
-                        <div class="text-xs text-violet-600 font-semibold">🔒 Click to upgrade</div>
+                    <div class="home-card is-clickable is-locked" onclick="showUpgradeModal('enterprise')">
+                        <div class="home-card-tier"><span class="home-tier-chip">Enterprise</span></div>
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></div>
+                        <div class="home-card-label">Enterprise</div>
+                        <h3 class="home-card-title">Managerial Development</h3>
+                        <p class="home-card-desc">Transform top performers into exceptional leaders. Branch Manager &amp; Regional Manager role frameworks.</p>
+                        <span class="home-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Click to upgrade</span>
                     </div>
 
                     <!-- Employee Maturity Models -->
-                    <div class="locked-content bg-white rounded-2xl p-8 border-2 border-slate-200 opacity-75 cursor-pointer hover:opacity-90 transition" onclick="showUpgradeModal('enterprise')">
-                        <div class="flex items-start gap-4 mb-4">
-                            <div class="text-4xl">📈</div>
-                            <div>
-                                <span class="phase-badge bg-emerald-100 text-emerald-700 mb-2">Ready Enterprise</span>
-                                <h3 class="text-xl font-bold text-slate-900 mt-2">Employee Maturity Models</h3>
-                            </div>
-                        </div>
-                        <p class="text-sm text-slate-600 mb-4">
-                            Career progression pathways for every department. Inspired by Cardone Ventures EMM framework.
-                        </p>
-                        <div class="text-xs text-violet-600 font-semibold">🔒 Click to upgrade</div>
+                    <div class="home-card is-clickable is-locked" onclick="showUpgradeModal('enterprise')">
+                        <div class="home-card-tier"><span class="home-tier-chip">Enterprise</span></div>
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="20" y2="20"/><line x1="7" y1="20" x2="7" y2="13"/><line x1="12" y1="20" x2="12" y2="6"/><line x1="17" y1="20" x2="17" y2="10"/></svg></div>
+                        <div class="home-card-label">Enterprise</div>
+                        <h3 class="home-card-title">Employee Maturity Models</h3>
+                        <p class="home-card-desc">Career progression pathways for every department, inspired by the Cardone Ventures EMM framework.</p>
+                        <span class="home-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Click to upgrade</span>
                     </div>
                 </div>
             </div>
 
             <!-- VAST & Cortex Ecosystem -->
-            <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-10 mb-12 text-white">
-                <h2 class="text-3xl font-bold mb-3 text-center">The Complete Toolkit for Trades</h2>
-                <p class="text-center text-slate-300 mb-10 max-w-2xl mx-auto">Ready Training is part of a complete ecosystem designed to help trades businesses learn, operate, and grow.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                    <!-- Ready Training -->
-                    <div class="bg-white bg-opacity-5 rounded-xl p-6 border border-white border-opacity-10">
-                        <div class="text-4xl mb-3">📚</div>
-                        <h3 class="text-lg font-bold text-violet-300 mb-2">Ready Training</h3>
-                        <p class="text-sm text-slate-400 mb-2">Learn the systems</p>
-                        <p class="text-xs text-slate-400 leading-relaxed">SOPs, certifications, onboarding templates, management frameworks, and career progression models. The knowledge foundation for building a professional team.</p>
-                        <p class="text-xs text-violet-400 mt-3 font-semibold">✓ You're here now</p>
+            <div class="home-panel">
+                <div class="home-panel-head">
+                    <h2 class="home-panel-title">The Complete Toolkit for Trades</h2>
+                    <p class="home-panel-sub">Ready Training is part of a complete ecosystem designed to help trades businesses learn, operate, and grow.</p>
+                </div>
+                <div class="home-eco-grid">
+                    <div class="home-eco-card">
+                        <div class="home-ic home-ic-onpanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20"/></svg></div>
+                        <h3 class="home-eco-title">Ready Training</h3>
+                        <p class="home-eco-tag">Learn the systems</p>
+                        <p class="home-eco-desc">SOPs, certifications, onboarding templates, management frameworks, and career progression models. The knowledge foundation for building a professional team.</p>
+                        <p class="home-eco-here">You're here now</p>
                     </div>
-
-                    <!-- Cortex -->
-                    <div class="bg-white bg-opacity-10 rounded-xl p-6 border border-violet-400 border-opacity-50">
-                        <div class="text-4xl mb-3">📱</div>
-                        <h3 class="text-lg font-bold text-violet-300 mb-2">Cortex</h3>
-                        <p class="text-sm text-slate-400 mb-2">Run your operations</p>
-                        <p class="text-xs text-slate-400 leading-relaxed mb-4">AI-powered field service management — job scheduling, crew tracking, documentation, budgeting, and billing. The system your team uses every day in the field.</p>
-                        <a href="https://jobdox.ai" target="_blank" class="inline-block text-xs font-bold text-white bg-violet-600 hover:bg-violet-500 py-2 px-4 rounded-lg transition">Visit JobDox.ai &rarr;</a>
+                    <div class="home-eco-card is-feature">
+                        <div class="home-ic home-ic-onpanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></div>
+                        <h3 class="home-eco-title">Cortex</h3>
+                        <p class="home-eco-tag">Run your operations</p>
+                        <p class="home-eco-desc">AI-powered field service management — job scheduling, crew tracking, documentation, budgeting, and billing. The system your team uses every day in the field.</p>
+                        <a href="https://jobdox.ai" target="_blank" rel="noopener" class="home-eco-link">Visit JobDox.ai &rarr;</a>
                     </div>
-
-                    <!-- VAST -->
-                    <div class="bg-white bg-opacity-10 rounded-xl p-6 border border-violet-400 border-opacity-50">
-                        <div class="text-4xl mb-3">🧭</div>
-                        <h3 class="text-lg font-bold text-violet-300 mb-2">VAST</h3>
-                        <p class="text-sm text-slate-400 mb-2">Execute your strategy</p>
-                        <p class="text-xs text-slate-400 leading-relaxed mb-4">Venture Accelerator System for Trades — structured meeting cadences, scorecards, quarterly planning, and problem solving. The operating system that keeps your team aligned.</p>
-                        <a href="https://vast-os.app" target="_blank" class="inline-block text-xs font-bold text-white bg-violet-600 hover:bg-violet-500 py-2 px-4 rounded-lg transition">Visit VAST-OS.app &rarr;</a>
+                    <div class="home-eco-card is-feature">
+                        <div class="home-ic home-ic-onpanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></div>
+                        <h3 class="home-eco-title">VAST</h3>
+                        <p class="home-eco-tag">Execute your strategy</p>
+                        <p class="home-eco-desc">Venture Accelerator System for Trades — structured meeting cadences, scorecards, quarterly planning, and problem solving. The operating system that keeps your team aligned.</p>
+                        <a href="https://vast-os.app" target="_blank" rel="noopener" class="home-eco-link">Visit VAST-OS.app &rarr;</a>
                     </div>
                 </div>
-
-                <p class="text-center text-xs text-slate-500 mt-6">VAST Coaching subscribers ($1,000/mo) receive Cortex + Ready Training included free, plus a dedicated coach working with your team every week.</p>
+                <p class="home-panel-foot">VAST Coaching subscribers ($1,000/mo) receive Cortex + Ready Training included free, plus a dedicated coach working with your team every week.</p>
             </div>
 
             <!-- How It Works -->
-            <div class="bg-violet-50 rounded-2xl p-10 border border-violet-100">
-                <h2 class="text-2xl font-bold text-slate-900 mb-8 text-center">How the Platform Works</h2>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-violet-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">1</div>
-                        <h4 class="font-bold text-slate-900 mb-2">Learn</h4>
-                        <p class="text-sm text-slate-600">Study each operational phase with interactive SOPs and real-world protocols</p>
+            <div class="home-section">
+                <div class="home-section-head">
+                    <h2 class="home-section-title">How the Platform Works</h2>
+                </div>
+                <div class="home-steps">
+                    <div class="home-step">
+                        <div class="home-step-num">1</div>
+                        <h4 class="home-step-title">Learn</h4>
+                        <p class="home-step-desc">Study each operational phase with interactive SOPs and real-world protocols.</p>
                     </div>
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-violet-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">2</div>
-                        <h4 class="font-bold text-slate-900 mb-2">Explore</h4>
-                        <p class="text-sm text-slate-600">Click "More" buttons to reveal the "Why" behind every expectation</p>
+                    <div class="home-step">
+                        <div class="home-step-num">2</div>
+                        <h4 class="home-step-title">Explore</h4>
+                        <p class="home-step-desc">Move through each lesson in the guided player to uncover the "why" behind every expectation.</p>
                     </div>
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-violet-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">3</div>
-                        <h4 class="font-bold text-slate-900 mb-2">Practice</h4>
-                        <p class="text-sm text-slate-600">Take practice quizzes to test knowledge and identify areas for review</p>
+                    <div class="home-step">
+                        <div class="home-step-num">3</div>
+                        <h4 class="home-step-title">Practice</h4>
+                        <p class="home-step-desc">Take practice quizzes to test knowledge and identify areas for review.</p>
                     </div>
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-violet-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">4</div>
-                        <h4 class="font-bold text-slate-900 mb-2">Certify</h4>
-                        <p class="text-sm text-slate-600">Pass certification exam and download your Ready Certified Technician certificate</p>
+                    <div class="home-step">
+                        <div class="home-step-num">4</div>
+                        <h4 class="home-step-title">Certify</h4>
+                        <p class="home-step-desc">Pass the certification exam and download your Ready Certified certificate.</p>
                     </div>
                 </div>
             </div>

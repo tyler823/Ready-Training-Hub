@@ -146,6 +146,7 @@
                     if (cb) cb.checked = localProgress[key];
                 });
                 Object.keys(PROGRESS_MODULES).forEach(function(mod) { updateProgressBar(mod); });
+                if (typeof renderHomeProgress === 'function') renderHomeProgress();
             }
         } catch(e) { console.error('Load progress error:', e); }
     }
@@ -156,6 +157,52 @@
         const txt = document.getElementById('prog-txt-' + mod);
         if (bar) { bar.style.width = p.pct + '%'; bar.className = 'h-full rounded-full transition-all duration-500 ' + (p.pct === 100 ? 'bg-emerald-500' : 'bg-violet-500'); }
         if (txt) txt.textContent = p.done + '/' + p.total + ' (' + p.pct + '%)';
+    }
+
+    // =====================================================
+    // PREMIUM HOME — overall sliver, per-card bars, smart CTA
+    // Reuses calcModuleProgress / PROGRESS_MODULES (no new store).
+    // =====================================================
+    function renderHomeProgress() {
+        if (!document.getElementById('sec-home')) return;
+
+        // Per-module card bars
+        document.querySelectorAll('#sec-home [data-home-fill]').forEach(function(span) {
+            var mod = span.getAttribute('data-home-fill');
+            if (!PROGRESS_MODULES[mod]) return;
+            var p = calcModuleProgress(mod);
+            span.style.width = p.pct + '%';
+            span.classList.toggle('is-complete', p.pct === 100);
+            var lbl = document.querySelector('#sec-home [data-home-label="' + mod + '"]');
+            if (lbl) lbl.textContent = (p.pct === 100) ? 'Complete' : (p.pct + '% complete');
+        });
+
+        // Overall progress sliver
+        var done = 0, total = 0, modsComplete = 0, modCount = 0;
+        Object.keys(PROGRESS_MODULES).forEach(function(mod) {
+            var p = calcModuleProgress(mod);
+            done += p.done; total += p.total; modCount++;
+            if (p.pct === 100) modsComplete++;
+        });
+        var pct = total ? Math.round((done / total) * 100) : 0;
+        var fill = document.getElementById('home-overall-fill');
+        var label = document.getElementById('home-overall-label');
+        if (fill) fill.style.width = pct + '%';
+        if (label) label.textContent = pct + '% complete · ' + modsComplete + '/' + modCount + ' modules complete';
+
+        // Smart primary CTA -> first incomplete base/team module
+        var order = ['readiness', 'mitigation', 'contents', 'reconstruction', 'financial', 'onboarding'];
+        var target = 'readiness', anyStarted = false, foundIncomplete = false;
+        order.forEach(function(mod) {
+            if (!PROGRESS_MODULES[mod]) return;
+            var p = calcModuleProgress(mod);
+            if (p.done > 0) anyStarted = true;
+            if (!foundIncomplete && p.pct < 100) { target = mod; foundIncomplete = true; }
+        });
+        var btn = document.getElementById('home-cta');
+        var ctaLabel = document.getElementById('home-cta-label');
+        if (btn) btn.setAttribute('onclick', "nav('" + target + "')");
+        if (ctaLabel) ctaLabel.textContent = anyStarted ? ('Continue: ' + PROGRESS_MODULES[target].name) : 'Start with Readiness';
     }
 
     // =====================================================
@@ -505,6 +552,7 @@
             console.log('🔍 Looking for company-setup-modal:', !!document.getElementById('company-setup-modal'));
             
             injectProgressUI();
+            if (typeof renderHomeProgress === 'function') renderHomeProgress();
             if (window.rtUser.companyCode) {
                 loadProgress();
             } else if (window.rtUser._needsCompanySetup) {
@@ -768,6 +816,7 @@ document.addEventListener('keydown', function(e) {
                 }
                 
                 // Section-specific initialization
+                if (id === 'home' && typeof renderHomeProgress === 'function') renderHomeProgress();
                 if (LP_SECTION_TO_PREFIX[id]) lpInit(LP_SECTION_TO_PREFIX[id]);
                 if (id === 'quiz') resetQuiz();
                 if (id === 'dashboard') initTeamDashboard();

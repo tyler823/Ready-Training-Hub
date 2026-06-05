@@ -1760,3 +1760,219 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
   background-color: transparent !important;
   border-color: transparent !important;
 }
+
+/* ============================================================
+   PREMIUM IN-APP HOME — scoped to #sec-home only.
+   Uses the existing design tokens (dark/light theme + purple
+   accent). Does not touch the left nav, top bar, or theme toggle.
+   ============================================================ */
+#sec-home { max-width: 1120px; margin: 0 auto; }
+
+/* ----- Hero ----- */
+#sec-home .home-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--brand-line);
+  background:
+    radial-gradient(120% 150% at 100% 0%, rgba(124,58,237,.55) 0%, rgba(124,58,237,0) 55%),
+    linear-gradient(135deg, #2a1063 0%, #4c1d95 48%, #6d28d9 100%);
+  color: #fff;
+  padding: 34px 34px 30px;
+  margin-bottom: 30px;
+  box-shadow: var(--shadow);
+}
+/* faint dot-grid for grain/depth */
+#sec-home .home-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,.14) 1px, transparent 1px);
+  background-size: 22px 22px; opacity: .45; pointer-events: none;
+}
+/* soft corner glow */
+#sec-home .home-hero::after {
+  content: ''; position: absolute; right: -90px; top: -90px; width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,.18), rgba(255,255,255,0) 70%);
+  pointer-events: none;
+}
+#sec-home .home-hero-inner { position: relative; z-index: 1; max-width: 780px; }
+#sec-home .home-eyebrow {
+  display: inline-block; font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.85);
+  border: 1px solid rgba(255,255,255,.28); border-radius: 999px;
+  padding: 5px 12px; margin-bottom: 16px;
+}
+#sec-home .home-hero-title {
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-size: clamp(30px, 5vw, 46px); font-weight: 800; line-height: 1.04;
+  letter-spacing: -.02em; margin: 0 0 12px;
+}
+#sec-home .home-hero-lead {
+  font-size: 16px; line-height: 1.6; color: rgba(255,255,255,.9);
+  margin: 0 0 24px; max-width: 650px;
+}
+#sec-home .home-hero-actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 22px;
+}
+#sec-home .home-cta {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: 'Schibsted Grotesk', sans-serif; font-weight: 700; font-size: 15px;
+  color: var(--brand-strong); background: #fff; border: none;
+  border-radius: var(--radius-sm); padding: 13px 22px; min-height: 48px;
+  cursor: pointer; box-shadow: 0 8px 22px -10px rgba(0,0,0,.6);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+#sec-home .home-cta:hover { transform: translateY(-1px); box-shadow: 0 14px 28px -10px rgba(0,0,0,.65); }
+#sec-home .home-cta svg { width: 18px; height: 18px; }
+#sec-home .home-hero-progress {
+  display: flex; flex-direction: column; gap: 8px;
+  flex: 1; min-width: 200px; max-width: 320px;
+}
+#sec-home .home-hero-progress-bar {
+  height: 7px; border-radius: 999px; background: rgba(255,255,255,.22); overflow: hidden;
+}
+#sec-home .home-hero-progress-bar span {
+  display: block; height: 100%; width: 0%; border-radius: 999px;
+  background: #fff; transition: width .5s ease;
+}
+#sec-home .home-hero-progress-label { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.88); }
+
+/* ----- Section headings ----- */
+#sec-home .home-section { margin-bottom: 38px; }
+#sec-home .home-section-head { margin-bottom: 18px; }
+#sec-home .home-section-title {
+  font-family: 'Schibsted Grotesk', sans-serif; font-size: 22px; font-weight: 800;
+  color: var(--t1); letter-spacing: -.01em; margin: 0 0 6px;
+}
+#sec-home .home-section-sub {
+  font-size: 14px; line-height: 1.55; color: var(--t2); margin: 0; max-width: 700px;
+}
+
+/* ----- Module cards ----- */
+#sec-home .home-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px;
+}
+#sec-home .home-card {
+  position: relative; display: flex; flex-direction: column;
+  background: var(--s1); border: 1px solid var(--br); border-radius: var(--radius);
+  padding: 22px; box-shadow: var(--shadow);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+#sec-home .home-card.is-clickable { cursor: pointer; }
+#sec-home .home-card.is-clickable:hover {
+  transform: translateY(-3px); border-color: var(--brand-line);
+  box-shadow: 0 18px 40px -22px rgba(20,18,30,.55);
+}
+#sec-home .home-ic {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--brand-tint); color: var(--brand-soft);
+  border: 1px solid var(--brand-line); margin-bottom: 14px;
+}
+#sec-home .home-ic svg { width: 22px; height: 22px; }
+#sec-home .home-card-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--t3); margin-bottom: 8px;
+}
+#sec-home .home-card-title {
+  font-family: 'Schibsted Grotesk', sans-serif; font-size: 17px; font-weight: 700;
+  color: var(--t1); margin: 0 0 7px;
+}
+#sec-home .home-card-desc { font-size: 13.5px; line-height: 1.55; color: var(--t2); margin: 0 0 18px; flex: 1; }
+#sec-home .home-card-prog { margin-top: auto; }
+#sec-home .home-card-prog-bar { height: 5px; border-radius: 999px; background: var(--s3); overflow: hidden; }
+#sec-home .home-card-prog-bar span {
+  display: block; height: 100%; width: 0%; border-radius: 999px;
+  background: var(--brand); transition: width .5s ease;
+}
+#sec-home .home-card-prog-bar span.is-complete { background: var(--green); }
+#sec-home .home-card-prog-label { display: block; margin-top: 7px; font-size: 11px; font-weight: 700; color: var(--t3); }
+#sec-home .home-card-tier { position: absolute; top: 18px; right: 18px; }
+#sec-home .home-tier-chip {
+  font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: .1em;
+  text-transform: uppercase; padding: 4px 9px; border-radius: 999px;
+  background: var(--s3); color: var(--t2); border: 1px solid var(--br-hi);
+}
+#sec-home .home-card.is-locked .home-ic { background: var(--s3); color: var(--t3); border-color: var(--br-hi); }
+#sec-home .home-lock {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: auto;
+  font-size: 11.5px; font-weight: 700; color: var(--brand-soft);
+}
+#sec-home .home-lock svg { width: 13px; height: 13px; }
+
+/* ----- Dark feature panels (certification + ecosystem) ----- */
+#sec-home .home-panel {
+  position: relative; overflow: hidden; border-radius: var(--radius);
+  background: linear-gradient(135deg, #161320 0%, #221a33 100%);
+  border: 1px solid var(--br-hi); color: #fff; padding: 32px; margin-bottom: 38px;
+}
+#sec-home .home-panel::before {
+  content: ''; position: absolute; left: -60px; bottom: -80px; width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(124,58,237,.35), rgba(124,58,237,0) 70%); pointer-events: none;
+}
+#sec-home .home-panel-head { position: relative; text-align: center; max-width: 640px; margin: 0 auto 24px; }
+#sec-home .home-ic-onpanel { margin: 0 auto 14px; background: rgba(124,58,237,.25); color: #c4b5fd; border-color: rgba(124,58,237,.45); }
+#sec-home .home-panel-title { font-family: 'Schibsted Grotesk', sans-serif; font-size: 24px; font-weight: 800; margin: 0 0 8px; }
+#sec-home .home-panel-sub { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,.72); margin: 0; }
+#sec-home .home-panel-foot { position: relative; text-align: center; font-size: 12px; color: rgba(255,255,255,.55); margin: 22px 0 0; }
+
+#sec-home .home-cert-grid { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+#sec-home .home-cert-card { background: rgba(255,255,255,.04); border: 1px solid rgba(124,58,237,.4); border-radius: var(--radius); padding: 24px; }
+#sec-home .home-cert-title { font-family: 'Schibsted Grotesk', sans-serif; font-size: 19px; font-weight: 800; color: #c4b5fd; margin: 0 0 10px; }
+#sec-home .home-cert-desc { font-size: 13.5px; line-height: 1.55; color: rgba(255,255,255,.78); margin: 0 0 14px; }
+#sec-home .home-cert-list { list-style: none; margin: 0 0 18px; padding: 0; }
+#sec-home .home-cert-list li { position: relative; padding-left: 22px; font-size: 12.5px; line-height: 1.7; color: rgba(255,255,255,.66); }
+#sec-home .home-cert-list li::before {
+  content: ''; position: absolute; left: 4px; top: 9px; width: 8px; height: 5px;
+  border-left: 2px solid var(--brand-soft); border-bottom: 2px solid var(--brand-soft);
+  transform: rotate(-45deg);
+}
+#sec-home .home-cert-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+#sec-home .home-btn {
+  font-family: 'Schibsted Grotesk', sans-serif; font-weight: 700; font-size: 13.5px;
+  border-radius: var(--radius-sm); padding: 12px 14px; min-height: 46px; cursor: pointer;
+  transition: background .15s ease, transform .15s ease;
+}
+#sec-home .home-btn-ghost { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.2); }
+#sec-home .home-btn-ghost:hover { background: rgba(255,255,255,.16); }
+#sec-home .home-btn-solid { background: var(--brand); color: #fff; border: 1px solid var(--brand); }
+#sec-home .home-btn-solid:hover { background: var(--brand-strong); }
+#sec-home .home-cert-earn { font-size: 11.5px; font-weight: 700; color: var(--brand-soft); margin: 16px 0 0; }
+
+/* ----- Ecosystem ----- */
+#sec-home .home-eco-grid { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; max-width: 920px; margin: 0 auto; }
+#sec-home .home-eco-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius); padding: 22px; }
+#sec-home .home-eco-card.is-feature { background: rgba(124,58,237,.12); border-color: rgba(124,58,237,.45); }
+#sec-home .home-eco-title { font-family: 'Schibsted Grotesk', sans-serif; font-size: 16px; font-weight: 800; color: #c4b5fd; margin: 0 0 4px; }
+#sec-home .home-eco-tag { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.6); margin: 0 0 10px; }
+#sec-home .home-eco-desc { font-size: 12.5px; line-height: 1.6; color: rgba(255,255,255,.7); margin: 0 0 14px; }
+#sec-home .home-eco-here { font-size: 11.5px; font-weight: 700; color: var(--brand-soft); margin: 0; }
+#sec-home .home-eco-link {
+  display: inline-block; font-size: 12.5px; font-weight: 700; color: #fff;
+  background: var(--brand); border-radius: var(--radius-sm); padding: 9px 16px; text-decoration: none;
+  transition: background .15s ease;
+}
+#sec-home .home-eco-link:hover { background: var(--brand-strong); }
+
+/* ----- How it works ----- */
+#sec-home .home-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+#sec-home .home-step {
+  text-align: center; background: var(--s1); border: 1px solid var(--br);
+  border-radius: var(--radius); padding: 24px 18px; box-shadow: var(--shadow);
+}
+#sec-home .home-step-num {
+  width: 44px; height: 44px; border-radius: 999px; margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Schibsted Grotesk', sans-serif; font-size: 18px; font-weight: 800;
+  color: #fff; background: var(--brand);
+}
+#sec-home .home-step-title { font-family: 'Schibsted Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: var(--t1); margin: 0 0 6px; }
+#sec-home .home-step-desc { font-size: 13px; line-height: 1.55; color: var(--t2); margin: 0; }
+
+@media (max-width: 640px) {
+  #sec-home .home-hero { padding: 26px 20px 24px; }
+  #sec-home .home-hero-actions { gap: 16px; }
+  #sec-home .home-hero-progress { max-width: none; }
+  #sec-home .home-panel { padding: 24px 18px; }
+  #sec-home .home-cert-actions { grid-template-columns: 1fr; }
+}
