@@ -832,18 +832,18 @@ document.addEventListener('keydown', function(e) {
             // Readiness (1-10)
             { q: "What is the minimum fuel level required for response vehicles at all times?", o: ["1/4 Tank", "1/2 Tank", "3/4 Tank", "Full Tank"], c: 1, f: "Maintain at least 1/2 tank for immediate response capability." },
             { q: "How must vehicles be parked in their assigned spots?", o: ["Nose-in", "Any direction", "Backed-in and Locked", "Parallel"], c: 2, f: "All vehicles must be backed-in, locked, and secured." },
-            { q: "How often must the digital vehicle inspection form be completed?", o: ["Daily", "Weekly", "Bi-Weekly", "Monthly"], c: 2, f: "Each vehicle requires a bi-weekly inspection form in Job-Dox." },
-            { q: "In Job-Dox, where is the digital vehicle inspection form found?", o: ["Contacts", "Adjuster tab", "Documents list", "Journal Notes"], c: 2, f: "The form is located in the Documents list within Job-Dox." },
+            { q: "How often must the digital vehicle inspection form be completed?", o: ["Daily", "Weekly", "Bi-Weekly", "Monthly"], c: 2, f: "Each vehicle requires a bi-weekly inspection form in Cortex." },
+            { q: "In Cortex, where is the digital vehicle inspection form found?", o: ["Contacts", "Adjuster tab", "Documents list", "Journal Notes"], c: 2, f: "The form is located in the Documents list within Cortex." },
             { q: "What Hygiene step is required before bringing fans into a home?", o: ["Check battery", "Remove filter", "Wipe down and clean", "Spray with perfume"], c: 2, f: "All equipment must be clean and hygienic before entering a customer property." },
             { q: "Which part of the vehicle maintenance check includes PSI and tread?", o: ["Oil Level", "Wipers", "Tires", "Lights"], c: 2, f: "Inspect PSI and tread depth visually during maintenance checks." },
             { q: "What is the status requirement for Thermal Cameras in the van?", o: ["Charge only if used", "Functional and calibrated", "Kept in office", "Optional item"], c: 1, f: "Thermal cameras must be functional and calibrated at all times." },
-            { q: "Where is the vehicle stocking PAR list physically located?", o: ["On the dashboard", "In the rear door of the van", "In the glovebox", "On Job-Dox only"], c: 1, f: "The PAR list is posted inside the rear door of the van." },
+            { q: "Where is the vehicle stocking PAR list physically located?", o: ["On the dashboard", "In the rear door of the van", "In the glovebox", "On Cortex only"], c: 1, f: "The PAR list is posted inside the rear door of the van." },
             { q: "What consumable items are critical for moisture meter maintenance?", o: ["Trash bags", "Nitrile gloves", "Meter pins and batteries", "Ducting"], c: 2, f: "Always keep extra pins and batteries stocked for meters." },
             { q: "What must be confirmed about the van during the Rapid Response check?", o: ["Washed and waxed", "Nose-in parked", "Fully loaded and stocked", "Windows tinted"], c: 2, f: "Rapid Response requires the van to be fully loaded and stocked per the PAR list." },
 
             // Mitigation (11-20)
             { q: "When must the Work Authorization be signed by the customer?", o: ["After first day", "Before any services begin", "When picking up equipment", "Only on commercial jobs"], c: 1, f: "Work Authorization is the legal trigger required before any physical service starts." },
-            { q: "What is the primary goal of the 4-Corner Photography method?", o: ["Take artistic shots", "100% visual coverage of a room", "Check lighting", "Save space in Job-Dox"], c: 1, f: "Stand in corners and shoot diagonally for 100% coverage." },
+            { q: "What is the primary goal of the 4-Corner Photography method?", o: ["Take artistic shots", "100% visual coverage of a room", "Check lighting", "Save space in Cortex"], c: 1, f: "Stand in corners and shoot diagonally for 100% coverage." },
             { q: "What moisture reading percentage is considered 'affected'?", o: ["Above 10%", "Above 12%", "Above 16%", "Above 20%"], c: 2, f: "Any reading above 16% is considered affected per IICRC S500." },
             { q: "What is the maximum moisture content level to be logged?", o: ["45%", "60%", "75%", "99%"], c: 1, f: "60% is our highest logged level per industry standards." },
             { q: "If you get a moisture reading of 88%, how do you log it?", o: ["88%", "99%", "60%", "Wet"], c: 2, f: "Readings 60-99% are logged as 60% for data standardization." },
@@ -851,7 +851,7 @@ document.addEventListener('keydown', function(e) {
             { q: "Where should technicians get recommendations for equipment placement?", o: ["From the customer", "From system recommendations after build", "Trial and error", "Wait for the adjuster"], c: 1, f: "Follow system recommendations once the project is built in the software." },
             { q: "When should demo/removal be completed in the lifecycle?", o: ["Last day of job", "In a timely fashion as to not slow progress", "After dry-out is done", "Only if requested"], c: 1, f: "Timely removal within 48-72 hours is vital for drying progress and mold prevention." },
             { q: "In the lifecycle, what happens immediately after Investigation & Documentation?", o: ["Monitoring", "Equipment Set", "Ancillary Services & Demolition", "Final COC"], c: 2, f: "Extraction and demo happen before equipment is set per IICRC protocol." },
-            { q: "How long do you have to enter Job-Dox notes after leaving a site?", o: ["5 minutes", "15 minutes", "1 hour", "End of day"], c: 1, f: "15 minutes is the standard for documentation accuracy." },
+            { q: "How long do you have to enter Cortex notes after leaving a site?", o: ["5 minutes", "15 minutes", "1 hour", "End of day"], c: 1, f: "15 minutes is the standard for documentation accuracy." },
 
             // Contents (21-30)
             { q: "When should your project documentation tool be initialized on a contents job?", o: ["After completing the job", "Before leaving the job site", "At the office the next day", "When the adjuster requests it"], c: 1, f: "Documentation must be initialized before leaving the site so the Contents team has immediate access to field data." },
@@ -1299,7 +1299,7 @@ document.addEventListener('keydown', function(e) {
             // Estimating Software (7-12)
             { q: "What percentage of insurance claim pricing in North America is controlled by Xactimate?", o: ["50%", "65%", "80%+", "95%"], c: 2, f: "Xactimate controls 80%+ of insurance claim pricing in North America." },
             { q: "What is Xactimate primarily used for in restoration?", o: ["Project management", "Creating insurance estimates", "Customer communication", "Equipment tracking"], c: 1, f: "Xactimate is the industry-standard platform for creating detailed insurance repair estimates." },
-            { q: "Besides Xactimate, what other estimating platform do insurance companies commonly use?", o: ["QuickBooks", "Symbility", "Excel", "Job-Dox"], c: 1, f: "Symbility is the secondary estimating platform used by several major insurance carriers." },
+            { q: "Besides Xactimate, what other estimating platform do insurance companies commonly use?", o: ["QuickBooks", "Symbility", "Excel", "Cortex"], c: 1, f: "Symbility is the secondary estimating platform used by several major insurance carriers." },
             { q: "How many scope revision cycles are typical before insurance approval?", o: ["1", "2-3", "5-7", "10+"], c: 1, f: "It's typical to go through 2-3 revision cycles with adjusters before reaching agreed scope." },
             { q: "What determines line-item pricing in Xactimate?", o: ["Company preference", "Regional pricing databases", "Customer budget", "Federal guidelines"], c: 1, f: "Xactimate uses regional pricing databases with industry-standard costs per geographic area." },
             { q: "What happens if you rush the scope development process?", o: ["Faster payment", "Better profit", "Incomplete estimates requiring supplements", "Adjuster approval"], c: 2, f: "Rushing scope development results in incomplete estimates that require expensive supplements and delay payment." },
@@ -4733,7 +4733,7 @@ CORE RESPONSIBILITIES
 JOB DOCUMENTATION & COMPLIANCE:
 □ Review job files daily to ensure all documentation is complete and accurate
 □ Flag missing or incorrect items to field staff and ensure timely corrections
-□ Maintain up-to-date file progress in internal systems (Job-Dox, CRM, etc.)
+□ Maintain up-to-date file progress in internal systems (Cortex, CRM, etc.)
 □ Ensure all job statuses reflect current stage in workflow
 □ Verify photos, moisture readings, and notes meet insurance standards
 □ Audit job files before submission to carriers
@@ -4770,7 +4770,7 @@ PREFERRED:
 □ Restoration industry experience
 □ Working knowledge of Xactimate
 □ Experience with insurance mitigation billing practices
-□ Familiarity with Job-Dox or similar platforms
+□ Familiarity with Cortex or similar platforms
 □ Understanding of IICRC standards and documentation requirements
 
 ═══════════════════════════════════════════════════════════
@@ -4890,7 +4890,7 @@ PREFERRED:
 □ Familiarity with Xactimate and construction documentation
 □ Restoration industry experience
 □ Understanding of construction draw schedules and lien law
-□ Experience with Job-Dox or similar platforms
+□ Experience with Cortex or similar platforms
 □ Knowledge of insurance billing processes
 
 ═══════════════════════════════════════════════════════════
@@ -4996,7 +4996,7 @@ CROSS-FUNCTIONAL COLLABORATION:
 
 REPORTING & ACCOUNTABILITY:
 □ Track departmental KPIs (response times, cycle times, job profitability)
-□ Use company software (Job-Dox, etc.) to maintain visibility on all active jobs
+□ Use company software (Cortex, etc.) to maintain visibility on all active jobs
 □ Report performance and bottlenecks to executive leadership regularly
 □ Monitor labor efficiency and equipment utilization
 □ Ensure accurate time tracking and payroll submission
@@ -5119,7 +5119,7 @@ OPERATIONAL REPORTING & COORDINATION:
 □ Maintain accurate reporting on job status, timelines, and cost overruns
 □ Collaborate with estimators to ensure scopes are understood and followed
 □ Liaise with mitigation and customer service for seamless handoffs
-□ Use internal systems (Job-Dox, etc.) to track documentation and milestones
+□ Use internal systems (Cortex, etc.) to track documentation and milestones
 □ Report KPIs and challenges to executive leadership
 □ Monitor departmental profitability and efficiency
 
@@ -5147,7 +5147,7 @@ REQUIRED:
 PREFERRED:
 □ Familiarity with Xactimate scopes and estimates
 □ Understanding of permitting processes and code compliance
-□ Experience with job management software (Job-Dox preferred)
+□ Experience with job management software (Cortex preferred)
 □ IICRC or construction certifications
 □ Previous restoration department manager role
 
@@ -5276,7 +5276,7 @@ REQUIRED:
 PREFERRED:
 □ Familiarity with insurance restoration work and Xactimate-scoped jobs
 □ IICRC or construction certifications
-□ Experience with Job-Dox or similar platforms
+□ Experience with Cortex or similar platforms
 □ Previous Superintendent or Director-level role
 □ MBA or business management education
 
@@ -5618,7 +5618,7 @@ Day 1 - Welcome & Administrative Setup
 □ Complete all HR paperwork (I-9, W-4, direct deposit, benefits enrollment)
 □ Review employee handbook and company policies
 □ Issue company equipment (phone, keys, badges, PPE)
-□ IT setup (email, software access, Job-Dox login)
+□ IT setup (email, software access, Cortex login)
 □ Introduce to team members
 □ Review company mission, vision, and core values
 □ Set up payroll and timekeeping system access
