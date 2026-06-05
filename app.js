@@ -146,6 +146,7 @@
                     if (cb) cb.checked = localProgress[key];
                 });
                 Object.keys(PROGRESS_MODULES).forEach(function(mod) { updateProgressBar(mod); });
+                if (typeof renderHomeProgress === 'function') renderHomeProgress();
             }
         } catch(e) { console.error('Load progress error:', e); }
     }
@@ -156,6 +157,52 @@
         const txt = document.getElementById('prog-txt-' + mod);
         if (bar) { bar.style.width = p.pct + '%'; bar.className = 'h-full rounded-full transition-all duration-500 ' + (p.pct === 100 ? 'bg-emerald-500' : 'bg-violet-500'); }
         if (txt) txt.textContent = p.done + '/' + p.total + ' (' + p.pct + '%)';
+    }
+
+    // =====================================================
+    // PREMIUM HOME — overall sliver, per-card bars, smart CTA
+    // Reuses calcModuleProgress / PROGRESS_MODULES (no new store).
+    // =====================================================
+    function renderHomeProgress() {
+        if (!document.getElementById('sec-home')) return;
+
+        // Per-module card bars
+        document.querySelectorAll('#sec-home [data-home-fill]').forEach(function(span) {
+            var mod = span.getAttribute('data-home-fill');
+            if (!PROGRESS_MODULES[mod]) return;
+            var p = calcModuleProgress(mod);
+            span.style.width = p.pct + '%';
+            span.classList.toggle('is-complete', p.pct === 100);
+            var lbl = document.querySelector('#sec-home [data-home-label="' + mod + '"]');
+            if (lbl) lbl.textContent = (p.pct === 100) ? 'Complete' : (p.pct + '% complete');
+        });
+
+        // Overall progress sliver
+        var done = 0, total = 0, modsComplete = 0, modCount = 0;
+        Object.keys(PROGRESS_MODULES).forEach(function(mod) {
+            var p = calcModuleProgress(mod);
+            done += p.done; total += p.total; modCount++;
+            if (p.pct === 100) modsComplete++;
+        });
+        var pct = total ? Math.round((done / total) * 100) : 0;
+        var fill = document.getElementById('home-overall-fill');
+        var label = document.getElementById('home-overall-label');
+        if (fill) fill.style.width = pct + '%';
+        if (label) label.textContent = pct + '% complete · ' + modsComplete + '/' + modCount + ' modules complete';
+
+        // Smart primary CTA -> first incomplete base/team module
+        var order = ['readiness', 'mitigation', 'contents', 'reconstruction', 'financial', 'onboarding'];
+        var target = 'readiness', anyStarted = false, foundIncomplete = false;
+        order.forEach(function(mod) {
+            if (!PROGRESS_MODULES[mod]) return;
+            var p = calcModuleProgress(mod);
+            if (p.done > 0) anyStarted = true;
+            if (!foundIncomplete && p.pct < 100) { target = mod; foundIncomplete = true; }
+        });
+        var btn = document.getElementById('home-cta');
+        var ctaLabel = document.getElementById('home-cta-label');
+        if (btn) btn.setAttribute('onclick', "nav('" + target + "')");
+        if (ctaLabel) ctaLabel.textContent = anyStarted ? ('Continue: ' + PROGRESS_MODULES[target].name) : 'Start with Readiness';
     }
 
     // =====================================================
@@ -505,6 +552,7 @@
             console.log('🔍 Looking for company-setup-modal:', !!document.getElementById('company-setup-modal'));
             
             injectProgressUI();
+            if (typeof renderHomeProgress === 'function') renderHomeProgress();
             if (window.rtUser.companyCode) {
                 loadProgress();
             } else if (window.rtUser._needsCompanySetup) {
@@ -768,7 +816,8 @@ document.addEventListener('keydown', function(e) {
                 }
                 
                 // Section-specific initialization
-                if (id === 'mitigation') mitInit();
+                if (id === 'home' && typeof renderHomeProgress === 'function') renderHomeProgress();
+                if (LP_SECTION_TO_PREFIX[id]) lpInit(LP_SECTION_TO_PREFIX[id]);
                 if (id === 'quiz') resetQuiz();
                 if (id === 'dashboard') initTeamDashboard();
                 if (id === 'recon-quiz') {
@@ -829,88 +878,96 @@ document.addEventListener('keydown', function(e) {
         }
 
         // =====================================================
-        // MITIGATION LESSON PLAYER (Stage 1 pilot)
-        // Reuses existing progress system: saveProgress('mitigation', key, true),
-        // localProgress, calcModuleProgress, and the injected prog-cb-mitigation-* checkboxes.
-        // No second progress store is created.
+        // GENERALIZED LESSON PLAYER (reusable across all content modules)
+        // ---------------------------------------------------------------
+        // One init per module via a small config object. Reuses the EXISTING
+        // progress system: saveProgress(module, key, true), localProgress,
+        // calcModuleProgress, and the injected prog-cb-<module>-<key> checkboxes.
+        // No second progress store is created — keyed lessons tick the same
+        // dashboard keys; un-keyed (foundation) lessons are view-tracked only.
+        //
+        // The Mitigation module is the reference instance (prefix 'mit'); it is
+        // registered below with the exact same 15-page list (0-14), denominator
+        // of 7, short quiz (quizQuestions 10-19), completion screen, and the
+        // floorPlanCanvas redraw hook it used before generalization.
+        //
+        // Element id convention (per module prefix P):
+        //   #P-player #P-progress-fill #P-progress-label #P-menu #P-menu-overlay
+        //   #P-menu-list #P-menu-item-<i> #P-content #P-lesson-<i> #P-back #P-next
+        //   #P-quiz-stage #P-complete-score
         // =====================================================
-        // Step 2 is split across THREE pages (Investigation, Vertical Elevation Rule,
-        // 4 Corners Photography). Only the LAST of the three carries the existing
-        // 'investigation' progress key, so the dashboard key ticks once — when the
-        // learner finishes the final Step 2 page. The first two are foundation-style
-        // (view-tracked) pages. Denominator stays 7 (PROGRESS_MODULES.mitigation.items).
-        const MIT_LESSONS = [
-            { title: 'Intro & IICRC S500 Foundation',          key: null },
-            { title: 'Critical Safety: Asbestos',              key: null },
-            { title: 'Water Categories & Classes',             key: null },
-            { title: 'The 7-Step Lifecycle (Overview)',        key: null },
-            { title: 'Step 1: Arrival & Onboarding',           key: 'work-auth' },
-            { title: 'Step 2: Investigation & Documentation',  key: null },
-            { title: 'Vertical Elevation Rule',                key: null },
-            { title: '4 Corners Photography',                  key: 'investigation' },
-            { title: 'Step 3: Ancillary Services & Demolition',key: 'extraction' },
-            { title: 'Step 4: Equipment Set',                  key: 'equip-setup' },
-            { title: 'Step 5: Daily Monitoring',               key: 'monitoring' },
-            { title: 'Step 6: Labor & Scope Capture',          key: 'dry-standard' },
-            { title: 'Step 7: Completion & COC',               key: 'tear-down' }
-        ];
-        const MIT_QUIZ_INDEX = MIT_LESSONS.length;       // short wrap-up quiz
-        const MIT_END_INDEX  = MIT_LESSONS.length + 1;   // completion screen
-        let mitCurrent = 0;
-        let mitViewed = {};       // tracks viewed foundation (un-keyed) lessons
-        let mitMenuBuilt = false;
+        const LP = {};                       // prefix -> instance state
+        const LP_SECTION_TO_PREFIX = {};      // nav section id -> player prefix
 
-        // A lesson is "complete" when its progress key is saved (keyed lessons),
-        // or once it has been viewed (foundation lessons).
-        function mitIsComplete(i) {
-            if (i < 0 || i >= MIT_LESSONS.length) return false;
-            const key = MIT_LESSONS[i].key;
-            if (key) return !!localProgress[getProgressKey('mitigation', key)];
-            return !!mitViewed[i];
+        function lpRegister(cfg) {
+            cfg.quizCount = cfg.quizCount || 5;
+            cfg.hooks = cfg.hooks || {};
+            cfg.quizIndex = cfg.hasQuiz ? cfg.lessons.length : -1;
+            cfg.endIndex  = cfg.lessons.length + (cfg.hasQuiz ? 1 : 0);
+            LP[cfg.prefix] = {
+                cfg: cfg, current: 0, viewed: {}, menuBuilt: false,
+                quizSet: [], quizIdx: 0, quizScore: 0, quizAnswered: false, quizDone: false
+            };
+            if (cfg.section) LP_SECTION_TO_PREFIX[cfg.section] = cfg.prefix;
         }
 
-        function mitBuildMenu() {
-            const list = document.getElementById('mit-menu-list');
+        // A lesson is "complete" when its progress key is saved (keyed lessons),
+        // or once it has been viewed (foundation / un-keyed lessons).
+        function lpIsComplete(p, i) {
+            const st = LP[p]; if (!st) return false;
+            const L = st.cfg.lessons;
+            if (i < 0 || i >= L.length) return false;
+            const key = L[i].key;
+            if (key) return !!localProgress[getProgressKey(st.cfg.module, key)];
+            return !!st.viewed[i];
+        }
+
+        function lpBuildMenu(p) {
+            const st = LP[p]; if (!st) return;
+            const list = document.getElementById(p + '-menu-list');
             if (!list) return;
             list.innerHTML = '';
-            MIT_LESSONS.forEach(function(les, i) {
+            st.cfg.lessons.forEach(function(les, i) {
                 const li = document.createElement('li');
                 li.className = 'lp-menu-item';
-                li.id = 'mit-menu-item-' + i;
+                li.id = p + '-menu-item-' + i;
                 li.setAttribute('role', 'button');
                 li.setAttribute('tabindex', '0');
-                li.setAttribute('onclick', 'mitGoTo(' + i + ', true)');
+                li.setAttribute('onclick', "lpGoTo('" + p + "', " + i + ", true)");
                 li.innerHTML = '<span class="lp-menu-num"></span>' +
                                '<span class="lp-menu-label">' + les.title + '</span>' +
                                '<span class="lp-menu-check">✓</span>';
                 list.appendChild(li);
             });
-            mitMenuBuilt = true;
+            st.menuBuilt = true;
         }
 
-        function mitRefreshMenu() {
-            MIT_LESSONS.forEach(function(les, i) {
-                const li = document.getElementById('mit-menu-item-' + i);
+        function lpRefreshMenu(p) {
+            const st = LP[p]; if (!st) return;
+            st.cfg.lessons.forEach(function(les, i) {
+                const li = document.getElementById(p + '-menu-item-' + i);
                 if (!li) return;
-                li.classList.toggle('is-current', i === mitCurrent);
-                li.classList.toggle('is-complete', mitIsComplete(i));
+                li.classList.toggle('is-current', i === st.current);
+                li.classList.toggle('is-complete', lpIsComplete(p, i));
             });
-            // Progress bar mirrors the dashboard denominator (7 keyed steps).
-            const p = (typeof calcModuleProgress === 'function')
-                ? calcModuleProgress('mitigation') : { done: 0, total: 7, pct: 0 };
-            const fill = document.getElementById('mit-progress-fill');
-            const lbl  = document.getElementById('mit-progress-label');
-            if (fill) fill.style.width = p.pct + '%';
-            if (lbl)  lbl.textContent = p.done + '/' + p.total;
+            // Progress bar mirrors the dashboard denominator (keyed steps only).
+            const prog = (typeof calcModuleProgress === 'function')
+                ? calcModuleProgress(st.cfg.module) : { done: 0, total: 0, pct: 0 };
+            const fill = document.getElementById(p + '-progress-fill');
+            const lbl  = document.getElementById(p + '-progress-label');
+            if (fill) fill.style.width = prog.pct + '%';
+            if (lbl)  lbl.textContent = prog.done + '/' + prog.total;
         }
 
-        function mitGoTo(i, fromMenu) {
+        function lpGoTo(p, i, fromMenu) {
+            const st = LP[p]; if (!st) return;
+            const cfg = st.cfg;
             if (typeof i !== 'number' || isNaN(i)) i = 0;
             if (i < 0) i = 0;
-            if (i > MIT_END_INDEX) i = MIT_END_INDEX;
-            mitCurrent = i;
+            if (i > cfg.endIndex) i = cfg.endIndex;
+            st.current = i;
 
-            const panels = document.querySelectorAll('#mit-content .lp-lesson');
+            const panels = document.querySelectorAll('#' + p + '-content .lp-lesson');
             panels.forEach(function(panel) {
                 const idx = parseInt(panel.getAttribute('data-lesson'), 10);
                 const active = (idx === i);
@@ -918,7 +975,6 @@ document.addEventListener('keydown', function(e) {
                 panel.classList.toggle('active', active);
                 if (active) {
                     // Auto-open every accordion inside the active lesson (no click-to-expand).
-                    // No inline border — the player flattens these boxes (see #mit-player CSS).
                     panel.querySelectorAll('.detail-expansion').forEach(function(d) {
                         d.classList.add('is-open');
                     });
@@ -926,191 +982,366 @@ document.addEventListener('keydown', function(e) {
             });
 
             // Foundation lessons count as complete once viewed.
-            if (i < MIT_LESSONS.length && !MIT_LESSONS[i].key) mitViewed[i] = true;
+            if (i < cfg.lessons.length && !cfg.lessons[i].key) st.viewed[i] = true;
 
-            // The "4 Corners Photography" page (index 7) hosts floorPlanCanvas —
-            // (re)draw now that it is visible so the canvas sizes to its container.
-            if (i === 7 && typeof drawFloorPlan === 'function') drawFloorPlan();
+            // Per-lesson hooks (e.g. (re)draw a canvas now that it is visible).
+            if (cfg.hooks[i]) { try { cfg.hooks[i](); } catch (e) { console.error(e); } }
 
             // Short wrap-up quiz and completion screen drive their own flow.
-            if (i === MIT_QUIZ_INDEX) mitQuizBuild();
-            if (i === MIT_END_INDEX) mitRenderCompletion();
+            if (cfg.hasQuiz && i === cfg.quizIndex) lpQuizBuild(p);
+            if (i === cfg.endIndex) lpRenderCompletion(p);
 
-            const back = document.getElementById('mit-back');
-            const next = document.getElementById('mit-next');
+            const back = document.getElementById(p + '-back');
+            const next = document.getElementById(p + '-next');
             if (back) back.disabled = (i === 0);
             if (next) {
                 // Hide the player Next on the quiz + completion steps — those screens
                 // advance via their own buttons (quiz "Continue", cert/Cortex CTAs).
-                if (i >= MIT_QUIZ_INDEX) {
+                const hideFrom = cfg.hasQuiz ? cfg.quizIndex : cfg.endIndex;
+                if (i >= hideFrom) {
                     next.style.display = 'none';
                 } else {
                     next.style.display = '';
-                    next.textContent = (i === MIT_LESSONS.length - 1) ? 'Finish' : 'Next';
+                    next.textContent = (i === cfg.lessons.length - 1) ? 'Finish' : 'Next';
                 }
             }
 
-            mitRefreshMenu();
-            if (fromMenu) mitCloseMenu();
-            const content = document.getElementById('mit-content');
+            lpRefreshMenu(p);
+            if (fromMenu) lpCloseMenu(p);
+            const content = document.getElementById(p + '-content');
             if (content) content.scrollTop = 0;
             window.scrollTo(0, 0);
         }
 
-        function mitNext() {
+        function lpNext(p) {
+            const st = LP[p]; if (!st) return;
+            const cfg = st.cfg;
             // Completing a keyed lesson writes through the EXISTING progress mechanism.
-            if (mitCurrent < MIT_LESSONS.length) {
-                const key = MIT_LESSONS[mitCurrent].key;
+            if (st.current < cfg.lessons.length) {
+                const key = cfg.lessons[st.current].key;
                 if (key) {
-                    const cb = document.getElementById('prog-cb-mitigation-' + key);
+                    const cb = document.getElementById('prog-cb-' + cfg.module + '-' + key);
                     if (cb && !cb.checked) cb.checked = true; // keep injected checkbox in sync
-                    saveProgress('mitigation', key, true);     // idempotent — no double count
+                    saveProgress(cfg.module, key, true);       // idempotent — no double count
                 } else {
-                    mitViewed[mitCurrent] = true;
+                    st.viewed[st.current] = true;
                 }
             }
-            mitGoTo(mitCurrent + 1, false);
+            lpGoTo(p, st.current + 1, false);
         }
 
-        function mitPrev() { mitGoTo(mitCurrent - 1, false); }
+        function lpPrev(p) { const st = LP[p]; if (st) lpGoTo(p, st.current - 1, false); }
 
-        function mitToggleMenu() {
-            const menu = document.getElementById('mit-menu');
-            const ov = document.getElementById('mit-menu-overlay');
+        function lpToggleMenu(p) {
+            const menu = document.getElementById(p + '-menu');
+            const ov = document.getElementById(p + '-menu-overlay');
             if (!menu) return;
             const open = menu.classList.toggle('is-open');
             if (ov) ov.classList.toggle('is-open', open);
         }
 
-        function mitCloseMenu() {
-            const menu = document.getElementById('mit-menu');
-            const ov = document.getElementById('mit-menu-overlay');
+        function lpCloseMenu(p) {
+            const menu = document.getElementById(p + '-menu');
+            const ov = document.getElementById(p + '-menu-overlay');
             if (menu) menu.classList.remove('is-open');
             if (ov) ov.classList.remove('is-open');
         }
 
-        function mitInit() {
-            if (!document.getElementById('mit-player')) return;
-            if (!mitMenuBuilt) mitBuildMenu();
-            // Hide the auto-injected duplicate section progress bar for mitigation —
-            // the player shows its own bar driven by the same data (not a 2nd system).
-            const dupBar = document.getElementById('prog-bar-mitigation');
+        function lpInit(p) {
+            const st = LP[p]; if (!st) return;
+            if (!document.getElementById(p + '-player')) return;
+            if (!st.menuBuilt) lpBuildMenu(p);
+            // Hide the auto-injected duplicate section progress bar — the player shows
+            // its own bar driven by the same data (not a 2nd progress system).
+            const dupBar = document.getElementById('prog-bar-' + st.cfg.module);
             if (dupBar && dupBar.parentElement && dupBar.parentElement.parentElement) {
                 dupBar.parentElement.parentElement.style.display = 'none';
             }
-            mitCloseMenu();
-            mitGoTo(mitCurrent || 0, false);
+            lpCloseMenu(p);
+            lpGoTo(p, st.current || 0, false);
         }
 
         // ----------------------------------------------------------------------
         // Short end-of-module wrap-up quiz (self-contained in the lesson player).
-        // Reuses the EXISTING Mitigation slice of quizQuestions (indices 10-19) —
-        // question text, options, correct answer, and feedback are NOT retyped.
-        // This is a friendly knowledge check, not a gated exam: it never touches or
-        // launches the 30-question certification engine (startCertificationQuiz).
+        // Reuses an EXISTING slice of the shared quizQuestions array — question
+        // text, options, correct answer, and feedback are NOT retyped. This is a
+        // friendly knowledge check, not a gated exam: it never touches or launches
+        // the separate certification engines.
         // ----------------------------------------------------------------------
-        const MIT_QUIZ_COUNT = 5;
-        let mitQuizSet = [];
-        let mitQuizIdx = 0;
-        let mitQuizScore = 0;
-        let mitQuizAnswered = false;
-        let mitQuizDone = false;
-
-        function mitQuizBuild() {
-            // Mitigation slice = indices 10-19 of the shared quizQuestions array.
-            const pool = (typeof quizQuestions !== 'undefined') ? quizQuestions.slice(10, 20) : [];
-            mitQuizSet = shuffleArray(pool).slice(0, MIT_QUIZ_COUNT).map(shuffleQuestion);
-            mitQuizIdx = 0;
-            mitQuizScore = 0;
-            mitQuizAnswered = false;
-            mitQuizDone = false;
-            mitQuizRender();
+        function lpQuizBuild(p) {
+            const st = LP[p]; if (!st || !st.cfg.hasQuiz) return;
+            const sl = st.cfg.quizSlice || [0, 0];
+            const pool = (typeof quizQuestions !== 'undefined') ? quizQuestions.slice(sl[0], sl[1]) : [];
+            st.quizSet = shuffleArray(pool).slice(0, st.cfg.quizCount).map(shuffleQuestion);
+            st.quizIdx = 0;
+            st.quizScore = 0;
+            st.quizAnswered = false;
+            st.quizDone = false;
+            lpQuizRender(p);
         }
 
-        function mitQuizRender() {
-            const stage = document.getElementById('mit-quiz-stage');
-            if (!stage || !mitQuizSet.length) return;
-            mitQuizAnswered = false;
-            const total = mitQuizSet.length;
-            const d = mitQuizSet[mitQuizIdx];
-            let html = '<div class="mit-quiz-meta">' +
-                         '<span class="mit-quiz-counter">Question ' + (mitQuizIdx + 1) + ' of ' + total + '</span>' +
-                         '<span class="mit-quiz-score" id="mit-quiz-score">Score: ' + mitQuizScore + '</span>' +
+        function lpQuizRender(p) {
+            const st = LP[p]; if (!st) return;
+            const stage = document.getElementById(p + '-quiz-stage');
+            if (!stage || !st.quizSet.length) return;
+            st.quizAnswered = false;
+            const total = st.quizSet.length;
+            const d = st.quizSet[st.quizIdx];
+            let html = '<div class="lp-quiz-meta">' +
+                         '<span class="lp-quiz-counter">Question ' + (st.quizIdx + 1) + ' of ' + total + '</span>' +
+                         '<span class="lp-quiz-score" id="' + p + '-quiz-score">Score: ' + st.quizScore + '</span>' +
                        '</div>' +
-                       '<div class="mit-quiz-question">' + d.q + '</div>' +
-                       '<div class="mit-quiz-options">';
+                       '<div class="lp-quiz-question">' + d.q + '</div>' +
+                       '<div class="lp-quiz-options">';
             d.o.forEach(function(opt, idx) {
-                html += '<button type="button" class="mit-quiz-option" onclick="mitQuizAnswer(' + idx + ')">' + opt + '</button>';
+                html += '<button type="button" class="lp-quiz-option" onclick="lpQuizAnswer(\'' + p + '\', ' + idx + ')">' + opt + '</button>';
             });
             html += '</div>' +
-                    '<div class="mit-quiz-feedback" id="mit-quiz-feedback" hidden></div>' +
-                    '<button type="button" class="mit-quiz-advance" id="mit-quiz-advance" hidden onclick="mitQuizNext()"></button>';
+                    '<div class="lp-quiz-feedback" id="' + p + '-quiz-feedback" hidden></div>' +
+                    '<button type="button" class="lp-quiz-advance" id="' + p + '-quiz-advance" hidden onclick="lpQuizNext(\'' + p + '\')"></button>';
             stage.innerHTML = html;
         }
 
-        function mitQuizAnswer(idx) {
-            if (mitQuizAnswered) return;
-            mitQuizAnswered = true;
-            const d = mitQuizSet[mitQuizIdx];
+        function lpQuizAnswer(p, idx) {
+            const st = LP[p]; if (!st || st.quizAnswered) return;
+            st.quizAnswered = true;
+            const d = st.quizSet[st.quizIdx];
             const correct = (idx === d.c);
-            if (correct) mitQuizScore++;
-            const opts = document.querySelectorAll('#mit-quiz-stage .mit-quiz-option');
+            if (correct) st.quizScore++;
+            const opts = document.querySelectorAll('#' + p + '-quiz-stage .lp-quiz-option');
             opts.forEach(function(b, i) {
                 b.style.pointerEvents = 'none';
                 if (i === d.c) b.classList.add('correct');
                 if (i === idx && !correct) b.classList.add('incorrect');
             });
-            const scoreEl = document.getElementById('mit-quiz-score');
-            if (scoreEl) scoreEl.textContent = 'Score: ' + mitQuizScore;
-            const fb = document.getElementById('mit-quiz-feedback');
+            const scoreEl = document.getElementById(p + '-quiz-score');
+            if (scoreEl) scoreEl.textContent = 'Score: ' + st.quizScore;
+            const fb = document.getElementById(p + '-quiz-feedback');
             if (fb) {
                 fb.hidden = false;
-                fb.className = 'mit-quiz-feedback ' + (correct ? 'correct' : 'incorrect');
+                fb.className = 'lp-quiz-feedback ' + (correct ? 'correct' : 'incorrect');
                 fb.innerHTML = (correct ? '✅ Correct! ' : '❌ Not quite. ') + d.f;
             }
-            const adv = document.getElementById('mit-quiz-advance');
+            const adv = document.getElementById(p + '-quiz-advance');
             if (adv) {
                 adv.hidden = false;
-                adv.textContent = (mitQuizIdx === mitQuizSet.length - 1) ? 'See your score' : 'Next question';
+                adv.textContent = (st.quizIdx === st.quizSet.length - 1) ? 'See your score' : 'Next question';
             }
         }
 
-        function mitQuizNext() {
-            if (mitQuizIdx < mitQuizSet.length - 1) {
-                mitQuizIdx++;
-                mitQuizRender();
+        function lpQuizNext(p) {
+            const st = LP[p]; if (!st) return;
+            if (st.quizIdx < st.quizSet.length - 1) {
+                st.quizIdx++;
+                lpQuizRender(p);
             } else {
-                mitQuizShowResult();
+                lpQuizShowResult(p);
             }
         }
 
-        function mitQuizShowResult() {
-            mitQuizDone = true;
-            const stage = document.getElementById('mit-quiz-stage');
+        function lpQuizShowResult(p) {
+            const st = LP[p]; if (!st) return;
+            st.quizDone = true;
+            const stage = document.getElementById(p + '-quiz-stage');
             if (!stage) return;
-            const total = mitQuizSet.length;
+            const total = st.quizSet.length;
             stage.innerHTML =
-                '<div class="mit-quiz-result">' +
-                  '<div class="mit-quiz-result-score">' + mitQuizScore + ' / ' + total + '</div>' +
-                  '<p class="mit-quiz-result-text">You got ' + mitQuizScore + ' of ' + total + ' correct.</p>' +
-                  '<div class="mit-quiz-result-actions">' +
-                    '<button type="button" class="mit-quiz-retry" onclick="mitQuizBuild()">Try again</button>' +
-                    '<button type="button" class="mit-quiz-continue" onclick="mitGoTo(' + MIT_END_INDEX + ', false)">Continue &rarr;</button>' +
+                '<div class="lp-quiz-result">' +
+                  '<div class="lp-quiz-result-score">' + st.quizScore + ' / ' + total + '</div>' +
+                  '<p class="lp-quiz-result-text">You got ' + st.quizScore + ' of ' + total + ' correct.</p>' +
+                  '<div class="lp-quiz-result-actions">' +
+                    '<button type="button" class="lp-quiz-retry" onclick="lpQuizBuild(\'' + p + '\')">Try again</button>' +
+                    '<button type="button" class="lp-quiz-continue" onclick="lpGoTo(\'' + p + '\', ' + st.cfg.endIndex + ', false)">Continue &rarr;</button>' +
                   '</div>' +
                 '</div>';
         }
 
-        // Populate the completion screen with the short-quiz score.
-        function mitRenderCompletion() {
-            const el = document.getElementById('mit-complete-score');
+        // Populate the completion screen with the short-quiz score (if any).
+        function lpRenderCompletion(p) {
+            const st = LP[p]; if (!st) return;
+            const el = document.getElementById(p + '-complete-score');
             if (!el) return;
-            const total = mitQuizSet.length || MIT_QUIZ_COUNT;
-            if (mitQuizDone) {
-                el.textContent = 'Short quiz: you got ' + mitQuizScore + ' of ' + total + ' correct.';
+            const total = st.quizSet.length || st.cfg.quizCount;
+            if (st.quizDone) {
+                el.textContent = 'Short quiz: you got ' + st.quizScore + ' of ' + total + ' correct.';
             } else {
                 el.textContent = 'Short quiz: take the quick check on the previous step to see your score.';
             }
         }
+
+        // ----- Module registrations -------------------------------------------
+        // MITIGATION (reference instance). Step 2 is split across THREE pages
+        // (Investigation, Vertical Elevation Rule, 4 Corners Photography); only the
+        // LAST carries the 'investigation' key so the dashboard ticks once.
+        // Denominator stays 7 (PROGRESS_MODULES.mitigation.items).
+        lpRegister({
+            prefix: 'mit', module: 'mitigation', section: 'mitigation',
+            hasQuiz: true, quizSlice: [10, 20], quizCount: 5,
+            hooks: { 7: function () { if (typeof drawFloorPlan === 'function') drawFloorPlan(); } },
+            lessons: [
+                { title: 'Intro & IICRC S500 Foundation',          key: null },
+                { title: 'Critical Safety: Asbestos',              key: null },
+                { title: 'Water Categories & Classes',             key: null },
+                { title: 'The 7-Step Lifecycle (Overview)',        key: null },
+                { title: 'Step 1: Arrival & Onboarding',           key: 'work-auth' },
+                { title: 'Step 2: Investigation & Documentation',  key: null },
+                { title: 'Vertical Elevation Rule',                key: null },
+                { title: '4 Corners Photography',                  key: 'investigation' },
+                { title: 'Step 3: Ancillary Services & Demolition',key: 'extraction' },
+                { title: 'Step 4: Equipment Set',                  key: 'equip-setup' },
+                { title: 'Step 5: Daily Monitoring',               key: 'monitoring' },
+                { title: 'Step 6: Labor & Scope Capture',          key: 'dry-standard' },
+                { title: 'Step 7: Completion & COC',               key: 'tear-down' }
+            ]
+        });
+        // Back-compat: nav() still calls mitInit() for the Mitigation section.
+        function mitInit() { lpInit('mit'); }
+
+        // EMPLOYEE ONBOARDING (no short quiz / no cert). Denominator 6. Pages
+        // 7-10 are view-tracked (policies, safety, fleet, wrap-up knowledge check).
+        lpRegister({
+            prefix: 'onb', module: 'onboarding', section: 'onboarding',
+            hasQuiz: false,
+            lessons: [
+                { title: 'Employee Onboarding Overview',           key: null },
+                { title: 'Pre-Boarding & Day 1',                   key: 'preboarding' },
+                { title: 'Week 1: Foundation',                     key: 'week1' },
+                { title: 'Weeks 2-4: Building Skills',             key: 'weeks24' },
+                { title: 'Days 31-90: Independence',               key: 'days3190' },
+                { title: 'Competency Assessment',                  key: 'assessment' },
+                { title: 'Retention & Career Paths',               key: 'retention' },
+                { title: 'Workplace Policies & Conduct',           key: null },
+                { title: 'Safety Orientation',                     key: null },
+                { title: 'Fleet & Vehicle Safety',                 key: null },
+                { title: 'Wrap-Up Knowledge Check',                key: null }
+            ]
+        });
+
+        // TEAM SCALING & LEADERSHIP (no short quiz / no cert). Denominator 6.
+        // Completion has no Cortex CTA — the Summary page already carries the
+        // VAST + Cortex CTAs. Page 0 hosts kc-team-scaling.
+        lpRegister({
+            prefix: 'ts', module: 'team-scaling', section: 'team-scaling',
+            hasQuiz: false,
+            lessons: [
+                { title: 'Team Scaling & Leadership Overview',     key: null },
+                { title: "The Owner's Dilemma",                    key: 'owner-dilemma' },
+                { title: 'Organizational Structure',               key: 'org-structure' },
+                { title: 'Systematic Hiring',                      key: 'hiring' },
+                { title: 'Training Systems',                       key: 'training-systems' },
+                { title: 'Delegation & Systems',                   key: 'delegation' },
+                { title: 'Leadership Development',                 key: 'leadership-dev' },
+                { title: 'Safety & Fleet Program',                key: null },
+                { title: 'Team Scaling Summary',                   key: null }
+            ]
+        });
+
+        // EXIT STRATEGY & SALE PREP (no short quiz / no cert). Denominator 3.
+        // Page 0 hosts kc-exit-strategy.
+        lpRegister({
+            prefix: 'ex', module: 'exit-strategy', section: 'exit-strategy',
+            hasQuiz: false,
+            lessons: [
+                { title: 'Exit Strategy Overview',                 key: null },
+                { title: 'Business Valuation',                     key: 'valuation' },
+                { title: 'Sale Preparation',                       key: 'sale-prep' },
+                { title: 'Exit Options & Deal Structures',         key: 'exit-options' },
+                { title: 'Exit Strategy Summary',                  key: null }
+            ]
+        });
+
+        // MANAGERIAL DEVELOPMENT (no short quiz / no cert). Denominator 6.
+        // kc-mgmt sits on the "Managing in a Restoration Setting" page.
+        lpRegister({
+            prefix: 'mg', module: 'mgmt-development', section: 'mgmt-development',
+            hasQuiz: false,
+            lessons: [
+                { title: 'Managerial Development Overview',        key: null },
+                { title: 'The Promotion Problem',                  key: 'promotion' },
+                { title: 'Branch Manager Role',                    key: 'branch-mgr' },
+                { title: 'Regional Manager Role',                  key: 'regional-mgr' },
+                { title: 'First-Time Manager Training',            key: 'first-time-mgr' },
+                { title: 'Restoration-Specific Leadership',        key: 'restoration-leadership' },
+                { title: 'Meeting Structure',                      key: 'meetings' }
+            ]
+        });
+
+        // EMPLOYEE MATURITY MODELS (no short quiz / no cert). Denominator 4.
+        // Page 0 hosts det-emm-overview; final page hosts det-emm-implement.
+        lpRegister({
+            prefix: 'em', module: 'maturity-models', section: 'maturity-models',
+            hasQuiz: false,
+            lessons: [
+                { title: 'Employee Maturity Models Overview',      key: null },
+                { title: 'Operations / Field EMM',                 key: 'ops-emm' },
+                { title: 'Estimating EMM',                         key: 'estimating-emm' },
+                { title: 'Admin / Office EMM',                     key: 'admin-emm' },
+                { title: 'Sales / BD EMM',                         key: 'sales-emm' },
+                { title: 'Implementing EMMs',                      key: null }
+            ]
+        });
+
+        // FINANCIAL OPERATIONS (no short quiz — no slice in quizQuestions; no
+        // certification). Denominator 5.
+        lpRegister({
+            prefix: 'fin', module: 'financial', section: 'financial',
+            hasQuiz: false,
+            lessons: [
+                { title: 'Financial Operations Overview',          key: null },
+                { title: 'Understanding Business Profitability',   key: 'profitability' },
+                { title: 'Margins & Markups',                      key: 'margins' },
+                { title: 'Break-Even Analysis & Cash Flow',        key: 'cashflow' },
+                { title: 'Pricing Strategy & Value',               key: 'pricing' },
+                { title: 'Tax Considerations & Compliance',        key: 'tax' },
+                { title: 'Financial Standards',                    key: null }
+            ]
+        });
+
+        // RECONSTRUCTION (no short quiz — its question bank feeds the separate
+        // Ready Certified Contractor certification engine). Completion links to
+        // startReconCertificationQuiz. Denominator 5.
+        lpRegister({
+            prefix: 'rc', module: 'reconstruction', section: 'reconstruction',
+            hasQuiz: false,
+            lessons: [
+                { title: 'Reconstruction Overview',                key: null },
+                { title: 'Phase 1: Transition & Handoff',          key: 'transition' },
+                { title: 'Phase 2: Estimating & Scope',            key: 'estimating' },
+                { title: 'Phase 3: Pre-Construction Planning',     key: 'preconstruction' },
+                { title: 'Phase 4: Construction & Sequencing',     key: 'construction' },
+                { title: 'Phase 5: Completion & Closeout',         key: 'completion' },
+                { title: 'Reconstruction Standards',               key: null }
+            ]
+        });
+
+        // READINESS & PREP (short quiz = Readiness slice 0-10; rolls into the
+        // Ready Certified Technician certification). Page 1 hosts prepChart; resize
+        // it once visible so the doughnut sizes to its container.
+        lpRegister({
+            prefix: 'rd', module: 'readiness', section: 'readiness',
+            hasQuiz: true, quizSlice: [0, 10], quizCount: 5,
+            hooks: { 1: function () { if (typeof readinessChart !== 'undefined' && readinessChart) readinessChart.resize(); } },
+            lessons: [
+                { title: 'Readiness & Prep Overview',              key: null },
+                { title: 'Rapid Response Status',                  key: 'rapid-response' },
+                { title: 'Vehicle Maintenance Protocol',           key: 'vehicle-maint' },
+                { title: 'Equipment & Sensor Hygiene',             key: 'equip-hygiene' },
+                { title: 'Consumables Inventory',                  key: 'consumables' }
+            ]
+        });
+
+        // CONTENTS & LOGISTICS (short quiz = Contents slice 20-30; rolls into the
+        // Ready Certified Technician certification via startCertificationQuiz).
+        lpRegister({
+            prefix: 'ct', module: 'contents', section: 'contents',
+            hasQuiz: true, quizSlice: [20, 30], quizCount: 5,
+            lessons: [
+                { title: 'Contents & Logistics Overview',          key: null },
+                { title: 'Project Documentation Setup',            key: 'encircle' },
+                { title: 'Trailer Safety & Loading',               key: 'trailer' },
+                { title: 'Clean Materials & Inventory Control',    key: null }
+            ]
+        });
 
         const quizQuestions = [
             // Readiness (1-10)
