@@ -768,7 +768,7 @@ document.addEventListener('keydown', function(e) {
                 }
                 
                 // Section-specific initialization
-                if (id === 'mitigation') drawFloorPlan();
+                if (id === 'mitigation') mitInit();
                 if (id === 'quiz') resetQuiz();
                 if (id === 'dashboard') initTeamDashboard();
                 if (id === 'recon-quiz') {
@@ -826,6 +826,165 @@ document.addEventListener('keydown', function(e) {
                 ctx.beginPath(); ctx.arc(n.x, n.y, 8, 0, Math.PI*2); ctx.fillStyle = '#7c3aed'; ctx.fill(); ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
                 ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(n.x + (n.tx-n.x)*0.25, n.y + (n.ty-n.y)*0.25); ctx.strokeStyle = '#7c3aed'; ctx.lineWidth = 2; ctx.stroke();
             });
+        }
+
+        // =====================================================
+        // MITIGATION LESSON PLAYER (Stage 1 pilot)
+        // Reuses existing progress system: saveProgress('mitigation', key, true),
+        // localProgress, calcModuleProgress, and the injected prog-cb-mitigation-* checkboxes.
+        // No second progress store is created.
+        // =====================================================
+        const MIT_LESSONS = [
+            { title: 'Intro & IICRC S500 Foundation',          key: null },
+            { title: 'Critical Safety: Asbestos',              key: null },
+            { title: 'Water Categories & Classes',             key: null },
+            { title: 'The 7-Step Lifecycle (Overview)',        key: null },
+            { title: 'Step 1: Arrival & Onboarding',           key: 'work-auth' },
+            { title: 'Step 2: Investigation & Documentation',  key: 'investigation' },
+            { title: 'Step 3: Ancillary Services & Demolition',key: 'extraction' },
+            { title: 'Step 4: Equipment Set',                  key: 'equip-setup' },
+            { title: 'Step 5: Daily Monitoring',               key: 'monitoring' },
+            { title: 'Step 6: Labor & Scope Capture',          key: 'dry-standard' },
+            { title: 'Step 7: Completion & COC',               key: 'tear-down' }
+        ];
+        const MIT_END_INDEX = MIT_LESSONS.length; // index 11 == completion screen
+        let mitCurrent = 0;
+        let mitViewed = {};       // tracks viewed foundation (un-keyed) lessons
+        let mitMenuBuilt = false;
+
+        // A lesson is "complete" when its progress key is saved (keyed lessons),
+        // or once it has been viewed (foundation lessons).
+        function mitIsComplete(i) {
+            if (i < 0 || i >= MIT_LESSONS.length) return false;
+            const key = MIT_LESSONS[i].key;
+            if (key) return !!localProgress[getProgressKey('mitigation', key)];
+            return !!mitViewed[i];
+        }
+
+        function mitBuildMenu() {
+            const list = document.getElementById('mit-menu-list');
+            if (!list) return;
+            list.innerHTML = '';
+            MIT_LESSONS.forEach(function(les, i) {
+                const li = document.createElement('li');
+                li.className = 'lp-menu-item';
+                li.id = 'mit-menu-item-' + i;
+                li.setAttribute('role', 'button');
+                li.setAttribute('tabindex', '0');
+                li.setAttribute('onclick', 'mitGoTo(' + i + ', true)');
+                li.innerHTML = '<span class="lp-menu-num"></span>' +
+                               '<span class="lp-menu-label">' + les.title + '</span>' +
+                               '<span class="lp-menu-check">✓</span>';
+                list.appendChild(li);
+            });
+            mitMenuBuilt = true;
+        }
+
+        function mitRefreshMenu() {
+            MIT_LESSONS.forEach(function(les, i) {
+                const li = document.getElementById('mit-menu-item-' + i);
+                if (!li) return;
+                li.classList.toggle('is-current', i === mitCurrent);
+                li.classList.toggle('is-complete', mitIsComplete(i));
+            });
+            // Progress bar mirrors the dashboard denominator (7 keyed steps).
+            const p = (typeof calcModuleProgress === 'function')
+                ? calcModuleProgress('mitigation') : { done: 0, total: 7, pct: 0 };
+            const fill = document.getElementById('mit-progress-fill');
+            const lbl  = document.getElementById('mit-progress-label');
+            if (fill) fill.style.width = p.pct + '%';
+            if (lbl)  lbl.textContent = p.done + '/' + p.total;
+        }
+
+        function mitGoTo(i, fromMenu) {
+            if (typeof i !== 'number' || isNaN(i)) i = 0;
+            if (i < 0) i = 0;
+            if (i > MIT_END_INDEX) i = MIT_END_INDEX;
+            mitCurrent = i;
+
+            const panels = document.querySelectorAll('#mit-content .lp-lesson');
+            panels.forEach(function(panel) {
+                const idx = parseInt(panel.getAttribute('data-lesson'), 10);
+                const active = (idx === i);
+                panel.hidden = !active;
+                panel.classList.toggle('active', active);
+                if (active) {
+                    // Auto-open every accordion inside the active lesson (no click-to-expand).
+                    panel.querySelectorAll('.detail-expansion').forEach(function(d) {
+                        d.classList.add('is-open');
+                        d.style.borderWidth = '1px';
+                    });
+                }
+            });
+
+            // Foundation lessons count as complete once viewed.
+            if (i < MIT_LESSONS.length && !MIT_LESSONS[i].key) mitViewed[i] = true;
+
+            // Step 2 lesson (index 5) hosts floorPlanCanvas — (re)draw now that it is visible.
+            if (i === 5 && typeof drawFloorPlan === 'function') drawFloorPlan();
+
+            const back = document.getElementById('mit-back');
+            const next = document.getElementById('mit-next');
+            if (back) back.disabled = (i === 0);
+            if (next) {
+                if (i >= MIT_END_INDEX) {
+                    next.style.display = 'none';
+                } else {
+                    next.style.display = '';
+                    next.textContent = (i === MIT_LESSONS.length - 1) ? 'Finish' : 'Next';
+                }
+            }
+
+            mitRefreshMenu();
+            if (fromMenu) mitCloseMenu();
+            const content = document.getElementById('mit-content');
+            if (content) content.scrollTop = 0;
+            window.scrollTo(0, 0);
+        }
+
+        function mitNext() {
+            // Completing a keyed lesson writes through the EXISTING progress mechanism.
+            if (mitCurrent < MIT_LESSONS.length) {
+                const key = MIT_LESSONS[mitCurrent].key;
+                if (key) {
+                    const cb = document.getElementById('prog-cb-mitigation-' + key);
+                    if (cb && !cb.checked) cb.checked = true; // keep injected checkbox in sync
+                    saveProgress('mitigation', key, true);     // idempotent — no double count
+                } else {
+                    mitViewed[mitCurrent] = true;
+                }
+            }
+            mitGoTo(mitCurrent + 1, false);
+        }
+
+        function mitPrev() { mitGoTo(mitCurrent - 1, false); }
+
+        function mitToggleMenu() {
+            const menu = document.getElementById('mit-menu');
+            const ov = document.getElementById('mit-menu-overlay');
+            if (!menu) return;
+            const open = menu.classList.toggle('is-open');
+            if (ov) ov.classList.toggle('is-open', open);
+        }
+
+        function mitCloseMenu() {
+            const menu = document.getElementById('mit-menu');
+            const ov = document.getElementById('mit-menu-overlay');
+            if (menu) menu.classList.remove('is-open');
+            if (ov) ov.classList.remove('is-open');
+        }
+
+        function mitInit() {
+            if (!document.getElementById('mit-player')) return;
+            if (!mitMenuBuilt) mitBuildMenu();
+            // Hide the auto-injected duplicate section progress bar for mitigation —
+            // the player shows its own bar driven by the same data (not a 2nd system).
+            const dupBar = document.getElementById('prog-bar-mitigation');
+            if (dupBar && dupBar.parentElement && dupBar.parentElement.parentElement) {
+                dupBar.parentElement.parentElement.style.display = 'none';
+            }
+            mitCloseMenu();
+            mitGoTo(mitCurrent || 0, false);
         }
 
         const quizQuestions = [
