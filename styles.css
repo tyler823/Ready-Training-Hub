@@ -1213,3 +1213,310 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
 
 /* Moisture-map threshold label chip */
 [data-theme="dark"] .affected-line::after { background: var(--s1); }
+
+/* =====================================================
+   MITIGATION LESSON PLAYER (Stage 1 pilot)
+   Mobile-first; uses existing design tokens + dark default.
+   ===================================================== */
+.lesson-player {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: calc(100vh - var(--topbar-h) - 48px);
+}
+
+/* Top bar: mobile menu button + progress */
+.lp-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg);
+  padding: 8px 0;
+  padding-top: max(8px, env(safe-area-inset-top));
+}
+.lp-menu-btn {
+  display: none; /* desktop: hidden (menu is a sidebar) */
+  align-items: center;
+  gap: 6px;
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--t1);
+  background: var(--s1);
+  border: 1px solid var(--br-hi);
+  border-radius: var(--radius-sm);
+  padding: 9px 14px;
+  cursor: pointer;
+}
+.lp-menu-btn-icon { font-size: 15px; line-height: 1; }
+.lp-progress {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--s3);
+  overflow: hidden;
+}
+.lp-progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: var(--brand);
+  transition: width .4s ease;
+}
+.lp-progress-label {
+  min-width: 46px;
+  text-align: right;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--t2);
+}
+
+/* Body: menu beside content (desktop) */
+.lp-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  flex: 1;
+}
+
+/* Lesson menu */
+.lp-menu {
+  flex: 0 0 280px;
+  width: 280px;
+  position: sticky;
+  top: 80px;
+  background: var(--s1);
+  border: 1px solid var(--br);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+.lp-menu-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--t1);
+}
+.lp-menu-close {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--t2);
+  cursor: pointer;
+}
+.lp-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: lp;
+}
+.lp-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--t2);
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.lp-menu-item:hover { background: var(--brand-tint); color: var(--t1); }
+.lp-menu-num {
+  counter-increment: lp;
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  background: var(--s3);
+  color: var(--t2);
+  border: 1px solid var(--br-hi);
+}
+.lp-menu-num::before { content: counter(lp); }
+.lp-menu-label { flex: 1; }
+.lp-menu-check { opacity: 0; color: var(--green); font-weight: 900; }
+.lp-menu-item.is-complete .lp-menu-check { opacity: 1; }
+.lp-menu-item.is-complete .lp-menu-num {
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green);
+}
+.lp-menu-item.is-complete .lp-menu-num::before { content: '✓'; }
+.lp-menu-item.is-current {
+  background: var(--brand-tint);
+  color: var(--t1);
+  box-shadow: inset 3px 0 0 var(--brand);
+}
+.lp-menu-item.is-current .lp-menu-num {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+
+/* Lesson content */
+.lp-content { flex: 1; min-width: 0; }
+.lp-lesson[hidden] { display: none; }
+.lp-lesson-title {
+  margin: 0 0 16px;
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--t1);
+}
+
+/* Reusable video block (16:9, host-agnostic, drop-in iframe/video) */
+.lp-video { margin: 0 0 20px; }
+.lp-video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--s3);
+  border: 1px solid var(--br);
+}
+.lp-video-frame iframe,
+.lp-video-frame video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.lp-video-ph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--t3);
+}
+.lp-video-ph-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #fff;
+  background: var(--brand);
+}
+.lp-video-ph-text {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-align: center;
+  padding: 0 16px;
+}
+
+/* Completion screen */
+.lp-complete { text-align: center; padding: 48px 20px; }
+.lp-complete-icon { font-size: 56px; line-height: 1; }
+.lp-complete h2 {
+  margin: 12px 0 8px;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--t1);
+}
+.lp-complete p { color: var(--t2); font-size: 14px; }
+
+/* Back / Next controls */
+.lp-nav {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 12px 0;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+.lp-nav button {
+  flex: 1;
+  max-width: 220px;
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 20px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--br-hi);
+  cursor: pointer;
+  transition: background .15s, opacity .15s;
+}
+.lp-back { background: var(--s1); color: var(--t1); }
+.lp-back:disabled { opacity: .4; cursor: not-allowed; }
+.lp-next {
+  margin-left: auto;
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+.lp-next:hover { background: var(--brand-strong); }
+
+/* Drawer scrim (mobile only) */
+.lp-menu-overlay { display: none; }
+
+/* Mobile / Capacitor: menu becomes a slide-in drawer, content full-width */
+@media (max-width: 899px) {
+  .lp-menu-btn { display: inline-flex; }
+  .lp-body { display: block; }
+  .lp-content { width: 100%; }
+
+  .lp-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 84%;
+    max-width: 320px;
+    z-index: 320;
+    border-radius: 0;
+    box-shadow: 0 0 40px rgba(0,0,0,.5);
+    transform: translateX(-105%);
+    transition: transform .25s ease;
+    overflow-y: auto;
+    padding-top: max(16px, env(safe-area-inset-top));
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    padding-left: max(14px, env(safe-area-inset-left));
+  }
+  .lp-menu.is-open { transform: translateX(0); }
+  .lp-menu-close { display: block; }
+
+  .lp-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 310;
+    background: rgba(0,0,0,.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s;
+  }
+  .lp-menu-overlay.is-open { display: block; opacity: 1; pointer-events: auto; }
+
+  /* Thumb-friendly fixed-ish nav near the bottom */
+  .lp-nav {
+    position: sticky;
+    bottom: 0;
+    z-index: 30;
+    margin-top: 16px;
+    background: var(--bg);
+    border-top: 1px solid var(--br);
+  }
+  .lp-nav button { max-width: none; padding: 16px; font-size: 16px; }
+  .lp-lesson-title { font-size: 22px; }
+}
