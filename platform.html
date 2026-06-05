@@ -750,7 +750,7 @@
 
                 <!-- Player top bar: mobile menu button + progress -->
                 <div class="lp-topbar">
-                    <button type="button" class="lp-menu-btn" onclick="mitToggleMenu()" aria-label="Open lessons menu"><span class="lp-menu-btn-icon">&#9776;</span> Lessons</button>
+                    <button type="button" class="lp-menu-btn" onclick="lpToggleMenu('mit')" aria-label="Open lessons menu"><span class="lp-menu-btn-icon">&#9776;</span> Lessons</button>
                     <div class="lp-progress" role="progressbar" aria-label="Mitigation module progress"><div class="lp-progress-fill" id="mit-progress-fill"></div></div>
                     <span class="lp-progress-label" id="mit-progress-label">0/7</span>
                 </div>
@@ -758,10 +758,10 @@
                 <div class="lp-body">
 
                     <!-- Lesson menu: sidebar on desktop, slide-in drawer on mobile -->
-                    <div class="lp-menu-overlay" id="mit-menu-overlay" onclick="mitCloseMenu()"></div>
+                    <div class="lp-menu-overlay" id="mit-menu-overlay" onclick="lpCloseMenu('mit')"></div>
                     <nav class="lp-menu" id="mit-menu" aria-label="Lesson menu">
-                        <div class="lp-menu-head"><span>Lessons</span><button type="button" class="lp-menu-close" onclick="mitCloseMenu()" aria-label="Close lessons menu">&times;</button></div>
-                        <ol class="lp-menu-list" id="mit-menu-list"><!-- built by mitBuildMenu() --></ol>
+                        <div class="lp-menu-head"><span>Lessons</span><button type="button" class="lp-menu-close" onclick="lpCloseMenu('mit')" aria-label="Close lessons menu">&times;</button></div>
+                        <ol class="lp-menu-list" id="mit-menu-list"><!-- built by lpBuildMenu() --></ol>
                     </nav>
 
                     <div class="lp-content" id="mit-content">
@@ -1294,11 +1294,11 @@
 
                 <!-- Short end-of-module wrap-up quiz (self-contained in the player).
                      Pulls ~5 questions from the EXISTING Mitigation slice of
-                     quizQuestions (indices 10-19). Not gated; built by mitQuizRender(). -->
+                     quizQuestions (indices 10-19). Not gated; built by lpQuizRender(). -->
                 <article class="lp-lesson lp-quiz" data-lesson="13" id="mit-lesson-13" hidden>
                     <h2 class="lp-lesson-title">Quick Module Check</h2>
                     <p class="lp-quiz-intro">A short 5-question wrap-up on the Mitigation module. This is a quick knowledge check &mdash; not a graded exam &mdash; with instant feedback on each answer. Your score won&rsquo;t block anything.</p>
-                    <div class="mit-quiz" id="mit-quiz-stage" aria-live="polite"><!-- built by mitQuizRender() --></div>
+                    <div class="lp-quiz-stage" id="mit-quiz-stage" aria-live="polite"><!-- built by lpQuizRender() --></div>
                 </article>
 
                 <article class="lp-lesson lp-end" data-lesson="14" id="mit-lesson-14" hidden>
@@ -1332,8 +1332,8 @@
 
                 <!-- Back / Next controls -->
                 <div class="lp-nav">
-                    <button type="button" class="lp-back" id="mit-back" onclick="mitPrev()">Back</button>
-                    <button type="button" class="lp-next" id="mit-next" onclick="mitNext()">Next</button>
+                    <button type="button" class="lp-back" id="mit-back" onclick="lpPrev('mit')">Back</button>
+                    <button type="button" class="lp-next" id="mit-next" onclick="lpNext('mit')">Next</button>
                 </div>
 
             </div>

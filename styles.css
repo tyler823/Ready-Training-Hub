@@ -1488,21 +1488,21 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
   line-height: 1.6;
   color: var(--t2);
 }
-.mit-quiz {
+.lp-quiz-stage {
   background: var(--s1);
   border: 1px solid var(--br);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 20px;
 }
-.mit-quiz-meta {
+.lp-quiz-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
   margin-bottom: 14px;
 }
-.mit-quiz-counter {
+.lp-quiz-counter {
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
@@ -1512,24 +1512,24 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
   border-radius: 999px;
   padding: 5px 12px;
 }
-.mit-quiz-score {
+.lp-quiz-score {
   font-size: 12px;
   font-weight: 800;
   color: var(--t3);
 }
-.mit-quiz-question {
+.lp-quiz-question {
   font-size: 17px;
   font-weight: 700;
   line-height: 1.5;
   color: var(--t1);
   margin-bottom: 18px;
 }
-.mit-quiz-options {
+.lp-quiz-options {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.mit-quiz-option {
+.lp-quiz-option {
   width: 100%;
   text-align: left;
   font-family: inherit;
@@ -1544,18 +1544,18 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
   cursor: pointer;
   transition: background .15s, border-color .15s;
 }
-.mit-quiz-option:hover { border-color: var(--brand-line); background: var(--brand-tint); }
-.mit-quiz-option.correct {
+.lp-quiz-option:hover { border-color: var(--brand-line); background: var(--brand-tint); }
+.lp-quiz-option.correct {
   background: rgba(16,185,129,.14);
   border-color: var(--green);
   color: var(--t1);
 }
-.mit-quiz-option.incorrect {
+.lp-quiz-option.incorrect {
   background: rgba(239,68,68,.14);
   border-color: #ef4444;
   color: var(--t1);
 }
-.mit-quiz-feedback {
+.lp-quiz-feedback {
   margin-top: 16px;
   padding: 14px 16px;
   border-radius: var(--radius-sm);
@@ -1563,17 +1563,17 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
   font-weight: 600;
   line-height: 1.6;
 }
-.mit-quiz-feedback.correct {
+.lp-quiz-feedback.correct {
   background: rgba(16,185,129,.12);
   border: 1px solid var(--green);
   color: var(--t1);
 }
-.mit-quiz-feedback.incorrect {
+.lp-quiz-feedback.incorrect {
   background: rgba(239,68,68,.12);
   border: 1px solid #ef4444;
   color: var(--t1);
 }
-.mit-quiz-advance {
+.lp-quiz-advance {
   margin-top: 16px;
   width: 100%;
   font-family: 'Schibsted Grotesk', sans-serif;
@@ -1588,31 +1588,31 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
   cursor: pointer;
   transition: background .15s;
 }
-.mit-quiz-advance:hover { background: var(--brand-strong); }
+.lp-quiz-advance:hover { background: var(--brand-strong); }
 
 /* Final score / result card */
-.mit-quiz-result { text-align: center; padding: 20px 8px; }
-.mit-quiz-result-score {
+.lp-quiz-result { text-align: center; padding: 20px 8px; }
+.lp-quiz-result-score {
   font-family: 'Schibsted Grotesk', sans-serif;
   font-size: 40px;
   font-weight: 800;
   color: var(--brand-soft);
   line-height: 1.1;
 }
-.mit-quiz-result-text {
+.lp-quiz-result-text {
   margin: 8px 0 20px;
   font-size: 15px;
   font-weight: 600;
   color: var(--t2);
 }
-.mit-quiz-result-actions {
+.lp-quiz-result-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   justify-content: center;
 }
-.mit-quiz-retry,
-.mit-quiz-continue {
+.lp-quiz-retry,
+.lp-quiz-continue {
   font-family: 'Schibsted Grotesk', sans-serif;
   font-weight: 700;
   font-size: 14px;
@@ -1622,18 +1622,18 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
   cursor: pointer;
   transition: background .15s, color .15s;
 }
-.mit-quiz-retry {
+.lp-quiz-retry {
   background: var(--s1);
   color: var(--t1);
   border: 1px solid var(--br-hi);
 }
-.mit-quiz-retry:hover { background: var(--s3); }
-.mit-quiz-continue {
+.lp-quiz-retry:hover { background: var(--s3); }
+.lp-quiz-continue {
   background: var(--brand);
   color: #fff;
   border: 1px solid var(--brand);
 }
-.mit-quiz-continue:hover { background: var(--brand-strong); }
+.lp-quiz-continue:hover { background: var(--brand-strong); }
 
 /* Back / Next controls */
 .lp-nav {
@@ -1719,31 +1719,33 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
 }
 
 /* ============================================================
-   #mit-player refinement — Parts B (larger body font) & C
+   .lesson-player refinement — Parts B (larger body font) & C
    (flatten boxed containers; hide in-player Expand/More chrome).
-   SCOPED to #mit-player only. Deliberately does NOT touch the
-   global .detail-expansion accordion still used by the
-   not-yet-converted modules (Contents, Reconstruction, etc.).
+   SHARED across every module that uses the generalized lesson
+   player (.lesson-player). Deliberately does NOT touch the global
+   .detail-expansion accordion when it appears OUTSIDE a player
+   (e.g. the certification-quiz review screens), so that styling
+   stays intact.
    ============================================================ */
 
 /* Part B: comfortably readable body text inside the player.
    Tailwind text-xs/text-sm (12-14px) is bumped to ~17px. The tiny
    moisture-diagram labels use text-[10px] and are intentionally
    left untouched so the wall diagram still fits. */
-#mit-player .lp-content { font-size: 17px; line-height: 1.7; }
-#mit-player .lp-content .text-xs { font-size: 17px; line-height: 1.7; }
-#mit-player .lp-content .text-sm { font-size: 17px; line-height: 1.7; }
-#mit-player .lp-content .text-base { font-size: 18px; line-height: 1.7; }
+.lesson-player .lp-content { font-size: 17px; line-height: 1.7; }
+.lesson-player .lp-content .text-xs { font-size: 17px; line-height: 1.7; }
+.lesson-player .lp-content .text-sm { font-size: 17px; line-height: 1.7; }
+.lesson-player .lp-content .text-base { font-size: 18px; line-height: 1.7; }
 
 /* Part C: hide the in-player "Expand Details" / "More" toggles —
    content is auto-opened by mitGoTo(); no click-to-expand in a lesson.
    Scoped to the player so other modules keep their working toggles. */
-#mit-player .lp-content button[onclick^="toggleDetails"] { display: none !important; }
+.lesson-player .lp-content button[onclick^="toggleDetails"] { display: none !important; }
 
 /* Part C: flatten the boxed/bordered white lesson cards so text sits
    cleanly on the lesson background. The inner .p-4 keeps a comfortable
    reading inset. */
-#mit-player .lp-content .bg-white {
+.lesson-player .lp-content .bg-white {
   background-color: transparent !important;
   border-color: transparent !important;
   box-shadow: none !important;
@@ -1753,8 +1755,8 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
 /* Part C: drop the neutral grey/emerald inner detail-box backgrounds.
    Coloured alert callouts (e.g. the red asbestos box, bg-red-700) are
    NOT matched here and keep their styling. */
-#mit-player .lp-content .detail-expansion.bg-slate-50,
-#mit-player .lp-content .detail-expansion.bg-emerald-50 {
+.lesson-player .lp-content .detail-expansion.bg-slate-50,
+.lesson-player .lp-content .detail-expansion.bg-emerald-50 {
   background-color: transparent !important;
   border-color: transparent !important;
 }
