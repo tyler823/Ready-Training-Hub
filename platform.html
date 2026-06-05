@@ -3373,19 +3373,29 @@
 
 <!-- SECTION: TEAM SCALING & LEADERSHIP -->
         <section id="sec-team-scaling" class="tab-content hidden fade-in" data-ms-membership="ready-pro">
-            <!-- Team Scaling Hero -->
-            <div class="bg-gradient-to-br from-emerald-600 to-emerald-500 rounded-3xl p-12 mb-12 text-white text-center shadow-2xl">
-                <div class="text-6xl mb-4">👥</div>
-                <h1 class="text-5xl font-black mb-4 tracking-tight">Team Scaling & Leadership</h1>
-                <p class="text-xl font-medium text-emerald-50 max-w-3xl mx-auto leading-relaxed">
-                    Build a high-performing restoration team that operates without you. Master hiring, training, delegation, and leadership systems that allow you to scale revenue while reducing your operational involvement.
-                </p>
-            </div>
+            <div id="ts-player" class="lesson-player" data-current="0">
+                <div class="lp-topbar">
+                    <button type="button" class="lp-menu-btn" onclick="lpToggleMenu('ts')" aria-label="Open lessons menu"><span class="lp-menu-btn-icon">&#9776;</span> Lessons</button>
+                    <div class="lp-progress" role="progressbar" aria-label="Team Scaling & Leadership progress"><div class="lp-progress-fill" id="ts-progress-fill"></div></div>
+                    <span class="lp-progress-label" id="ts-progress-label">0/6</span>
+                </div>
+                <div class="lp-body">
+                    <div class="lp-menu-overlay" id="ts-menu-overlay" onclick="lpCloseMenu('ts')"></div>
+                    <nav class="lp-menu" id="ts-menu" aria-label="Lesson menu">
+                        <div class="lp-menu-head"><span>Lessons</span><button type="button" class="lp-menu-close" onclick="lpCloseMenu('ts')" aria-label="Close lessons menu">&times;</button></div>
+                        <ol class="lp-menu-list" id="ts-menu-list"></ol>
+                    </nav>
+                    <div class="lp-content" id="ts-content">
+
+                <article class="lp-lesson" data-lesson="0" id="ts-lesson-0" hidden>
+                    <h2 class="lp-lesson-title">Team Scaling & Leadership Overview</h2>
+                    <div class="lp-video"><div class="lp-video-frame"><div class="lp-video-ph"><span class="lp-video-ph-icon">&#9654;</span><span class="lp-video-ph-text">Module Overview &mdash; Here&rsquo;s what we&rsquo;ll cover &mdash; coming soon</span></div></div></div>
+                    <p class="text-lg text-slate-600 mb-6">Build a high-performing restoration team that operates without you. Master hiring, training, delegation, and leadership systems that allow you to scale revenue while reducing your operational involvement.</p>
 
             <!-- VAST & Coaching Introduction -->
             <div class="bg-gradient-to-br from-violet-600 to-violet-500 rounded-2xl p-8 mb-12 text-white">
                 <div class="flex items-start gap-6">
-                    <div class="text-6xl">🎯</div>
+                    <div class="text-6xl"></div>
                     <div>
                         <h3 class="text-2xl font-bold mb-4">Ready to Implement? Meet VAST.</h3>
                         <p class="text-lg text-violet-50 mb-4 leading-relaxed">
@@ -3417,7 +3427,7 @@
                 <!-- Knowledge Check: Team Scaling -->
                 <div class="knowledge-check" id="kc-team-scaling">
                     <div class="knowledge-check-header">
-                        <span class="knowledge-check-icon">🧠</span>
+                        <span class="knowledge-check-icon"></span>
                         <span class="knowledge-check-title">Quick Knowledge Check</span>
                     </div>
                     <div class="knowledge-check-question">
@@ -3435,6 +3445,9 @@
                     <div class="knowledge-check-feedback" style="display: none;"></div>
                 </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="1" data-key="owner-dilemma" id="ts-lesson-1" hidden>
             <!-- Module 1: The Owner's Dilemma -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -3451,7 +3464,7 @@
                         <p class="mb-4">You started your restoration business to build wealth and freedom. Instead, you've built a demanding job that consumes 60-80 hours per week. You're the lead technician, project manager, salesperson, accountant, and operations manager - all at once. When you're not working, the business stops. When you want time off, revenue drops. You're trapped.</p>
 
                         <div class="bg-red-50 p-4 rounded-lg border-2 border-red-200 mb-4">
-                            <p class="font-bold text-red-900 mb-2">🚫 The "I Am The Business" Syndrome</p>
+                            <p class="font-bold text-red-900 mb-2">The "I Am The Business" Syndrome</p>
                             <p class="text-sm text-slate-700 mb-3">Common scenario: Owner works 70+ hours/week. Makes $150K-$250K/year. Handles everything personally. Can't take vacation without business suffering. Staff constantly asks "what should I do?" Business has revenue but owner has no freedom.</p>
                             <p class="text-sm font-bold text-red-700">This is not a business - it's self-employment. Your business has no value to buyers because it can't operate without you.</p>
                         </div>
@@ -3528,12 +3541,15 @@
                 </div>
 
                 <div class="bg-emerald-50 p-6 rounded-xl border-2 border-emerald-200 mt-6">
-                    <h4 class="font-bold text-emerald-900 text-lg mb-3">🎯 Your Goal: Build a Business That Runs Without You</h4>
+                    <h4 class="font-bold text-emerald-900 text-lg mb-3">Your Goal: Build a Business That Runs Without You</h4>
                     <p class="text-sm text-emerald-800 mb-3">This doesn't mean you don't work - it means the business doesn't NEED you to operate. You can choose to be involved in areas you enjoy (sales, strategy, special projects) while systems and people handle everything else. This gives you freedom, options, and a valuable asset you can eventually sell.</p>
                     <p class="text-sm font-bold text-emerald-900">The rest of this training shows you exactly how to build it.</p>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="2" data-key="org-structure" id="ts-lesson-2" hidden>
             <!-- Module 2: Organizational Structure & Role Definition -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -3553,7 +3569,7 @@
                         
                         <div class="space-y-4 mb-6">
                             <div class="bg-violet-50 p-4 rounded-lg border-2 border-violet-200">
-                                <p class="font-bold text-violet-900 mb-2">🎯 Owner/CEO (You - Eventually Strategic Only)</p>
+                                <p class="font-bold text-violet-900 mb-2">Owner/CEO (You - Eventually Strategic Only)</p>
                                 <p class="text-sm text-slate-700 mb-2"><strong>Responsibilities:</strong></p>
                                 <ul class="text-sm text-slate-700 list-disc list-inside ml-4 mb-2">
                                     <li>Set company vision and strategic direction</li>
@@ -3566,7 +3582,7 @@
                             </div>
 
                             <div class="bg-blue-50 p-4 rounded-lg border-2 border-blue-200">
-                                <p class="font-bold text-blue-900 mb-2">👔 General Manager / Operations Manager (Your First Key Hire)</p>
+                                <p class="font-bold text-blue-900 mb-2">General Manager / Operations Manager (Your First Key Hire)</p>
                                 <p class="text-sm text-slate-700 mb-2"><strong>Responsibilities:</strong></p>
                                 <ul class="text-sm text-slate-700 list-disc list-inside ml-4 mb-2">
                                     <li>Runs day-to-day business operations</li>
@@ -3581,7 +3597,7 @@
                             </div>
 
                             <div class="bg-green-50 p-4 rounded-lg border-2 border-green-200">
-                                <p class="font-bold text-green-900 mb-2">📞 Office Manager / Administrator</p>
+                                <p class="font-bold text-green-900 mb-2">Office Manager / Administrator</p>
                                 <p class="text-sm text-slate-700 mb-2"><strong>Responsibilities:</strong></p>
                                 <ul class="text-sm text-slate-700 list-disc list-inside ml-4 mb-2">
                                     <li>Answer phones and schedule emergency calls</li>
@@ -3596,7 +3612,7 @@
                             </div>
 
                             <div class="bg-orange-50 p-4 rounded-lg border-2 border-orange-200">
-                                <p class="font-bold text-orange-900 mb-2">💼 Sales Manager / Estimator (For Reconstruction Focus)</p>
+                                <p class="font-bold text-orange-900 mb-2">Sales Manager / Estimator (For Reconstruction Focus)</p>
                                 <p class="text-sm text-slate-700 mb-2"><strong>Responsibilities:</strong></p>
                                 <ul class="text-sm text-slate-700 list-disc list-inside ml-4 mb-2">
                                     <li>Generate reconstruction leads from mitigation jobs</li>
@@ -3610,7 +3626,7 @@
                             </div>
 
                             <div class="bg-slate-100 p-4 rounded-lg border-2 border-slate-300">
-                                <p class="font-bold text-slate-900 mb-2">🔧 Lead Technician / Crew Chief</p>
+                                <p class="font-bold text-slate-900 mb-2">Lead Technician / Crew Chief</p>
                                 <p class="text-sm text-slate-700 mb-2"><strong>Responsibilities:</strong></p>
                                 <ul class="text-sm text-slate-700 list-disc list-inside ml-4 mb-2">
                                     <li>Lead mitigation or reconstruction crew</li>
@@ -3625,7 +3641,7 @@
                             </div>
 
                             <div class="bg-slate-50 p-4 rounded-lg border-2 border-slate-200">
-                                <p class="font-bold text-slate-900 mb-2">🛠️ Technicians / Laborers</p>
+                                <p class="font-bold text-slate-900 mb-2">Technicians / Laborers</p>
                                 <p class="text-sm text-slate-700 mb-2"><strong>Responsibilities:</strong></p>
                                 <ul class="text-sm text-slate-700 list-disc list-inside ml-4 mb-2">
                                     <li>Perform mitigation or reconstruction work under supervision</li>
@@ -3688,11 +3704,14 @@
                 </div>
 
                 <div class="bg-gradient-to-r from-emerald-500 to-emerald-400 p-6 rounded-xl text-white mt-6">
-                    <h4 class="font-bold text-lg mb-4">📊 Ready Enterprise: Org Chart Frameworks</h4>
+                    <h4 class="font-bold text-lg mb-4">Ready Enterprise: Org Chart Frameworks</h4>
                     <p class="text-sm text-emerald-50">Use our org chart templates to design your team structure based on your current revenue and growth goals. We include frameworks for identifying your next 3 hires, sample job descriptions, and hiring roadmap templates. <strong>Need hands-on help building yours?</strong> <a href="https://vast-os.app#pricing" target="_blank" style="color:#fff; text-decoration:underline;">VAST Coaching</a> includes dedicated advisor support to customize these frameworks for your specific business.</p>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="3" data-key="hiring" id="ts-lesson-3" hidden>
             <!-- Module 3: Systematic Hiring -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -3709,7 +3728,7 @@
                         <p class="mb-4">Most restoration business owners hire reactively: "I'm overwhelmed, I need help NOW!" They post a vague job ad, interview whoever applies, and hire the person who seems decent. Result: 50%+ of hires don't work out within 6 months. Bad hires cost $30,000-$50,000 in lost productivity, training time, and rehiring.</p>
 
                         <div class="bg-red-50 p-4 rounded-lg border-2 border-red-200 mb-4">
-                            <p class="font-bold text-red-900 mb-2">🚫 Common Hiring Mistakes</p>
+                            <p class="font-bold text-red-900 mb-2">Common Hiring Mistakes</p>
                             <ul class="text-sm text-slate-700 list-disc list-inside space-y-1 ml-4">
                                 <li>"Hiring in a hurry" - Taking first acceptable candidate because you're desperate</li>
                                 <li>"Gut feeling" - Ignoring red flags because you "like" the person</li>
@@ -3856,11 +3875,14 @@
                 </div>
 
                 <div class="bg-gradient-to-r from-emerald-500 to-emerald-400 p-6 rounded-xl text-white mt-6">
-                    <h4 class="font-bold text-lg mb-4">📋 Ready Enterprise: Hiring Support</h4>
+                    <h4 class="font-bold text-lg mb-4">Ready Enterprise: Hiring Support</h4>
                     <p class="text-sm text-emerald-50">Ready Training includes job description templates, interview question banks, skills assessment rubrics, and offer letter templates for every restoration role. Use these resources to build a systematic hiring process that reduces bad hires. <strong>Want experienced guidance?</strong> <a href="https://vast-os.app#pricing" target="_blank" style="color:#fff; text-decoration:underline;">VAST Coaching</a> includes advisor support for reviewing candidates, refining your process, and making confident hiring decisions.</p>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="4" data-key="training-systems" id="ts-lesson-4" hidden>
             <!-- Module 4: Training Programs -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -3877,7 +3899,7 @@
                         <p class="mb-4">Hiring good people is only half the battle. Without structured training, even talented employees struggle to perform at the level you need. Most restoration businesses do "shadow training" - new hire follows someone around for a few days and hopes they pick it up. This results in inconsistent quality, knowledge gaps, and employees who never reach their full potential.</p>
 
                         <div class="bg-red-50 p-4 rounded-lg border-2 border-red-200 mb-4">
-                            <p class="font-bold text-red-900 mb-2">🚫 The Cost of Poor Training</p>
+                            <p class="font-bold text-red-900 mb-2">The Cost of Poor Training</p>
                             <ul class="text-sm text-slate-700 list-disc list-inside space-y-1 ml-4">
                                 <li><strong>Customer complaints:</strong> Untrained employees make mistakes that damage your reputation</li>
                                 <li><strong>Rework costs:</strong> Jobs done incorrectly must be redone at your expense</li>
@@ -3970,21 +3992,21 @@
                                     <div>
                                         <p class="font-bold text-slate-700 mb-1">Equipment Skills:</p>
                                         <ul class="text-slate-600 space-y-0.5">
-                                            <li>☐ Operate water extraction equipment</li>
-                                            <li>☐ Set up air movers properly</li>
-                                            <li>☐ Place dehumidifiers effectively</li>
-                                            <li>☐ Use moisture meters accurately</li>
-                                            <li>☐ Document moisture readings</li>
+                                            <li>Operate water extraction equipment</li>
+                                            <li>Set up air movers properly</li>
+                                            <li>Place dehumidifiers effectively</li>
+                                            <li>Use moisture meters accurately</li>
+                                            <li>Document moisture readings</li>
                                         </ul>
                                     </div>
                                     <div>
                                         <p class="font-bold text-slate-700 mb-1">Process Skills:</p>
                                         <ul class="text-slate-600 space-y-0.5">
-                                            <li>☐ Assess water damage extent</li>
-                                            <li>☐ Identify affected materials</li>
-                                            <li>☐ Execute proper demo procedures</li>
-                                            <li>☐ Monitor drying progress</li>
-                                            <li>☐ Complete job documentation</li>
+                                            <li>Assess water damage extent</li>
+                                            <li>Identify affected materials</li>
+                                            <li>Execute proper demo procedures</li>
+                                            <li>Monitor drying progress</li>
+                                            <li>Complete job documentation</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -4038,11 +4060,14 @@
                 </div>
 
                 <div class="bg-gradient-to-r from-emerald-500 to-emerald-400 p-6 rounded-xl text-white mt-6">
-                    <h4 class="font-bold text-lg mb-4">📚 Ready Enterprise: Training System Development</h4>
+                    <h4 class="font-bold text-lg mb-4">Ready Enterprise: Training System Development</h4>
                     <p class="text-sm text-emerald-50">Ready Training includes 30/60/90 day templates, skills checklists for every role, customer service scripts, and training tracking systems. Use these resources to build a complete training manual so every new hire gets world-class onboarding. Track your onboarding execution as a quarterly task in <a href="https://vast-os.app" target="_blank" style="color:#fff; text-decoration:underline;">VAST</a> to ensure consistency.</p>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="5" data-key="delegation" id="ts-lesson-5" hidden>
             <!-- Module 5: Delegation Systems -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -4059,7 +4084,7 @@
                         <p class="mb-4">You've done every job in your business. You know how it should be done. When you delegate, employees do it differently - sometimes worse. So you take it back and do it yourself. This cycle keeps you trapped in operations forever.</p>
 
                         <div class="bg-red-50 p-4 rounded-lg border-2 border-red-200 mb-4">
-                            <p class="font-bold text-red-900 mb-2">🚫 The Delegation Trap</p>
+                            <p class="font-bold text-red-900 mb-2">The Delegation Trap</p>
                             <p class="text-sm text-slate-700 mb-3">Common thought pattern:</p>
                             <ul class="text-xs text-slate-700 list-disc list-inside ml-4 space-y-1">
                                 <li>"It's faster if I just do it myself" (True today, but you'll do it 100 more times)</li>
@@ -4236,11 +4261,14 @@
                 </div>
 
                 <div class="bg-gradient-to-r from-emerald-500 to-emerald-400 p-6 rounded-xl text-white mt-6">
-                    <h4 class="font-bold text-lg mb-4">📊 Ready Enterprise: Systems Documentation</h4>
+                    <h4 class="font-bold text-lg mb-4">Ready Enterprise: Systems Documentation</h4>
                     <p class="text-sm text-emerald-50">Ready Training provides templates, SOPs, and authority matrix frameworks to help you build your complete Operations Manual. Use these resources to document workflows and systemize every process. <strong>Need structured accountability?</strong> <a href="https://vast-os.app" target="_blank" style="color:#fff; text-decoration:underline;">VAST</a> gives your team quarterly task tracking and weekly huddles to stay on track as you build these systems.</p>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="6" data-key="leadership-dev" id="ts-lesson-6" hidden>
             <!-- Module 6: Leadership Development -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -4257,7 +4285,7 @@
                         <p class="mb-4">You started your restoration business because you were good at restoration work. You were the best technician, could handle any loss, satisfied every customer. Now you have employees, and your job is no longer doing restoration - it's leading people who do restoration. This requires a completely different skill set, and most owners struggle with this transition.</p>
 
                         <div class="bg-red-50 p-4 rounded-lg border-2 border-red-200 mb-4">
-                            <p class="font-bold text-red-900 mb-2">🚫 The Technician-Turned-Owner Problem</p>
+                            <p class="font-bold text-red-900 mb-2">The Technician-Turned-Owner Problem</p>
                             <p class="text-sm text-slate-700 mb-3">You became a business owner because you were skilled at the craft. But business ownership requires:</p>
                             <ul class="text-xs text-slate-700 list-disc list-inside ml-4 space-y-1">
                                 <li><strong>Vision:</strong> Seeing 3-5 years ahead, not just today's jobs</li>
@@ -4479,11 +4507,14 @@
                 </div>
 
                 <div class="bg-gradient-to-r from-emerald-500 to-emerald-400 p-6 rounded-xl text-white mt-6">
-                    <h4 class="font-bold text-lg mb-4">🎯 Ready Enterprise: Leadership Development</h4>
+                    <h4 class="font-bold text-lg mb-4">Ready Enterprise: Leadership Development</h4>
                     <p class="text-sm text-emerald-50">Ready Training gives you the frameworks, scripts, and strategies for leadership development. Apply these concepts through practice, and track your management growth using structured one-on-ones and weekly team meetings. <strong>Want a dedicated coach?</strong> <a href="https://vast-os.app#pricing" target="_blank" style="color:#fff; text-decoration:underline;">VAST Coaching</a> pairs you with an experienced advisor who works with your team every week to develop your leadership skills through real-world application.</p>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="7" id="ts-lesson-7" hidden>
             <!-- Module: Building a Safety & Fleet Program -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -4550,33 +4581,36 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
                     <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100 text-center">
-                        <div class="text-2xl mb-1">📋</div>
+                        <div class="text-2xl mb-1"></div>
                         <h4 class="font-bold text-emerald-900 mb-1 text-sm">Authorized Driver List</h4>
                         <p class="text-xs text-emerald-800">Maintain a current list. MVR checks at hire, annually, and post-collision. 3+ points in 3 years = disqualified.</p>
                     </div>
                     <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 text-center">
-                        <div class="text-2xl mb-1">🔍</div>
+                        <div class="text-2xl mb-1"></div>
                         <h4 class="font-bold text-amber-900 mb-1 text-sm">Investigate Every Incident</h4>
                         <p class="text-xs text-amber-800">Preventable vs. non-preventable determination required. Document root cause and corrective action every time.</p>
                     </div>
                     <div class="bg-teal-50 p-4 rounded-xl border border-teal-100 text-center">
-                        <div class="text-2xl mb-1">🗣️</div>
+                        <div class="text-2xl mb-1"></div>
                         <h4 class="font-bold text-teal-900 mb-1 text-sm">Weekly Toolbox Talks</h4>
                         <p class="text-xs text-teal-800">5–15 minutes. Document attendance and topic. The cheapest safety training tool you have.</p>
                     </div>
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
-                        <div class="text-2xl mb-1">📁</div>
+                        <div class="text-2xl mb-1"></div>
                         <h4 class="font-bold text-slate-900 mb-1 text-sm">Document Everything</h4>
                         <p class="text-xs text-slate-700">OSHA 300, accident reports, training records, MVRs. 5-year retention. Your documentation is your defense.</p>
                     </div>
                 </div>
 
                 <div class="bg-gradient-to-r from-emerald-500 to-emerald-400 p-6 rounded-xl text-white mt-6">
-                    <h4 class="font-bold text-lg mb-2">💡 Safety Accountability = Profitability</h4>
+                    <h4 class="font-bold text-lg mb-2">Safety Accountability = Profitability</h4>
                     <p class="text-sm text-emerald-50">Every preventable incident that goes unaddressed raises your workers' comp modifier and insurance premiums. Build a culture where safety accountability is tied to performance reviews, promotions, and bonuses — and watch your claim frequency drop and your margins improve.</p>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="8" id="ts-lesson-8" hidden>
             <!-- Team Scaling Summary -->
             <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-10 text-white mb-12">
                 <h2 class="text-3xl font-bold mb-6 text-center">Your Team Scaling Roadmap</h2>
@@ -4613,16 +4647,35 @@
                 <!-- VAST + Cortex CTA row -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 max-w-5xl mx-auto">
                     <div class="bg-white bg-opacity-10 rounded-xl p-5 border border-white border-opacity-20">
-                        <h4 class="font-bold text-emerald-300 mb-2">📊 Execute Your Roadmap with VAST</h4>
+                        <h4 class="font-bold text-emerald-300 mb-2">Execute Your Roadmap with VAST</h4>
                         <p class="text-xs text-slate-300 mb-3">Turn this roadmap into 90-day action plans, track progress in weekly huddles, and hold your team accountable. VAST is the operating system that makes sure the plan actually happens.</p>
                         <a href="https://vast-os.app" target="_blank" class="inline-block text-xs font-bold text-white bg-violet-500 py-2 px-4 rounded-lg hover:bg-violet-400 transition">Try VAST Free for 7 Days &rarr;</a>
                     </div>
                     <div class="bg-white bg-opacity-10 rounded-xl p-5 border border-white border-opacity-20">
-                        <h4 class="font-bold text-emerald-300 mb-2">📱 Run Your Operations on Cortex</h4>
+                        <h4 class="font-bold text-emerald-300 mb-2">Run Your Operations on Cortex</h4>
                         <p class="text-xs text-slate-300 mb-3">As your team grows, you need a system that scales with you. Cortex handles job scheduling, crew tracking, budgeting, billing, and documentation &mdash; AI-powered operations intelligence built for contractors.</p>
                         <a href="https://jobdox.ai" target="_blank" class="inline-block text-xs font-bold text-white bg-violet-500 py-2 px-4 rounded-lg hover:bg-violet-400 transition">Learn More at JobDox.ai &rarr;</a>
                     </div>
                 </div>
+            </div>
+                </article>
+
+                <article class="lp-lesson lp-end" data-lesson="9" id="ts-lesson-9" hidden>
+                    <div class="lp-complete">
+                        <div class="lp-complete-icon">&#9989;</div>
+                        <h2>Team Scaling & Leadership module complete</h2>
+                        <p>Nice work &mdash; you&rsquo;ve finished every lesson in Team Scaling & Leadership.</p>
+                    </div>
+                </article>
+
+                    </div>
+                </div>
+
+                <div class="lp-nav">
+                    <button type="button" class="lp-back" id="ts-back" onclick="lpPrev('ts')">Back</button>
+                    <button type="button" class="lp-next" id="ts-next" onclick="lpNext('ts')">Next</button>
+                </div>
+
             </div>
         </section>
 

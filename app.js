@@ -1217,6 +1217,25 @@ document.addEventListener('keydown', function(e) {
             ]
         });
 
+        // TEAM SCALING & LEADERSHIP (no short quiz / no cert). Denominator 6.
+        // Completion has no Cortex CTA — the Summary page already carries the
+        // VAST + Cortex CTAs. Page 0 hosts kc-team-scaling.
+        lpRegister({
+            prefix: 'ts', module: 'team-scaling', section: 'team-scaling',
+            hasQuiz: false,
+            lessons: [
+                { title: 'Team Scaling & Leadership Overview',     key: null },
+                { title: "The Owner's Dilemma",                    key: 'owner-dilemma' },
+                { title: 'Organizational Structure',               key: 'org-structure' },
+                { title: 'Systematic Hiring',                      key: 'hiring' },
+                { title: 'Training Systems',                       key: 'training-systems' },
+                { title: 'Delegation & Systems',                   key: 'delegation' },
+                { title: 'Leadership Development',                 key: 'leadership-dev' },
+                { title: 'Safety & Fleet Program',                key: null },
+                { title: 'Team Scaling Summary',                   key: null }
+            ]
+        });
+
         // FINANCIAL OPERATIONS (no short quiz — no slice in quizQuestions; no
         // certification). Denominator 5.
         lpRegister({

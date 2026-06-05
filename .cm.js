@@ -82,11 +82,19 @@ ${cortexBlock}${certBlock}                </article>
 
             </div>
 `;
-const tailStart = h.indexOf(cfg.tailStart);
-if (tailStart === -1) { console.error('TAIL start not found'); process.exit(1); }
-const tailEnd = h.indexOf(cfg.tailClose, tailStart);
-if (tailEnd === -1) { console.error('TAIL close not found'); process.exit(1); }
-h = h.slice(0, tailStart) + tailRep + h.slice(tailEnd);
+if (cfg.tailStart) {
+  const tailStart = h.indexOf(cfg.tailStart);
+  if (tailStart === -1) { console.error('TAIL start not found'); process.exit(1); }
+  const tailEnd = h.indexOf(cfg.tailClose, tailStart);
+  if (tailEnd === -1) { console.error('TAIL close not found'); process.exit(1); }
+  h = h.slice(0, tailStart) + tailRep + h.slice(tailEnd);
+} else {
+  // Insert completion + chrome close right before THIS section's </section>
+  const ss = h.indexOf('<section id="sec-' + cfg.section + '"');
+  const se = h.indexOf('        </section>', ss);
+  if (se === -1) { console.error('section close not found'); process.exit(1); }
+  h = h.slice(0, se) + tailRep + h.slice(se);
+}
 
 // 4) Strip decorative emoji within this section only (preserves ✓ • arrows)
 const secStart = h.indexOf('<section id="sec-' + cfg.section + '"');
