@@ -415,32 +415,32 @@
 
             members.forEach(function(m) {
                 var card = document.createElement('div');
-                card.className = 'bg-white rounded-xl p-6 shadow-sm border border-slate-200';
+                card.className = 'home-card';
                 var isOwner = (m.role === 'owner');
                 var isManager = (m.role === 'manager');
                 var isSelf = (m.id === window.rtUser.id);
 
-                // Role badge colors
-                var badgeClass = 'bg-slate-100 text-slate-600';
-                if (isOwner) badgeClass = 'bg-violet-100 text-violet-700';
-                else if (isManager) badgeClass = 'bg-amber-100 text-amber-700';
+                // Role badge styling
+                var roleClass = 'dm-role';
+                if (isOwner) roleClass += ' is-owner';
+                else if (isManager) roleClass += ' is-manager';
 
-                var html = '<div class="flex justify-between items-start mb-4">' +
-                    '<div><h3 class="font-bold text-slate-900">' + (m.name || 'Unknown') + '</h3>' +
-                    '<p class="text-xs text-slate-500">' + (m.email || '') + '</p></div>' +
-                    '<span class="text-xs font-bold px-2 py-1 rounded ' + badgeClass + '">' + (m.role || 'member') + '</span></div>' +
-                    '<div class="mb-3"><div class="flex justify-between text-xs mb-1"><span class="font-bold text-slate-600">Overall</span><span class="font-bold text-violet-600">' + m._pct + '%</span></div>' +
-                    '<div class="w-full bg-slate-100 rounded-full h-2.5"><div class="h-full rounded-full ' + (m._pct === 100 ? 'bg-emerald-500' : 'bg-violet-500') + '" style="width:' + m._pct + '%"></div></div></div>' +
-                    '<div class="space-y-2 mb-4">';
+                var html = '<div class="dm-head">' +
+                    '<div><h3 class="dm-name">' + (m.name || 'Unknown') + '</h3>' +
+                    '<p class="dm-email">' + (m.email || '') + '</p></div>' +
+                    '<span class="' + roleClass + '">' + (m.role || 'member') + '</span></div>' +
+                    '<div class="dm-overall"><div class="dm-overall-top"><span class="lbl">Overall</span><span class="val">' + m._pct + '%</span></div>' +
+                    '<div class="dm-bar"><span class="' + (m._pct === 100 ? 'is-complete' : '') + '" style="width:' + m._pct + '%"></span></div></div>' +
+                    '<div class="dm-modules">';
 
                 Object.keys(PROGRESS_MODULES).forEach(function(mod) {
                     var items = Object.keys(PROGRESS_MODULES[mod].items);
                     var done = 0;
                     items.forEach(function(item) { if (m.progress && m.progress[mod + '.' + item]) done++; });
                     var pct = items.length ? Math.round((done / items.length) * 100) : 0;
-                    html += '<div class="flex items-center gap-2"><span class="text-[10px] text-slate-500 w-24 truncate" title="' + PROGRESS_MODULES[mod].name + '">' + PROGRESS_MODULES[mod].name + '</span>' +
-                        '<div class="flex-1 bg-slate-100 rounded-full h-1.5"><div class="h-full rounded-full ' + (pct === 100 ? 'bg-emerald-400' : 'bg-violet-400') + '" style="width:' + pct + '%"></div></div>' +
-                        '<span class="text-[10px] font-bold text-slate-500 w-8 text-right">' + pct + '%</span></div>';
+                    html += '<div class="dm-mod"><span class="dm-mod-name" title="' + PROGRESS_MODULES[mod].name + '">' + PROGRESS_MODULES[mod].name + '</span>' +
+                        '<div class="dm-mod-bar"><span class="' + (pct === 100 ? 'is-complete' : '') + '" style="width:' + pct + '%"></span></div>' +
+                        '<span class="dm-mod-pct">' + pct + '%</span></div>';
                 });
 
                 html += '</div>';
@@ -449,19 +449,19 @@
 
                 // Action buttons
                 if (!isSelf && canManage) {
-                    html += '<div class="flex gap-2 mt-2">';
+                    html += '<div class="dm-actions">';
 
                     // Remove button — owners can remove anyone except themselves; managers can remove regular members only
                     if (!isOwner && (currentRole === 'owner' || (!isManager && currentRole === 'manager'))) {
-                        html += '<button onclick="removeMember(\'' + m.id + '\', \'' + escapedName + '\')" class="flex-1 text-xs text-red-500 hover:text-red-700 hover:bg-red-50 py-2 rounded-lg transition border border-red-200">Remove</button>';
+                        html += '<button type="button" onclick="removeMember(\'' + m.id + '\', \'' + escapedName + '\')" class="dm-btn is-remove">Remove</button>';
                     }
 
                     // Promote/Demote buttons — only owners can change roles
                     if (currentRole === 'owner' && !isOwner) {
                         if (isManager) {
-                            html += '<button onclick="setMemberRole(\'' + m.id + '\', \'' + escapedName + '\', \'member\')" class="flex-1 text-xs text-slate-500 hover:text-slate-700 hover:bg-slate-50 py-2 rounded-lg transition border border-slate-200">Demote to Member</button>';
+                            html += '<button type="button" onclick="setMemberRole(\'' + m.id + '\', \'' + escapedName + '\', \'member\')" class="dm-btn is-demote">Demote to Member</button>';
                         } else {
-                            html += '<button onclick="setMemberRole(\'' + m.id + '\', \'' + escapedName + '\', \'manager\')" class="flex-1 text-xs text-amber-600 hover:text-amber-700 hover:bg-amber-50 py-2 rounded-lg transition border border-amber-200">Promote to Manager</button>';
+                            html += '<button type="button" onclick="setMemberRole(\'' + m.id + '\', \'' + escapedName + '\', \'manager\')" class="dm-btn is-role">Promote to Manager</button>';
                         }
                     }
 
@@ -473,7 +473,7 @@
             });
 
             if (members.length === 0) {
-                container.innerHTML = '<div class="text-center py-8 text-slate-500 col-span-full">No team members yet. Share your company code or use the invite link above.</div>';
+                container.innerHTML = '<div class="dash-empty">No team members yet. Share your company code or use the invite link above.</div>';
             }
 
         } catch(e) { console.error('Dashboard load error:', e); }
