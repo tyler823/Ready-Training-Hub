@@ -834,21 +834,28 @@ document.addEventListener('keydown', function(e) {
         // localProgress, calcModuleProgress, and the injected prog-cb-mitigation-* checkboxes.
         // No second progress store is created.
         // =====================================================
+        // Step 2 is split across THREE pages (Investigation, Vertical Elevation Rule,
+        // 4 Corners Photography). Only the LAST of the three carries the existing
+        // 'investigation' progress key, so the dashboard key ticks once — when the
+        // learner finishes the final Step 2 page. The first two are foundation-style
+        // (view-tracked) pages. Denominator stays 7 (PROGRESS_MODULES.mitigation.items).
         const MIT_LESSONS = [
             { title: 'Intro & IICRC S500 Foundation',          key: null },
             { title: 'Critical Safety: Asbestos',              key: null },
             { title: 'Water Categories & Classes',             key: null },
             { title: 'The 7-Step Lifecycle (Overview)',        key: null },
             { title: 'Step 1: Arrival & Onboarding',           key: 'work-auth' },
-            { title: 'Step 2: Investigation & Documentation',  key: 'investigation' },
+            { title: 'Step 2: Investigation & Documentation',  key: null },
+            { title: 'Vertical Elevation Rule',                key: null },
+            { title: '4 Corners Photography',                  key: 'investigation' },
             { title: 'Step 3: Ancillary Services & Demolition',key: 'extraction' },
             { title: 'Step 4: Equipment Set',                  key: 'equip-setup' },
             { title: 'Step 5: Daily Monitoring',               key: 'monitoring' },
             { title: 'Step 6: Labor & Scope Capture',          key: 'dry-standard' },
             { title: 'Step 7: Completion & COC',               key: 'tear-down' }
         ];
-        const MIT_QUIZ_INDEX = MIT_LESSONS.length;       // index 11 == short wrap-up quiz
-        const MIT_END_INDEX  = MIT_LESSONS.length + 1;   // index 12 == completion screen
+        const MIT_QUIZ_INDEX = MIT_LESSONS.length;       // short wrap-up quiz
+        const MIT_END_INDEX  = MIT_LESSONS.length + 1;   // completion screen
         let mitCurrent = 0;
         let mitViewed = {};       // tracks viewed foundation (un-keyed) lessons
         let mitMenuBuilt = false;
@@ -911,9 +918,9 @@ document.addEventListener('keydown', function(e) {
                 panel.classList.toggle('active', active);
                 if (active) {
                     // Auto-open every accordion inside the active lesson (no click-to-expand).
+                    // No inline border — the player flattens these boxes (see #mit-player CSS).
                     panel.querySelectorAll('.detail-expansion').forEach(function(d) {
                         d.classList.add('is-open');
-                        d.style.borderWidth = '1px';
                     });
                 }
             });
@@ -921,8 +928,9 @@ document.addEventListener('keydown', function(e) {
             // Foundation lessons count as complete once viewed.
             if (i < MIT_LESSONS.length && !MIT_LESSONS[i].key) mitViewed[i] = true;
 
-            // Step 2 lesson (index 5) hosts floorPlanCanvas — (re)draw now that it is visible.
-            if (i === 5 && typeof drawFloorPlan === 'function') drawFloorPlan();
+            // The "4 Corners Photography" page (index 7) hosts floorPlanCanvas —
+            // (re)draw now that it is visible so the canvas sizes to its container.
+            if (i === 7 && typeof drawFloorPlan === 'function') drawFloorPlan();
 
             // Short wrap-up quiz and completion screen drive their own flow.
             if (i === MIT_QUIZ_INDEX) mitQuizBuild();

@@ -1717,3 +1717,44 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
   .lp-nav button { max-width: none; padding: 16px; font-size: 16px; }
   .lp-lesson-title { font-size: 22px; }
 }
+
+/* ============================================================
+   #mit-player refinement — Parts B (larger body font) & C
+   (flatten boxed containers; hide in-player Expand/More chrome).
+   SCOPED to #mit-player only. Deliberately does NOT touch the
+   global .detail-expansion accordion still used by the
+   not-yet-converted modules (Contents, Reconstruction, etc.).
+   ============================================================ */
+
+/* Part B: comfortably readable body text inside the player.
+   Tailwind text-xs/text-sm (12-14px) is bumped to ~17px. The tiny
+   moisture-diagram labels use text-[10px] and are intentionally
+   left untouched so the wall diagram still fits. */
+#mit-player .lp-content { font-size: 17px; line-height: 1.7; }
+#mit-player .lp-content .text-xs { font-size: 17px; line-height: 1.7; }
+#mit-player .lp-content .text-sm { font-size: 17px; line-height: 1.7; }
+#mit-player .lp-content .text-base { font-size: 18px; line-height: 1.7; }
+
+/* Part C: hide the in-player "Expand Details" / "More" toggles —
+   content is auto-opened by mitGoTo(); no click-to-expand in a lesson.
+   Scoped to the player so other modules keep their working toggles. */
+#mit-player .lp-content button[onclick^="toggleDetails"] { display: none !important; }
+
+/* Part C: flatten the boxed/bordered white lesson cards so text sits
+   cleanly on the lesson background. The inner .p-4 keeps a comfortable
+   reading inset. */
+#mit-player .lp-content .bg-white {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* Part C: drop the neutral grey/emerald inner detail-box backgrounds.
+   Coloured alert callouts (e.g. the red asbestos box, bg-red-700) are
+   NOT matched here and keep their styling. */
+#mit-player .lp-content .detail-expansion.bg-slate-50,
+#mit-player .lp-content .detail-expansion.bg-emerald-50 {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
