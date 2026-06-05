@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,202 +24,189 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-check-compat.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script>(function(){var t=localStorage.getItem('rt-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
 </head>
-<body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col">
+<body>
 
-    <!-- Memberstack Authentication Guard -->
 
-    <!-- Sticky Navigation -->
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm text-left">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center gap-3">
-                    <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAEAAQADASIAAhEBAxEB/8QAHQABAAIDAQEBAQAAAAAAAAAAAAgJBQYHAgEEA//EAE4QAAEDAgMBCgcLCQcFAAAAAAABAgMEBgUHETEIEiE2QVFxdbPSFzdWdJSywRMUIjJCYYGRkrHTGFNVYmOChJWhFRYjJEXC0TNSVHKi/8QAHAEBAAICAwEAAAAAAAAAAAAAAAQFBgcBAggD/8QAOREAAgECAgUHCgcBAQAAAAAAAAECAwQFEQYhMUFRBxMzYXGRwRIUFiIyNFNysdEVUoGSoaLSguH/2gAMAwEAAhEDEQA/AOPgA9LF6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATAtLIbLnELWwmvqsOrHT1NFDNK5Kx6IrnMRV4EXg4VMom57yy/RdYv8AGyf8mGz06w2EnFxlq6l9yK7uCIVgmqm58yx/RNX6bJ/yfU3PuWCf6PVL/HS946enuGfln3L/AEPPKfWQpBNhNz/len+iVC/x03ePqZAZXfoGf06bvHHp7hv5Z9y/0ceeU+shMCbXgByt/QE3p8/fPvgCyt8n5fT5++cen2G/kn3L/Q88hwZCQE2lyByt/QE3p0/fPK7n/K9dmCVCdFdN3jn0+w38s+5f6HnlPrITgmq7c+ZYrswmrb0Vsn/J/GTc7ZaO+LR4iz/1rXe07LTzDHun3L7nPnlMhgCYdVua8vpWqkU+NwLyKyqav3sU1jHNy5Sua52CXXMx3yWVdMjkX95qp9xIo6a4TUeTm49qfhmcq6psjGDpN45IZhW018z8JTE6VnCs+Hu91TTn3uiPT7Jzd7XMcrHtVrmroqKmiopkdre293Hy6E1JdTzPvGUZa0z4ACSdgAAAAAAAAAAAAAAAAAAAACxCweIuAdW0/ZNM2YSweIuAdW0/ZNM2ecLnpp9r+pRy2sAA+BwAAAAAAAAAAAAAAADQczMpbSvqGSWso20WJqnwK+majZNeTfpsenTw8yob8CRbXVa1qKrRk4yW9HaMnF5ogNmjlzcOX+KpTYrCk1HKq+9q2JF9ylTm/VdztX+qcJppYzc2BYVcmCVGDYzSR1VHUN3r2OTZzKi8iptRU2EIM5susQy8uZaORXT4bU6voapU+O3la7mc3g1+heU27ozpRHE1zFfVVXdLs6+K/VdVjQuOc1PaaKADMSUAAAAAAAAAAAAAAAAAAWIWDxFwDq2n7JpmzCWDxFwDq2n7Jpmzzhc9NPtf1KOW1g4dfO6HoLXu3ErfdbFTVOoZlhdKlW1iPVOVE3q6HcSBWe/jgufz9/sMm0Qwq1xK5nTuY5pRz2ta81wJFtTjOTUjtK7qag5LNqfT29w8rup6Pksyf+YJ+GRiBsL0Nwf4X9pfcmea0uBJz8qel8ipv5in4Z8/KnpvImX+ZJ+GRkA9DsH+F/aX3Hm1LgSa/Kog8iJP5mn4QTdUU/LZEv8AM0/CIyg59DsH+F/aX3Hm1LgSdTdT0nLZc6dGIJ+Ge27qXDvlWfVJ0VrV/wBhF8HHobg/wv7S+481pcCWOGbp+1Zno3EMAxelRV+NGscqJ/VqnS7JzKsq8HJFgmOQSVSpr71l1im+hrtFX6NSAZ6ikkhlbLFI6ORio5rmrorVTlRSBd6CYfVi+Zbg+3Ndz1/ydJWkHs1FlIIyZAZ6VPvumte9qpZo5FSOkxKRfhNdyMlXlRdiO2py86SbNZYthFxhdfma67Hua6iDUpypvJg1bNKzaG+rOq8DrEY2Vyb+lnVNVhmRPguT5uRedFU2kEGhXqUKkatN5STzTOibTzRW/jOHVmEYtVYXiEKw1dJK6GZi/Jc1dFPyEhN2RZzaLGqG8qOLexV/+WrNE4PdWp8B30tRU/c+cj2b/wAIxGOI2cLiO9a+p713lxTn5cVIAAsj6AAAAAAAAAAAAAAAFiFg8RcA6tp+yaZswlg8RcA6tp+yaZs84XPTT7X9SjltYIFZ7+OC5/P3+wnqQKz38cFz+fv9hm/J/wC+1fl8US7P2mazbcEVTcWG007EfFLVxMe1djmq9EVPqJu+BrLLyRovtyd4hNaXGvCPPoe0aWLljp5d3FvUoqjNxzUtja4cDveScWsmaD4GssvJGi+3J3h4GssvJGi+3J3jfgYB+LX3x5/uf3IfOT4s0HwNZZeSNF9uTvDwNZZeSNF9uTvG/Afi198ef7n9xzk+LNB8DWWXkjRfbk7w8DWWXkjRfbk7xvwH4tffHn+5/cc5PizQfA1ll5I0X25O8QxzHoqXDb/x/D6GFsFLTYjPFDG3YxjXqiImvMhYYpX3mz40Ln61qe0cZ1oJeXFxcVVWqOSSW1t7+sl2kpSk82awTK3LV+yXXZjsHxKdZMVwdGxuc9dXSwr8R3zqmitXoRV2kNTpW5quB+AZu4SivVsGIuWhmTXb7p8T/wC0YZVpThsb/Dp6vWgvKX6bV+qJFxT8uD6icIANFlSaZnbbzLnyvxvDPc0fM2nWop+DhSSP4bdOnTToVSA5ZU5Ec1WuRFRU0VF5Suy9cN/sa8MZwlE0Sjr5oE6GvVE/ohs/k+u24Vrd7spL9dT+iJ9lLU4mIABscnAAAAAAAAAAAAAAAFiFg8RcA6tp+yaZswlg8RcA6tp+yaZs84XPTT7X9SjltYIFZ7+OC5/P3+wnqQKz38cFz+fv9hm/J/77V+XxRLs/aZrtpca8I8+h7RpYuV0Wlxrwjz6HtGli5I5Q+kodkvA7Xu1AAGuSCAAAAc0zxwi/pMJXGbCx+spqqmZ/jYexGqk7U5Waouj05uXp2xefnFmgx7mPu2ua5q6KixxoqL9kyfCdF62K0edoVY6tqeea7dRIp27qLNMnYpX3mz40Ln61qe0cZfwyZm+V9b9iPumk4lW1WJYhUYhXTOnqqmR0s0jtNXvcuqqunOpnmjGjdxhFac60k1JZas+PWkS7ehKm22fnMxZD5IrzwOSLX3RuI06t05/dG6GHN5yFwOTH82sApGtVY4KptXMunAjIvh8PSqIn0mU31WNK2qVJ7FFv+CRN5RbZPJNgAPOZSAgTnqxseb9ztbsWve76V0VfvJ7FfOalczE8yrkro3b6OXE51YvO1HqiL9SIbA5Pot3dWW7yfH/wmWftM1oAG1ixAAAAAAAAAAAAAAALELB4i4B1bT9k0zZhLB4i4B1bT9k0zZ5wuemn2v6lHLawQKz38cFz+fv9hPUgVnv44Ln8/f7DN+T/AN9q/L4ol2ftM120uNeEefQ9o0sXK6LS414R59D2jSxckcofSUOyXgdr3agAfnxOupMMoJq+vnZT0sDd/LK/4rG8qr8xrqMXJ5LaQT9APkb2SMbJG5r2OTVrkXVFTnQ+nABwTdFZLtx5k912pTI3Fmor6ukYmiVScrmp+c9bp297BPw3Eq+G11XoPJrua4M706jg80VrSMfG90cjXMe1VRzVTRUXmU8ksd0Tkuy4GT3ValM1mLtRX1dIxNEq05XNT8563TtihIx8cjo5GOY9qqjmuTRUVORTeODYzQxWhztLU1tW9P7cGWtKqqizR5JabkewpMEt+a7sShVlZirEZStcnCynRdd9++ui9CN5yOOV392P794Wt4Okbg6S6zb1NWqvyUf+prprpyFgNK+CSmifTOjdA5iLGsaorVbpwaacGmhiuneKVKNGNnBNKetvdkty8f04ke7qNLyVvP6AA1SV5g7/AMcjtqysXx2RyN950r5Ga8r9NGJ9LlRPpK8pHOe9z3qqucuqqvKpJzdlXkyKhobJo5kWSZUq65GrsYn/AE2L0rq7T9VvORhNwaDYe7exdeS11H/C2eJZWkPJhnxAAM2JYAAAAAAAAAAAAAABYhYPEXAOrafsmmbMJYPEXAOrafsmmbPOFz00+1/Uo5bWCBWe/jgufz9/sJ6kCs9/HBc/n7/YZvyf++1fl8US7P2ma7aXGvCPPoe0aWLldFpca8I8+h7RpYuSOUPpKHZLwO17tQNPzs8Ul0dWTeqpuBp+dnikujqyb1VMFw73ul80fqiHD2kR93O2dD7efBat11Ln4O5d5S1b11WkXka5fzfq9GyWEb2SRtkje17HIitc1dUVF2Kilax3bc750SW5JBa11VDpMGeu9pap66rSKvyV54/V6Nmx9KtFOezvLOPrbZRW/rXXxW/t2zri3z9aJLUHmKSOWJksT2vje1HNc1dUci7FReVD0asK8HB90Tkuy4Y57ptWmazGGpvqqkYmiVaJ8pqfnPW6dveAT8NxKvh1dV6Dya7muDO8JuDzRWtIx8cjo5GOY9qqjmuTRUVNqKh2zc9ZzTWpNDbdyzvlwGR2kMy8LqNV++PnTk2pzHRt0Tkwy4o57ptanazGWJvqqlYmiVaJ8pP2nrdO2JsrHxSOjkY5j2KrXNcmioqbUVDcdvcWOk1i4yXat8XxXg9/eizjKFeBZNTzRVEEc8ErJYpGo9j2O1a5qpqioqbUMHmBdWG2ZatZj+JvT3OBukcaLo6aRfisb86r9SaryEXdz7nNNZ8sdvXJLJPgD1/wpdFc+jVeZNqs505NqcqLrOeeZdXmHcaOi90gwWjVW0VO7avPI79Zf6Jwc6rg9toTc/iPM1eiWvyuK4Lr48NvDOJG1l5eT2GnXXjlfctxV2O4nJ7pVVkqyP02N5mp8yJoifMhjADbUIRpxUIrJLUixSyAAOxyAAAAAAAAAAAAAAAWIWDxFwDq2n7JpmzCWDxFwDq2n7Jpmzzhc9NPtf1KOW1ggVnv44Ln8/f7CepArPfxwXP5+/2Gb8n/AL7V+XxRLs/aZrtpca8I8+h7RpYuV0Wlxrwjz6HtGli5I5Q+kodkvA7Xu1A0/OzxSXR1ZN6qm4Gn52eKS6OrJvVUwXDve6XzR+qIcPaRAQAHoouzuu52znktuWG17pqHSYK9UZTVL11WjVeRf2fq9BLSKSOWJssT2vjeiOa5q6o5F2Kilax3Tc75zyW1LBa90VDpMFeu9pql3CtIq8i88f3dBr3SrRTn87yzXrbZRW/rXXxW/t2wri3z9aJLcHmGSOaJksT2yRvajmuauqORdiop6NV7CvBwndE5MMuSOe6bWp2sxliK+qpm8CViJyp+09bp292BPw3Eq+HV1XoPJrua4PqO8JuDzRWtLHJFK+KVjmSMcrXNcmitVNqKh5JbbojJiO5YprotenbHjTE31TTNRESsROVOaT1ukiXLHJDK+KVjo5GOVrmuTRWqm1FTkU3hg2M0MWoc7S1NbVvT+3BlrSqqos0eQAW59QAAAAAAAAAAAAAAAAACxCweIuAdW0/ZNM2YSweIuAdW0/ZNM2ecLnpp9r+pRy2sEDM/Go3OK5kT/wA1V+tqKTzIHZ/eOO5vPP8Aa0zbk/8Afqny+KJdn7bNZtLjXhHn0PaNLFyui0uNeEefQ9o0sXJPKH0lDsl4Ha92oGn52eKS6OrJvVU3A0/OzxSXR1ZN6qmC4d73S+aP1RDh7SICAA9FF2AAAd63N2caW9JFad01Lv7JkdvaSrkdr71cvyXfs15/k9GyWDHNexHscjmuTVFRdUVCtU7/ALnTOl2Cup7Su2pV2GOVGUdbIvDTczHr/wBnMvyejZrvSvRXnfKvLNettlHj1rr4rf27YVxb5+tElYD4xzXtR7HI5rk1RUXVFQ+mrSvBwzdEZMR3NFNc9r07Y8bYm+qKZiaJWInKnNJ63SdzBPw7Ea+HV1XoPJrua4PqO8JuDzRWtNHJDK+KaN0cjHK17HJorVTaipyKeSXO6IyYjueGa57YgZHjbG76op28CViJypzSff0kSZopIZnwzRujkjcrXscmitVOBUVORTeGC41QxahzlLU1tW9P7cGWtKqqizR4ABbn1AAAAAAAAAAAAAAAJp2fnHlrQ2lg9FVXRDHUU9DDFKxaeZd65rERU4Gc6GV8NuV3lZB6NN3CC4MIqaBWE5OTqT19a/yRHZwe9k6PDbld5WQejTdwiJnDiuH45mZjuLYXUJU0VTU7+GVGqiOTeomuioimpAtcG0ZtcIqyq0ZSbay15cc9yR9KVCNN5o/fbk8VLcOG1M795DDVxSSO013rUeiqv1E2fDbld5WQejTdwguD6Y1o7b4vKEq0pLyc9mW/tTOatGNXLMnR4bcrvKyD0abuGs5p5t5d4xlzj+F4dcsNRWVVDLFDElPKivcreBNVYifWQ9BUUNBbCjUjUjOecWntW7/k+atIJ55sAAzUlAAAAAAHfNz3nalvRR2zeFTI7CWppSVitV7qbT5DkTVVZzbVTZs2ds8NuV3lZB6NN3CC4MTxDQ3D72u67bi3t8nLLPjrTI07WE3mTo8NuV3lZB6NN3B4bcrvKyD0abuEFwQfQDD/AIk++P8Ak6+Zw4snR4bcrvKyD0abuHD90JLlVdbZLkte5aSLHWprPB73la2sTn1VmiP+fYvLznBwTsO0RtsOrqvQqzTXWsmuD9XYdoW0YPNNgAGWEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9k=" alt="Ready Logo" class="logo-img">
-                    <div class="flex flex-col text-left">
-                        <span class="text-lg font-bold leading-tight uppercase text-left">Ready</span>
-                        <span class="text-xs font-medium text-slate-500 tracking-widest uppercase text-[9px] text-left">Training Platform</span>
-                    </div>
-                </div>
-                <div class="desktop-nav flex space-x-6 items-center">
-                    <button onclick="nav('home')" class="nav-link px-2 py-1 text-sm font-semibold border-b-2 border-violet-600 text-violet-600" id="link-home">Home</button>
-                    
-                    <!-- Ready Solo Dropdown -->
-                    <div class="dropdown">
-                        <span class="dropbtn nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-mitigation-dropdown">
-                            Ready Solo ▾
-                        </span>
-                        <div class="dropdown-content">
-                            <a onclick="nav('readiness')">Phase 1: Readiness</a>
-                            <a onclick="nav('mitigation')">Phase 2: Mitigation</a>
-                            <a onclick="nav('contents')">Phase 3: Contents</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Ready Team Dropdown -->
-                    <div class="dropdown" id="nav-ready-team">
-                        <span class="dropbtn nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-ready-team-dropdown">
-                            Ready Team <span class="nav-lock-icon" id="lock-team">🔒</span> ▾
-                        </span>
-                        <div class="dropdown-content">
-                            <div style="padding: 8px 16px; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em;">Reconstruction</div>
-                            <a onclick="nav('recon-transition')">Transition & Handoff</a>
-                            <a onclick="nav('recon-estimating')">Estimating Software</a>
-                            <a onclick="nav('recon-scope')">Scope Development</a>
-                            <a onclick="nav('recon-preconstruction')">Pre-Construction</a>
-                            <a onclick="nav('recon-construction')">Construction</a>
-                            <a onclick="nav('recon-completion')">Completion</a>
-                            <div style="padding: 8px 16px; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em; border-top: 1px solid #e2e8f0; margin-top: 8px; padding-top: 12px;">Financial Operations</div>
-                            <a onclick="nav('financial')">Job Costing & Profitability</a>
-                            <div style="padding: 8px 16px; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em; border-top: 1px solid #e2e8f0; margin-top: 8px; padding-top: 12px;">Team Development</div>
-                            <a onclick="nav('onboarding')">Employee Onboarding</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Ready Enterprise Dropdown -->
-                    <div class="dropdown" id="nav-ready-enterprise">
-                        <span class="dropbtn nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-pro-dropdown">
-                            Ready Enterprise <span class="nav-lock-icon" id="lock-enterprise">🔒</span> ▾
-                        </span>
-                        <div class="dropdown-content">
-                            <a onclick="nav('team-scaling')">Team Scaling & Leadership</a>
-                            <a onclick="nav('exit-strategy')">Exit Strategy & Sale Prep</a>
-                            <a onclick="nav('mgmt-development')">Managerial Development</a>
-                            <a onclick="nav('maturity-models')">Employee Maturity Models</a>
-                        </div>
-                    </div>
-                    
-                    <button onclick="nav('resources')" class="nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-resources">Resources</button>
-                    <button onclick="nav('dashboard')" class="nav-link px-2 py-1 text-sm font-semibold text-slate-500 hover:text-violet-600" id="link-dashboard" data-ms-membership="ready-team,ready-pro" style="display:none;">Team Dashboard</button>
-                    <div class="dropdown" id="nav-exams">
-                        <span class="dropbtn bg-slate-900 text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-violet-600 transition shadow-md cursor-pointer" id="link-exams">
-                            Exams ▾
-                        </span>
-                        <div class="dropdown-content" style="right:0; left:auto; min-width:240px;">
-                            <div style="padding: 8px 16px; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em;">Mitigation</div>
-                            <a onclick="nav('quiz')">📝 Practice Exam</a>
-                            <a onclick="startCertificationQuiz()">🏆 Certification Exam</a>
-                            <div style="padding: 8px 16px; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em; border-top: 1px solid #e2e8f0; margin-top: 4px; padding-top: 12px; display:none;" id="exam-recon-header" data-ms-membership="ready-team,ready-pro">Reconstruction</div>
-                            <a onclick="startReconQuiz()" id="exam-recon-practice" data-ms-membership="ready-team,ready-pro" style="display:none;">📝 Practice Exam</a>
-                            <a onclick="startReconCertificationQuiz()" id="exam-recon-cert" data-ms-membership="ready-team,ready-pro" style="display:none;">🏆 Certification Exam</a>
-                            <div style="padding: 8px 16px; font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em; border-top: 1px solid #e2e8f0; margin-top: 4px; padding-top: 12px; display:none;" id="exam-mgmt-header" data-ms-membership="ready-pro">Management</div>
-                            <a onclick="startMgmtQuiz()" id="exam-mgmt-practice" data-ms-membership="ready-pro" style="display:none;">📝 Practice Exam</a>
-                            <a onclick="startMgmtCertQuiz()" id="exam-mgmt-cert" data-ms-membership="ready-pro" style="display:none;">🏆 Certification Exam</a>
-                        </div>
-                    </div>
-                    <button onclick="logout()" class="logout-btn">Logout</button>
-                </div>
-            </div>
+<!-- ===== RT APP SHELL ===== -->
+<div class="rt-app" id="rtApp">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="rt-side" id="rtSide">
+
+    <!-- Logo -->
+    <div class="rt-side-logo">
+      <img id="rtLogoImg" alt="Ready Logo" class="logo-img">
+      <script>document.getElementById('rtLogoImg').src=document.querySelector('link[rel="icon"]').href;</script>
+      <div class="rt-side-brand">
+        <span class="rt-brand-name">Ready</span>
+        <span class="rt-brand-sub">Training Platform</span>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <nav class="rt-side-nav">
+
+      <!-- Group: Training -->
+      <div class="rt-nav-group">
+        <div class="rt-nav-group-header">Training</div>
+        <a class="rt-nav-item nav-link" id="link-home" onclick="nav('home')">
+          <i class="ti ti-home rt-nav-icon"></i>
+          <span class="rt-nav-label">Home</span>
+        </a>
+        <a class="rt-nav-item nav-link" id="link-readiness" onclick="nav('readiness')">
+          <i class="ti ti-truck rt-nav-icon"></i>
+          <span class="rt-nav-label">Readiness</span>
+        </a>
+        <a class="rt-nav-item nav-link" id="link-mitigation" onclick="nav('mitigation')">
+          <i class="ti ti-tool rt-nav-icon"></i>
+          <span class="rt-nav-label">Mitigation</span>
+        </a>
+        <a class="rt-nav-item nav-link" id="link-contents" onclick="nav('contents')">
+          <i class="ti ti-package rt-nav-icon"></i>
+          <span class="rt-nav-label">Contents</span>
+        </a>
+      </div>
+
+      <!-- Group: Ready Team (gated) -->
+      <div class="rt-nav-group" id="nav-ready-team">
+        <div class="rt-nav-group-header">
+          Ready Team <span class="nav-lock-icon" id="lock-team">&#128274;</span>
+          <span id="lock-team-mobile" aria-hidden="true" style="display:none">&#128274;</span>
         </div>
+        <a class="rt-nav-item nav-link" id="link-reconstruction" onclick="nav('recon-transition')">
+          <i class="ti ti-building rt-nav-icon"></i>
+          <span class="rt-nav-label">Reconstruction</span>
+        </a>
+        <a class="rt-nav-item nav-link" id="link-financial" onclick="nav('financial')">
+          <i class="ti ti-cash rt-nav-icon"></i>
+          <span class="rt-nav-label">Job Costing</span>
+        </a>
+        <a class="rt-nav-item nav-link" id="link-onboarding" onclick="nav('onboarding')">
+          <i class="ti ti-user-plus rt-nav-icon"></i>
+          <span class="rt-nav-label">Onboarding</span>
+        </a>
+      </div>
+
+      <!-- Group: Ready Enterprise (gated) -->
+      <div class="rt-nav-group" id="nav-ready-enterprise">
+        <div class="rt-nav-group-header">
+          Ready Enterprise <span class="nav-lock-icon" id="lock-enterprise">&#128274;</span>
+          <span id="lock-enterprise-mobile" aria-hidden="true" style="display:none">&#128274;</span>
+        </div>
+        <a class="rt-nav-item nav-link" id="link-team-scaling" onclick="nav('team-scaling')">
+          <i class="ti ti-users rt-nav-icon"></i>
+          <span class="rt-nav-label">Team Scaling</span>
+        </a>
+        <a class="rt-nav-item nav-link" id="link-exit-strategy" onclick="nav('exit-strategy')">
+          <i class="ti ti-trending-up rt-nav-icon"></i>
+          <span class="rt-nav-label">Exit Strategy</span>
+        </a>
+        <a class="rt-nav-item nav-link" id="link-mgmt-development" onclick="nav('mgmt-development')">
+          <i class="ti ti-chart-bar rt-nav-icon"></i>
+          <span class="rt-nav-label">Mgmt Development</span>
+        </a>
+        <a class="rt-nav-item nav-link" id="link-maturity-models" onclick="nav('maturity-models')">
+          <i class="ti ti-stars rt-nav-icon"></i>
+          <span class="rt-nav-label">Maturity Models</span>
+        </a>
+      </div>
+
+      <!-- Group: Exams -->
+      <div class="rt-nav-group" id="nav-exams">
+        <div class="rt-nav-group-header" id="link-exams">Exams</div>
+        <div class="rt-nav-subheader">Mitigation</div>
+        <a class="rt-nav-item nav-link" id="link-quiz" onclick="nav('quiz')">
+          <i class="ti ti-pencil rt-nav-icon"></i>
+          <span class="rt-nav-label">Practice Exam</span>
+        </a>
+        <a class="rt-nav-item nav-link" onclick="startCertificationQuiz()">
+          <i class="ti ti-award rt-nav-icon"></i>
+          <span class="rt-nav-label">Certification Exam</span>
+        </a>
+        <div class="rt-nav-subheader" id="exam-recon-header" data-ms-membership="ready-team,ready-pro" style="display:none">Reconstruction</div>
+        <a class="rt-nav-item nav-link" id="exam-recon-practice" data-ms-membership="ready-team,ready-pro" style="display:none" onclick="startReconQuiz()">
+          <i class="ti ti-pencil rt-nav-icon"></i>
+          <span class="rt-nav-label">Practice Exam</span>
+        </a>
+        <a class="rt-nav-item nav-link" id="exam-recon-cert" data-ms-membership="ready-team,ready-pro" style="display:none" onclick="startReconCertificationQuiz()">
+          <i class="ti ti-award rt-nav-icon"></i>
+          <span class="rt-nav-label">Certification Exam</span>
+        </a>
+        <div class="rt-nav-subheader" id="exam-mgmt-header" data-ms-membership="ready-pro" style="display:none">Management</div>
+        <a class="rt-nav-item nav-link" id="exam-mgmt-practice" data-ms-membership="ready-pro" style="display:none" onclick="startMgmtQuiz()">
+          <i class="ti ti-pencil rt-nav-icon"></i>
+          <span class="rt-nav-label">Practice Exam</span>
+        </a>
+        <a class="rt-nav-item nav-link" id="exam-mgmt-cert" data-ms-membership="ready-pro" style="display:none" onclick="startMgmtCertQuiz()">
+          <i class="ti ti-award rt-nav-icon"></i>
+          <span class="rt-nav-label">Certification Exam</span>
+        </a>
+      </div>
+
+      <!-- Group: Workspace -->
+      <div class="rt-nav-group">
+        <div class="rt-nav-group-header">Workspace</div>
+        <a class="rt-nav-item nav-link" id="link-resources" onclick="nav('resources')">
+          <i class="ti ti-book rt-nav-icon"></i>
+          <span class="rt-nav-label">Resources</span>
+        </a>
+        <a class="rt-nav-item nav-link" id="link-dashboard" onclick="nav('dashboard')" data-ms-membership="ready-team,ready-pro" style="display:none">
+          <i class="ti ti-layout-dashboard rt-nav-icon"></i>
+          <span class="rt-nav-label">Team Dashboard</span>
+        </a>
+      </div>
+
     </nav>
 
-<!-- Mobile Menu Button -->
-<button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
-    <span></span>
-    <span></span>
-    <span></span>
-</button>
-
-<!-- Mobile Menu Overlay -->
-<div class="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
-
-<!-- Mobile Menu -->
-<div class="mobile-menu">
-    <div class="mobile-menu-header">
-        <span>Menu</span>
-        <button class="mobile-menu-close" onclick="closeMobileMenu()">×</button>
+    <!-- Sidebar footer: logout + collapse -->
+    <div class="rt-side-footer">
+      <button onclick="logout()" class="rt-logout-btn">
+        <i class="ti ti-logout rt-nav-icon"></i>
+        <span class="rt-nav-label">Logout</span>
+      </button>
+      <button class="rt-collapse-btn" id="rtCollapseBtn" onclick="toggleSidebarCollapse()" title="Collapse sidebar">
+        <i class="ti ti-chevrons-left"></i>
+      </button>
     </div>
-    <div class="mobile-menu-content">
-        <!-- Home -->
-        <div class="mobile-menu-item">
-            <a onclick="nav('home'); closeMobileMenu();">🏠 Home</a>
-        </div>
-        
-        <!-- Mitigation -->
-        <div class="mobile-menu-item">
-            <button onclick="toggleMobileSubmenu('mit-sub')">
-                <span>🚨 Ready Solo</span>
-                <span class="mobile-menu-arrow" id="mit-arrow">▼</span>
-            </button>
-            <div class="mobile-submenu" id="mit-sub">
-                <a onclick="nav('readiness'); closeMobileMenu();">Phase 1: Readiness</a>
-                <a onclick="nav('mitigation'); closeMobileMenu();">Phase 2: Mitigation</a>
-                <a onclick="nav('contents'); closeMobileMenu();">Phase 3: Contents</a>
-            </div>
-        </div>
-        
-        <!-- Reconstruction -->
-        <div class="mobile-menu-item" id="mobile-nav-ready-team">
-            <button onclick="toggleMobileSubmenu('recon-sub')">
-                <span>🏗️ Ready Team <span class="nav-lock-icon" id="lock-team-mobile">🔒</span></span>
-                <span class="mobile-menu-arrow" id="recon-arrow">▼</span>
-            </button>
-            <div class="mobile-submenu" id="recon-sub">
-                <a onclick="nav('recon-transition'); closeMobileMenu();">Transition & Handoff</a>
-                <a onclick="nav('recon-estimating'); closeMobileMenu();">Estimating Software</a>
-                <a onclick="nav('recon-scope'); closeMobileMenu();">Scope Development</a>
-                <a onclick="nav('recon-preconstruction'); closeMobileMenu();">Pre-Construction</a>
-                <a onclick="nav('recon-construction'); closeMobileMenu();">Construction</a>
-                <a onclick="nav('recon-completion'); closeMobileMenu();">Completion</a>
-                <a onclick="nav('financial'); closeMobileMenu();">💰 Job Costing & Profitability</a>
-                <a onclick="nav('onboarding'); closeMobileMenu();">👤 Employee Onboarding</a>
-            </div>
-        </div>
-        
-        <!-- Ready Enterprise -->
-        <div class="mobile-menu-item" id="mobile-nav-ready-enterprise">
-            <button onclick="toggleMobileSubmenu('pro-sub')">
-                <span>🎯 Ready Enterprise <span class="nav-lock-icon" id="lock-enterprise-mobile">🔒</span></span>
-                <span class="mobile-menu-arrow" id="pro-arrow">▼</span>
-            </button>
-            <div class="mobile-submenu" id="pro-sub">
-                <a onclick="nav('team-scaling'); closeMobileMenu();">Team Scaling & Leadership</a>
-                <a onclick="nav('exit-strategy'); closeMobileMenu();">Exit Strategy & Sale Prep</a>
-                <a onclick="nav('mgmt-development'); closeMobileMenu();">Managerial Development</a>
-                <a onclick="nav('maturity-models'); closeMobileMenu();">Employee Maturity Models</a>
-            </div>
-        </div>
-        
-        <!-- Resources -->
-        <div class="mobile-menu-item">
-            <a onclick="nav('resources'); closeMobileMenu();">📚 Resources</a>
-        </div>
-        
-        <!-- Team Dashboard (Admin Only) -->
-        <div class="mobile-menu-item" data-ms-membership="ready-team,ready-pro" style="display:none;" id="mobile-dashboard-link">
-            <a onclick="nav('dashboard'); closeMobileMenu();">📊 Team Dashboard</a>
-        </div>
-        
-        <!-- Exams -->
-        <div class="mobile-menu-item">
-            <button onclick="toggleMobileSubmenu('quiz-sub')">
-                <span>📝 Exams</span>
-                <span class="mobile-menu-arrow" id="quiz-arrow">▼</span>
-            </button>
-            <div class="mobile-submenu" id="quiz-sub">
-                <div style="padding: 6px 16px; font-size: 10px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em;">Mitigation</div>
-                <a onclick="nav('quiz'); closeMobileMenu();">📝 Practice Exam</a>
-                <a onclick="startCertificationQuiz(); closeMobileMenu();">🏆 Certification Exam</a>
-                <div style="padding: 6px 16px; font-size: 10px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em; border-top: 1px solid #334155; margin-top: 4px; padding-top: 8px;">Reconstruction</div>
-                <a onclick="startReconQuiz(); closeMobileMenu();">📝 Practice Exam</a>
-                <a onclick="startReconCertificationQuiz(); closeMobileMenu();">🏆 Certification Exam</a>
-                <div style="padding: 6px 16px; font-size: 10px; font-weight: 700; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.05em; border-top: 1px solid #334155; margin-top: 4px; padding-top: 8px;">Management</div>
-                <a onclick="startMgmtQuiz(); closeMobileMenu();">📝 Practice Exam</a>
-                <a onclick="startMgmtCertQuiz(); closeMobileMenu();">🏆 Certification Exam</a>
-            </div>
-        </div>
-        
-        <!-- Logout (Mobile) -->
-        <div class="mobile-menu-item">
-            <a onclick="logout(); closeMobileMenu();" style="cursor: pointer;">🚪 Logout</a>
-        </div>
-    </div>
-</div>
 
+  </aside><!-- /rt-side -->
 
+  <!-- MAIN AREA -->
+  <div class="rt-main">
 
+    <!-- Top Bar -->
+    <header class="rt-top">
+      <div class="rt-top-left">
+        <button class="rt-hamburger" id="rtHamburger" onclick="toggleSidebar()" aria-label="Open menu">
+          <i class="ti ti-menu-2"></i>
+        </button>
+        <span class="rt-breadcrumb">Ready Training Platform</span>
+      </div>
+      <div class="rt-top-right">
+        <div class="rt-search-pill">
+          <i class="ti ti-search"></i>
+          <span>Search&hellip;</span>
+        </div>
+        <button class="rt-theme-btn" id="rtThemeBtn" onclick="toggleTheme()" aria-label="Toggle theme">
+          <i class="ti ti-moon" id="rtThemeIcon"></i>
+        </button>
+        <span class="rt-plan-badge" id="rtPlanBadge">Ready Solo</span>
+        <div class="rt-avatar">R</div>
+        <button onclick="logout()" class="logout-btn">Logout</button>
+      </div>
+    </header>
 
-    <main class="flex-grow max-w-7xl mx-auto px-4 py-8 w-full">
+    <!-- Mobile overlay -->
+    <div class="rt-overlay" id="rtOverlay" onclick="closeSidebar()"></div>
+
+        <main class="rt-content">
         
         <!-- SECTION: HOME -->
         <section id="sec-home" class="tab-content fade-in">
@@ -6273,6 +6260,52 @@
     <footer class="bg-slate-900 text-slate-400 text-center py-6 mt-12">
         <p class="text-sm">&copy; <script>document.write(new Date().getFullYear())</script> Ready Training Platform. All rights reserved.</p>
     </footer>
+
+  </div><!-- /rt-main -->
+</div><!-- /rt-app -->
+
+<script>
+function toggleTheme() {
+  var curr = document.documentElement.getAttribute('data-theme') || 'light';
+  var next = curr === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('rt-theme', next);
+  var icon = document.getElementById('rtThemeIcon');
+  if (icon) icon.className = next === 'dark' ? 'ti ti-sun' : 'ti ti-moon';
+}
+
+function toggleSidebarCollapse() {
+  document.getElementById('rtApp').classList.toggle('collapsed');
+  localStorage.setItem('rt-collapsed', document.getElementById('rtApp').classList.contains('collapsed') ? '1' : '');
+}
+
+function toggleSidebar() {
+  var side = document.getElementById('rtSide');
+  var overlay = document.getElementById('rtOverlay');
+  var open = side.classList.toggle('rt-side-open');
+  overlay.classList.toggle('active', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+
+function closeSidebar() {
+  document.getElementById('rtSide').classList.remove('rt-side-open');
+  document.getElementById('rtOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Restore collapse state on load
+(function(){
+  var icon = document.getElementById('rtThemeIcon');
+  var theme = document.documentElement.getAttribute('data-theme') || 'light';
+  if (icon) icon.className = theme === 'dark' ? 'ti ti-sun' : 'ti ti-moon';
+  if (localStorage.getItem('rt-collapsed')) {
+    document.getElementById('rtApp').classList.add('collapsed');
+  }
+  // Mark home as active on load
+  var homeLink = document.getElementById('link-home');
+  if (homeLink) homeLink.classList.add('rt-active');
+})();
+</script>
 
 </body>
 </html>

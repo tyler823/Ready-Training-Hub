@@ -759,14 +759,12 @@ document.addEventListener('keydown', function(e) {
                 
                 // Update nav link styling
                 document.querySelectorAll('.nav-link').forEach(el => {
-                    el.classList.remove('text-violet-600', 'border-b-2', 'border-violet-600');
-                    el.classList.add('text-slate-500');
+                    el.classList.remove('rt-active');
                 });
-                
+
                 const activeLink = document.getElementById('link-' + id);
                 if (activeLink && activeLink.classList.contains('nav-link')) {
-                    activeLink.classList.add('text-violet-600', 'border-b-2', 'border-violet-600');
-                    activeLink.classList.remove('text-slate-500');
+                    activeLink.classList.add('rt-active');
                 }
                 
                 // Section-specific initialization
