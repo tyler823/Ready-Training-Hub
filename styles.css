@@ -1762,14 +1762,15 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
 }
 
 /* ============================================================
-   PREMIUM IN-APP HOME — scoped to #sec-home only.
-   Uses the existing design tokens (dark/light theme + purple
-   accent). Does not touch the left nav, top bar, or theme toggle.
+   PREMIUM IN-APP CARD SYSTEM — shared by #sec-home, #sec-resources,
+   and #sec-dashboard so all three surfaces match. Uses the existing
+   design tokens (dark/light theme + purple accent). Does not touch
+   the left nav, top bar, or theme toggle.
    ============================================================ */
-#sec-home { max-width: 1120px; margin: 0 auto; }
+#sec-home , #sec-resources , #sec-dashboard { max-width: 1120px; margin: 0 auto; }
 
 /* ----- Hero ----- */
-#sec-home .home-hero {
+#sec-home .home-hero , #sec-resources .home-hero , #sec-dashboard .home-hero {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius);
@@ -1783,38 +1784,38 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
   box-shadow: var(--shadow);
 }
 /* faint dot-grid for grain/depth */
-#sec-home .home-hero::before {
+#sec-home .home-hero::before , #sec-resources .home-hero::before , #sec-dashboard .home-hero::before {
   content: ''; position: absolute; inset: 0;
   background-image: radial-gradient(rgba(255,255,255,.14) 1px, transparent 1px);
   background-size: 22px 22px; opacity: .45; pointer-events: none;
 }
 /* soft corner glow */
-#sec-home .home-hero::after {
+#sec-home .home-hero::after , #sec-resources .home-hero::after , #sec-dashboard .home-hero::after {
   content: ''; position: absolute; right: -90px; top: -90px; width: 300px; height: 300px;
   background: radial-gradient(circle, rgba(255,255,255,.18), rgba(255,255,255,0) 70%);
   pointer-events: none;
 }
-#sec-home .home-hero-inner { position: relative; z-index: 1; max-width: 780px; }
-#sec-home .home-eyebrow {
+#sec-home .home-hero-inner , #sec-resources .home-hero-inner , #sec-dashboard .home-hero-inner { position: relative; z-index: 1; max-width: 780px; }
+#sec-home .home-eyebrow , #sec-resources .home-eyebrow , #sec-dashboard .home-eyebrow {
   display: inline-block; font-family: 'JetBrains Mono', monospace;
   font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
   color: rgba(255,255,255,.85);
   border: 1px solid rgba(255,255,255,.28); border-radius: 999px;
   padding: 5px 12px; margin-bottom: 16px;
 }
-#sec-home .home-hero-title {
+#sec-home .home-hero-title , #sec-resources .home-hero-title , #sec-dashboard .home-hero-title {
   font-family: 'Schibsted Grotesk', sans-serif;
   font-size: clamp(30px, 5vw, 46px); font-weight: 800; line-height: 1.04;
   letter-spacing: -.02em; margin: 0 0 12px;
 }
-#sec-home .home-hero-lead {
+#sec-home .home-hero-lead , #sec-resources .home-hero-lead , #sec-dashboard .home-hero-lead {
   font-size: 16px; line-height: 1.6; color: rgba(255,255,255,.9);
   margin: 0 0 24px; max-width: 650px;
 }
-#sec-home .home-hero-actions {
+#sec-home .home-hero-actions , #sec-resources .home-hero-actions , #sec-dashboard .home-hero-actions {
   display: flex; flex-wrap: wrap; align-items: center; gap: 22px;
 }
-#sec-home .home-cta {
+#sec-home .home-cta , #sec-resources .home-cta , #sec-dashboard .home-cta {
   display: inline-flex; align-items: center; gap: 9px;
   font-family: 'Schibsted Grotesk', sans-serif; font-weight: 700; font-size: 15px;
   color: var(--brand-strong); background: #fff; border: none;
@@ -1822,157 +1823,354 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
   cursor: pointer; box-shadow: 0 8px 22px -10px rgba(0,0,0,.6);
   transition: transform .15s ease, box-shadow .15s ease;
 }
-#sec-home .home-cta:hover { transform: translateY(-1px); box-shadow: 0 14px 28px -10px rgba(0,0,0,.65); }
-#sec-home .home-cta svg { width: 18px; height: 18px; }
-#sec-home .home-hero-progress {
+#sec-home .home-cta:hover , #sec-resources .home-cta:hover , #sec-dashboard .home-cta:hover { transform: translateY(-1px); box-shadow: 0 14px 28px -10px rgba(0,0,0,.65); }
+#sec-home .home-cta svg , #sec-resources .home-cta svg , #sec-dashboard .home-cta svg { width: 18px; height: 18px; }
+#sec-home .home-hero-progress , #sec-resources .home-hero-progress , #sec-dashboard .home-hero-progress {
   display: flex; flex-direction: column; gap: 8px;
   flex: 1; min-width: 200px; max-width: 320px;
 }
-#sec-home .home-hero-progress-bar {
+#sec-home .home-hero-progress-bar , #sec-resources .home-hero-progress-bar , #sec-dashboard .home-hero-progress-bar {
   height: 7px; border-radius: 999px; background: rgba(255,255,255,.22); overflow: hidden;
 }
-#sec-home .home-hero-progress-bar span {
+#sec-home .home-hero-progress-bar span , #sec-resources .home-hero-progress-bar span , #sec-dashboard .home-hero-progress-bar span {
   display: block; height: 100%; width: 0%; border-radius: 999px;
   background: #fff; transition: width .5s ease;
 }
-#sec-home .home-hero-progress-label { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.88); }
+#sec-home .home-hero-progress-label , #sec-resources .home-hero-progress-label , #sec-dashboard .home-hero-progress-label { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.88); }
 
 /* ----- Section headings ----- */
-#sec-home .home-section { margin-bottom: 38px; }
-#sec-home .home-section-head { margin-bottom: 18px; }
-#sec-home .home-section-title {
+#sec-home .home-section , #sec-resources .home-section , #sec-dashboard .home-section { margin-bottom: 38px; }
+#sec-home .home-section-head , #sec-resources .home-section-head , #sec-dashboard .home-section-head { margin-bottom: 18px; }
+#sec-home .home-section-title , #sec-resources .home-section-title , #sec-dashboard .home-section-title {
   font-family: 'Schibsted Grotesk', sans-serif; font-size: 22px; font-weight: 800;
   color: var(--t1); letter-spacing: -.01em; margin: 0 0 6px;
 }
-#sec-home .home-section-sub {
+#sec-home .home-section-sub , #sec-resources .home-section-sub , #sec-dashboard .home-section-sub {
   font-size: 14px; line-height: 1.55; color: var(--t2); margin: 0; max-width: 700px;
 }
 
 /* ----- Module cards ----- */
-#sec-home .home-grid {
+#sec-home .home-grid , #sec-resources .home-grid , #sec-dashboard .home-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px;
 }
-#sec-home .home-card {
+#sec-home .home-card , #sec-resources .home-card , #sec-dashboard .home-card {
   position: relative; display: flex; flex-direction: column;
   background: var(--s1); border: 1px solid var(--br); border-radius: var(--radius);
   padding: 22px; box-shadow: var(--shadow);
   transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
 }
-#sec-home .home-card.is-clickable { cursor: pointer; }
-#sec-home .home-card.is-clickable:hover {
+#sec-home .home-card.is-clickable , #sec-resources .home-card.is-clickable , #sec-dashboard .home-card.is-clickable { cursor: pointer; }
+#sec-home .home-card.is-clickable:hover , #sec-resources .home-card.is-clickable:hover , #sec-dashboard .home-card.is-clickable:hover {
   transform: translateY(-3px); border-color: var(--brand-line);
   box-shadow: 0 18px 40px -22px rgba(20,18,30,.55);
 }
-#sec-home .home-ic {
+#sec-home .home-ic , #sec-resources .home-ic , #sec-dashboard .home-ic {
   width: 44px; height: 44px; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
   background: var(--brand-tint); color: var(--brand-soft);
   border: 1px solid var(--brand-line); margin-bottom: 14px;
 }
-#sec-home .home-ic svg { width: 22px; height: 22px; }
-#sec-home .home-card-label {
+#sec-home .home-ic svg , #sec-resources .home-ic svg , #sec-dashboard .home-ic svg { width: 22px; height: 22px; }
+#sec-home .home-card-label , #sec-resources .home-card-label , #sec-dashboard .home-card-label {
   font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .12em;
   text-transform: uppercase; color: var(--t3); margin-bottom: 8px;
 }
-#sec-home .home-card-title {
+#sec-home .home-card-title , #sec-resources .home-card-title , #sec-dashboard .home-card-title {
   font-family: 'Schibsted Grotesk', sans-serif; font-size: 17px; font-weight: 700;
   color: var(--t1); margin: 0 0 7px;
 }
-#sec-home .home-card-desc { font-size: 13.5px; line-height: 1.55; color: var(--t2); margin: 0 0 18px; flex: 1; }
-#sec-home .home-card-prog { margin-top: auto; }
-#sec-home .home-card-prog-bar { height: 5px; border-radius: 999px; background: var(--s3); overflow: hidden; }
-#sec-home .home-card-prog-bar span {
+#sec-home .home-card-desc , #sec-resources .home-card-desc , #sec-dashboard .home-card-desc { font-size: 13.5px; line-height: 1.55; color: var(--t2); margin: 0 0 18px; flex: 1; }
+#sec-home .home-card-prog , #sec-resources .home-card-prog , #sec-dashboard .home-card-prog { margin-top: auto; }
+#sec-home .home-card-prog-bar , #sec-resources .home-card-prog-bar , #sec-dashboard .home-card-prog-bar { height: 5px; border-radius: 999px; background: var(--s3); overflow: hidden; }
+#sec-home .home-card-prog-bar span , #sec-resources .home-card-prog-bar span , #sec-dashboard .home-card-prog-bar span {
   display: block; height: 100%; width: 0%; border-radius: 999px;
   background: var(--brand); transition: width .5s ease;
 }
-#sec-home .home-card-prog-bar span.is-complete { background: var(--green); }
-#sec-home .home-card-prog-label { display: block; margin-top: 7px; font-size: 11px; font-weight: 700; color: var(--t3); }
-#sec-home .home-card-tier { position: absolute; top: 18px; right: 18px; }
-#sec-home .home-tier-chip {
+#sec-home .home-card-prog-bar span.is-complete , #sec-resources .home-card-prog-bar span.is-complete , #sec-dashboard .home-card-prog-bar span.is-complete { background: var(--green); }
+#sec-home .home-card-prog-label , #sec-resources .home-card-prog-label , #sec-dashboard .home-card-prog-label { display: block; margin-top: 7px; font-size: 11px; font-weight: 700; color: var(--t3); }
+#sec-home .home-card-tier , #sec-resources .home-card-tier , #sec-dashboard .home-card-tier { position: absolute; top: 18px; right: 18px; }
+#sec-home .home-tier-chip , #sec-resources .home-tier-chip , #sec-dashboard .home-tier-chip {
   font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: .1em;
   text-transform: uppercase; padding: 4px 9px; border-radius: 999px;
   background: var(--s3); color: var(--t2); border: 1px solid var(--br-hi);
 }
-#sec-home .home-card.is-locked .home-ic { background: var(--s3); color: var(--t3); border-color: var(--br-hi); }
-#sec-home .home-lock {
+#sec-home .home-card.is-locked .home-ic , #sec-resources .home-card.is-locked .home-ic , #sec-dashboard .home-card.is-locked .home-ic { background: var(--s3); color: var(--t3); border-color: var(--br-hi); }
+#sec-home .home-lock , #sec-resources .home-lock , #sec-dashboard .home-lock {
   display: inline-flex; align-items: center; gap: 6px; margin-top: auto;
   font-size: 11.5px; font-weight: 700; color: var(--brand-soft);
 }
-#sec-home .home-lock svg { width: 13px; height: 13px; }
+#sec-home .home-lock svg , #sec-resources .home-lock svg , #sec-dashboard .home-lock svg { width: 13px; height: 13px; }
 
 /* ----- Dark feature panels (certification + ecosystem) ----- */
-#sec-home .home-panel {
+#sec-home .home-panel , #sec-resources .home-panel , #sec-dashboard .home-panel {
   position: relative; overflow: hidden; border-radius: var(--radius);
   background: linear-gradient(135deg, #161320 0%, #221a33 100%);
   border: 1px solid var(--br-hi); color: #fff; padding: 32px; margin-bottom: 38px;
 }
-#sec-home .home-panel::before {
+#sec-home .home-panel::before , #sec-resources .home-panel::before , #sec-dashboard .home-panel::before {
   content: ''; position: absolute; left: -60px; bottom: -80px; width: 260px; height: 260px;
   background: radial-gradient(circle, rgba(124,58,237,.35), rgba(124,58,237,0) 70%); pointer-events: none;
 }
-#sec-home .home-panel-head { position: relative; text-align: center; max-width: 640px; margin: 0 auto 24px; }
-#sec-home .home-ic-onpanel { margin: 0 auto 14px; background: rgba(124,58,237,.25); color: #c4b5fd; border-color: rgba(124,58,237,.45); }
-#sec-home .home-panel-title { font-family: 'Schibsted Grotesk', sans-serif; font-size: 24px; font-weight: 800; margin: 0 0 8px; }
-#sec-home .home-panel-sub { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,.72); margin: 0; }
-#sec-home .home-panel-foot { position: relative; text-align: center; font-size: 12px; color: rgba(255,255,255,.55); margin: 22px 0 0; }
+#sec-home .home-panel-head , #sec-resources .home-panel-head , #sec-dashboard .home-panel-head { position: relative; text-align: center; max-width: 640px; margin: 0 auto 24px; }
+#sec-home .home-ic-onpanel , #sec-resources .home-ic-onpanel , #sec-dashboard .home-ic-onpanel { margin: 0 auto 14px; background: rgba(124,58,237,.25); color: #c4b5fd; border-color: rgba(124,58,237,.45); }
+#sec-home .home-panel-title , #sec-resources .home-panel-title , #sec-dashboard .home-panel-title { font-family: 'Schibsted Grotesk', sans-serif; font-size: 24px; font-weight: 800; margin: 0 0 8px; }
+#sec-home .home-panel-sub , #sec-resources .home-panel-sub , #sec-dashboard .home-panel-sub { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,.72); margin: 0; }
+#sec-home .home-panel-foot , #sec-resources .home-panel-foot , #sec-dashboard .home-panel-foot { position: relative; text-align: center; font-size: 12px; color: rgba(255,255,255,.55); margin: 22px 0 0; }
 
-#sec-home .home-cert-grid { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-#sec-home .home-cert-card { background: rgba(255,255,255,.04); border: 1px solid rgba(124,58,237,.4); border-radius: var(--radius); padding: 24px; }
-#sec-home .home-cert-title { font-family: 'Schibsted Grotesk', sans-serif; font-size: 19px; font-weight: 800; color: #c4b5fd; margin: 0 0 10px; }
-#sec-home .home-cert-desc { font-size: 13.5px; line-height: 1.55; color: rgba(255,255,255,.78); margin: 0 0 14px; }
-#sec-home .home-cert-list { list-style: none; margin: 0 0 18px; padding: 0; }
-#sec-home .home-cert-list li { position: relative; padding-left: 22px; font-size: 12.5px; line-height: 1.7; color: rgba(255,255,255,.66); }
-#sec-home .home-cert-list li::before {
+#sec-home .home-cert-grid , #sec-resources .home-cert-grid , #sec-dashboard .home-cert-grid { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+#sec-home .home-cert-card , #sec-resources .home-cert-card , #sec-dashboard .home-cert-card { background: rgba(255,255,255,.04); border: 1px solid rgba(124,58,237,.4); border-radius: var(--radius); padding: 24px; }
+#sec-home .home-cert-title , #sec-resources .home-cert-title , #sec-dashboard .home-cert-title { font-family: 'Schibsted Grotesk', sans-serif; font-size: 19px; font-weight: 800; color: #c4b5fd; margin: 0 0 10px; }
+#sec-home .home-cert-desc , #sec-resources .home-cert-desc , #sec-dashboard .home-cert-desc { font-size: 13.5px; line-height: 1.55; color: rgba(255,255,255,.78); margin: 0 0 14px; }
+#sec-home .home-cert-list , #sec-resources .home-cert-list , #sec-dashboard .home-cert-list { list-style: none; margin: 0 0 18px; padding: 0; }
+#sec-home .home-cert-list li , #sec-resources .home-cert-list li , #sec-dashboard .home-cert-list li { position: relative; padding-left: 22px; font-size: 12.5px; line-height: 1.7; color: rgba(255,255,255,.66); }
+#sec-home .home-cert-list li::before , #sec-resources .home-cert-list li::before , #sec-dashboard .home-cert-list li::before {
   content: ''; position: absolute; left: 4px; top: 9px; width: 8px; height: 5px;
   border-left: 2px solid var(--brand-soft); border-bottom: 2px solid var(--brand-soft);
   transform: rotate(-45deg);
 }
-#sec-home .home-cert-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-#sec-home .home-btn {
+#sec-home .home-cert-actions , #sec-resources .home-cert-actions , #sec-dashboard .home-cert-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+#sec-home .home-btn , #sec-resources .home-btn , #sec-dashboard .home-btn {
   font-family: 'Schibsted Grotesk', sans-serif; font-weight: 700; font-size: 13.5px;
   border-radius: var(--radius-sm); padding: 12px 14px; min-height: 46px; cursor: pointer;
   transition: background .15s ease, transform .15s ease;
 }
-#sec-home .home-btn-ghost { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.2); }
-#sec-home .home-btn-ghost:hover { background: rgba(255,255,255,.16); }
-#sec-home .home-btn-solid { background: var(--brand); color: #fff; border: 1px solid var(--brand); }
-#sec-home .home-btn-solid:hover { background: var(--brand-strong); }
-#sec-home .home-cert-earn { font-size: 11.5px; font-weight: 700; color: var(--brand-soft); margin: 16px 0 0; }
+#sec-home .home-btn-ghost , #sec-resources .home-btn-ghost , #sec-dashboard .home-btn-ghost { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.2); }
+#sec-home .home-btn-ghost:hover , #sec-resources .home-btn-ghost:hover , #sec-dashboard .home-btn-ghost:hover { background: rgba(255,255,255,.16); }
+#sec-home .home-btn-solid , #sec-resources .home-btn-solid , #sec-dashboard .home-btn-solid { background: var(--brand); color: #fff; border: 1px solid var(--brand); }
+#sec-home .home-btn-solid:hover , #sec-resources .home-btn-solid:hover , #sec-dashboard .home-btn-solid:hover { background: var(--brand-strong); }
+#sec-home .home-cert-earn , #sec-resources .home-cert-earn , #sec-dashboard .home-cert-earn { font-size: 11.5px; font-weight: 700; color: var(--brand-soft); margin: 16px 0 0; }
 
 /* ----- Ecosystem ----- */
-#sec-home .home-eco-grid { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; max-width: 920px; margin: 0 auto; }
-#sec-home .home-eco-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius); padding: 22px; }
-#sec-home .home-eco-card.is-feature { background: rgba(124,58,237,.12); border-color: rgba(124,58,237,.45); }
-#sec-home .home-eco-title { font-family: 'Schibsted Grotesk', sans-serif; font-size: 16px; font-weight: 800; color: #c4b5fd; margin: 0 0 4px; }
-#sec-home .home-eco-tag { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.6); margin: 0 0 10px; }
-#sec-home .home-eco-desc { font-size: 12.5px; line-height: 1.6; color: rgba(255,255,255,.7); margin: 0 0 14px; }
-#sec-home .home-eco-here { font-size: 11.5px; font-weight: 700; color: var(--brand-soft); margin: 0; }
-#sec-home .home-eco-link {
+#sec-home .home-eco-grid , #sec-resources .home-eco-grid , #sec-dashboard .home-eco-grid { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; max-width: 920px; margin: 0 auto; }
+#sec-home .home-eco-card , #sec-resources .home-eco-card , #sec-dashboard .home-eco-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius); padding: 22px; }
+#sec-home .home-eco-card.is-feature , #sec-resources .home-eco-card.is-feature , #sec-dashboard .home-eco-card.is-feature { background: rgba(124,58,237,.12); border-color: rgba(124,58,237,.45); }
+#sec-home .home-eco-title , #sec-resources .home-eco-title , #sec-dashboard .home-eco-title { font-family: 'Schibsted Grotesk', sans-serif; font-size: 16px; font-weight: 800; color: #c4b5fd; margin: 0 0 4px; }
+#sec-home .home-eco-tag , #sec-resources .home-eco-tag , #sec-dashboard .home-eco-tag { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.6); margin: 0 0 10px; }
+#sec-home .home-eco-desc , #sec-resources .home-eco-desc , #sec-dashboard .home-eco-desc { font-size: 12.5px; line-height: 1.6; color: rgba(255,255,255,.7); margin: 0 0 14px; }
+#sec-home .home-eco-here , #sec-resources .home-eco-here , #sec-dashboard .home-eco-here { font-size: 11.5px; font-weight: 700; color: var(--brand-soft); margin: 0; }
+#sec-home .home-eco-link , #sec-resources .home-eco-link , #sec-dashboard .home-eco-link {
   display: inline-block; font-size: 12.5px; font-weight: 700; color: #fff;
   background: var(--brand); border-radius: var(--radius-sm); padding: 9px 16px; text-decoration: none;
   transition: background .15s ease;
 }
-#sec-home .home-eco-link:hover { background: var(--brand-strong); }
+#sec-home .home-eco-link:hover , #sec-resources .home-eco-link:hover , #sec-dashboard .home-eco-link:hover { background: var(--brand-strong); }
 
 /* ----- How it works ----- */
-#sec-home .home-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-#sec-home .home-step {
+#sec-home .home-steps , #sec-resources .home-steps , #sec-dashboard .home-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+#sec-home .home-step , #sec-resources .home-step , #sec-dashboard .home-step {
   text-align: center; background: var(--s1); border: 1px solid var(--br);
   border-radius: var(--radius); padding: 24px 18px; box-shadow: var(--shadow);
 }
-#sec-home .home-step-num {
+#sec-home .home-step-num , #sec-resources .home-step-num , #sec-dashboard .home-step-num {
   width: 44px; height: 44px; border-radius: 999px; margin: 0 auto 12px;
   display: flex; align-items: center; justify-content: center;
   font-family: 'Schibsted Grotesk', sans-serif; font-size: 18px; font-weight: 800;
   color: #fff; background: var(--brand);
 }
-#sec-home .home-step-title { font-family: 'Schibsted Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: var(--t1); margin: 0 0 6px; }
-#sec-home .home-step-desc { font-size: 13px; line-height: 1.55; color: var(--t2); margin: 0; }
+#sec-home .home-step-title , #sec-resources .home-step-title , #sec-dashboard .home-step-title { font-family: 'Schibsted Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: var(--t1); margin: 0 0 6px; }
+#sec-home .home-step-desc , #sec-resources .home-step-desc , #sec-dashboard .home-step-desc { font-size: 13px; line-height: 1.55; color: var(--t2); margin: 0; }
 
 @media (max-width: 640px) {
-  #sec-home .home-hero { padding: 26px 20px 24px; }
-  #sec-home .home-hero-actions { gap: 16px; }
-  #sec-home .home-hero-progress { max-width: none; }
-  #sec-home .home-panel { padding: 24px 18px; }
-  #sec-home .home-cert-actions { grid-template-columns: 1fr; }
+  #sec-home .home-hero , #sec-resources .home-hero , #sec-dashboard .home-hero { padding: 26px 20px 24px; }
+  #sec-home .home-hero-actions , #sec-resources .home-hero-actions , #sec-dashboard .home-hero-actions { gap: 16px; }
+  #sec-home .home-hero-progress , #sec-resources .home-hero-progress , #sec-dashboard .home-hero-progress { max-width: none; }
+  #sec-home .home-panel , #sec-resources .home-panel , #sec-dashboard .home-panel { padding: 24px 18px; }
+  #sec-home .home-cert-actions , #sec-resources .home-cert-actions , #sec-dashboard .home-cert-actions { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   RESOURCES + DASHBOARD — section-specific extensions that build
+   on the shared card system above. Scoped to the two sections.
+   ============================================================ */
+
+/* ----- Resources: card meta + buttons ----- */
+#sec-resources .res-meta {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .03em;
+  line-height: 1.6; color: var(--t3); margin: 0 0 16px;
+}
+#sec-resources .res-dl {
+  display: block; width: 100%; text-align: center; margin-top: auto;
+  text-decoration: none;
+}
+#sec-resources .res-dl.is-soon {
+  background: var(--s3); color: var(--t3); border: 1px solid var(--br-hi); cursor: default;
+}
+#sec-resources .res-dl.is-soon:hover { background: var(--s3); }
+#sec-resources .res-link {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: auto;
+  background: none; border: none; padding: 0; cursor: pointer;
+  font-family: 'Schibsted Grotesk', sans-serif; font-weight: 700; font-size: 13px;
+  color: var(--brand-soft); transition: color .15s ease;
+}
+#sec-resources .res-link:hover { color: var(--brand-strong); }
+#sec-resources .res-link svg { width: 14px; height: 14px; }
+#sec-resources .res-chip {
+  display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+  letter-spacing: .1em; text-transform: uppercase; padding: 4px 9px; border-radius: 999px;
+  background: var(--brand-tint); color: var(--brand-soft); border: 1px solid var(--brand-line);
+  margin-bottom: 12px;
+}
+
+/* ----- Resources: org charts ----- */
+#sec-resources .org-tree { display: flex; flex-direction: column; gap: 9px; margin-top: 4px; }
+#sec-resources .org-node {
+  background: var(--s2); border: 1px solid var(--br); border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+#sec-resources .org-node .org-role { font-size: 13px; font-weight: 700; color: var(--t1); }
+#sec-resources .org-node .org-desc { font-size: 11.5px; color: var(--t2); margin-top: 2px; }
+#sec-resources .org-node.lvl1 { margin-left: 18px; }
+#sec-resources .org-node.lvl2 { margin-left: 36px; }
+
+/* ----- Resources: disclaimer ----- */
+#sec-resources .res-disclaimer {
+  margin-top: 22px; background: var(--s2); border: 1px solid var(--br-hi);
+  border-radius: var(--radius); padding: 18px; font-size: 12.5px; line-height: 1.6; color: var(--t2);
+}
+#sec-resources .res-disclaimer strong { color: var(--t1); }
+
+/* ----- Resources: ROI calculator (sits inside dark home-panel) ----- */
+#sec-resources .roi-form {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px;
+  margin-bottom: 22px;
+}
+#sec-resources .roi-field label {
+  display: block; font-size: 12.5px; font-weight: 700; color: rgba(255,255,255,.85); margin-bottom: 6px;
+}
+#sec-resources .roi-field input {
+  width: 100%; padding: 11px 13px; border-radius: var(--radius-sm);
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.18);
+  color: #fff; font-size: 15px; outline: none; transition: border-color .15s ease;
+}
+#sec-resources .roi-field input:focus { border-color: var(--brand-soft); }
+#sec-resources .roi-hint { font-size: 11px; color: rgba(255,255,255,.5); margin: 5px 0 0; }
+#sec-resources .roi-calc-actions { text-align: center; }
+#sec-resources .roi-results-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin: 0 0 22px;
+}
+#sec-resources .roi-stat {
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius); padding: 20px; text-align: center;
+}
+#sec-resources .roi-stat-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(255,255,255,.6); margin: 0 0 8px;
+}
+#sec-resources .roi-stat-value {
+  font-family: 'Schibsted Grotesk', sans-serif; font-size: 30px; font-weight: 800; color: #fff; margin: 0;
+}
+#sec-resources .roi-stat-sub { font-size: 11px; color: rgba(255,255,255,.5); margin: 6px 0 0; }
+#sec-resources .roi-breakdown {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--radius); padding: 22px;
+}
+#sec-resources .roi-breakdown h4 {
+  font-family: 'Schibsted Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin: 0 0 12px;
+}
+#sec-resources .roi-row {
+  display: flex; justify-content: space-between; gap: 16px;
+  font-size: 13px; color: rgba(255,255,255,.75); padding: 7px 0;
+}
+#sec-resources .roi-row span:last-child { font-weight: 700; color: #fff; white-space: nowrap; }
+#sec-resources .roi-row.is-divide { border-top: 1px solid rgba(255,255,255,.14); margin-top: 4px; padding-top: 12px; }
+#sec-resources .roi-row.is-total span { font-weight: 800; }
+#sec-resources .roi-note {
+  display: flex; gap: 12px; align-items: flex-start; margin-top: 18px;
+  background: var(--brand-tint); border: 1px solid var(--brand-line);
+  border-radius: var(--radius); padding: 18px;
+}
+#sec-resources .roi-note svg { width: 22px; height: 22px; color: var(--brand-soft); flex-shrink: 0; }
+#sec-resources .roi-note h4 {
+  font-family: 'Schibsted Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: #fff; margin: 0 0 4px;
+}
+#sec-resources .roi-note p { font-size: 13px; line-height: 1.55; color: rgba(255,255,255,.8); margin: 0; }
+
+/* ----- Dashboard: setup empty state ----- */
+#sec-dashboard .dash-setup { text-align: center; padding: 56px 20px; }
+#sec-dashboard .dash-setup .home-ic { margin-left: auto; margin-right: auto; }
+#sec-dashboard .dash-setup h2 {
+  font-family: 'Schibsted Grotesk', sans-serif; font-size: 22px; font-weight: 800; color: var(--t1); margin: 0 0 10px;
+}
+#sec-dashboard .dash-setup p {
+  color: var(--t2); margin: 0 auto 22px; max-width: 420px; font-size: 14px; line-height: 1.55;
+}
+
+/* ----- Dashboard: company code banner ----- */
+#sec-dashboard .dash-banner {
+  position: relative; overflow: hidden; border-radius: var(--radius);
+  border: 1px solid var(--brand-line); color: #fff; padding: 26px 28px; margin-bottom: 26px;
+  background:
+    radial-gradient(120% 150% at 100% 0%, rgba(124,58,237,.55) 0%, rgba(124,58,237,0) 55%),
+    linear-gradient(135deg, #2a1063 0%, #4c1d95 48%, #6d28d9 100%);
+  box-shadow: var(--shadow);
+}
+#sec-dashboard .dash-banner-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+#sec-dashboard .dash-code-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .14em;
+  text-transform: uppercase; color: rgba(255,255,255,.75); margin: 0 0 6px;
+}
+#sec-dashboard .dash-code {
+  font-family: 'Schibsted Grotesk', sans-serif; font-size: 30px; font-weight: 800;
+  letter-spacing: .22em; margin: 0;
+}
+#sec-dashboard .dash-code-hint { font-size: 12px; color: rgba(255,255,255,.7); margin: 6px 0 0; max-width: 420px; }
+#sec-dashboard .dash-banner-btn {
+  display: inline-flex; align-items: center; gap: 7px; cursor: pointer;
+  font-family: 'Schibsted Grotesk', sans-serif; font-weight: 700; font-size: 13px;
+  background: rgba(255,255,255,.16); color: #fff; border: 1px solid rgba(255,255,255,.28);
+  border-radius: var(--radius-sm); padding: 9px 14px; transition: background .15s ease;
+}
+#sec-dashboard .dash-banner-btn:hover { background: rgba(255,255,255,.26); }
+#sec-dashboard .dash-banner-btn svg { width: 15px; height: 15px; }
+#sec-dashboard .dash-banner-foot {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.2);
+}
+#sec-dashboard .dash-banner-foot p { font-size: 12px; color: rgba(255,255,255,.7); margin: 0; }
+
+/* ----- Dashboard: summary stats ----- */
+#sec-dashboard .dash-stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-bottom: 30px;
+}
+#sec-dashboard .dash-stat-value {
+  font-family: 'Schibsted Grotesk', sans-serif; font-size: 40px; font-weight: 800;
+  color: var(--t1); line-height: 1; margin: 0;
+}
+
+/* ----- Dashboard: member cards ----- */
+#sec-dashboard .dm-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
+#sec-dashboard .dm-name { font-family: 'Schibsted Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: var(--t1); margin: 0; }
+#sec-dashboard .dm-email { font-size: 11.5px; color: var(--t3); margin: 2px 0 0; word-break: break-all; }
+#sec-dashboard .dm-role {
+  font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: .1em;
+  text-transform: uppercase; padding: 4px 9px; border-radius: 999px; white-space: nowrap;
+  background: var(--s3); color: var(--t2); border: 1px solid var(--br-hi);
+}
+#sec-dashboard .dm-role.is-owner { background: var(--brand-tint); color: var(--brand-soft); border-color: var(--brand-line); }
+#sec-dashboard .dm-role.is-manager { background: rgba(180,83,9,.12); color: var(--amber); border-color: rgba(180,83,9,.3); }
+#sec-dashboard .dm-overall { margin-bottom: 14px; }
+#sec-dashboard .dm-overall-top { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
+#sec-dashboard .dm-overall-top .lbl { font-weight: 700; color: var(--t2); }
+#sec-dashboard .dm-overall-top .val { font-weight: 800; color: var(--brand-soft); }
+#sec-dashboard .dm-bar { height: 7px; border-radius: 999px; background: var(--s3); overflow: hidden; }
+#sec-dashboard .dm-bar > span { display: block; height: 100%; width: 0%; border-radius: 999px; background: var(--brand); transition: width .5s ease; }
+#sec-dashboard .dm-bar > span.is-complete { background: var(--green); }
+#sec-dashboard .dm-modules { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+#sec-dashboard .dm-mod { display: flex; align-items: center; gap: 10px; }
+#sec-dashboard .dm-mod-name { font-size: 10.5px; color: var(--t3); width: 96px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#sec-dashboard .dm-mod-bar { flex: 1; height: 5px; border-radius: 999px; background: var(--s3); overflow: hidden; }
+#sec-dashboard .dm-mod-bar > span { display: block; height: 100%; width: 0%; border-radius: 999px; background: var(--brand); }
+#sec-dashboard .dm-mod-bar > span.is-complete { background: var(--green); }
+#sec-dashboard .dm-mod-pct { font-size: 10.5px; font-weight: 700; color: var(--t3); width: 34px; text-align: right; flex-shrink: 0; }
+#sec-dashboard .dm-actions { display: flex; gap: 8px; margin-top: auto; }
+#sec-dashboard .dm-btn {
+  flex: 1; cursor: pointer; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 700; font-size: 11.5px;
+  padding: 8px; border-radius: var(--radius-sm); background: transparent; transition: background .15s ease;
+}
+#sec-dashboard .dm-btn.is-remove { color: #ef4444; border: 1px solid rgba(239,68,68,.35); }
+#sec-dashboard .dm-btn.is-remove:hover { background: rgba(239,68,68,.1); }
+#sec-dashboard .dm-btn.is-role { color: var(--amber); border: 1px solid rgba(180,83,9,.35); }
+#sec-dashboard .dm-btn.is-role:hover { background: rgba(180,83,9,.1); }
+#sec-dashboard .dm-btn.is-demote { color: var(--t2); border: 1px solid var(--br-hi); }
+#sec-dashboard .dm-btn.is-demote:hover { background: var(--s3); }
+#sec-dashboard .dash-empty { grid-column: 1 / -1; text-align: center; padding: 40px 0; color: var(--t3); font-size: 14px; }

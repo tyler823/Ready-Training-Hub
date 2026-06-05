@@ -6148,504 +6148,441 @@
         <!-- ================================================================ -->
         <section id="sec-resources" class="tab-content hidden fade-in">
             <!-- Hero -->
-            <div class="gradient-bg rounded-3xl p-12 mb-12 text-white text-center shadow-2xl">
-                <h1 class="text-5xl font-black mb-4 tracking-tight">Free Resources</h1>
-                <p class="text-xl font-medium mb-4 text-violet-100">
-                    Everything You Need to Build a Process-Driven Restoration Company
-                </p>
-                <p class="text-lg text-violet-50 max-w-3xl mx-auto">
-                    Download free SOP templates, customer document templates, organization charts, job descriptions, and use our ROI calculator—all completely free for Ready members.
-                </p>
+            <div class="home-hero">
+                <div class="home-hero-inner">
+                    <span class="home-eyebrow">Free for Ready Members</span>
+                    <h1 class="home-hero-title">Free Resources</h1>
+                    <p class="home-hero-lead">
+                        Everything you need to build a process-driven restoration company. Download free SOP templates, customer document templates, organization charts, job descriptions, and use our ROI calculator&mdash;all completely free.
+                    </p>
+                </div>
             </div>
 
             <!-- ROI Calculator -->
-            <div class="mb-16">
-                <div class="bg-white rounded-3xl p-12 shadow-2xl border-2 border-violet-200">
-                    <div class="flex items-center gap-4 mb-8">
-                        <span class="text-6xl">📊</span>
+            <div class="home-panel">
+                <div class="home-panel-head" style="text-align:left;max-width:none;margin-bottom:22px;">
+                    <div class="home-ic home-ic-onpanel" style="margin:0 0 14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="20" y2="20"/><line x1="7" y1="20" x2="7" y2="13"/><line x1="12" y1="20" x2="12" y2="6"/><line x1="17" y1="20" x2="17" y2="10"/></svg></div>
+                    <h2 class="home-panel-title">Training ROI Calculator</h2>
+                    <p class="home-panel-sub">Calculate the value of standardized training for your company.</p>
+                </div>
+
+                <div class="roi-form">
+                    <div class="roi-field">
+                        <label for="roi-employees">Number of Employees</label>
+                        <input type="number" id="roi-employees" value="10" min="1" max="500">
+                        <p class="roi-hint">Total employees using training</p>
+                    </div>
+                    <div class="roi-field">
+                        <label for="roi-wage">Average Hourly Wage ($)</label>
+                        <input type="number" id="roi-wage" value="25" min="10" max="150">
+                        <p class="roi-hint">Average across all positions</p>
+                    </div>
+                    <div class="roi-field">
+                        <label for="roi-hours-saved">Hours Saved Per Employee/Week</label>
+                        <input type="number" id="roi-hours-saved" value="2" min="0.5" max="20" step="0.5">
+                        <p class="roi-hint">Time not searching for answers</p>
+                    </div>
+                    <div class="roi-field">
+                        <label for="roi-onboarding">Weeks Reduced in Onboarding</label>
+                        <input type="number" id="roi-onboarding" value="3" min="0" max="12" step="0.5">
+                        <p class="roi-hint">Industry avg: 8 wks &rarr; 5 wks = 3 saved</p>
+                    </div>
+                    <div class="roi-field">
+                        <label for="roi-errors">Monthly Error Reduction Savings ($)</label>
+                        <input type="number" id="roi-errors" value="2000" min="0" max="50000" step="100">
+                        <p class="roi-hint">Reduced mistakes &amp; rework</p>
+                    </div>
+                    <div class="roi-field">
+                        <label for="roi-cost">Training Platform Cost/Month ($)</label>
+                        <input type="number" id="roi-cost" value="0" min="0" max="5000" step="50">
+                        <p class="roi-hint">Ready is free! Or compare to paid platforms</p>
+                    </div>
+                </div>
+
+                <div class="roi-calc-actions">
+                    <button type="button" onclick="calculateROI()" class="home-btn home-btn-solid" style="padding:13px 30px;">Calculate Your ROI</button>
+                </div>
+
+                <!-- Results -->
+                <div id="roi-results" style="display: none; margin-top:26px;">
+                    <h3 class="home-panel-title" style="font-size:20px;text-align:center;margin-bottom:18px;">Your ROI Results</h3>
+
+                    <div class="roi-results-grid">
+                        <div class="roi-stat">
+                            <p class="roi-stat-label">Monthly Savings</p>
+                            <p class="roi-stat-value" id="roi-monthly-savings">$0</p>
+                            <p class="roi-stat-sub">Net Monthly Benefit</p>
+                        </div>
+                        <div class="roi-stat">
+                            <p class="roi-stat-label">Annual Savings</p>
+                            <p class="roi-stat-value" id="roi-annual-savings">$0</p>
+                            <p class="roi-stat-sub">Total Yearly Value</p>
+                        </div>
+                        <div class="roi-stat">
+                            <p class="roi-stat-label">ROI Multiple</p>
+                            <p class="roi-stat-value" id="roi-multiple">0x</p>
+                            <p class="roi-stat-sub">Return on Investment</p>
+                        </div>
+                    </div>
+
+                    <div class="roi-breakdown">
+                        <h4>Savings Breakdown</h4>
+                        <div class="roi-row"><span>Time Saved (Weekly Hours &times; Employees &times; Wage)</span><span id="roi-time-value">$0/mo</span></div>
+                        <div class="roi-row"><span>Faster Onboarding (Weeks &times; Hours &times; Wage)</span><span id="roi-onboarding-value">$0/mo</span></div>
+                        <div class="roi-row"><span>Error Reduction Savings</span><span id="roi-error-value">$0/mo</span></div>
+                        <div class="roi-row is-divide is-total"><span>Total Monthly Value</span><span id="roi-total-value">$0</span></div>
+                        <div class="roi-row"><span>Less: Platform Cost</span><span id="roi-platform-cost">-$0</span></div>
+                        <div class="roi-row is-divide is-total"><span>Net Monthly Savings</span><span id="roi-net-savings">$0</span></div>
+                    </div>
+
+                    <div class="roi-note">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.2 1 2.5h6c0-1.3.3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg>
                         <div>
-                            <h2 class="text-4xl font-black text-slate-900 mb-2">Training ROI Calculator</h2>
-                            <p class="text-xl text-slate-600">Calculate the value of standardized training for your company</p>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-8 border-2 border-violet-200 mb-8">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 mb-2">Number of Employees</label>
-                                <input type="number" id="roi-employees" value="10" min="1" max="500" class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none text-lg">
-                                <p class="text-xs text-slate-500 mt-1">Total employees using training</p>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 mb-2">Average Hourly Wage ($)</label>
-                                <input type="number" id="roi-wage" value="25" min="10" max="150" class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none text-lg">
-                                <p class="text-xs text-slate-500 mt-1">Average across all positions</p>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 mb-2">Hours Saved Per Employee/Week</label>
-                                <input type="number" id="roi-hours-saved" value="2" min="0.5" max="20" step="0.5" class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none text-lg">
-                                <p class="text-xs text-slate-500 mt-1">Time not searching for answers</p>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 mb-2">Weeks Reduced in Onboarding</label>
-                                <input type="number" id="roi-onboarding" value="3" min="0" max="12" step="0.5" class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none text-lg">
-                                <p class="text-xs text-slate-500 mt-1">Industry avg: 8 wks → 5 wks = 3 saved</p>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 mb-2">Monthly Error Reduction Savings ($)</label>
-                                <input type="number" id="roi-errors" value="2000" min="0" max="50000" step="100" class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none text-lg">
-                                <p class="text-xs text-slate-500 mt-1">Reduced mistakes & rework</p>
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 mb-2">Training Platform Cost/Month ($)</label>
-                                <input type="number" id="roi-cost" value="0" min="0" max="5000" step="50" class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-violet-600 focus:outline-none text-lg">
-                                <p class="text-xs text-slate-500 mt-1">Ready is free! Or compare to paid platforms</p>
-                            </div>
-                        </div>
-                        
-                        <div class="text-center mt-8">
-                            <button onclick="calculateROI()" class="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-bold py-4 px-12 rounded-xl text-lg transition shadow-lg">
-                                Calculate Your ROI
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Results -->
-                    <div id="roi-results" style="display: none;">
-                        <div class="border-t-4 border-violet-600 pt-8">
-                            <h3 class="text-3xl font-black mb-6 text-center text-slate-900">Your ROI Results</h3>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border-2 border-green-200">
-                                    <div class="text-sm font-bold text-green-700 mb-2">MONTHLY SAVINGS</div>
-                                    <div class="text-4xl font-black text-green-900" id="roi-monthly-savings">$0</div>
-                                    <div class="text-xs text-green-600 mt-2">Net Monthly Benefit</div>
-                                </div>
-                                
-                                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border-2 border-blue-200">
-                                    <div class="text-sm font-bold text-blue-700 mb-2">ANNUAL SAVINGS</div>
-                                    <div class="text-4xl font-black text-blue-900" id="roi-annual-savings">$0</div>
-                                    <div class="text-xs text-blue-600 mt-2">Total Yearly Value</div>
-                                </div>
-                                
-                                <div class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-xl p-6 border-2 border-violet-200">
-                                    <div class="text-sm font-bold text-violet-700 mb-2">ROI MULTIPLE</div>
-                                    <div class="text-4xl font-black text-violet-900" id="roi-multiple">0x</div>
-                                    <div class="text-xs text-violet-600 mt-2">Return on Investment</div>
-                                </div>
-                            </div>
-                            
-                            <div class="bg-slate-50 rounded-xl p-6 border-2 border-slate-200">
-                                <h4 class="font-bold text-lg mb-4 text-slate-900">Savings Breakdown:</h4>
-                                <div class="space-y-3">
-                                    <div class="flex justify-between">
-                                        <span class="text-slate-700">Time Saved (Weekly Hours × Employees × Wage)</span>
-                                        <span class="font-bold text-slate-900" id="roi-time-value">$0/mo</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span class="text-slate-700">Faster Onboarding (Weeks × Hours × Wage)</span>
-                                        <span class="font-bold text-slate-900" id="roi-onboarding-value">$0/mo</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span class="text-slate-700">Error Reduction Savings</span>
-                                        <span class="font-bold text-slate-900" id="roi-error-value">$0/mo</span>
-                                    </div>
-                                    <div class="flex justify-between border-t-2 border-slate-300 pt-3">
-                                        <span class="text-slate-700 font-bold">Total Monthly Value</span>
-                                        <span class="font-black text-green-700 text-xl" id="roi-total-value">$0</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span class="text-slate-700 font-bold">Less: Platform Cost</span>
-                                        <span class="font-black text-red-700" id="roi-platform-cost">-$0</span>
-                                    </div>
-                                    <div class="flex justify-between border-t-2 border-slate-300 pt-3">
-                                        <span class="text-slate-900 font-black text-lg">Net Monthly Savings</span>
-                                        <span class="font-black text-green-700 text-2xl" id="roi-net-savings">$0</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="mt-6 p-6 bg-violet-50 border-2 border-violet-200 rounded-xl">
-                                <div class="flex items-start gap-3">
-                                    <span class="text-3xl">💡</span>
-                                    <div>
-                                        <h4 class="font-bold text-lg mb-2 text-violet-900">What This Means:</h4>
-                                        <p class="text-slate-700" id="roi-interpretation">Click "Calculate Your ROI" to see your results</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <h4>What This Means</h4>
+                            <p id="roi-interpretation">Click "Calculate Your ROI" to see your results</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- SOP Templates Library -->
-            <div class="mb-16">
-                <h2 class="text-4xl font-black text-slate-900 mb-4 text-center">📋 SOP Templates</h2>
-                <p class="text-lg text-slate-600 text-center mb-12 max-w-3xl mx-auto">
-                    Downloadable Standard Operating Procedure templates for every aspect of your restoration business—completely free.
-                </p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="home-section">
+                <div class="home-section-head">
+                    <h2 class="home-section-title">SOP Templates</h2>
+                    <p class="home-section-sub">Downloadable Standard Operating Procedure templates for every aspect of your restoration business&mdash;completely free.</p>
+                </div>
+
+                <div class="home-grid">
                     <!-- Water Mitigation SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
-                        <div class="text-5xl mb-4">💧</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Water Mitigation SOP</h3>
-                        <p class="text-slate-600 text-sm mb-4">Complete water damage response from initial assessment through dry-out completion. Includes IICRC S500 protocols, moisture mapping, equipment placement, and Certificate of Completion.</p>
-                        <div class="text-xs text-slate-500 mb-4">Covers: Emergency Response • Source ID • Extraction • Drying • Documentation</div>
-                        <button onclick="downloadTemplate('water-mitigation-sop')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 10.5a6 6 0 0 1-12 0C6 9.5 12 3 12 3z"/></svg></div>
+                        <div class="home-card-label">SOP</div>
+                        <h3 class="home-card-title">Water Mitigation SOP</h3>
+                        <p class="home-card-desc">Complete water damage response from initial assessment through dry-out completion. Includes IICRC S500 protocols, moisture mapping, equipment placement, and Certificate of Completion.</p>
+                        <p class="res-meta">Emergency Response &middot; Source ID &middot; Extraction &middot; Drying &middot; Documentation</p>
+                        <button type="button" onclick="downloadTemplate('water-mitigation-sop')" class="home-btn home-btn-solid res-dl">Download Template</button>
                     </div>
 
                     <!-- Fire Restoration SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
-                        <div class="text-5xl mb-4">🔥</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Fire & Smoke SOP</h3>
-                        <p class="text-slate-600 text-sm mb-4">Fire damage assessment, smoke odor removal, soot cleanup, and structural cleaning procedures. Board-up, ash removal, HEPA filtration, and thermal fogging protocols.</p>
-                        <div class="text-xs text-slate-500 mb-4">Covers: Safety Assessment • Soot Removal • Odor Control • Content Cleaning</div>
-                        <button onclick="downloadTemplate('fire-smoke-sop')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 3-2 4-2 7a2 2 0 0 0 4 0c0-1 0-1.5-.5-2.5C16 9 18 12 18 15a6 6 0 0 1-12 0c0-4 4-6 6-12z"/></svg></div>
+                        <div class="home-card-label">SOP</div>
+                        <h3 class="home-card-title">Fire &amp; Smoke SOP</h3>
+                        <p class="home-card-desc">Fire damage assessment, smoke odor removal, soot cleanup, and structural cleaning procedures. Board-up, ash removal, HEPA filtration, and thermal fogging protocols.</p>
+                        <p class="res-meta">Safety Assessment &middot; Soot Removal &middot; Odor Control &middot; Content Cleaning</p>
+                        <button type="button" onclick="downloadTemplate('fire-smoke-sop')" class="home-btn home-btn-solid res-dl">Download Template</button>
                     </div>
 
                     <!-- Mold Remediation SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
-                        <div class="text-5xl mb-4">🍄</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Mold Remediation SOP</h3>
-                        <p class="text-slate-600 text-sm mb-4">IICRC S520 compliant mold remediation including containment, HEPA filtration, removal procedures, and clearance testing. PPE requirements and disposal protocols.</p>
-                        <div class="text-xs text-slate-500 mb-4">Covers: Assessment • Containment • Removal • Air Scrubbing • Testing</div>
-                        <button onclick="alert('Mold Remediation SOP coming soon!')" class="w-full bg-slate-400 hover:bg-slate-500 text-white py-2 rounded-lg font-semibold text-sm transition">Coming Soon</button>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="10" r="3"/><circle cx="16" cy="13" r="2.5"/><path d="M9 13v6M16 15.5V20M6.5 16h5M13.5 18h5"/></svg></div>
+                        <div class="home-card-label">SOP</div>
+                        <h3 class="home-card-title">Mold Remediation SOP</h3>
+                        <p class="home-card-desc">IICRC S520 compliant mold remediation including containment, HEPA filtration, removal procedures, and clearance testing. PPE requirements and disposal protocols.</p>
+                        <p class="res-meta">Assessment &middot; Containment &middot; Removal &middot; Air Scrubbing &middot; Testing</p>
+                        <button type="button" onclick="alert('Mold Remediation SOP coming soon!')" class="home-btn res-dl is-soon">Coming Soon</button>
                     </div>
 
                     <!-- Contents Pack-Out SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
-                        <div class="text-5xl mb-4">📦</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Contents Pack-Out SOP</h3>
-                        <p class="text-slate-600 text-sm mb-4">Complete inventory, photography, and pack-out procedures. Room-by-room documentation, labeling systems, and customer approval workflows to prevent disputes.</p>
-                        <div class="text-xs text-slate-500 mb-4">Covers: Inventory • Photography • Packing • Transport • Storage</div>
-                        <button onclick="downloadTemplate('contents-packout-sop')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v10l8 4 8-4V7z"/><path d="M4 7l8 4 8-4"/><path d="M12 11v10"/></svg></div>
+                        <div class="home-card-label">SOP</div>
+                        <h3 class="home-card-title">Contents Pack-Out SOP</h3>
+                        <p class="home-card-desc">Complete inventory, photography, and pack-out procedures. Room-by-room documentation, labeling systems, and customer approval workflows to prevent disputes.</p>
+                        <p class="res-meta">Inventory &middot; Photography &middot; Packing &middot; Transport &middot; Storage</p>
+                        <button type="button" onclick="downloadTemplate('contents-packout-sop')" class="home-btn home-btn-solid res-dl">Download Template</button>
                     </div>
 
                     <!-- Estimating SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
-                        <div class="text-5xl mb-4">💰</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Xactimate Estimating SOP</h3>
-                        <p class="text-slate-600 text-sm mb-4">Step-by-step Xactimate workflow from sketch creation through final estimate. Line item selection, pricing databases, photo integration, and supplement procedures.</p>
-                        <div class="text-xs text-slate-500 mb-4">Covers: Sketch • Line Items • Pricing • Photos • Supplements</div>
-                        <button onclick="downloadTemplate('xactimate-estimating-sop')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 6.5C17 4.6 14.8 4 12.5 4 9.9 4 8 5.2 8 7.3c0 4.5 9 2.2 9 6.8 0 2.2-2.2 3.4-4.8 3.4-2.4 0-4.7-.8-4.7-2.8"/></svg></div>
+                        <div class="home-card-label">SOP</div>
+                        <h3 class="home-card-title">Xactimate Estimating SOP</h3>
+                        <p class="home-card-desc">Step-by-step Xactimate workflow from sketch creation through final estimate. Line item selection, pricing databases, photo integration, and supplement procedures.</p>
+                        <p class="res-meta">Sketch &middot; Line Items &middot; Pricing &middot; Photos &middot; Supplements</p>
+                        <button type="button" onclick="downloadTemplate('xactimate-estimating-sop')" class="home-btn home-btn-solid res-dl">Download Template</button>
                     </div>
 
                     <!-- Safety & PPE SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
-                        <div class="text-5xl mb-4">⚠️</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Safety & PPE SOP</h3>
-                        <p class="text-slate-600 text-sm mb-4">OSHA compliance protocols, required PPE by job type, hazard assessments, incident reporting, and safety training requirements. Category-specific protection requirements.</p>
-                        <div class="text-xs text-slate-500 mb-4">Covers: PPE Requirements • Hazard Assessment • OSHA Compliance</div>
-                        <button onclick="downloadTemplate('safety-ppe-sop')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M12 8v4M12 15h.01"/></svg></div>
+                        <div class="home-card-label">SOP</div>
+                        <h3 class="home-card-title">Safety &amp; PPE SOP</h3>
+                        <p class="home-card-desc">OSHA compliance protocols, required PPE by job type, hazard assessments, incident reporting, and safety training requirements. Category-specific protection requirements.</p>
+                        <p class="res-meta">PPE Requirements &middot; Hazard Assessment &middot; OSHA Compliance</p>
+                        <button type="button" onclick="downloadTemplate('safety-ppe-sop')" class="home-btn home-btn-solid res-dl">Download Template</button>
                     </div>
 
                     <!-- Quality Control SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
-                        <div class="text-5xl mb-4">✅</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Quality Control Checklist</h3>
-                        <p class="text-slate-600 text-sm mb-4">Pre-job, in-progress, and final inspection checklists. Moisture readings, equipment verification, photo documentation, and customer walk-through procedures.</p>
-                        <div class="text-xs text-slate-500 mb-4">Covers: Pre-Job • Progress • Final Inspection • Customer Sign-Off</div>
-                        <button onclick="alert('Quality Control Checklist coming soon!')" class="w-full bg-slate-400 hover:bg-slate-500 text-white py-2 rounded-lg font-semibold text-sm transition">Coming Soon</button>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l2.5 2.5L16 8"/><path d="M5 4h14v16H5z"/></svg></div>
+                        <div class="home-card-label">Checklist</div>
+                        <h3 class="home-card-title">Quality Control Checklist</h3>
+                        <p class="home-card-desc">Pre-job, in-progress, and final inspection checklists. Moisture readings, equipment verification, photo documentation, and customer walk-through procedures.</p>
+                        <p class="res-meta">Pre-Job &middot; Progress &middot; Final Inspection &middot; Customer Sign-Off</p>
+                        <button type="button" onclick="alert('Quality Control Checklist coming soon!')" class="home-btn res-dl is-soon">Coming Soon</button>
                     </div>
 
                     <!-- New Hire Onboarding SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
-                        <div class="text-5xl mb-4">👤</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">New Hire Onboarding SOP</h3>
-                        <p class="text-slate-600 text-sm mb-4">Complete 90-day onboarding workflow with week-by-week milestones. Documentation, training modules, competency checks, and performance reviews.</p>
-                        <div class="text-xs text-slate-500 mb-4">Covers: Week 1-4 • Training • Competency Tests • Reviews</div>
-                        <button onclick="downloadTemplate('new-hire-onboarding')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download SOP</button>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M18 8v6M15 11h6"/></svg></div>
+                        <div class="home-card-label">SOP</div>
+                        <h3 class="home-card-title">New Hire Onboarding SOP</h3>
+                        <p class="home-card-desc">Complete 90-day onboarding workflow with week-by-week milestones. Documentation, training modules, competency checks, and performance reviews.</p>
+                        <p class="res-meta">Week 1-4 &middot; Training &middot; Competency Tests &middot; Reviews</p>
+                        <button type="button" onclick="downloadTemplate('new-hire-onboarding')" class="home-btn home-btn-solid res-dl">Download SOP</button>
                     </div>
 
                     <!-- Customer Communication SOP -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
-                        <div class="text-5xl mb-4">📞</div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Customer Communication SOP</h3>
-                        <p class="text-slate-600 text-sm mb-4">Call scripts, email templates, and communication timelines. Initial contact, project updates, change orders, completion notifications, and review requests.</p>
-                        <div class="text-xs text-slate-500 mb-4">Covers: Scripts • Templates • Timing • Follow-Up</div>
-                        <button onclick="downloadTemplate('customer-communication-sop')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 13l1 4v2a2 2 0 0 1-2 2A16 16 0 0 1 3 7a2 2 0 0 1 2-3z"/></svg></div>
+                        <div class="home-card-label">SOP</div>
+                        <h3 class="home-card-title">Customer Communication SOP</h3>
+                        <p class="home-card-desc">Call scripts, email templates, and communication timelines. Initial contact, project updates, change orders, completion notifications, and review requests.</p>
+                        <p class="res-meta">Scripts &middot; Templates &middot; Timing &middot; Follow-Up</p>
+                        <button type="button" onclick="downloadTemplate('customer-communication-sop')" class="home-btn home-btn-solid res-dl">Download Template</button>
                     </div>
                 </div>
             </div>
 
             <!-- Organization Charts -->
-            <div class="mb-16">
-                <h2 class="text-4xl font-black text-slate-900 mb-4 text-center">🏢 Organization Charts</h2>
-                <p class="text-lg text-slate-600 text-center mb-12 max-w-3xl mx-auto">
-                    Example organizational structures for restoration companies at different growth stages.
-                </p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="home-section">
+                <div class="home-section-head">
+                    <h2 class="home-section-title">Organization Charts</h2>
+                    <p class="home-section-sub">Example organizational structures for restoration companies at different growth stages.</p>
+                </div>
+
+                <div class="home-grid">
                     <!-- Small Company Org Chart -->
-                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border-2 border-blue-200">
-                        <div class="text-5xl mb-4 text-center">👤</div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">Small (1-10 employees)</h3>
-                        <div class="space-y-3 text-sm">
-                            <div class="bg-white rounded-lg p-3 border border-blue-300">
-                                <div class="font-bold text-blue-900">Owner/Operator</div>
-                                <div class="text-xs text-slate-600">Sales, estimates, project oversight</div>
-                            </div>
-                            <div class="ml-6 bg-white rounded-lg p-3 border border-blue-200">
-                                <div class="font-bold text-blue-800">→ Lead Technician</div>
-                                <div class="text-xs text-slate-600">Crew management, quality control</div>
-                            </div>
-                            <div class="ml-12 bg-white rounded-lg p-3 border border-blue-100">
-                                <div class="font-bold text-blue-700">→ Technicians (3-5)</div>
-                                <div class="text-xs text-slate-600">Mitigation & reconstruction</div>
-                            </div>
-                            <div class="ml-6 bg-white rounded-lg p-3 border border-blue-200">
-                                <div class="font-bold text-blue-800">→ Admin (Part-time)</div>
-                                <div class="text-xs text-slate-600">Scheduling, billing, calls</div>
-                            </div>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M6 20a6 6 0 0 1 12 0"/></svg></div>
+                        <div class="home-card-label">1-10 Employees</div>
+                        <h3 class="home-card-title">Small Company</h3>
+                        <div class="org-tree">
+                            <div class="org-node"><div class="org-role">Owner/Operator</div><div class="org-desc">Sales, estimates, project oversight</div></div>
+                            <div class="org-node lvl1"><div class="org-role">Lead Technician</div><div class="org-desc">Crew management, quality control</div></div>
+                            <div class="org-node lvl2"><div class="org-role">Technicians (3-5)</div><div class="org-desc">Mitigation &amp; reconstruction</div></div>
+                            <div class="org-node lvl1"><div class="org-role">Admin (Part-time)</div><div class="org-desc">Scheduling, billing, calls</div></div>
                         </div>
                     </div>
 
                     <!-- Mid-Size Company Org Chart -->
-                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border-2 border-green-200">
-                        <div class="text-5xl mb-4 text-center">👥</div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">Mid-Size (11-50 employees)</h3>
-                        <div class="space-y-3 text-sm">
-                            <div class="bg-white rounded-lg p-3 border border-green-300">
-                                <div class="font-bold text-green-900">Owner/CEO</div>
-                                <div class="text-xs text-slate-600">Strategy, growth, key accounts</div>
-                            </div>
-                            <div class="ml-6 bg-white rounded-lg p-3 border border-green-200">
-                                <div class="font-bold text-green-800">→ Operations Manager</div>
-                                <div class="text-xs text-slate-600">Day-to-day operations</div>
-                            </div>
-                            <div class="ml-12 bg-white rounded-lg p-3 border border-green-100">
-                                <div class="font-bold text-green-700">→ Mitigation Supervisor</div>
-                                <div class="text-xs text-slate-600">Techs (5-8)</div>
-                            </div>
-                            <div class="ml-12 bg-white rounded-lg p-3 border border-green-100">
-                                <div class="font-bold text-green-700">→ Reconstruction Manager</div>
-                                <div class="text-xs text-slate-600">Crews (8-12)</div>
-                            </div>
-                            <div class="ml-6 bg-white rounded-lg p-3 border border-green-200">
-                                <div class="font-bold text-green-800">→ Estimator/PM</div>
-                                <div class="text-xs text-slate-600">Scopes, estimates, project tracking</div>
-                            </div>
-                            <div class="ml-6 bg-white rounded-lg p-3 border border-green-200">
-                                <div class="font-bold text-green-800">→ Office Manager</div>
-                                <div class="text-xs text-slate-600">Admin staff (2-3)</div>
-                            </div>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="3"/><path d="M2.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 6.2a3 3 0 0 1 0 5.6"/><path d="M15 13.5a5.5 5.5 0 0 1 6.5 5.5"/></svg></div>
+                        <div class="home-card-label">11-50 Employees</div>
+                        <h3 class="home-card-title">Mid-Size Company</h3>
+                        <div class="org-tree">
+                            <div class="org-node"><div class="org-role">Owner/CEO</div><div class="org-desc">Strategy, growth, key accounts</div></div>
+                            <div class="org-node lvl1"><div class="org-role">Operations Manager</div><div class="org-desc">Day-to-day operations</div></div>
+                            <div class="org-node lvl2"><div class="org-role">Mitigation Supervisor</div><div class="org-desc">Techs (5-8)</div></div>
+                            <div class="org-node lvl2"><div class="org-role">Reconstruction Manager</div><div class="org-desc">Crews (8-12)</div></div>
+                            <div class="org-node lvl1"><div class="org-role">Estimator/PM</div><div class="org-desc">Scopes, estimates, project tracking</div></div>
+                            <div class="org-node lvl1"><div class="org-role">Office Manager</div><div class="org-desc">Admin staff (2-3)</div></div>
                         </div>
                     </div>
 
                     <!-- Large Company Org Chart -->
-                    <div class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-8 border-2 border-violet-200">
-                        <div class="text-5xl mb-4 text-center">🏢</div>
-                        <h3 class="text-2xl font-bold text-slate-900 mb-4 text-center">Large (50+ employees)</h3>
-                        <div class="space-y-3 text-sm">
-                            <div class="bg-white rounded-lg p-3 border border-violet-300">
-                                <div class="font-bold text-violet-900">CEO/President</div>
-                                <div class="text-xs text-slate-600">Vision, strategy, M&A</div>
-                            </div>
-                            <div class="ml-6 bg-white rounded-lg p-3 border border-violet-200">
-                                <div class="font-bold text-violet-800">→ VP Operations</div>
-                                <div class="text-xs text-slate-600">Multi-location oversight</div>
-                            </div>
-                            <div class="ml-12 bg-white rounded-lg p-3 border border-violet-100">
-                                <div class="font-bold text-violet-700">→ Division Managers (2-4)</div>
-                                <div class="text-xs text-slate-600">Regional/specialty divisions</div>
-                            </div>
-                            <div class="ml-6 bg-white rounded-lg p-3 border border-violet-200">
-                                <div class="font-bold text-violet-800">→ CFO</div>
-                                <div class="text-xs text-slate-600">Finance, accounting team</div>
-                            </div>
-                            <div class="ml-6 bg-white rounded-lg p-3 border border-violet-200">
-                                <div class="font-bold text-violet-800">→ Sales Director</div>
-                                <div class="text-xs text-slate-600">Sales team, marketing</div>
-                            </div>
-                            <div class="ml-6 bg-white rounded-lg p-3 border border-violet-200">
-                                <div class="font-bold text-violet-800">→ HR Director</div>
-                                <div class="text-xs text-slate-600">Recruiting, training, compliance</div>
-                            </div>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5l8-2v18"/><path d="M12 21V9l8 2v10"/><path d="M7 8h.01M7 12h.01M7 16h.01M16 13h.01M16 17h.01"/></svg></div>
+                        <div class="home-card-label">50+ Employees</div>
+                        <h3 class="home-card-title">Large Company</h3>
+                        <div class="org-tree">
+                            <div class="org-node"><div class="org-role">CEO/President</div><div class="org-desc">Vision, strategy, M&amp;A</div></div>
+                            <div class="org-node lvl1"><div class="org-role">VP Operations</div><div class="org-desc">Multi-location oversight</div></div>
+                            <div class="org-node lvl2"><div class="org-role">Division Managers (2-4)</div><div class="org-desc">Regional/specialty divisions</div></div>
+                            <div class="org-node lvl1"><div class="org-role">CFO</div><div class="org-desc">Finance, accounting team</div></div>
+                            <div class="org-node lvl1"><div class="org-role">Sales Director</div><div class="org-desc">Sales team, marketing</div></div>
+                            <div class="org-node lvl1"><div class="org-role">HR Director</div><div class="org-desc">Recruiting, training, compliance</div></div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Job Descriptions -->
-            <div class="mb-16">
-                <h2 class="text-4xl font-black text-slate-900 mb-4 text-center">📝 Job Descriptions</h2>
-                <p class="text-lg text-slate-600 text-center mb-12 max-w-3xl mx-auto">
-                    Complete job descriptions with responsibilities, requirements, and compensation guidance.
-                </p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Mitigation Technician</h3>
-                        <p class="text-sm text-slate-600 mb-3">Entry-level position. Responsibilities, required certifications, typical compensation range, and growth path.</p>
-                        <button onclick="downloadTemplate('job-mitigation-tech')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
+            <div class="home-section">
+                <div class="home-section-head">
+                    <h2 class="home-section-title">Job Descriptions</h2>
+                    <p class="home-section-sub">Complete job descriptions with responsibilities, requirements, and compensation guidance.</p>
+                </div>
+
+                <div class="home-grid">
+                    <div class="home-card">
+                        <div class="home-card-label">Field</div>
+                        <h3 class="home-card-title">Mitigation Technician</h3>
+                        <p class="home-card-desc">Entry-level position. Responsibilities, required certifications, typical compensation range, and growth path.</p>
+                        <button type="button" onclick="downloadTemplate('job-mitigation-tech')" class="res-link">Download Description <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button>
                     </div>
-                    
-                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Project Manager - Mitigation</h3>
-                        <p class="text-sm text-slate-600 mb-3">Mid-level management. Estimating, project coordination, customer communication, team leadership requirements.</p>
-                        <button onclick="downloadTemplate('job-mitigation-pm')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
+                    <div class="home-card">
+                        <div class="home-card-label">Management</div>
+                        <h3 class="home-card-title">Project Manager - Mitigation</h3>
+                        <p class="home-card-desc">Mid-level management. Estimating, project coordination, customer communication, team leadership requirements.</p>
+                        <button type="button" onclick="downloadTemplate('job-mitigation-pm')" class="res-link">Download Description <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button>
                     </div>
-                    
-                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Contents Supervisor</h3>
-                        <p class="text-sm text-slate-600 mb-3">Pack-out and inventory oversight, warehouse management, team leadership, customer communication.</p>
-                        <button onclick="downloadTemplate('job-contents-supervisor')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
+                    <div class="home-card">
+                        <div class="home-card-label">Management</div>
+                        <h3 class="home-card-title">Contents Supervisor</h3>
+                        <p class="home-card-desc">Pack-out and inventory oversight, warehouse management, team leadership, customer communication.</p>
+                        <button type="button" onclick="downloadTemplate('job-contents-supervisor')" class="res-link">Download Description <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button>
                     </div>
-                    
-                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Mitigation Administrator</h3>
-                        <p class="text-sm text-slate-600 mb-3">Office-based support. Invoice preparation, carrier communication, documentation compliance, collections.</p>
-                        <button onclick="downloadTemplate('job-mitigation-admin')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
+                    <div class="home-card">
+                        <div class="home-card-label">Office</div>
+                        <h3 class="home-card-title">Mitigation Administrator</h3>
+                        <p class="home-card-desc">Office-based support. Invoice preparation, carrier communication, documentation compliance, collections.</p>
+                        <button type="button" onclick="downloadTemplate('job-mitigation-admin')" class="res-link">Download Description <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button>
                     </div>
-                    
-                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Reconstruction Administrator</h3>
-                        <p class="text-sm text-slate-600 mb-3">Billing and compliance for reconstruction projects. Subcontractor coordination, invoice preparation.</p>
-                        <button onclick="downloadTemplate('job-reconstruction-admin')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
+                    <div class="home-card">
+                        <div class="home-card-label">Office</div>
+                        <h3 class="home-card-title">Reconstruction Administrator</h3>
+                        <p class="home-card-desc">Billing and compliance for reconstruction projects. Subcontractor coordination, invoice preparation.</p>
+                        <button type="button" onclick="downloadTemplate('job-reconstruction-admin')" class="res-link">Download Description <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button>
                     </div>
-                    
-                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Mitigation & Contents Dept Manager</h3>
-                        <p class="text-sm text-slate-600 mb-3">Department leadership. Team supervision, quality control, KPI tracking, cross-functional collaboration.</p>
-                        <button onclick="downloadTemplate('job-mitigation-dept-manager')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
+                    <div class="home-card">
+                        <div class="home-card-label">Management</div>
+                        <h3 class="home-card-title">Mitigation &amp; Contents Dept Manager</h3>
+                        <p class="home-card-desc">Department leadership. Team supervision, quality control, KPI tracking, cross-functional collaboration.</p>
+                        <button type="button" onclick="downloadTemplate('job-mitigation-dept-manager')" class="res-link">Download Description <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button>
                     </div>
-                    
-                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Reconstruction Dept Manager</h3>
-                        <p class="text-sm text-slate-600 mb-3">Oversee all reconstruction jobs. Project oversight, subcontractor management, quality control.</p>
-                        <button onclick="downloadTemplate('job-reconstruction-dept-manager')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
+                    <div class="home-card">
+                        <div class="home-card-label">Management</div>
+                        <h3 class="home-card-title">Reconstruction Dept Manager</h3>
+                        <p class="home-card-desc">Oversee all reconstruction jobs. Project oversight, subcontractor management, quality control.</p>
+                        <button type="button" onclick="downloadTemplate('job-reconstruction-dept-manager')" class="res-link">Download Description <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button>
                     </div>
-                    
-                    <div class="bg-white rounded-xl p-6 border-2 border-slate-200 hover:shadow-lg transition">
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">Superintendent</h3>
-                        <p class="text-sm text-slate-600 mb-3">Executive operations leadership. Multi-market oversight, strategic planning, financial oversight.</p>
-                        <button onclick="downloadTemplate('job-superintendent')" class="text-violet-600 font-semibold text-sm hover:text-violet-700">Download Description →</button>
+                    <div class="home-card">
+                        <div class="home-card-label">Executive</div>
+                        <h3 class="home-card-title">Superintendent</h3>
+                        <p class="home-card-desc">Executive operations leadership. Multi-market oversight, strategic planning, financial oversight.</p>
+                        <button type="button" onclick="downloadTemplate('job-superintendent')" class="res-link">Download Description <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></button>
                     </div>
                 </div>
             </div>
 
             <!-- Customer Document Templates -->
-            <div class="mb-16">
-                <h2 class="text-4xl font-black text-slate-900 mb-4 text-center">📄 Customer Document Templates</h2>
-                <p class="text-lg text-slate-600 text-center mb-12 max-w-3xl mx-auto">
-                    Professional, ready-to-use contract and legal document templates for your restoration business. Fill in the blanks and customize with your branding.
-                </p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="home-section">
+                <div class="home-section-head">
+                    <h2 class="home-section-title">Customer Document Templates</h2>
+                    <p class="home-section-sub">Professional, ready-to-use contract and legal document templates for your restoration business. Fill in the blanks and customize with your branding.</p>
+                </div>
+
+                <div class="home-grid">
                     <!-- Service Contract -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
-                        <div class="text-5xl mb-4">📑</div>
-                        <div class="mb-3"><span class="text-xs font-bold bg-violet-100 text-violet-700 px-2 py-1 rounded-full">CONTRACT</span></div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Service Contract Template</h3>
-                        <p class="text-slate-600 text-sm mb-4">Comprehensive service agreement covering scope of work, compensation, payment terms, termination clauses, dispute resolution, and signature pages.</p>
-                        <div class="text-xs text-slate-500 mb-4">Covers: Parties • Services • Payment • Term • Termination • Signatures</div>
-                        <button onclick="downloadTemplate('service-contract')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z" /><path d="M14 3v4h4"/><path d="M9.5 13h5M9.5 16h5"/></svg></div>
+                        <span class="res-chip">Contract</span>
+                        <h3 class="home-card-title">Service Contract Template</h3>
+                        <p class="home-card-desc">Comprehensive service agreement covering scope of work, compensation, payment terms, termination clauses, dispute resolution, and signature pages.</p>
+                        <p class="res-meta">Parties &middot; Services &middot; Payment &middot; Term &middot; Termination &middot; Signatures</p>
+                        <button type="button" onclick="downloadTemplate('service-contract')" class="home-btn home-btn-solid res-dl">Download Template</button>
                     </div>
 
                     <!-- Certificate of Completion -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
-                        <div class="text-5xl mb-4">🏆</div>
-                        <div class="mb-3"><span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full">CERTIFICATE</span></div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Certificate of Completion</h3>
-                        <p class="text-slate-600 text-sm mb-4">Professional completion certificate for customers to sign after final walkthrough. Documents that contracted work is complete and payment obligations are acknowledged.</p>
-                        <div class="text-xs text-slate-500 mb-4">Covers: Property Info • Work Completion • Payment • Special Notes • Signatures</div>
-                        <button onclick="downloadTemplate('certificate-of-completion')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M9 13.5 7.5 21l4.5-2.5L16.5 21 15 13.5"/></svg></div>
+                        <span class="res-chip">Certificate</span>
+                        <h3 class="home-card-title">Certificate of Completion</h3>
+                        <p class="home-card-desc">Professional completion certificate for customers to sign after final walkthrough. Documents that contracted work is complete and payment obligations are acknowledged.</p>
+                        <p class="res-meta">Property Info &middot; Work Completion &middot; Payment &middot; Special Notes &middot; Signatures</p>
+                        <button type="button" onclick="downloadTemplate('certificate-of-completion')" class="home-btn home-btn-solid res-dl">Download Template</button>
                     </div>
 
                     <!-- Right to Rescind -->
-                    <div class="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:border-violet-600 hover:shadow-lg transition">
-                        <div class="text-5xl mb-4">⚖️</div>
-                        <div class="mb-3"><span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-1 rounded-full">LEGAL NOTICE</span></div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">Right to Rescind Notice</h3>
-                        <p class="text-slate-600 text-sm mb-4">Cancellation notice template compliant with consumer protection requirements. Provides customers with 3-business-day cancellation window as required by law.</p>
-                        <div class="text-xs text-slate-500 mb-4">Covers: Cancellation Rights • Return Obligations • Instructions • Declaration</div>
-                        <button onclick="downloadTemplate('right-to-rescind')" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-2 rounded-lg font-semibold text-sm transition">Download Template</button>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7 3 13h4z"/><path d="M19 7l-2 6h4z"/><path d="M8 21h8"/></svg></div>
+                        <span class="res-chip">Legal Notice</span>
+                        <h3 class="home-card-title">Right to Rescind Notice</h3>
+                        <p class="home-card-desc">Cancellation notice template compliant with consumer protection requirements. Provides customers with 3-business-day cancellation window as required by law.</p>
+                        <p class="res-meta">Cancellation Rights &middot; Return Obligations &middot; Instructions &middot; Declaration</p>
+                        <button type="button" onclick="downloadTemplate('right-to-rescind')" class="home-btn home-btn-solid res-dl">Download Template</button>
                     </div>
                 </div>
 
-                <div class="mt-8 bg-amber-50 border-2 border-amber-200 rounded-xl p-6">
-                    <p class="text-sm text-amber-800"><strong>Disclaimer:</strong> These templates are provided for informational purposes only and do not constitute legal advice. Consult with a licensed attorney in your state before using any legal document template. Laws and requirements vary by jurisdiction.</p>
+                <div class="res-disclaimer">
+                    <strong>Disclaimer:</strong> These templates are provided for informational purposes only and do not constitute legal advice. Consult with a licensed attorney in your state before using any legal document template. Laws and requirements vary by jurisdiction.
                 </div>
             </div>
 
             <!-- Coming Soon -->
-            <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-12 text-center border-2 border-slate-200">
-                <span class="text-5xl mb-4 block">🚀</span>
-                <h3 class="text-2xl font-bold text-slate-900 mb-4">More Resources Coming Soon</h3>
-                <p class="text-lg text-slate-600 mb-6">
-                    We're constantly adding new templates, calculators, and tools based on member feedback.
-                </p>
-                <p class="text-sm text-slate-500">
-                    Have a specific template you need? Let us know and we'll add it to the platform!
-                </p>
+            <div class="home-panel">
+                <div class="home-panel-head">
+                    <div class="home-ic home-ic-onpanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M9 11a13 13 0 0 1 8-6c2 0 3 1 3 3a13 13 0 0 1-6 8z"/><path d="M9 11l-4 1 3 3 1-4z" fill="currentColor"/><circle cx="15" cy="9" r="1.3"/></svg></div>
+                    <h2 class="home-panel-title">More Resources Coming Soon</h2>
+                    <p class="home-panel-sub">We're constantly adding new templates, calculators, and tools based on member feedback. Have a specific template you need? Let us know and we'll add it to the platform.</p>
+                </div>
             </div>
-
         </section>
 
         <!-- ========================================
              TEAM DASHBOARD SECTION (ADMIN ONLY)
              ======================================== -->
         <section id="sec-dashboard" class="tab-content hidden fade-in" data-ms-membership="ready-team,ready-pro">
-            <div class="max-w-7xl mx-auto px-4 py-16">
-                <div class="mb-12 text-center">
-                    <h1 class="text-5xl font-black mb-4">Team Dashboard</h1>
-                    <p class="text-xl text-slate-600">Track your team&rsquo;s training progress in real time</p>
+            <!-- Hero -->
+            <div class="home-hero">
+                <div class="home-hero-inner">
+                    <span class="home-eyebrow">Team Management</span>
+                    <h1 class="home-hero-title">Team Dashboard</h1>
+                    <p class="home-hero-lead">Track your team&rsquo;s training progress in real time.</p>
+                </div>
+            </div>
+
+            <!-- No Company Setup -->
+            <div id="dash-no-company" class="hidden">
+                <div class="dash-setup">
+                    <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5l8-2v18"/><path d="M12 21V9l8 2v10"/><path d="M7 8h.01M7 12h.01M7 16h.01M16 13h.01M16 17h.01"/></svg></div>
+                    <h2>Set Up Your Company First</h2>
+                    <p>Create a company or join an existing one to start tracking team progress.</p>
+                    <button type="button" onclick="showCompanyModal()" class="home-btn home-btn-solid" style="padding:13px 28px;">Set Up Company</button>
+                </div>
+            </div>
+
+            <!-- Dashboard Content (shown when company exists) -->
+            <div id="dash-content" class="hidden">
+                <!-- Company Code Banner -->
+                <div class="dash-banner">
+                    <div class="dash-banner-top">
+                        <div>
+                            <p class="dash-code-label">Your Company Code</p>
+                            <p class="dash-code" id="dash-company-code">------</p>
+                            <p class="dash-code-hint">Share this code with team members so they can join progress tracking</p>
+                        </div>
+                        <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('dash-company-code').textContent).then(function(){alert('Code copied!')})" class="dash-banner-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+                            Copy Code
+                        </button>
+                    </div>
+                    <div class="dash-banner-foot">
+                        <button type="button" data-ms-modal="profile" class="dash-banner-btn" style="background:#fff;color:var(--brand-strong);border-color:#fff;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="3"/><path d="M2.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 6.2a3 3 0 0 1 0 5.6"/><path d="M15 13.5a5.5 5.5 0 0 1 6.5 5.5"/></svg>
+                            Manage Team &amp; Invite Members
+                        </button>
+                        <p>Use this to invite staff via link, manage seats, and remove members from your plan</p>
+                    </div>
                 </div>
 
-                <!-- No Company Setup -->
-                <div id="dash-no-company" class="hidden text-center py-16">
-                    <div class="text-6xl mb-4">🏢</div>
-                    <h2 class="text-2xl font-bold text-slate-900 mb-3">Set Up Your Company First</h2>
-                    <p class="text-slate-600 mb-6 max-w-md mx-auto">Create a company or join an existing one to start tracking team progress.</p>
-                    <button onclick="showCompanyModal()" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-violet-700 transition">Set Up Company</button>
+                <!-- Summary Cards -->
+                <div class="dash-stats">
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="3"/><path d="M2.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 6.2a3 3 0 0 1 0 5.6"/><path d="M15 13.5a5.5 5.5 0 0 1 6.5 5.5"/></svg></div>
+                        <div class="home-card-label">Team Members</div>
+                        <p class="dash-stat-value" id="dash-total-members">0</p>
+                    </div>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+                        <div class="home-card-label">Avg Completion</div>
+                        <p class="dash-stat-value" id="dash-avg-completion">0%</p>
+                    </div>
+                    <div class="home-card">
+                        <div class="home-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></div>
+                        <div class="home-card-label">Total Modules</div>
+                        <p class="dash-stat-value">10</p>
+                    </div>
                 </div>
 
-                <!-- Dashboard Content (shown when company exists) -->
-                <div id="dash-content" class="hidden">
-                    <!-- Company Code Banner -->
-                    <div class="bg-gradient-to-r from-violet-600 to-violet-500 rounded-xl p-6 mb-8 text-white">
-                        <div class="flex justify-between items-center mb-4">
-                            <div>
-                                <p class="text-sm text-violet-200 mb-1">Your Company Code</p>
-                                <p class="text-3xl font-black tracking-widest" id="dash-company-code">------</p>
-                                <p class="text-xs text-violet-200 mt-1">Share this code with team members so they can join progress tracking</p>
-                            </div>
-                            <button onclick="navigator.clipboard.writeText(document.getElementById('dash-company-code').textContent).then(function(){alert('Code copied!')})" class="bg-white bg-opacity-20 text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-30 transition text-sm">📋 Copy Code</button>
-                        </div>
-                        <div class="flex gap-3 pt-4 border-t border-white border-opacity-20">
-                            <button data-ms-modal="profile" class="bg-white text-violet-700 font-bold py-2 px-5 rounded-lg hover:bg-violet-50 transition text-sm">👥 Manage Team &amp; Invite Members</button>
-                            <p class="text-xs text-violet-200 flex items-center">Use this to invite staff via link, manage seats, and remove members from your plan</p>
-                        </div>
-                    </div>
-
-                    <!-- Summary Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                        <div class="bg-white rounded-xl p-6 shadow-sm border-2 border-violet-200">
-                            <div class="text-sm font-bold text-violet-700 mb-2">TEAM MEMBERS</div>
-                            <div class="text-4xl font-black text-slate-900" id="dash-total-members">0</div>
-                        </div>
-                        <div class="bg-white rounded-xl p-6 shadow-sm border-2 border-emerald-200">
-                            <div class="text-sm font-bold text-emerald-700 mb-2">AVG COMPLETION</div>
-                            <div class="text-4xl font-black text-emerald-900" id="dash-avg-completion">0%</div>
-                        </div>
-                        <div class="bg-white rounded-xl p-6 shadow-sm border-2 border-blue-200">
-                            <div class="text-sm font-bold text-blue-700 mb-2">TOTAL MODULES</div>
-                            <div class="text-4xl font-black text-blue-900">10</div>
-                        </div>
-                    </div>
-
-                    <!-- Member Progress Cards -->
-                    <h2 class="text-2xl font-black text-slate-900 mb-4">Team Member Progress</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="dash-members-grid">
-                        <div class="text-center py-8 text-slate-500 col-span-full">Loading team data...</div>
-                    </div>
+                <!-- Member Progress Cards -->
+                <div class="home-section-head" style="margin-bottom:14px;">
+                    <h2 class="home-section-title">Team Member Progress</h2>
+                </div>
+                <div class="home-grid" id="dash-members-grid">
+                    <div class="dash-empty">Loading team data...</div>
                 </div>
             </div>
         </section>
