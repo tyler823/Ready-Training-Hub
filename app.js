@@ -847,7 +847,8 @@ document.addEventListener('keydown', function(e) {
             { title: 'Step 6: Labor & Scope Capture',          key: 'dry-standard' },
             { title: 'Step 7: Completion & COC',               key: 'tear-down' }
         ];
-        const MIT_END_INDEX = MIT_LESSONS.length; // index 11 == completion screen
+        const MIT_QUIZ_INDEX = MIT_LESSONS.length;       // index 11 == short wrap-up quiz
+        const MIT_END_INDEX  = MIT_LESSONS.length + 1;   // index 12 == completion screen
         let mitCurrent = 0;
         let mitViewed = {};       // tracks viewed foundation (un-keyed) lessons
         let mitMenuBuilt = false;
@@ -923,11 +924,17 @@ document.addEventListener('keydown', function(e) {
             // Step 2 lesson (index 5) hosts floorPlanCanvas — (re)draw now that it is visible.
             if (i === 5 && typeof drawFloorPlan === 'function') drawFloorPlan();
 
+            // Short wrap-up quiz and completion screen drive their own flow.
+            if (i === MIT_QUIZ_INDEX) mitQuizBuild();
+            if (i === MIT_END_INDEX) mitRenderCompletion();
+
             const back = document.getElementById('mit-back');
             const next = document.getElementById('mit-next');
             if (back) back.disabled = (i === 0);
             if (next) {
-                if (i >= MIT_END_INDEX) {
+                // Hide the player Next on the quiz + completion steps — those screens
+                // advance via their own buttons (quiz "Continue", cert/Cortex CTAs).
+                if (i >= MIT_QUIZ_INDEX) {
                     next.style.display = 'none';
                 } else {
                     next.style.display = '';
@@ -985,6 +992,116 @@ document.addEventListener('keydown', function(e) {
             }
             mitCloseMenu();
             mitGoTo(mitCurrent || 0, false);
+        }
+
+        // ----------------------------------------------------------------------
+        // Short end-of-module wrap-up quiz (self-contained in the lesson player).
+        // Reuses the EXISTING Mitigation slice of quizQuestions (indices 10-19) —
+        // question text, options, correct answer, and feedback are NOT retyped.
+        // This is a friendly knowledge check, not a gated exam: it never touches or
+        // launches the 30-question certification engine (startCertificationQuiz).
+        // ----------------------------------------------------------------------
+        const MIT_QUIZ_COUNT = 5;
+        let mitQuizSet = [];
+        let mitQuizIdx = 0;
+        let mitQuizScore = 0;
+        let mitQuizAnswered = false;
+        let mitQuizDone = false;
+
+        function mitQuizBuild() {
+            // Mitigation slice = indices 10-19 of the shared quizQuestions array.
+            const pool = (typeof quizQuestions !== 'undefined') ? quizQuestions.slice(10, 20) : [];
+            mitQuizSet = shuffleArray(pool).slice(0, MIT_QUIZ_COUNT).map(shuffleQuestion);
+            mitQuizIdx = 0;
+            mitQuizScore = 0;
+            mitQuizAnswered = false;
+            mitQuizDone = false;
+            mitQuizRender();
+        }
+
+        function mitQuizRender() {
+            const stage = document.getElementById('mit-quiz-stage');
+            if (!stage || !mitQuizSet.length) return;
+            mitQuizAnswered = false;
+            const total = mitQuizSet.length;
+            const d = mitQuizSet[mitQuizIdx];
+            let html = '<div class="mit-quiz-meta">' +
+                         '<span class="mit-quiz-counter">Question ' + (mitQuizIdx + 1) + ' of ' + total + '</span>' +
+                         '<span class="mit-quiz-score" id="mit-quiz-score">Score: ' + mitQuizScore + '</span>' +
+                       '</div>' +
+                       '<div class="mit-quiz-question">' + d.q + '</div>' +
+                       '<div class="mit-quiz-options">';
+            d.o.forEach(function(opt, idx) {
+                html += '<button type="button" class="mit-quiz-option" onclick="mitQuizAnswer(' + idx + ')">' + opt + '</button>';
+            });
+            html += '</div>' +
+                    '<div class="mit-quiz-feedback" id="mit-quiz-feedback" hidden></div>' +
+                    '<button type="button" class="mit-quiz-advance" id="mit-quiz-advance" hidden onclick="mitQuizNext()"></button>';
+            stage.innerHTML = html;
+        }
+
+        function mitQuizAnswer(idx) {
+            if (mitQuizAnswered) return;
+            mitQuizAnswered = true;
+            const d = mitQuizSet[mitQuizIdx];
+            const correct = (idx === d.c);
+            if (correct) mitQuizScore++;
+            const opts = document.querySelectorAll('#mit-quiz-stage .mit-quiz-option');
+            opts.forEach(function(b, i) {
+                b.style.pointerEvents = 'none';
+                if (i === d.c) b.classList.add('correct');
+                if (i === idx && !correct) b.classList.add('incorrect');
+            });
+            const scoreEl = document.getElementById('mit-quiz-score');
+            if (scoreEl) scoreEl.textContent = 'Score: ' + mitQuizScore;
+            const fb = document.getElementById('mit-quiz-feedback');
+            if (fb) {
+                fb.hidden = false;
+                fb.className = 'mit-quiz-feedback ' + (correct ? 'correct' : 'incorrect');
+                fb.innerHTML = (correct ? '✅ Correct! ' : '❌ Not quite. ') + d.f;
+            }
+            const adv = document.getElementById('mit-quiz-advance');
+            if (adv) {
+                adv.hidden = false;
+                adv.textContent = (mitQuizIdx === mitQuizSet.length - 1) ? 'See your score' : 'Next question';
+            }
+        }
+
+        function mitQuizNext() {
+            if (mitQuizIdx < mitQuizSet.length - 1) {
+                mitQuizIdx++;
+                mitQuizRender();
+            } else {
+                mitQuizShowResult();
+            }
+        }
+
+        function mitQuizShowResult() {
+            mitQuizDone = true;
+            const stage = document.getElementById('mit-quiz-stage');
+            if (!stage) return;
+            const total = mitQuizSet.length;
+            stage.innerHTML =
+                '<div class="mit-quiz-result">' +
+                  '<div class="mit-quiz-result-score">' + mitQuizScore + ' / ' + total + '</div>' +
+                  '<p class="mit-quiz-result-text">You got ' + mitQuizScore + ' of ' + total + ' correct.</p>' +
+                  '<div class="mit-quiz-result-actions">' +
+                    '<button type="button" class="mit-quiz-retry" onclick="mitQuizBuild()">Try again</button>' +
+                    '<button type="button" class="mit-quiz-continue" onclick="mitGoTo(' + MIT_END_INDEX + ', false)">Continue &rarr;</button>' +
+                  '</div>' +
+                '</div>';
+        }
+
+        // Populate the completion screen with the short-quiz score.
+        function mitRenderCompletion() {
+            const el = document.getElementById('mit-complete-score');
+            if (!el) return;
+            const total = mitQuizSet.length || MIT_QUIZ_COUNT;
+            if (mitQuizDone) {
+                el.textContent = 'Short quiz: you got ' + mitQuizScore + ' of ' + total + ' correct.';
+            } else {
+                el.textContent = 'Short quiz: take the quick check on the previous step to see your score.';
+            }
         }
 
         const quizQuestions = [
