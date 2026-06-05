@@ -1890,19 +1890,29 @@
         </section>
         <!-- SECTION: FINANCIAL OPERATIONS -->
         <section id="sec-financial" class="tab-content hidden fade-in" data-ms-membership="ready-team,ready-pro">
-            <!-- Financial Hero -->
-            <div class="bg-gradient-to-br from-violet-600 to-violet-500 rounded-3xl p-12 mb-12 text-white text-center shadow-2xl">
-                <div class="text-6xl mb-4">💰</div>
-                <h1 class="text-5xl font-black mb-4 tracking-tight">Financial Operations</h1>
-                <p class="text-xl font-medium text-violet-50 max-w-3xl mx-auto leading-relaxed">
-                    Master the financial fundamentals of running a profitable restoration business. Learn pricing strategy, cost management, cash flow optimization, and financial decision-making to build sustainable business growth.
-                </p>
-            </div>
+            <div id="fin-player" class="lesson-player" data-current="0">
+                <div class="lp-topbar">
+                    <button type="button" class="lp-menu-btn" onclick="lpToggleMenu('fin')" aria-label="Open lessons menu"><span class="lp-menu-btn-icon">&#9776;</span> Lessons</button>
+                    <div class="lp-progress" role="progressbar" aria-label="Financial Operations progress"><div class="lp-progress-fill" id="fin-progress-fill"></div></div>
+                    <span class="lp-progress-label" id="fin-progress-label">0/5</span>
+                </div>
+                <div class="lp-body">
+                    <div class="lp-menu-overlay" id="fin-menu-overlay" onclick="lpCloseMenu('fin')"></div>
+                    <nav class="lp-menu" id="fin-menu" aria-label="Lesson menu">
+                        <div class="lp-menu-head"><span>Lessons</span><button type="button" class="lp-menu-close" onclick="lpCloseMenu('fin')" aria-label="Close lessons menu">&times;</button></div>
+                        <ol class="lp-menu-list" id="fin-menu-list"></ol>
+                    </nav>
+                    <div class="lp-content" id="fin-content">
+
+                <article class="lp-lesson" data-lesson="0" id="fin-lesson-0" hidden>
+                    <h2 class="lp-lesson-title">Financial Operations Overview</h2>
+                    <div class="lp-video"><div class="lp-video-frame"><div class="lp-video-ph"><span class="lp-video-ph-icon">&#9654;</span><span class="lp-video-ph-text">Module Overview &mdash; Here&rsquo;s what we&rsquo;ll cover &mdash; coming soon</span></div></div></div>
+                    <p class="text-lg text-slate-600 mb-6">Master the financial fundamentals of running a profitable restoration business. Learn pricing strategy, cost management, cash flow optimization, and financial decision-making to build sustainable business growth.</p>
 
             <!-- Financial Literacy Foundation Box -->
             <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-8 mb-12">
                 <div class="flex items-start gap-4">
-                    <div class="text-4xl">📚</div>
+                    <div class="text-4xl"></div>
                     <div>
                         <h3 class="text-xl font-bold text-blue-900 mb-3">Financial Literacy for Business Owners</h3>
                         <p class="text-sm text-blue-800 mb-3 leading-relaxed">
@@ -1915,6 +1925,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="1" data-key="profitability" id="fin-lesson-1" hidden>
             <!-- Module 1: Understanding Business Profitability -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -1955,7 +1968,7 @@
                 <!-- Knowledge Check: Financial Operations -->
                 <div class="knowledge-check" id="kc-financial">
                     <div class="knowledge-check-header">
-                        <span class="knowledge-check-icon">🧠</span>
+                        <span class="knowledge-check-icon"></span>
                         <span class="knowledge-check-title">Quick Knowledge Check</span>
                     </div>
                     <div class="knowledge-check-question">
@@ -2003,7 +2016,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                     <div class="bg-green-50 p-5 rounded-xl border-2 border-green-200">
-                        <h4 class="font-bold text-green-900 mb-3 text-sm">✅ Profitability Indicators</h4>
+                        <h4 class="font-bold text-green-900 mb-3 text-sm">Profitability Indicators</h4>
                         <ul class="text-xs text-green-800 space-y-2">
                             <li>• Gross profit margin: 50%+ on each job</li>
                             <li>• Net profit margin: 10-20% of total revenue</li>
@@ -2013,7 +2026,7 @@
                         </ul>
                     </div>
                     <div class="bg-red-50 p-5 rounded-xl border-2 border-red-200">
-                        <h4 class="font-bold text-red-900 mb-3 text-sm">⚠️ Warning Signs</h4>
+                        <h4 class="font-bold text-red-900 mb-3 text-sm">Warning Signs</h4>
                         <ul class="text-xs text-red-800 space-y-2">
                             <li>• Gross profit margin below 50% per job</li>
                             <li>• Consistently unable to pay bills on time</li>
@@ -2025,6 +2038,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="2" data-key="margins" id="fin-lesson-2" hidden>
             <!-- Module 2: Margins and Markups -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -2062,7 +2078,7 @@
                         </div>
 
                         <div class="bg-yellow-50 p-4 rounded-lg border-2 border-yellow-300 mb-4">
-                            <p class="font-bold text-yellow-900 mb-2">🎯 The Connection: 100% Markup = 50% Margin</p>
+                            <p class="font-bold text-yellow-900 mb-2">The Connection: 100% Markup = 50% Margin</p>
                             <p class="text-sm text-slate-700 mb-2">Notice the pattern: When you apply a 100% markup, you automatically achieve a 50% margin. This is the mathematical relationship:</p>
                             <ul class="text-sm text-slate-700 list-disc list-inside space-y-1 ml-4">
                                 <li>100% markup means doubling your cost</li>
@@ -2110,7 +2126,7 @@
                 </div>
 
                 <div class="bg-gradient-to-r from-violet-500 to-violet-400 p-6 rounded-xl text-white mt-6">
-                    <h4 class="font-bold text-lg mb-4">📊 Quick Reference: Markup vs Margin Chart</h4>
+                    <h4 class="font-bold text-lg mb-4">Quick Reference: Markup vs Margin Chart</h4>
                     <div class="grid grid-cols-2 gap-4 text-sm">
                         <div class="bg-white bg-opacity-20 p-3 rounded">
                             <p class="font-bold mb-1">50% Markup</p>
@@ -2134,7 +2150,7 @@
                 <!-- Industry Disclaimer -->
                 <div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-5 mt-6">
                     <div class="flex items-start gap-3">
-                        <div class="text-2xl">⚠️</div>
+                        <div class="text-2xl"></div>
                         <div>
                             <h4 class="font-bold text-amber-900 mb-2 text-sm">Important Disclaimer: Industry-Specific Margins</h4>
                             <p class="text-xs text-amber-800 leading-relaxed mb-2">The margin and markup examples presented in this module are <strong>generalized educational tools</strong> designed to teach you how to calculate and understand these financial concepts. They are not prescriptive targets for every business or every job type.</p>
@@ -2145,6 +2161,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="3" data-key="cashflow" id="fin-lesson-3" hidden>
             <!-- Module 3: Break-Even Analysis & Cash Flow-->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -2225,7 +2244,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                     <div class="bg-emerald-50 p-5 rounded-xl border border-emerald-200">
-                        <h4 class="font-bold text-emerald-900 mb-2 text-sm">💚 Healthy Cash Flow</h4>
+                        <h4 class="font-bold text-emerald-900 mb-2 text-sm">Healthy Cash Flow</h4>
                         <ul class="text-xs text-emerald-800 space-y-1">
                             <li>• 2-3 months overhead in reserves</li>
                             <li>• Collect 30-50% deposits</li>
@@ -2235,7 +2254,7 @@
                         </ul>
                     </div>
                     <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-200">
-                        <h4 class="font-bold text-yellow-900 mb-2 text-sm">⚠️ Cash Flow Warning Signs</h4>
+                        <h4 class="font-bold text-yellow-900 mb-2 text-sm">Cash Flow Warning Signs</h4>
                         <ul class="text-xs text-yellow-800 space-y-1">
                             <li>• No cash reserves</li>
                             <li>• Using new job money for old bills</li>
@@ -2245,7 +2264,7 @@
                         </ul>
                     </div>
                     <div class="bg-red-50 p-5 rounded-xl border border-red-200">
-                        <h4 class="font-bold text-red-900 mb-2 text-sm">🚨 Cash Crisis</h4>
+                        <h4 class="font-bold text-red-900 mb-2 text-sm">Cash Crisis</h4>
                         <ul class="text-xs text-red-800 space-y-1">
                             <li>• Can't make payroll</li>
                             <li>• Suppliers demanding COD</li>
@@ -2257,6 +2276,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="4" data-key="pricing" id="fin-lesson-4" hidden>
             <!-- Module 4: Pricing Strategy & Value Communication -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -2273,7 +2295,7 @@
                         <p class="mb-4">Fair and reasonable pricing isn't the lowest price - it's pricing that reflects the quality, expertise, and value you provide while ensuring your business remains profitable and sustainable. Customers may want the lowest price, but that's not fair to your business or sustainable for delivering quality service.</p>
 
                         <div class="bg-red-50 p-4 rounded-lg border-2 border-red-200 mb-4">
-                            <p class="font-bold text-red-900 mb-2">🚫 The Low-Price Trap</p>
+                            <p class="font-bold text-red-900 mb-2">The Low-Price Trap</p>
                             <p class="text-sm text-slate-700 mb-2">Many restoration companies fail by competing on price. Here's what happens:</p>
                             <ul class="text-sm text-slate-700 list-disc list-inside space-y-1 ml-4">
                                 <li>Win lots of jobs with low prices (20-30% margins)</li>
@@ -2354,7 +2376,7 @@
                 </div>
 
                 <div class="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-xl text-white mt-6">
-                    <h4 class="font-bold text-lg mb-4 text-center">💬 Pricing Conversation Scripts</h4>
+                    <h4 class="font-bold text-lg mb-4 text-center">Pricing Conversation Scripts</h4>
                     <div class="space-y-4 text-sm">
                         <div>
                             <p class="font-bold text-violet-300 mb-1">Opening Statement:</p>
@@ -2372,6 +2394,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="5" data-key="tax" id="fin-lesson-5" hidden>
             <!-- Module 5: Tax Considerations & Compliance -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -2388,7 +2413,7 @@
                         <p class="mb-4">Taxes are one of your largest business expenses and a legal obligation. Failing to account for them properly can destroy your cash flow and create serious legal problems. Here's what every restoration business owner needs to know:</p>
 
                         <div class="bg-red-50 p-4 rounded-lg border-2 border-red-200 mb-4">
-                            <p class="font-bold text-red-900 mb-2">🚨 Tax Planning is NOT Optional</p>
+                            <p class="font-bold text-red-900 mb-2">Tax Planning is NOT Optional</p>
                             <p class="text-sm text-slate-700 mb-2">Common scenario: Business has a great year with $500,000 revenue and $100,000 profit. Owner spends profit throughout the year. April arrives and tax bill is $30,000-$40,000. Owner has no cash to pay it.</p>
                             <p class="text-sm font-bold text-red-700">Result: IRS penalties, interest, payment plans, and potential liens. This destroys credit and creates multi-year financial problems.</p>
                         </div>
@@ -2407,7 +2432,7 @@
                         <p class="mb-4">The biggest tax mistake is spending all your profit and having nothing left when taxes are due. Here's the system:</p>
 
                         <div class="bg-green-50 p-4 rounded-lg border-2 border-green-200 mb-4">
-                            <p class="font-bold text-green-900 mb-2">✅ The Tax Savings Account Method</p>
+                            <p class="font-bold text-green-900 mb-2">The Tax Savings Account Method</p>
                             <ol class="text-sm text-slate-700 list-decimal list-inside space-y-2 ml-4">
                                 <li>Open a separate business savings account called "Tax Reserve"</li>
                                 <li>Every time you get paid or make a profit withdrawal, immediately transfer 30% to tax reserve</li>
@@ -2455,48 +2480,51 @@
                 </div>
 
                 <div class="bg-violet-50 p-6 rounded-xl border border-violet-200 mt-6">
-                    <h4 class="font-bold text-violet-900 mb-4">📋 Tax Compliance Checklist</h4>
+                    <h4 class="font-bold text-violet-900 mb-4">Tax Compliance Checklist</h4>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                         <div>
                             <p class="font-bold text-violet-900 mb-2">Monthly:</p>
                             <ul class="text-slate-700 space-y-1">
-                                <li>☐ Set aside 30% of profit in tax reserve</li>
-                                <li>☐ Track all business expenses with receipts</li>
-                                <li>☐ Record business mileage</li>
-                                <li>☐ Reconcile bank accounts</li>
+                                <li>Set aside 30% of profit in tax reserve</li>
+                                <li>Track all business expenses with receipts</li>
+                                <li>Record business mileage</li>
+                                <li>Reconcile bank accounts</li>
                             </ul>
                         </div>
                         <div>
                             <p class="font-bold text-violet-900 mb-2">Quarterly:</p>
                             <ul class="text-slate-700 space-y-1">
-                                <li>☐ Make estimated tax payment (if required)</li>
-                                <li>☐ Review P&L with accountant</li>
-                                <li>☐ Adjust tax withholding if needed</li>
-                                <li>☐ File payroll tax returns</li>
+                                <li>Make estimated tax payment (if required)</li>
+                                <li>Review P&L with accountant</li>
+                                <li>Adjust tax withholding if needed</li>
+                                <li>File payroll tax returns</li>
                             </ul>
                         </div>
                         <div>
                             <p class="font-bold text-violet-900 mb-2">Annually:</p>
                             <ul class="text-slate-700 space-y-1">
-                                <li>☐ Provide accountant with financial records</li>
-                                <li>☐ File business tax return</li>
-                                <li>☐ File personal tax return</li>
-                                <li>☐ Issue 1099s to contractors</li>
+                                <li>Provide accountant with financial records</li>
+                                <li>File business tax return</li>
+                                <li>File personal tax return</li>
+                                <li>Issue 1099s to contractors</li>
                             </ul>
                         </div>
                         <div>
                             <p class="font-bold text-violet-900 mb-2">As Needed:</p>
                             <ul class="text-slate-700 space-y-1">
-                                <li>☐ Renew business licenses</li>
-                                <li>☐ File sales tax returns</li>
-                                <li>☐ Update estimated tax calculations</li>
-                                <li>☐ Consult CPA for major decisions</li>
+                                <li>Renew business licenses</li>
+                                <li>File sales tax returns</li>
+                                <li>Update estimated tax calculations</li>
+                                <li>Consult CPA for major decisions</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="6" id="fin-lesson-6" hidden>
             <!-- Summary Section -->
             <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-10 text-white">
                 <h2 class="text-3xl font-bold mb-6 text-center">Ready Companies Financial Standards</h2>
@@ -2531,16 +2559,29 @@
                 </div>
             </div>
 
-            <!-- Cortex CTA -->
-            <div class="bg-gradient-to-r from-slate-700 to-slate-600 rounded-xl p-6 text-white mt-8">
-                <div class="flex items-start gap-4">
-                    <div class="text-3xl">💰</div>
-                    <div>
+                </article>
+
+                <article class="lp-lesson lp-end" data-lesson="7" id="fin-lesson-7" hidden>
+                    <div class="lp-complete">
+                        <div class="lp-complete-icon">&#9989;</div>
+                        <h2>Financial Operations module complete</h2>
+                        <p>Nice work &mdash; you&rsquo;ve finished every lesson in Financial Operations.</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-slate-700 to-slate-600 rounded-xl p-6 text-white mb-8">
                         <h4 class="font-bold text-lg mb-2">Track Job Costs in Real Time</h4>
                         <p class="text-sm text-slate-300 mb-3">Knowing your gross margin <em>after</em> the job closes is too late. <strong>Cortex</strong> lets you track labor, materials, and subcontractor costs against your estimate as the job progresses &mdash; so you can catch margin problems while there&rsquo;s still time to fix them. Integrated budgeting, billing, and operations intelligence built for contractors.</p>
-                        <a href="https://jobdox.ai" target="_blank" class="inline-block bg-violet-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-400 transition shadow-md text-sm">Learn More at JobDox.ai &rarr;</a>
+                        <a href="https://jobdox.ai" target="_blank" rel="noopener" class="inline-block bg-violet-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-400 transition shadow-md text-sm">Learn More at JobDox.ai &rarr;</a>
+                    </div>
+                </article>
+
                     </div>
                 </div>
+
+                <div class="lp-nav">
+                    <button type="button" class="lp-back" id="fin-back" onclick="lpPrev('fin')">Back</button>
+                    <button type="button" class="lp-next" id="fin-next" onclick="lpNext('fin')">Next</button>
+                </div>
+
             </div>
         </section>
 

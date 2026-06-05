@@ -1197,6 +1197,22 @@ document.addEventListener('keydown', function(e) {
         // Back-compat: nav() still calls mitInit() for the Mitigation section.
         function mitInit() { lpInit('mit'); }
 
+        // FINANCIAL OPERATIONS (no short quiz — no slice in quizQuestions; no
+        // certification). Denominator 5.
+        lpRegister({
+            prefix: 'fin', module: 'financial', section: 'financial',
+            hasQuiz: false,
+            lessons: [
+                { title: 'Financial Operations Overview',          key: null },
+                { title: 'Understanding Business Profitability',   key: 'profitability' },
+                { title: 'Margins & Markups',                      key: 'margins' },
+                { title: 'Break-Even Analysis & Cash Flow',        key: 'cashflow' },
+                { title: 'Pricing Strategy & Value',               key: 'pricing' },
+                { title: 'Tax Considerations & Compliance',        key: 'tax' },
+                { title: 'Financial Standards',                    key: null }
+            ]
+        });
+
         // RECONSTRUCTION (no short quiz — its question bank feeds the separate
         // Ready Certified Contractor certification engine). Completion links to
         // startReconCertificationQuiz. Denominator 5.
