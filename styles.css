@@ -1437,6 +1437,203 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
   color: var(--t1);
 }
 .lp-complete p { color: var(--t2); font-size: 14px; }
+.lp-complete-score {
+  margin-top: 14px;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--brand-tint);
+  border: 1px solid var(--brand-line);
+  color: var(--brand-soft);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Secondary, optional full-certification link on the completion screen */
+.lp-cert-cta {
+  margin: 8px 0 24px;
+  padding: 16px 18px;
+  border: 1px dashed var(--br-hi);
+  border-radius: var(--radius);
+  background: var(--s1);
+  text-align: center;
+}
+.lp-cert-cta-note {
+  margin: 0 0 12px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--t2);
+}
+.lp-cert-link {
+  display: inline-block;
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--brand-soft);
+  background: transparent;
+  border: 1px solid var(--brand-line);
+  border-radius: var(--radius-sm);
+  padding: 10px 18px;
+  min-height: 44px;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.lp-cert-link:hover,
+.lp-cert-link:active { background: var(--brand-tint); color: var(--brand); }
+
+/* ----- Short end-of-module wrap-up quiz (self-contained in the player) ----- */
+.lp-quiz-intro {
+  margin: 0 0 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--t2);
+}
+.mit-quiz {
+  background: var(--s1);
+  border: 1px solid var(--br);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+.mit-quiz-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.mit-quiz-counter {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--brand-soft);
+  background: var(--brand-tint);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+.mit-quiz-score {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--t3);
+}
+.mit-quiz-question {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--t1);
+  margin-bottom: 18px;
+}
+.mit-quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mit-quiz-option {
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--t1);
+  background: var(--s3);
+  border: 2px solid var(--br-hi);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  min-height: 48px;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.mit-quiz-option:hover { border-color: var(--brand-line); background: var(--brand-tint); }
+.mit-quiz-option.correct {
+  background: rgba(16,185,129,.14);
+  border-color: var(--green);
+  color: var(--t1);
+}
+.mit-quiz-option.incorrect {
+  background: rgba(239,68,68,.14);
+  border-color: #ef4444;
+  color: var(--t1);
+}
+.mit-quiz-feedback {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.mit-quiz-feedback.correct {
+  background: rgba(16,185,129,.12);
+  border: 1px solid var(--green);
+  color: var(--t1);
+}
+.mit-quiz-feedback.incorrect {
+  background: rgba(239,68,68,.12);
+  border: 1px solid #ef4444;
+  color: var(--t1);
+}
+.mit-quiz-advance {
+  margin-top: 16px;
+  width: 100%;
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+  background: var(--brand);
+  border: 1px solid var(--brand);
+  border-radius: var(--radius-sm);
+  padding: 14px 20px;
+  min-height: 48px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.mit-quiz-advance:hover { background: var(--brand-strong); }
+
+/* Final score / result card */
+.mit-quiz-result { text-align: center; padding: 20px 8px; }
+.mit-quiz-result-score {
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--brand-soft);
+  line-height: 1.1;
+}
+.mit-quiz-result-text {
+  margin: 8px 0 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--t2);
+}
+.mit-quiz-result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+.mit-quiz-retry,
+.mit-quiz-continue {
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: var(--radius-sm);
+  padding: 12px 22px;
+  min-height: 48px;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.mit-quiz-retry {
+  background: var(--s1);
+  color: var(--t1);
+  border: 1px solid var(--br-hi);
+}
+.mit-quiz-retry:hover { background: var(--s3); }
+.mit-quiz-continue {
+  background: var(--brand);
+  color: #fff;
+  border: 1px solid var(--brand);
+}
+.mit-quiz-continue:hover { background: var(--brand-strong); }
 
 /* Back / Next controls */
 .lp-nav {
