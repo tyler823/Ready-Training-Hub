@@ -1474,19 +1474,29 @@
 
         <!-- SECTION: RECONSTRUCTION -->
         <section id="sec-reconstruction" class="tab-content hidden fade-in" data-ms-membership="ready-team,ready-pro">
-            <!-- Reconstruction Hero -->
-            <div class="bg-gradient-to-br from-violet-600 to-violet-500 rounded-3xl p-12 mb-12 text-white text-center shadow-2xl">
-                <div class="text-6xl mb-4">🏗️</div>
-                <h1 class="text-5xl font-black mb-4 tracking-tight">Reconstruction Operations</h1>
-                <p class="text-xl font-medium text-violet-50 max-w-3xl mx-auto leading-relaxed">
-                    Master the complete rebuild lifecycle from post-mitigation handoff through final closeout, including estimating software, scope negotiation, payment draws, construction sequencing, and quality control.
-                </p>
-            </div>
+            <div id="rc-player" class="lesson-player" data-current="0">
+                <div class="lp-topbar">
+                    <button type="button" class="lp-menu-btn" onclick="lpToggleMenu('rc')" aria-label="Open lessons menu"><span class="lp-menu-btn-icon">&#9776;</span> Lessons</button>
+                    <div class="lp-progress" role="progressbar" aria-label="Reconstruction module progress"><div class="lp-progress-fill" id="rc-progress-fill"></div></div>
+                    <span class="lp-progress-label" id="rc-progress-label">0/5</span>
+                </div>
+                <div class="lp-body">
+                    <div class="lp-menu-overlay" id="rc-menu-overlay" onclick="lpCloseMenu('rc')"></div>
+                    <nav class="lp-menu" id="rc-menu" aria-label="Lesson menu">
+                        <div class="lp-menu-head"><span>Lessons</span><button type="button" class="lp-menu-close" onclick="lpCloseMenu('rc')" aria-label="Close lessons menu">&times;</button></div>
+                        <ol class="lp-menu-list" id="rc-menu-list"></ol>
+                    </nav>
+                    <div class="lp-content" id="rc-content">
+
+                <article class="lp-lesson" data-lesson="0" id="rc-lesson-0" hidden>
+                    <h2 class="lp-lesson-title">Reconstruction Overview</h2>
+                    <div class="lp-video"><div class="lp-video-frame"><div class="lp-video-ph"><span class="lp-video-ph-icon">&#9654;</span><span class="lp-video-ph-text">Module Overview &mdash; Here&rsquo;s what we&rsquo;ll cover &mdash; coming soon</span></div></div></div>
+                    <p class="text-lg text-slate-600 mb-6">Master the complete rebuild lifecycle from post-mitigation handoff through final closeout, including estimating software, scope negotiation, payment draws, construction sequencing, and quality control.</p>
 
             <!-- Industry Context Box -->
             <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-8 mb-12">
                 <div class="flex items-start gap-4">
-                    <div class="text-4xl">ℹ️</div>
+                    <div class="text-4xl"></div>
                     <div>
                         <h3 class="text-xl font-bold text-blue-900 mb-3">Industry Foundation: Xactimate & Symbility</h3>
                         <p class="text-sm text-blue-800 mb-3 leading-relaxed">
@@ -1499,6 +1509,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="1" data-key="transition" id="rc-lesson-1" hidden>
             <!-- Phase 1: Transition & Handoff -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -1533,7 +1546,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                     <div class="bg-violet-50 p-5 rounded-xl border border-violet-100">
-                        <h4 class="font-bold text-violet-900 mb-2 text-sm">✅ Handoff Checklist</h4>
+                        <h4 class="font-bold text-violet-900 mb-2 text-sm">Handoff Checklist</h4>
                         <ul class="text-xs text-violet-800 space-y-1">
                             <li>• Mitigation completion verified</li>
                             <li>• Source of loss repaired</li>
@@ -1543,7 +1556,7 @@
                         </ul>
                     </div>
                     <div class="bg-red-50 p-5 rounded-xl border border-red-100">
-                        <h4 class="font-bold text-red-900 mb-2 text-sm">⚠️ Common Transition Failures</h4>
+                        <h4 class="font-bold text-red-900 mb-2 text-sm">Common Transition Failures</h4>
                         <ul class="text-xs text-red-800 space-y-1">
                             <li>• Starting before mitigation complete</li>
                             <li>• Missing structural assessment</li>
@@ -1555,6 +1568,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="2" data-key="estimating" id="rc-lesson-2" hidden>
             <!-- Phase 2: Estimating & Scope Development -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -1591,7 +1607,7 @@
                 </div>
 
                 <div class="bg-gradient-to-r from-violet-500 to-violet-400 p-6 rounded-xl text-white mt-6">
-                    <h4 class="font-bold text-lg mb-4">🎯 Xactimate Proficiency Requirements</h4>
+                    <h4 class="font-bold text-lg mb-4">Xactimate Proficiency Requirements</h4>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                         <div>
                             <p class="font-bold mb-2">Line Item Coding</p>
@@ -1609,6 +1625,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="3" data-key="preconstruction" id="rc-lesson-3" hidden>
             <!-- Phase 3: Pre-Construction Planning -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -1644,7 +1663,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                     <div class="border-2 border-violet-200 p-5 rounded-xl">
-                        <h4 class="font-bold text-violet-900 mb-3">📋 Permit Requirements</h4>
+                        <h4 class="font-bold text-violet-900 mb-3">Permit Requirements</h4>
                         <p class="text-xs text-slate-700 mb-3">Common work requiring permits:</p>
                         <ul class="text-xs text-slate-700 space-y-1">
                             <li>• Structural repairs (framing, load-bearing walls)</li>
@@ -1656,7 +1675,7 @@
                         </ul>
                     </div>
                     <div class="border-2 border-blue-200 p-5 rounded-xl">
-                        <h4 class="font-bold text-blue-900 mb-3">💰 Draw Payment Triggers</h4>
+                        <h4 class="font-bold text-blue-900 mb-3">Draw Payment Triggers</h4>
                         <p class="text-xs text-slate-700 mb-3">Typical inspection requirements for payment release:</p>
                         <ul class="text-xs text-slate-700 space-y-1">
                             <li>• Initial: Signed contract + scope approval</li>
@@ -1668,6 +1687,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="4" data-key="construction" id="rc-lesson-4" hidden>
             <!-- Phase 4: Construction Execution -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -1724,12 +1746,15 @@
                 </div>
 
                 <div class="bg-red-50 border-2 border-red-300 p-6 rounded-xl mt-6">
-                    <h4 class="font-bold text-red-900 text-lg mb-3">⚠️ CRITICAL: Inspection Requirements</h4>
+                    <h4 class="font-bold text-red-900 text-lg mb-3">CRITICAL: Inspection Requirements</h4>
                     <p class="text-sm text-red-800 mb-4">Building inspections are NON-NEGOTIABLE checkpoints. DO NOT install drywall before rough-in inspections pass. DO NOT install flooring before final inspections. Proceeding without passed inspections creates rework costs and potential code violations that can halt project completion.</p>
                     <p class="text-sm text-red-800 font-semibold">Rework cost for premature drywall installation: $2,000-$5,000. Multiply by every room affected.</p>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="5" data-key="completion" id="rc-lesson-5" hidden>
             <!-- Phase 5: Completion & Closeout -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -1768,7 +1793,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                     <div class="bg-green-50 p-5 rounded-xl border border-green-200">
-                        <h4 class="font-bold text-green-900 mb-2 text-sm">✅ Completion Checklist</h4>
+                        <h4 class="font-bold text-green-900 mb-2 text-sm">Completion Checklist</h4>
                         <ul class="text-xs text-green-800 space-y-1">
                             <li>• Customer walkthrough complete</li>
                             <li>• Punch list items resolved</li>
@@ -1779,7 +1804,7 @@
                         </ul>
                     </div>
                     <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
-                        <h4 class="font-bold text-blue-900 mb-2 text-sm">📄 Final Documentation</h4>
+                        <h4 class="font-bold text-blue-900 mb-2 text-sm">Final Documentation</h4>
                         <ul class="text-xs text-blue-800 space-y-1">
                             <li>• Final scope with supplements</li>
                             <li>• Certificate of Completion</li>
@@ -1790,7 +1815,7 @@
                         </ul>
                     </div>
                     <div class="bg-violet-50 p-5 rounded-xl border border-violet-200">
-                        <h4 class="font-bold text-violet-900 mb-2 text-sm">💰 Payment Closeout</h4>
+                        <h4 class="font-bold text-violet-900 mb-2 text-sm">Payment Closeout</h4>
                         <ul class="text-xs text-violet-800 space-y-1">
                             <li>• Final draw requested</li>
                             <li>• Depreciation submitted</li>
@@ -1802,6 +1827,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="6" id="rc-lesson-6" hidden>
             <!-- Summary: Ready Companies Standards -->
             <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-10 text-white">
                 <h2 class="text-3xl font-bold mb-6 text-center">Ready Companies Reconstruction Standards</h2>
@@ -1831,16 +1859,33 @@
                 </div>
             </div>
 
-            <!-- Cortex CTA -->
-            <div class="bg-gradient-to-r from-slate-700 to-slate-600 rounded-xl p-6 text-white mt-8">
-                <div class="flex items-start gap-4">
-                    <div class="text-3xl">🏗️</div>
-                    <div>
+                </article>
+
+                <article class="lp-lesson lp-end" data-lesson="7" id="rc-lesson-7" hidden>
+                    <div class="lp-complete">
+                        <div class="lp-complete-icon">&#9989;</div>
+                        <h2>Reconstruction module complete</h2>
+                        <p>Nice work &mdash; you&rsquo;ve finished every lesson in Reconstruction Operations.</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-slate-700 to-slate-600 rounded-xl p-6 text-white mb-8">
                         <h4 class="font-bold text-lg mb-2">Reconstruction Runs Smoother with Cortex</h4>
                         <p class="text-sm text-slate-300 mb-3">Scope development, vendor scheduling, budget tracking, change orders, and customer approvals &mdash; reconstruction projects have a lot of moving parts. <strong>Cortex</strong> keeps everything in one system so nothing falls through the cracks. Schedule crews, track costs against estimates in real time, and maintain the documentation trail that gets you paid.</p>
-                        <a href="https://jobdox.ai" target="_blank" class="inline-block bg-violet-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-400 transition shadow-md text-sm">Learn More at JobDox.ai &rarr;</a>
+                        <a href="https://jobdox.ai" target="_blank" rel="noopener" class="inline-block bg-violet-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-400 transition shadow-md text-sm">Learn More at JobDox.ai &rarr;</a>
+                    </div>
+                    <div class="lp-cert-cta">
+                        <p class="lp-cert-cta-note">Reconstruction has its own Ready Certified Contractor certification &mdash; a separate, combined assessment. There&rsquo;s no short wrap-up quiz for this module; when you&rsquo;re ready, take the full exam.</p>
+                        <button type="button" class="lp-cert-link" onclick="startReconCertificationQuiz()">Take the full certification exam &rarr;</button>
+                    </div>
+                </article>
+
                     </div>
                 </div>
+
+                <div class="lp-nav">
+                    <button type="button" class="lp-back" id="rc-back" onclick="lpPrev('rc')">Back</button>
+                    <button type="button" class="lp-next" id="rc-next" onclick="lpNext('rc')">Next</button>
+                </div>
+
             </div>
         </section>
         <!-- SECTION: FINANCIAL OPERATIONS -->

@@ -1197,6 +1197,23 @@ document.addEventListener('keydown', function(e) {
         // Back-compat: nav() still calls mitInit() for the Mitigation section.
         function mitInit() { lpInit('mit'); }
 
+        // RECONSTRUCTION (no short quiz — its question bank feeds the separate
+        // Ready Certified Contractor certification engine). Completion links to
+        // startReconCertificationQuiz. Denominator 5.
+        lpRegister({
+            prefix: 'rc', module: 'reconstruction', section: 'reconstruction',
+            hasQuiz: false,
+            lessons: [
+                { title: 'Reconstruction Overview',                key: null },
+                { title: 'Phase 1: Transition & Handoff',          key: 'transition' },
+                { title: 'Phase 2: Estimating & Scope',            key: 'estimating' },
+                { title: 'Phase 3: Pre-Construction Planning',     key: 'preconstruction' },
+                { title: 'Phase 4: Construction & Sequencing',     key: 'construction' },
+                { title: 'Phase 5: Completion & Closeout',         key: 'completion' },
+                { title: 'Reconstruction Standards',               key: null }
+            ]
+        });
+
         // READINESS & PREP (short quiz = Readiness slice 0-10; rolls into the
         // Ready Certified Technician certification). Page 1 hosts prepChart; resize
         // it once visible so the doughnut sizes to its container.
