@@ -4681,19 +4681,29 @@
 
         <!-- SECTION: EXIT STRATEGY & SALE PREP -->
         <section id="sec-exit-strategy" class="tab-content hidden fade-in" data-ms-membership="ready-pro">
-            <!-- Exit Strategy Hero -->
-            <div class="bg-gradient-to-br from-emerald-600 to-emerald-500 rounded-3xl p-12 mb-12 text-white text-center shadow-2xl">
-                <div class="text-6xl mb-4">🎯</div>
-                <h1 class="text-5xl font-black mb-4 tracking-tight">Exit Strategy & Sale Preparation</h1>
-                <p class="text-xl font-medium text-emerald-50 max-w-3xl mx-auto leading-relaxed">
-                    Build a business that can be sold for maximum value or run passively without you. Learn business valuation, buyer psychology, due diligence preparation, and transition strategies that create generational wealth.
-                </p>
-            </div>
+            <div id="ex-player" class="lesson-player" data-current="0">
+                <div class="lp-topbar">
+                    <button type="button" class="lp-menu-btn" onclick="lpToggleMenu('ex')" aria-label="Open lessons menu"><span class="lp-menu-btn-icon">&#9776;</span> Lessons</button>
+                    <div class="lp-progress" role="progressbar" aria-label="Exit Strategy & Sale Prep progress"><div class="lp-progress-fill" id="ex-progress-fill"></div></div>
+                    <span class="lp-progress-label" id="ex-progress-label">0/3</span>
+                </div>
+                <div class="lp-body">
+                    <div class="lp-menu-overlay" id="ex-menu-overlay" onclick="lpCloseMenu('ex')"></div>
+                    <nav class="lp-menu" id="ex-menu" aria-label="Lesson menu">
+                        <div class="lp-menu-head"><span>Lessons</span><button type="button" class="lp-menu-close" onclick="lpCloseMenu('ex')" aria-label="Close lessons menu">&times;</button></div>
+                        <ol class="lp-menu-list" id="ex-menu-list"></ol>
+                    </nav>
+                    <div class="lp-content" id="ex-content">
+
+                <article class="lp-lesson" data-lesson="0" id="ex-lesson-0" hidden>
+                    <h2 class="lp-lesson-title">Exit Strategy Overview</h2>
+                    <div class="lp-video"><div class="lp-video-frame"><div class="lp-video-ph"><span class="lp-video-ph-icon">&#9654;</span><span class="lp-video-ph-text">Module Overview &mdash; Here&rsquo;s what we&rsquo;ll cover &mdash; coming soon</span></div></div></div>
+                    <p class="text-lg text-slate-600 mb-6">Build a business that can be sold for maximum value or run passively without you. Learn business valuation, buyer psychology, due diligence preparation, and transition strategies that create generational wealth.</p>
 
             <!-- VAST & Exit Planning Introduction -->
             <div class="bg-gradient-to-br from-violet-600 to-violet-500 rounded-2xl p-8 mb-12 text-white">
                 <div class="flex items-start gap-6">
-                    <div class="text-6xl">💎</div>
+                    <div class="text-6xl"></div>
                     <div>
                         <h3 class="text-2xl font-bold mb-4">Exit Planning Starts Years Before the Sale</h3>
                         <p class="text-lg text-violet-50 mb-4 leading-relaxed">
@@ -4725,7 +4735,7 @@
                 <!-- Knowledge Check: Exit Strategy -->
                 <div class="knowledge-check" id="kc-exit-strategy">
                     <div class="knowledge-check-header">
-                        <span class="knowledge-check-icon">🧠</span>
+                        <span class="knowledge-check-icon"></span>
                         <span class="knowledge-check-title">Quick Knowledge Check</span>
                     </div>
                     <div class="knowledge-check-question">
@@ -4743,6 +4753,9 @@
                     <div class="knowledge-check-feedback" style="display: none;"></div>
                 </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="1" data-key="valuation" id="ex-lesson-1" hidden>
             <!-- Module 1: Understanding Business Valuation -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -4833,11 +4846,14 @@
                 </div>
 
                 <div class="bg-gradient-to-r from-emerald-500 to-emerald-400 p-6 rounded-xl text-white mt-6">
-                    <h4 class="font-bold text-lg mb-3">💡 Value Creation Action Steps</h4>
+                    <h4 class="font-bold text-lg mb-3">Value Creation Action Steps</h4>
                     <p class="text-sm text-emerald-50 mb-3">Every system you document, every person you train to work independently, and every month of growing EBITDA increases your business value. Work with Ready Enterprise to create a specific value-building roadmap.</p>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="2" data-key="sale-prep" id="ex-lesson-2" hidden>
             <!-- Module 2: Preparing for Sale -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -4975,6 +4991,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="3" data-key="exit-options" id="ex-lesson-3" hidden>
             <!-- Module 3: Exit Options -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -5088,6 +5107,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="4" id="ex-lesson-4" hidden>
             <!-- Exit Strategy Summary -->
             <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-10 text-white">
                 <h2 class="text-3xl font-bold mb-6 text-center">Building an Exit-Ready Business</h2>
@@ -5129,20 +5151,57 @@
                     </div>
                 </div>
             </div>
+                </article>
+
+                <article class="lp-lesson lp-end" data-lesson="5" id="ex-lesson-5" hidden>
+                    <div class="lp-complete">
+                        <div class="lp-complete-icon">&#9989;</div>
+                        <h2>Exit Strategy & Sale Prep module complete</h2>
+                        <p>Nice work &mdash; you&rsquo;ve finished every lesson in Exit Strategy & Sale Prep.</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-slate-700 to-slate-600 rounded-xl p-6 text-white mb-8">
+                        <h4 class="font-bold text-lg mb-2">Build a Sellable, Systemized Business</h4>
+                        <p class="text-sm text-slate-300 mb-3">A business that runs on documented systems is worth more &mdash; and easier to step away from. <strong>Cortex</strong> standardizes how jobs are scheduled, tracked, documented, and billed, turning owner knowledge into repeatable operations a buyer (or a manager) can run without you.</p>
+                        <a href="https://jobdox.ai" target="_blank" rel="noopener" class="inline-block bg-violet-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-400 transition shadow-md text-sm">Learn More at JobDox.ai &rarr;</a>
+                    </div>
+                </article>
+
+                    </div>
+                </div>
+
+                <div class="lp-nav">
+                    <button type="button" class="lp-back" id="ex-back" onclick="lpPrev('ex')">Back</button>
+                    <button type="button" class="lp-next" id="ex-next" onclick="lpNext('ex')">Next</button>
+                </div>
+
+            </div>
         </section>
 
 
         <!-- SECTION: MANAGERIAL DEVELOPMENT & LEADERSHIP -->
         <section id="sec-mgmt-development" class="tab-content hidden fade-in" data-ms-membership="ready-pro">
-            <!-- Hero -->
-            <div class="bg-gradient-to-br from-indigo-700 to-indigo-500 rounded-3xl p-12 mb-12 text-white text-center shadow-2xl">
-                <div class="text-6xl mb-4">🎯</div>
-                <h1 class="text-5xl font-black mb-4 tracking-tight">Managerial Development &amp; Leadership</h1>
-                <p class="text-xl font-medium text-indigo-50 max-w-3xl mx-auto leading-relaxed">
-                    Transform top performers into exceptional leaders. Build the management infrastructure that allows your company to scale beyond your personal capacity.
-                </p>
-            </div>
+            <div id="mg-player" class="lesson-player" data-current="0">
+                <div class="lp-topbar">
+                    <button type="button" class="lp-menu-btn" onclick="lpToggleMenu('mg')" aria-label="Open lessons menu"><span class="lp-menu-btn-icon">&#9776;</span> Lessons</button>
+                    <div class="lp-progress" role="progressbar" aria-label="Managerial Development progress"><div class="lp-progress-fill" id="mg-progress-fill"></div></div>
+                    <span class="lp-progress-label" id="mg-progress-label">0/6</span>
+                </div>
+                <div class="lp-body">
+                    <div class="lp-menu-overlay" id="mg-menu-overlay" onclick="lpCloseMenu('mg')"></div>
+                    <nav class="lp-menu" id="mg-menu" aria-label="Lesson menu">
+                        <div class="lp-menu-head"><span>Lessons</span><button type="button" class="lp-menu-close" onclick="lpCloseMenu('mg')" aria-label="Close lessons menu">&times;</button></div>
+                        <ol class="lp-menu-list" id="mg-menu-list"></ol>
+                    </nav>
+                    <div class="lp-content" id="mg-content">
 
+                <article class="lp-lesson" data-lesson="0" id="mg-lesson-0" hidden>
+                    <h2 class="lp-lesson-title">Managerial Development Overview</h2>
+                    <div class="lp-video"><div class="lp-video-frame"><div class="lp-video-ph"><span class="lp-video-ph-icon">&#9654;</span><span class="lp-video-ph-text">Module Overview &mdash; Here&rsquo;s what we&rsquo;ll cover &mdash; coming soon</span></div></div></div>
+                    <p class="text-lg text-slate-600 mb-6">Transform top performers into exceptional leaders. Build the management infrastructure that allows your company to scale beyond your personal capacity.</p>
+
+                </article>
+
+                <article class="lp-lesson" data-lesson="1" data-key="promotion" id="mg-lesson-1" hidden>
             <!-- Module 1: The Promotion Problem -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -5192,7 +5251,7 @@
                 <!-- Promotion Decision Framework -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                     <div class="bg-red-50 p-5 rounded-xl border border-red-200">
-                        <h4 class="font-bold text-red-900 mb-3 text-sm">❌ Wrong Reasons to Promote</h4>
+                        <h4 class="font-bold text-red-900 mb-3 text-sm">Wrong Reasons to Promote</h4>
                         <div class="space-y-2 text-xs text-red-800">
                             <p>&bull; Longest tenure on the team</p>
                             <p>&bull; Retention strategy / fear they'll leave</p>
@@ -5202,7 +5261,7 @@
                         </div>
                     </div>
                     <div class="bg-emerald-50 p-5 rounded-xl border border-emerald-200">
-                        <h4 class="font-bold text-emerald-900 mb-3 text-sm">✅ Right Reasons to Promote</h4>
+                        <h4 class="font-bold text-emerald-900 mb-3 text-sm">Right Reasons to Promote</h4>
                         <div class="space-y-2 text-xs text-emerald-800">
                             <p>&bull; Demonstrates leadership behaviors naturally</p>
                             <p>&bull; Mentors others without being asked</p>
@@ -5214,6 +5273,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="2" data-key="branch-mgr" id="mg-lesson-2" hidden>
             <!-- Module 2: The Branch Manager Role -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -5281,15 +5343,18 @@
                 <div class="bg-slate-50 p-6 rounded-xl border mt-4">
                     <h4 class="font-bold text-slate-800 mb-4 text-sm uppercase">Branch Manager Time Allocation</h4>
                     <div class="space-y-3">
-                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>👥 People Management</span><span>40%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-indigo-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:40%"><span class="text-[10px] font-bold text-white">40%</span></div></div></div>
-                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>💰 Financial Performance</span><span>20%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-blue-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:20%"><span class="text-[10px] font-bold text-white">20%</span></div></div></div>
-                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>⚙️ Operations &amp; QC</span><span>20%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-emerald-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:20%"><span class="text-[10px] font-bold text-white">20%</span></div></div></div>
-                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>🤝 Customer &amp; Relationships</span><span>15%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-violet-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:15%"><span class="text-[10px] font-bold text-white">15%</span></div></div></div>
-                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>📊 Strategy &amp; Reporting</span><span>5%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-amber-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:5%"><span class="text-[10px] font-bold text-white">5%</span></div></div></div>
+                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>People Management</span><span>40%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-indigo-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:40%"><span class="text-[10px] font-bold text-white">40%</span></div></div></div>
+                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>Financial Performance</span><span>20%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-blue-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:20%"><span class="text-[10px] font-bold text-white">20%</span></div></div></div>
+                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>Operations &amp; QC</span><span>20%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-emerald-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:20%"><span class="text-[10px] font-bold text-white">20%</span></div></div></div>
+                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>Customer &amp; Relationships</span><span>15%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-violet-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:15%"><span class="text-[10px] font-bold text-white">15%</span></div></div></div>
+                        <div><div class="flex justify-between text-xs font-bold text-slate-700 mb-1"><span>Strategy &amp; Reporting</span><span>5%</span></div><div class="w-full bg-slate-200 rounded-full h-5"><div class="bg-amber-500 h-5 rounded-full flex items-center justify-end pr-2" style="width:5%"><span class="text-[10px] font-bold text-white">5%</span></div></div></div>
                     </div>
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="3" data-key="regional-mgr" id="mg-lesson-3" hidden>
             <!-- Module 3: The Regional Manager Role -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -5328,7 +5393,7 @@
                 <!-- Branch vs Regional Comparison -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                     <div class="bg-indigo-50 p-5 rounded-xl border-2 border-indigo-200">
-                        <h4 class="font-bold text-indigo-900 mb-3 text-sm">🏢 Branch Manager Focus</h4>
+                        <h4 class="font-bold text-indigo-900 mb-3 text-sm">Branch Manager Focus</h4>
                         <div class="space-y-2 text-xs text-indigo-800">
                             <p>&bull; Manages individual contributors</p>
                             <p>&bull; Owns single-location P&amp;L</p>
@@ -5338,7 +5403,7 @@
                         </div>
                     </div>
                     <div class="bg-emerald-50 p-5 rounded-xl border-2 border-emerald-200">
-                        <h4 class="font-bold text-emerald-900 mb-3 text-sm">🌐 Regional Manager Focus</h4>
+                        <h4 class="font-bold text-emerald-900 mb-3 text-sm">Regional Manager Focus</h4>
                         <div class="space-y-2 text-xs text-emerald-800">
                             <p>&bull; Develops and coaches managers</p>
                             <p>&bull; Owns multi-location performance</p>
@@ -5350,6 +5415,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="4" data-key="first-time-mgr" id="mg-lesson-4" hidden>
             <!-- Module 4: First-Time Manager Training Framework -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -5405,6 +5473,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="5" data-key="restoration-leadership" id="mg-lesson-5" hidden>
             <!-- Module 5: Managing in a Restoration Setting -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -5449,19 +5520,19 @@
                 <!-- Restoration-Specific Challenges Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                     <div class="bg-slate-50 p-5 rounded-xl border">
-                        <h4 class="font-bold text-slate-800 mb-2 text-sm">🌙 After-Hours Management</h4>
+                        <h4 class="font-bold text-slate-800 mb-2 text-sm">After-Hours Management</h4>
                         <p class="text-xs text-slate-600">Fair on-call rotation, clear response expectations, appropriate compensation, lead by example.</p>
                     </div>
                     <div class="bg-slate-50 p-5 rounded-xl border">
-                        <h4 class="font-bold text-slate-800 mb-2 text-sm">🚛 Remote Crew Management</h4>
+                        <h4 class="font-bold text-slate-800 mb-2 text-sm">Remote Crew Management</h4>
                         <p class="text-xs text-slate-600">Trust through documentation, daily expectations, regular site visits, documentation as feedback loop.</p>
                     </div>
                     <div class="bg-slate-50 p-5 rounded-xl border">
-                        <h4 class="font-bold text-slate-800 mb-2 text-sm">💙 Emotional Well-Being</h4>
+                        <h4 class="font-bold text-slate-800 mb-2 text-sm">Emotional Well-Being</h4>
                         <p class="text-xs text-slate-600">Acknowledge difficulty, watch for burnout, provide recovery time after intense jobs.</p>
                     </div>
                     <div class="bg-slate-50 p-5 rounded-xl border">
-                        <h4 class="font-bold text-slate-800 mb-2 text-sm">🦺 Safety Leadership</h4>
+                        <h4 class="font-bold text-slate-800 mb-2 text-sm">Safety Leadership</h4>
                         <p class="text-xs text-slate-600">Personal legal responsibility, never compromise for speed, weekly toolbox talks, celebrate milestones.</p>
                     </div>
                 </div>
@@ -5470,7 +5541,7 @@
             <!-- Knowledge Check -->
             <div class="knowledge-check" id="kc-mgmt">
                 <div class="knowledge-check-header">
-                    <span class="knowledge-check-icon">🧠</span>
+                    <span class="knowledge-check-icon"></span>
                     <span class="knowledge-check-title">Quick Knowledge Check</span>
                 </div>
                 <div class="knowledge-check-question">
@@ -5487,6 +5558,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="6" data-key="meetings" id="mg-lesson-6" hidden>
             <!-- Module 6: Structuring Effective Meetings -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -5508,7 +5582,7 @@
                         <!-- Annual -->
                         <div class="bg-white rounded-xl p-5 border border-slate-200 mb-4">
                             <div class="flex items-center gap-3 mb-3">
-                                <span class="text-2xl">🗓️</span>
+                                <span class="text-2xl"></span>
                                 <div>
                                     <h4 class="font-bold text-slate-900">Annual Planning (1&ndash;2 Days)</h4>
                                     <p class="text-xs text-slate-500">Once per year &bull; Leadership team</p>
@@ -5521,7 +5595,7 @@
                         <!-- Quarterly -->
                         <div class="bg-white rounded-xl p-5 border border-slate-200 mb-4">
                             <div class="flex items-center gap-3 mb-3">
-                                <span class="text-2xl">🎯</span>
+                                <span class="text-2xl"></span>
                                 <div>
                                     <h4 class="font-bold text-slate-900">Quarterly Planning (Half&ndash;Full Day)</h4>
                                     <p class="text-xs text-slate-500">Every 90 days &bull; Leadership + key managers</p>
@@ -5534,7 +5608,7 @@
                         <!-- Weekly -->
                         <div class="bg-white rounded-xl p-5 border border-slate-200 mb-4">
                             <div class="flex items-center gap-3 mb-3">
-                                <span class="text-2xl">📊</span>
+                                <span class="text-2xl"></span>
                                 <div>
                                     <h4 class="font-bold text-slate-900">Weekly Huddle (60&ndash;90 Minutes)</h4>
                                     <p class="text-xs text-slate-500">Same day, same time, every week &bull; Entire leadership team</p>
@@ -5573,7 +5647,7 @@
                         <h3 class="font-bold text-lg text-slate-900 mb-3 mt-6">Meeting Rules That Make the Difference</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
-                                <h4 class="font-bold text-emerald-700 text-sm mb-2">✅ Do This</h4>
+                                <h4 class="font-bold text-emerald-700 text-sm mb-2">Do This</h4>
                                 <p class="text-xs text-slate-700 mb-1">&bull; Start on time, every time &mdash; even if people are missing</p>
                                 <p class="text-xs text-slate-700 mb-1">&bull; Use a timer for each agenda section</p>
                                 <p class="text-xs text-slate-700 mb-1">&bull; Assign every to-do to a specific person with a specific deadline</p>
@@ -5581,7 +5655,7 @@
                                 <p class="text-xs text-slate-700">&bull; End with the meeting rating &mdash; feedback loops drive continuous improvement</p>
                             </div>
                             <div class="bg-red-50 border border-red-200 rounded-xl p-4">
-                                <h4 class="font-bold text-red-700 text-sm mb-2">❌ Avoid This</h4>
+                                <h4 class="font-bold text-red-700 text-sm mb-2">Avoid This</h4>
                                 <p class="text-xs text-slate-700 mb-1">&bull; Meetings without agendas &mdash; they become complaint sessions</p>
                                 <p class="text-xs text-slate-700 mb-1">&bull; Letting one person dominate the discussion</p>
                                 <p class="text-xs text-slate-700 mb-1">&bull; Rehashing old decisions &mdash; once it&rsquo;s decided, it&rsquo;s decided</p>
@@ -5596,7 +5670,7 @@
                         <!-- VAST CTA -->
                         <div class="bg-gradient-to-r from-indigo-600 to-violet-600 rounded-xl p-6 text-white">
                             <div class="flex items-start gap-4">
-                                <div class="text-4xl">🚀</div>
+                                <div class="text-4xl"></div>
                                 <div>
                                     <h4 class="font-bold text-lg mb-2">Run These Meetings on VAST</h4>
                                     <p class="text-sm text-indigo-50 mb-3">You don&rsquo;t need to build these systems from scratch. <strong>VAST (Venture Accelerator System for Trades)</strong> is a purpose-built platform that gives your team the Navigator, Weekly Huddle with built-in timer, Quarterly Tasks, Scorecard, and IDS Problem Solving &mdash; all in one place for $20/month (flat fee, not per seat).</p>
@@ -5608,18 +5682,52 @@
                     </div>
                 </div>
             </div>
+                </article>
+
+                <article class="lp-lesson lp-end" data-lesson="7" id="mg-lesson-7" hidden>
+                    <div class="lp-complete">
+                        <div class="lp-complete-icon">&#9989;</div>
+                        <h2>Managerial Development module complete</h2>
+                        <p>Nice work &mdash; you&rsquo;ve finished every lesson in Managerial Development.</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-slate-700 to-slate-600 rounded-xl p-6 text-white mb-8">
+                        <h4 class="font-bold text-lg mb-2">Give Your Managers the Operating System</h4>
+                        <p class="text-sm text-slate-300 mb-3">Branch and regional managers need visibility, not guesswork. <strong>Cortex</strong> gives your management team real-time dashboards across jobs, crews, budgets, and documentation &mdash; so they can lead by the numbers and you can scale beyond your personal capacity.</p>
+                        <a href="https://jobdox.ai" target="_blank" rel="noopener" class="inline-block bg-violet-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-400 transition shadow-md text-sm">Learn More at JobDox.ai &rarr;</a>
+                    </div>
+                </article>
+
+                    </div>
+                </div>
+
+                <div class="lp-nav">
+                    <button type="button" class="lp-back" id="mg-back" onclick="lpPrev('mg')">Back</button>
+                    <button type="button" class="lp-next" id="mg-next" onclick="lpNext('mg')">Next</button>
+                </div>
+
+            </div>
         </section>
 
         <!-- SECTION: EMPLOYEE MATURITY MODELS -->
         <section id="sec-maturity-models" class="tab-content hidden fade-in" data-ms-membership="ready-pro">
-            <!-- Hero -->
-            <div class="bg-gradient-to-br from-purple-700 to-purple-500 rounded-3xl p-12 mb-12 text-white text-center shadow-2xl">
-                <div class="text-6xl mb-4">📈</div>
-                <h1 class="text-5xl font-black mb-4 tracking-tight">Employee Maturity Models</h1>
-                <p class="text-xl font-medium text-purple-50 max-w-3xl mx-auto leading-relaxed">
-                    Clear career progression pathways for every role in your company. Inspired by the Cardone Ventures Employee Maturity Model framework &mdash; adapted for restoration operations.
-                </p>
-            </div>
+            <div id="em-player" class="lesson-player" data-current="0">
+                <div class="lp-topbar">
+                    <button type="button" class="lp-menu-btn" onclick="lpToggleMenu('em')" aria-label="Open lessons menu"><span class="lp-menu-btn-icon">&#9776;</span> Lessons</button>
+                    <div class="lp-progress" role="progressbar" aria-label="Employee Maturity Models progress"><div class="lp-progress-fill" id="em-progress-fill"></div></div>
+                    <span class="lp-progress-label" id="em-progress-label">0/4</span>
+                </div>
+                <div class="lp-body">
+                    <div class="lp-menu-overlay" id="em-menu-overlay" onclick="lpCloseMenu('em')"></div>
+                    <nav class="lp-menu" id="em-menu" aria-label="Lesson menu">
+                        <div class="lp-menu-head"><span>Lessons</span><button type="button" class="lp-menu-close" onclick="lpCloseMenu('em')" aria-label="Close lessons menu">&times;</button></div>
+                        <ol class="lp-menu-list" id="em-menu-list"></ol>
+                    </nav>
+                    <div class="lp-content" id="em-content">
+
+                <article class="lp-lesson" data-lesson="0" id="em-lesson-0" hidden>
+                    <h2 class="lp-lesson-title">Employee Maturity Models Overview</h2>
+                    <div class="lp-video"><div class="lp-video-frame"><div class="lp-video-ph"><span class="lp-video-ph-icon">&#9654;</span><span class="lp-video-ph-text">Module Overview &mdash; Here&rsquo;s what we&rsquo;ll cover &mdash; coming soon</span></div></div></div>
+                    <p class="text-lg text-slate-600 mb-6">Clear career progression pathways for every role in your company. Inspired by the Cardone Ventures Employee Maturity Model framework &mdash; adapted for restoration operations.</p>
 
             <!-- EMM Overview -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
@@ -5655,17 +5763,17 @@
                     <h4 class="font-bold text-purple-900 mb-4 text-sm uppercase text-center">The Employee Lifecycle</h4>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="bg-white p-5 rounded-xl text-center border-2 border-blue-200">
-                            <div class="text-3xl mb-2">🎯</div>
+                            <div class="text-3xl mb-2"></div>
                             <h5 class="font-black text-blue-800 mb-1 text-sm">ALIGNMENT</h5>
                             <p class="text-[10px] text-slate-600">First 6 months. Learning culture, processes, and role expectations.</p>
                         </div>
                         <div class="bg-white p-5 rounded-xl text-center border-2 border-emerald-200">
-                            <div class="text-3xl mb-2">🌱</div>
+                            <div class="text-3xl mb-2"></div>
                             <h5 class="font-black text-emerald-800 mb-1 text-sm">DEVELOPMENT</h5>
                             <p class="text-[10px] text-slate-600">Ongoing. Growing skills, tracking progress, pursuing next-level competencies.</p>
                         </div>
                         <div class="bg-white p-5 rounded-xl text-center border-2 border-violet-200">
-                            <div class="text-3xl mb-2">🚀</div>
+                            <div class="text-3xl mb-2"></div>
                             <h5 class="font-black text-violet-800 mb-1 text-sm">TRANSITION</h5>
                             <p class="text-[10px] text-slate-600">Promotion, lateral move, or exit. Every transition handled deliberately.</p>
                         </div>
@@ -5673,6 +5781,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="1" data-key="ops-emm" id="em-lesson-1" hidden>
             <!-- EMM: Operations / Field Department -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -5734,6 +5845,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="2" data-key="estimating-emm" id="em-lesson-2" hidden>
             <!-- EMM: Estimating / Scoping Department -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -5777,6 +5891,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="3" data-key="admin-emm" id="em-lesson-3" hidden>
             <!-- EMM: Admin / Office Department -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -5820,6 +5937,9 @@
                 </div>
             </div>
 
+                </article>
+
+                <article class="lp-lesson" data-lesson="4" data-key="sales-emm" id="em-lesson-4" hidden>
             <!-- EMM: Sales / Business Development Department -->
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
@@ -5864,6 +5984,9 @@
             </div>
 
             <!-- Implementation Guide -->
+                </article>
+
+                <article class="lp-lesson" data-lesson="5" id="em-lesson-5" hidden>
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 mb-8">
                 <div class="flex justify-between items-start mb-6">
                     <div>
@@ -5895,7 +6018,7 @@
 
             <!-- Bottom CTA -->
             <div class="bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-8 text-center text-white mt-8">
-                <div class="text-4xl mb-4">📚</div>
+                <div class="text-4xl mb-4"></div>
                 <h3 class="text-2xl font-black mb-3">Recommended Reading</h3>
                 <p class="text-slate-300 max-w-2xl mx-auto mb-4">"TeamWork: How to Build a High-Performance Team" by Natalie Dawson provides the full Employee Maturity Model framework along with systems for hiring, onboarding, meetings, performance management, and team culture. The concepts in this module are inspired by that framework, adapted for the restoration industry.</p>
             </div>
@@ -5903,13 +6026,37 @@
             <!-- VAST CTA -->
             <div class="bg-gradient-to-r from-indigo-600 to-violet-600 rounded-xl p-6 text-white mt-8">
                 <div class="flex items-start gap-4">
-                    <div class="text-3xl">🧭</div>
+                    <div class="text-3xl"></div>
                     <div>
                         <h4 class="font-bold text-lg mb-2">Track Career Development in Your Weekly Meetings</h4>
                         <p class="text-sm text-indigo-50 mb-3">EMM conversations should happen in one-on-ones, and progress should be visible in your quarterly reviews. <strong>VAST</strong> gives you the structure to set quarterly development goals for each team member, review progress in weekly huddles, and archive growth over time. When promotion conversations come up, you&rsquo;ll have the data to make confident decisions.</p>
                         <a href="https://vast-os.app" target="_blank" class="inline-block bg-white text-indigo-700 font-bold py-2 px-6 rounded-lg hover:bg-indigo-50 transition shadow-md text-sm">Explore VAST &rarr;</a>
                     </div>
                 </div>
+            </div>
+                </article>
+
+                <article class="lp-lesson lp-end" data-lesson="6" id="em-lesson-6" hidden>
+                    <div class="lp-complete">
+                        <div class="lp-complete-icon">&#9989;</div>
+                        <h2>Employee Maturity Models module complete</h2>
+                        <p>Nice work &mdash; you&rsquo;ve finished every lesson in Employee Maturity Models.</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-slate-700 to-slate-600 rounded-xl p-6 text-white mb-8">
+                        <h4 class="font-bold text-lg mb-2">Operationalize Career Growth</h4>
+                        <p class="text-sm text-slate-300 mb-3">Career progression sticks when it's tied to real performance data. <strong>Cortex</strong> tracks the job-level metrics &mdash; margin, completion, documentation quality &mdash; that show whether a team member is performing at the next level, giving your EMM conversations an objective foundation.</p>
+                        <a href="https://jobdox.ai" target="_blank" rel="noopener" class="inline-block bg-violet-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-400 transition shadow-md text-sm">Learn More at JobDox.ai &rarr;</a>
+                    </div>
+                </article>
+
+                    </div>
+                </div>
+
+                <div class="lp-nav">
+                    <button type="button" class="lp-back" id="em-back" onclick="lpPrev('em')">Back</button>
+                    <button type="button" class="lp-next" id="em-next" onclick="lpNext('em')">Next</button>
+                </div>
+
             </div>
         </section>
 

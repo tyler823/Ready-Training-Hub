@@ -1236,6 +1236,51 @@ document.addEventListener('keydown', function(e) {
             ]
         });
 
+        // EXIT STRATEGY & SALE PREP (no short quiz / no cert). Denominator 3.
+        // Page 0 hosts kc-exit-strategy.
+        lpRegister({
+            prefix: 'ex', module: 'exit-strategy', section: 'exit-strategy',
+            hasQuiz: false,
+            lessons: [
+                { title: 'Exit Strategy Overview',                 key: null },
+                { title: 'Business Valuation',                     key: 'valuation' },
+                { title: 'Sale Preparation',                       key: 'sale-prep' },
+                { title: 'Exit Options & Deal Structures',         key: 'exit-options' },
+                { title: 'Exit Strategy Summary',                  key: null }
+            ]
+        });
+
+        // MANAGERIAL DEVELOPMENT (no short quiz / no cert). Denominator 6.
+        // kc-mgmt sits on the "Managing in a Restoration Setting" page.
+        lpRegister({
+            prefix: 'mg', module: 'mgmt-development', section: 'mgmt-development',
+            hasQuiz: false,
+            lessons: [
+                { title: 'Managerial Development Overview',        key: null },
+                { title: 'The Promotion Problem',                  key: 'promotion' },
+                { title: 'Branch Manager Role',                    key: 'branch-mgr' },
+                { title: 'Regional Manager Role',                  key: 'regional-mgr' },
+                { title: 'First-Time Manager Training',            key: 'first-time-mgr' },
+                { title: 'Restoration-Specific Leadership',        key: 'restoration-leadership' },
+                { title: 'Meeting Structure',                      key: 'meetings' }
+            ]
+        });
+
+        // EMPLOYEE MATURITY MODELS (no short quiz / no cert). Denominator 4.
+        // Page 0 hosts det-emm-overview; final page hosts det-emm-implement.
+        lpRegister({
+            prefix: 'em', module: 'maturity-models', section: 'maturity-models',
+            hasQuiz: false,
+            lessons: [
+                { title: 'Employee Maturity Models Overview',      key: null },
+                { title: 'Operations / Field EMM',                 key: 'ops-emm' },
+                { title: 'Estimating EMM',                         key: 'estimating-emm' },
+                { title: 'Admin / Office EMM',                     key: 'admin-emm' },
+                { title: 'Sales / BD EMM',                         key: 'sales-emm' },
+                { title: 'Implementing EMMs',                      key: null }
+            ]
+        });
+
         // FINANCIAL OPERATIONS (no short quiz — no slice in quizQuestions; no
         // certification). Denominator 5.
         lpRegister({
