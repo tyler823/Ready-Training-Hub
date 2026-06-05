@@ -936,7 +936,6 @@
                         <div class="flex gap-4">
                             <div class="flex flex-col items-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">1</div><div class="w-0.5 h-full bg-slate-200 my-1"></div></div>
                             <div class="pb-4 flex-1">
-                                <h4 class="font-bold text-slate-800 text-lg mb-1">Arrival &amp; Onboarding</h4>
                                 <p class="text-xs text-slate-500 mb-3">Work Auth signed BEFORE any services begin. Verify customer identity and property ownership.</p>
                                 <button onclick="toggleDetails('det-step1')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-3 py-1.5 rounded hover:bg-violet-100 transition-all mb-2">Expand Details</button>
                                 <div id="det-step1" class="detail-expansion max-h-0 bg-slate-50 rounded-xl">
@@ -972,15 +971,13 @@
                     </div>
                 </article>
 
-                <article class="lp-lesson" data-lesson="5" data-key="investigation" id="mit-lesson-5" hidden>
+                <article class="lp-lesson" data-lesson="5" id="mit-lesson-5" hidden>
                     <h2 class="lp-lesson-title">Step 2: Investigation &amp; Documentation</h2>
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-left">
                         <div class="flex gap-4">
                             <div class="flex flex-col items-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">2</div><div class="w-0.5 h-full bg-slate-200 my-1"></div></div>
                             <div class="pb-4 flex-1">
-                                <h4 class="font-bold text-slate-800 text-lg mb-1">Investigation &amp; Documentation</h4>
                                 <p class="text-xs text-slate-500 mb-3">4-corner photos, thermal imaging, moisture mapping, affected materials inventory. Complete ES checklist in Cortex.</p>
-                                <button onclick="toggleDetails('det-step2')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-3 py-1.5 rounded hover:bg-violet-100 transition-all mb-2">Expand Details</button>
                                 <div id="det-step2" class="detail-expansion max-h-0 bg-slate-50 rounded-xl">
                                     <div class="p-4 text-xs leading-relaxed">
                                         <p class="font-bold text-violet-800 mb-2">Why Documentation Drives Payment:</p>
@@ -1015,13 +1012,12 @@
                             </div>
                         </div>
                     </div>
+                </article>
+
+                <article class="lp-lesson" data-lesson="6" id="mit-lesson-6" hidden>
+                    <h2 class="lp-lesson-title">Vertical Elevation Rule</h2>
                     <!-- MOISTURE MAPPING -->
                     <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm overflow-hidden text-center text-center text-center">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-lg font-bold text-slate-800 text-left text-left text-left">Vertical Elevation Rule</h3>
-                            <button onclick="toggleDetails('det-moisture')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-2 py-1 rounded hover:bg-violet-100 transition-all">More</button>
-                        </div>
-
                         <div id="det-moisture" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4 border-violet-100 text-left">
                             <div class="p-4 text-xs leading-relaxed text-left text-left text-left">
                                 <p class="font-bold text-violet-800 mb-2 text-left">Expectation:</p>
@@ -1065,15 +1061,12 @@
                             </div>
                         </div>
                     </div>
+                </article>
+
+                <article class="lp-lesson" data-lesson="7" data-key="investigation" id="mit-lesson-7" hidden>
+                    <h2 class="lp-lesson-title">4 Corners Photography</h2>
                     <!-- 4-CORNER PHOTO -->
                     <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm text-center text-center text-center text-left text-left text-left">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-lg font-bold text-slate-800 flex items-center">
-                                <span class="mr-2 text-center text-center text-center text-center text-center">📸</span> 4-Corner Photography
-                            </h3>
-                            <button onclick="toggleDetails('det-photos')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-2 py-1 rounded hover:bg-violet-100 transition-all">More</button>
-                        </div>
-
                         <div id="det-photos" class="detail-expansion max-h-0 bg-slate-50 rounded-xl mb-4 border-violet-100 text-left text-left text-left text-left text-left text-left text-left">
                             <div class="p-4 text-xs leading-relaxed text-left text-left text-left">
                                 <p class="font-bold text-violet-800 mb-2 text-left text-left text-left">Expectation:</p>
@@ -1101,13 +1094,12 @@
                     </div>
                 </article>
 
-                <article class="lp-lesson" data-lesson="6" data-key="extraction" id="mit-lesson-6" hidden>
+                <article class="lp-lesson" data-lesson="8" data-key="extraction" id="mit-lesson-8" hidden>
                     <h2 class="lp-lesson-title">Step 3: Ancillary Services &amp; Demolition</h2>
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-left">
                         <div class="flex gap-4">
                             <div class="flex flex-col items-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">3</div><div class="w-0.5 h-full bg-slate-200 my-1"></div></div>
                             <div class="pb-4 flex-1">
-                                <h4 class="font-bold text-slate-800 text-lg mb-1">Ancillary Services &amp; Demolition</h4>
                                 <p class="text-xs text-slate-500 mb-3">Water extraction, controlled demo of affected materials. Timely removal within 48&ndash;72 hours prevents mold.</p>
                                 <button onclick="toggleDetails('det-step3')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-3 py-1.5 rounded hover:bg-violet-100 transition-all mb-2">Expand Details</button>
                                 <div id="det-step3" class="detail-expansion max-h-0 bg-slate-50 rounded-xl">
@@ -1141,13 +1133,12 @@
                     </div>
                 </article>
 
-                <article class="lp-lesson" data-lesson="7" data-key="equip-setup" id="mit-lesson-7" hidden>
+                <article class="lp-lesson" data-lesson="9" data-key="equip-setup" id="mit-lesson-9" hidden>
                     <h2 class="lp-lesson-title">Step 4: Equipment Set</h2>
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-left">
                         <div class="flex gap-4">
                             <div class="flex flex-col items-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">4</div><div class="w-0.5 h-full bg-slate-200 my-1"></div></div>
                             <div class="pb-4 flex-1">
-                                <h4 class="font-bold text-slate-800 text-lg mb-1">Equipment Set</h4>
                                 <p class="text-xs text-slate-500 mb-3">Air movers, dehumidifiers, air scrubbers placed per psychrometric calculations and IICRC S500 guidelines.</p>
                                 <button onclick="toggleDetails('det-step4')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-3 py-1.5 rounded hover:bg-violet-100 transition-all mb-2">Expand Details</button>
                                 <div id="det-step4" class="detail-expansion max-h-0 bg-slate-50 rounded-xl">
@@ -1186,13 +1177,12 @@
                     </div>
                 </article>
 
-                <article class="lp-lesson" data-lesson="8" data-key="monitoring" id="mit-lesson-8" hidden>
+                <article class="lp-lesson" data-lesson="10" data-key="monitoring" id="mit-lesson-10" hidden>
                     <h2 class="lp-lesson-title">Step 5: Daily Monitoring</h2>
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-left">
                         <div class="flex gap-4">
                             <div class="flex flex-col items-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">5</div><div class="w-0.5 h-full bg-slate-200 my-1"></div></div>
                             <div class="pb-4 flex-1">
-                                <h4 class="font-bold text-slate-800 text-lg mb-1">Daily Monitoring</h4>
                                 <p class="text-xs text-slate-500 mb-3">Log readings daily. Update moisture map. Upload notes to Cortex within 15 minutes of leaving site.</p>
                                 <button onclick="toggleDetails('det-step5')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-3 py-1.5 rounded hover:bg-violet-100 transition-all mb-2">Expand Details</button>
                                 <div id="det-step5" class="detail-expansion max-h-0 bg-slate-50 rounded-xl">
@@ -1220,13 +1210,12 @@
                     </div>
                 </article>
 
-                <article class="lp-lesson" data-lesson="9" data-key="dry-standard" id="mit-lesson-9" hidden>
+                <article class="lp-lesson" data-lesson="11" data-key="dry-standard" id="mit-lesson-11" hidden>
                     <h2 class="lp-lesson-title">Step 6: Labor &amp; Scope Capture</h2>
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-left">
                         <div class="flex gap-4">
                             <div class="flex flex-col items-center"><div class="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">6</div><div class="w-0.5 h-full bg-slate-200 my-1"></div></div>
                             <div class="pb-4 flex-1">
-                                <h4 class="font-bold text-slate-800 text-lg mb-1">Labor &amp; Scope Capture</h4>
                                 <p class="text-xs text-slate-500 mb-3">Enter all line items in Cortex. Complete Docusketch floor plan with measurements.</p>
                                 <button onclick="toggleDetails('det-step6')" class="text-[10px] font-bold uppercase text-violet-600 bg-violet-50 px-3 py-1.5 rounded hover:bg-violet-100 transition-all mb-2">Expand Details</button>
                                 <div id="det-step6" class="detail-expansion max-h-0 bg-slate-50 rounded-xl">
@@ -1260,13 +1249,12 @@
                     </div>
                 </article>
 
-                <article class="lp-lesson" data-lesson="10" data-key="tear-down" id="mit-lesson-10" hidden>
+                <article class="lp-lesson" data-lesson="12" data-key="tear-down" id="mit-lesson-12" hidden>
                     <h2 class="lp-lesson-title">Step 7: Completion &amp; COC</h2>
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-left">
                         <div class="flex gap-4">
                             <div class="flex flex-col items-center"><div class="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">7</div></div>
                             <div class="pb-2 flex-1">
-                                <h4 class="font-bold text-emerald-900 text-lg mb-1">Completion &amp; Certificate of Completion</h4>
                                 <p class="text-xs text-emerald-700 mb-3">Remove all equipment. Final moisture readings at or below 15%. Issue Certificate of Completion with photos.</p>
                                 <button onclick="toggleDetails('det-step7')" class="text-[10px] font-bold uppercase text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded hover:bg-emerald-100 transition-all mb-2">Expand Details</button>
                                 <div id="det-step7" class="detail-expansion max-h-0 bg-emerald-50 rounded-xl">
@@ -1307,13 +1295,13 @@
                 <!-- Short end-of-module wrap-up quiz (self-contained in the player).
                      Pulls ~5 questions from the EXISTING Mitigation slice of
                      quizQuestions (indices 10-19). Not gated; built by mitQuizRender(). -->
-                <article class="lp-lesson lp-quiz" data-lesson="11" id="mit-lesson-11" hidden>
+                <article class="lp-lesson lp-quiz" data-lesson="13" id="mit-lesson-13" hidden>
                     <h2 class="lp-lesson-title">Quick Module Check</h2>
                     <p class="lp-quiz-intro">A short 5-question wrap-up on the Mitigation module. This is a quick knowledge check &mdash; not a graded exam &mdash; with instant feedback on each answer. Your score won&rsquo;t block anything.</p>
                     <div class="mit-quiz" id="mit-quiz-stage" aria-live="polite"><!-- built by mitQuizRender() --></div>
                 </article>
 
-                <article class="lp-lesson lp-end" data-lesson="12" id="mit-lesson-12" hidden>
+                <article class="lp-lesson lp-end" data-lesson="14" id="mit-lesson-14" hidden>
                     <div class="lp-complete">
                         <div class="lp-complete-icon">&#9989;</div>
                         <h2>Mitigation module complete</h2>
