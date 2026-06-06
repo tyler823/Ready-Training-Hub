@@ -817,7 +817,10 @@ document.addEventListener('keydown', function(e) {
                 
                 // Section-specific initialization
                 if (id === 'home' && typeof renderHomeProgress === 'function') renderHomeProgress();
-                if (LP_SECTION_TO_PREFIX[id]) lpInit(LP_SECTION_TO_PREFIX[id]);
+                // Use the remapped sectionId (not the raw nav id) so sub-section
+                // entry points like 'recon-transition' still initialize their
+                // module's lesson player (builds the Lessons menu, etc.).
+                if (LP_SECTION_TO_PREFIX[sectionId]) lpInit(LP_SECTION_TO_PREFIX[sectionId]);
                 if (id === 'quiz') resetQuiz();
                 if (id === 'dashboard') initTeamDashboard();
                 if (id === 'recon-quiz') {
