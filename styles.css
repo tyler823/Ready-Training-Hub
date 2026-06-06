@@ -1494,6 +1494,49 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
 .lp-cert-link:hover,
 .lp-cert-link:active { background: var(--brand-tint); color: var(--brand); }
 
+/* ----- Module-to-module chain CTA (primary action on the completion screen) -----
+   Drives the user to the next module in the same package, or — for a package's
+   last module — to that package's exams / VAST CTA. Rendered by lpRenderChainCta(). */
+.lp-complete-cta { margin: 20px auto 4px; max-width: 460px; text-align: center; }
+.lp-complete-pkg {
+  margin: 0 0 14px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--brand);
+}
+.lp-complete-actions { display: grid; gap: 10px; }
+@media (min-width: 480px) { .lp-complete-actions { grid-template-columns: 1fr 1fr; } }
+.lp-chain-btn {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Schibsted Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  padding: 14px 20px;
+  min-height: 48px;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s, filter .15s;
+}
+.lp-chain-btn-primary {
+  color: #fff;
+  background: var(--brand);
+  border: 1px solid var(--brand);
+}
+.lp-chain-btn-primary:hover,
+.lp-chain-btn-primary:active { filter: brightness(.93); }
+.lp-chain-btn-alt {
+  color: var(--brand-soft);
+  background: transparent;
+  border: 1px solid var(--brand-line);
+}
+.lp-chain-btn-alt:hover,
+.lp-chain-btn-alt:active { background: var(--brand-tint); color: var(--brand); }
+
 /* ----- Short end-of-module wrap-up quiz (self-contained in the player) ----- */
 .lp-quiz-intro {
   margin: 0 0 18px;

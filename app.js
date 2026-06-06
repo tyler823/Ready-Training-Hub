@@ -1156,17 +1156,80 @@ document.addEventListener('keydown', function(e) {
                 '</div>';
         }
 
-        // Populate the completion screen with the short-quiz score (if any).
+        // Populate the completion screen with the short-quiz score (if any) and
+        // the module-to-module chain CTA (next module / package-end action).
         function lpRenderCompletion(p) {
             const st = LP[p]; if (!st) return;
             const el = document.getElementById(p + '-complete-score');
-            if (!el) return;
-            const total = st.quizSet.length || st.cfg.quizCount;
-            if (st.quizDone) {
-                el.textContent = 'Short quiz: you got ' + st.quizScore + ' of ' + total + ' correct.';
-            } else {
-                el.textContent = 'Short quiz: take the quick check on the previous step to see your score.';
+            if (el) {
+                const total = st.quizSet.length || st.cfg.quizCount;
+                if (st.quizDone) {
+                    el.textContent = 'Short quiz: you got ' + st.quizScore + ' of ' + total + ' correct.';
+                } else {
+                    el.textContent = 'Short quiz: take the quick check on the previous step to see your score.';
+                }
             }
+            lpRenderChainCta(p);
+        }
+
+        // ----------------------------------------------------------------------
+        // Module-to-module navigation (SILOED per package). Each module's
+        // completion screen leads to the next step without going back to the
+        // left nav. The config below is the single source of truth: for each
+        // player prefix it names the next module in the SAME package (section id
+        // + the module's actual nav label) or, for a package's LAST module, the
+        // package-end action. A package NEVER chains across to another package.
+        //
+        // End actions reuse the EXACT handlers the EXAMS nav items call:
+        //   'solo' -> Practice = nav('quiz') (Mitigation Practice Exam item),
+        //             Certification = startCertificationQuiz()
+        //   'team' -> Practice = startReconQuiz(),
+        //             Certification = startReconCertificationQuiz()
+        //   'vast' -> single CTA to https://vast-os.app (Enterprise: no exams)
+        // ----------------------------------------------------------------------
+        const LP_CHAIN = {
+            // Ready Solo: Readiness -> Mitigation -> Contents
+            rd:  { next: { section: 'mitigation',      name: 'Mitigation' },      end: null },
+            mit: { next: { section: 'contents',        name: 'Contents' },        end: null },
+            ct:  { next: null,                                                    end: 'solo' },
+            // Ready Team: Reconstruction -> Job Costing -> Onboarding
+            rc:  { next: { section: 'financial',       name: 'Job Costing' },     end: null },
+            fin: { next: { section: 'onboarding',      name: 'Onboarding' },      end: null },
+            onb: { next: null,                                                    end: 'team' },
+            // Ready Enterprise: Team Scaling -> Mgmt Development -> Maturity Models -> Exit Strategy
+            ts:  { next: { section: 'mgmt-development', name: 'Mgmt Development' }, end: null },
+            mg:  { next: { section: 'maturity-models',  name: 'Maturity Models' }, end: null },
+            em:  { next: { section: 'exit-strategy',    name: 'Exit Strategy' },   end: null },
+            ex:  { next: null,                                                    end: 'vast' }
+        };
+
+        function lpRenderChainCta(p) {
+            const box = document.getElementById(p + '-complete-cta');
+            if (!box) return;
+            const chain = (typeof LP_CHAIN !== 'undefined') ? LP_CHAIN[p] : null;
+            if (!chain) { box.innerHTML = ''; return; }
+            let html = '';
+            if (chain.next) {
+                // Continue to the next module in the SAME package (reuse nav()).
+                html = '<button type="button" class="lp-chain-btn lp-chain-btn-primary" ' +
+                       'onclick="nav(\'' + chain.next.section + '\')">Continue to ' + chain.next.name + ' &rarr;</button>';
+            } else if (chain.end === 'solo') {
+                html = '<p class="lp-complete-pkg">Ready Solo package complete</p>' +
+                       '<div class="lp-complete-actions">' +
+                         '<button type="button" class="lp-chain-btn lp-chain-btn-alt" onclick="nav(\'quiz\')">Practice Exam</button>' +
+                         '<button type="button" class="lp-chain-btn lp-chain-btn-primary" onclick="startCertificationQuiz()">Certification Exam</button>' +
+                       '</div>';
+            } else if (chain.end === 'team') {
+                html = '<p class="lp-complete-pkg">Ready Team package complete</p>' +
+                       '<div class="lp-complete-actions">' +
+                         '<button type="button" class="lp-chain-btn lp-chain-btn-alt" onclick="startReconQuiz()">Practice Exam</button>' +
+                         '<button type="button" class="lp-chain-btn lp-chain-btn-primary" onclick="startReconCertificationQuiz()">Certification Exam</button>' +
+                       '</div>';
+            } else if (chain.end === 'vast') {
+                html = '<p class="lp-complete-pkg">Ready Enterprise package complete</p>' +
+                       '<a class="lp-chain-btn lp-chain-btn-primary" href="https://vast-os.app" target="_blank" rel="noopener noreferrer">Join VAST for coaching &rarr;</a>';
+            }
+            box.innerHTML = html;
         }
 
         // ----- Module registrations -------------------------------------------
