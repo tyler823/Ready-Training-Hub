@@ -1,10 +1,17 @@
 // Ready Training Platform - Service Worker
-// Version: 1.0.0
 
-const CACHE_NAME = 'ready-training-v1';
+// ---- Cache version ----
+// Bump this constant ONLY to purge old caches (e.g. 'ready-training-v2' -> 'ready-training-v3').
+// Fresh core files do NOT depend on bumping this — the network-first fetch strategy below
+// always serves the latest files when online. This version only controls cache cleanup:
+// on activate, every cache whose name doesn't match CACHE_NAME is deleted, so bumping it
+// once clears every returning user's stale cache on their next visit.
+const CACHE_NAME = 'ready-training-v2';
+
 const OFFLINE_URL = '/offline.html';
 
-// Assets to cache on install
+// Assets to seed the cache with on install. These are only ever used as an OFFLINE
+// fallback — while online they are always re-fetched fresh from the network.
 const PRECACHE_ASSETS = [
   '/',
   '/platform.html',
@@ -25,6 +32,7 @@ self.addEventListener('install', (event) => {
 });
 
 // ---- Activate ----
+// Delete every cache that isn't the current version, then take control immediately.
 self.addEventListener('activate', (event) => {
   console.log('[SW] Activating...');
   event.waitUntil(
@@ -41,14 +49,18 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// ---- Fetch: Network-first with cache fallback ----
+// ---- Fetch: Network-first, cache only as an offline fallback ----
+// While online, every request goes to the network first, so core app files
+// (platform.html, index.html, app.js, styles.css and all navigations) are always
+// served FRESH. A clone of each successful response is stored so it can be served
+// if the network is later unavailable.
 self.addEventListener('fetch', (event) => {
   // Skip non-GET requests and chrome-extension requests
   if (event.request.method !== 'GET' || event.request.url.startsWith('chrome-extension')) {
     return;
   }
 
-  // Skip Memberstack API calls — always go to network
+  // Skip Memberstack API calls — always go straight to network
   if (event.request.url.includes('memberstack') || event.request.url.includes('memberspace')) {
     return;
   }
@@ -56,33 +68,23 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
-        // Cache successful responses for HTML, CSS, JS, images
+        // Cache successful responses so they're available offline later.
         if (networkResponse && networkResponse.status === 200) {
-          const url = event.request.url;
-          if (
-            url.includes('.html') ||
-            url.includes('.css') ||
-            url.includes('.js') ||
-            url.includes('.png') ||
-            url.includes('.jpg') ||
-            url.includes('.svg') ||
-            url.includes('.woff') ||
-            url === 'https://readytraining.app/' ||
-            url === 'https://readytraining.app'
-          ) {
-            const cloned = networkResponse.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, cloned));
-          }
+          const cloned = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, cloned));
         }
         return networkResponse;
       })
       .catch(() => {
-        // Network failed — try cache
+        // Network truly unavailable — fall back to cache.
         return caches.match(event.request).then((cached) => {
           if (cached) return cached;
-          // For navigate requests, return the homepage from cache
+          // For navigation requests, fall back to a cached page.
           if (event.request.mode === 'navigate') {
-            return caches.match('/');
+            return caches.match('/platform.html')
+              .then((page) => page || caches.match('/'))
+              .then((page) => page || caches.match(OFFLINE_URL))
+              .then((page) => page || new Response('Offline', { status: 503, statusText: 'Offline' }));
           }
           return new Response('Offline', { status: 503, statusText: 'Offline' });
         });
