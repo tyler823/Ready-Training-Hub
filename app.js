@@ -374,6 +374,28 @@
         } catch(e) { console.error('Set role error:', e); alert('Error updating role. Please try again.'); }
     }
 
+    // Cert types shown on the dashboard (short labels; PDF uses each cert's real title).
+    var DASH_CERT_TYPES = [
+        { key: 'mitigation', label: 'Mitigation Cert' },
+        { key: 'reconstruction', label: 'Reconstruction Cert' },
+        { key: 'management', label: 'Management Cert' }
+    ];
+
+    // Holds the most recently rendered members keyed by id so the Download buttons
+    // (inline onclick) can regenerate a member's certificate from their saved data.
+    var dashCertMembers = {};
+
+    // Regenerate + download a member's saved certificate PDF (manager/owner view).
+    function downloadMemberCert(memberId, certType) {
+        var m = dashCertMembers[memberId];
+        if (!m || !m.certs || !m.certs[certType] || !m.certs[certType].passed) {
+            alert('No saved certificate found for this member.');
+            return;
+        }
+        var c = m.certs[certType];
+        buildCertificatePDF(c.name || m.name || '', c.company || '', c.date, certType, c.score);
+    }
+
     async function initTeamDashboard() {
         if (!db || !window.rtUser.companyCode) {
             document.getElementById('dash-no-company').classList.remove('hidden');
@@ -413,6 +435,10 @@
             var currentRole = window.rtUser.role;
             var canManage = (currentRole === 'owner' || currentRole === 'manager');
 
+            // Refresh the lookup used by the per-member Download buttons.
+            dashCertMembers = {};
+            members.forEach(function(m) { dashCertMembers[m.id] = m; });
+
             members.forEach(function(m) {
                 var card = document.createElement('div');
                 card.className = 'home-card';
@@ -441,6 +467,29 @@
                     html += '<div class="dm-mod"><span class="dm-mod-name" title="' + PROGRESS_MODULES[mod].name + '">' + PROGRESS_MODULES[mod].name + '</span>' +
                         '<div class="dm-mod-bar"><span class="' + (pct === 100 ? 'is-complete' : '') + '" style="width:' + pct + '%"></span></div>' +
                         '<span class="dm-mod-pct">' + pct + '%</span></div>';
+                });
+
+                html += '</div>';
+
+                // Certifications — managers/owners can see + download each completed cert.
+                html += '<div class="dm-certs">' +
+                    '<div class="dm-certs-head">' +
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>' +
+                    '<span>Certifications</span></div>';
+
+                DASH_CERT_TYPES.forEach(function(ct) {
+                    var c = m.certs && m.certs[ct.key];
+                    if (c && c.passed) {
+                        html += '<div class="dm-cert">' +
+                            '<span class="dm-cert-label">' + ct.label + ' &mdash; ' + c.score + '%</span>' +
+                            '<button type="button" class="dm-cert-btn" onclick="downloadMemberCert(\'' + m.id + '\', \'' + ct.key + '\')">' +
+                            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>' +
+                            'Download</button></div>';
+                    } else {
+                        html += '<div class="dm-cert">' +
+                            '<span class="dm-cert-label">' + ct.label + '</span>' +
+                            '<span class="dm-cert-pending">Not yet completed</span></div>';
+                    }
                 });
 
                 html += '</div>';
@@ -1663,33 +1712,139 @@ document.addEventListener('keydown', function(e) {
             } catch (e) { /* logo is decorative; never block the PDF */ }
         }
 
-        function generateCertificate() {
-            const name = document.getElementById('cert-name').value;
-            const company = document.getElementById('cert-company').value;
-            
-            if(!name) {
-                alert("Please enter your full name to generate the certificate.");
+        // ── Save a passed certification to the member's Firestore record ──────────
+        // Reuses the same path/merge pattern as saveProgress. Stores under a `certs`
+        // map keyed by cert type so managers/owners can see + re-download later.
+        // certType: 'mitigation' | 'reconstruction' | 'management'
+        async function saveCertResult(certType, name, company, percent, dateStr) {
+            if (!db || !window.rtUser || !window.rtUser.companyCode || !window.rtUser.id) return;
+            try {
+                const ref = db.collection('companies').doc(window.rtUser.companyCode).collection('members').doc(window.rtUser.id);
+                await ref.set({ certs: { [certType]: {
+                    passed: true,
+                    score: percent,
+                    date: dateStr,
+                    name: name,
+                    company: company || ''
+                } } }, { merge: true });
+            } catch (e) { console.error('Save cert result error:', e); }
+        }
+
+        // ── Reusable certificate PDF builder ─────────────────────────────────────
+        // Produces the correct certificate (title/design) for the given certType.
+        // The member's own completion flow passes the typed/known values; the Team
+        // Dashboard passes each member's saved values. Same template either way.
+        function buildCertificatePDF(name, company, dateStr, certType, percent) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const today = dateStr || new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            if (certType === 'management') {
+                // Background
+                doc.setFillColor(245, 243, 255);
+                doc.rect(0, 0, pageWidth, pageHeight, 'F');
+
+                // Border
+                doc.setDrawColor(79, 70, 229);
+                doc.setLineWidth(3);
+                doc.rect(8, 8, pageWidth - 16, pageHeight - 16, 'S');
+                doc.setLineWidth(1);
+                doc.setDrawColor(167, 139, 250);
+                doc.rect(12, 12, pageWidth - 24, pageHeight - 24, 'S');
+
+                // Header accent
+                doc.setFillColor(79, 70, 229);
+                doc.rect(8, 8, pageWidth - 16, 22, 'F');
+
+                // Title
+                doc.setFontSize(11);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(255, 255, 255);
+                doc.text('READY TRAINING PLATFORM', pageWidth / 2, 22, { align: 'center' });
+
+                doc.setFontSize(28);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(79, 70, 229);
+                doc.text('Certificate of Achievement', pageWidth / 2, 52, { align: 'center' });
+
+                doc.setFontSize(13);
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(100, 116, 139);
+                doc.text('This is to certify that', pageWidth / 2, 66, { align: 'center' });
+
+                // Name
+                doc.setFontSize(36);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(15, 23, 42);
+                doc.text(name, pageWidth / 2, 84, { align: 'center' });
+
+                // Underline
+                const mgmtNameWidth = doc.getTextWidth(name);
+                doc.setDrawColor(79, 70, 229);
+                doc.setLineWidth(1);
+                doc.line((pageWidth - mgmtNameWidth) / 2, 87, (pageWidth + mgmtNameWidth) / 2, 87);
+
+                if (company) {
+                    doc.setFontSize(14);
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(100, 116, 139);
+                    doc.text(company, pageWidth / 2, 96, { align: 'center' });
+                }
+
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(71, 85, 105);
+                doc.text('has successfully earned the designation of', pageWidth / 2, company ? 108 : 100, { align: 'center' });
+
+                doc.setFontSize(24);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(79, 70, 229);
+                doc.text('Ready Certified Manager', pageWidth / 2, company ? 122 : 114, { align: 'center' });
+
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(100, 116, 139);
+                doc.text(`Final Score: ${percent}%`, pageWidth / 2, company ? 133 : 125, { align: 'center' });
+
+                doc.setFontSize(11);
+                doc.text(`Issued: ${today}`, pageWidth / 2, pageHeight - 28, { align: 'center' });
+
+                // Footer seal
+                doc.setFillColor(79, 70, 229);
+                doc.circle(pageWidth / 2, pageHeight - 14, 10, 'F');
+                drawCertSealLogo(doc, pageWidth / 2, pageHeight - 14, 10);
+
+                doc.save(`Ready_Certified_Manager_${name.replace(/\s+/g, '_')}.pdf`);
                 return;
             }
 
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-
-            const pageWidth = doc.internal.pageSize.getWidth();
-            const pageHeight = doc.internal.pageSize.getHeight();
+            // Classic "Certificate of Completion" layout — mitigation + reconstruction.
+            const cfg = (certType === 'reconstruction')
+                ? { header: 'READY COMPANIES', innerBorder: [139, 92, 246],
+                    line1: 'has successfully completed comprehensive reconstruction training and',
+                    line2: 'demonstrated proficiency in insurance-based reconstruction operations by achieving',
+                    examLine: 'on the Ready Certified Contractor examination',
+                    credential: 'Ready Certified Contractor', idPrefix: 'RCC', file: 'Ready_Certified_Contractor' }
+                : { header: 'READY FIELD OPERATIONS HUB', innerBorder: [167, 139, 250],
+                    line1: 'has successfully completed the comprehensive training program and',
+                    line2: 'demonstrated proficiency in restoration field operations by achieving',
+                    examLine: 'on the Ready Certified Technician examination',
+                    credential: 'Ready Certified Technician', idPrefix: 'RCT', file: 'Ready_Certified_Technician' };
 
             // Border
             doc.setDrawColor(124, 58, 237);
             doc.setLineWidth(3);
             doc.rect(10, 10, pageWidth - 20, pageHeight - 20);
-            doc.setDrawColor(167, 139, 250);
+            doc.setDrawColor(cfg.innerBorder[0], cfg.innerBorder[1], cfg.innerBorder[2]);
             doc.setLineWidth(1);
             doc.rect(13, 13, pageWidth - 26, pageHeight - 26);
 
             // Header
             doc.setFontSize(16);
             doc.setTextColor(100, 116, 139);
-            doc.text('READY FIELD OPERATIONS HUB', pageWidth / 2, 30, { align: 'center' });
+            doc.text(cfg.header, pageWidth / 2, 30, { align: 'center' });
 
             // Title
             doc.setFontSize(36);
@@ -1734,11 +1889,10 @@ document.addEventListener('keydown', function(e) {
             doc.setFontSize(14);
             doc.setTextColor(71, 85, 105);
             doc.setFont(undefined, 'normal');
-            doc.text('has successfully completed the comprehensive training program and', pageWidth / 2, 100 + yOffset, { align: 'center' });
-            doc.text('demonstrated proficiency in restoration field operations by achieving', pageWidth / 2, 108 + yOffset, { align: 'center' });
+            doc.text(cfg.line1, pageWidth / 2, 100 + yOffset, { align: 'center' });
+            doc.text(cfg.line2, pageWidth / 2, 108 + yOffset, { align: 'center' });
 
             // Score badge
-            const percent = Math.round((qScore/shuffledQuiz.length)*100);
             doc.setFillColor(124, 58, 237);
             doc.roundedRect(pageWidth / 2 - 20, 114 + yOffset, 40, 12, 3, 3, 'F');
             doc.setFontSize(16);
@@ -1750,18 +1904,16 @@ document.addEventListener('keydown', function(e) {
             doc.setFontSize(14);
             doc.setTextColor(71, 85, 105);
             doc.setFont(undefined, 'normal');
-            doc.text('on the Ready Certified Technician examination', pageWidth / 2, 134 + yOffset, { align: 'center' });
+            doc.text(cfg.examLine, pageWidth / 2, 134 + yOffset, { align: 'center' });
 
             // Certification
             doc.setFontSize(18);
             doc.setTextColor(124, 58, 237);
             doc.setFont(undefined, 'bold');
-            doc.text('Ready Certified Technician', pageWidth / 2, 147 + yOffset, { align: 'center' });
+            doc.text(cfg.credential, pageWidth / 2, 147 + yOffset, { align: 'center' });
 
             // Date and ID
-            const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-            const credentialId = 'RCT-' + Math.random().toString(36).substr(2, 9).toUpperCase();
-            
+            const credentialId = cfg.idPrefix + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
             doc.setFontSize(10);
             doc.setTextColor(100, 116, 139);
             doc.setFont(undefined, 'normal');
@@ -1773,7 +1925,25 @@ document.addEventListener('keydown', function(e) {
             doc.circle(pageWidth / 2, pageHeight - 20, 10, 'F');
             drawCertSealLogo(doc, pageWidth / 2, pageHeight - 20, 10);
 
-            doc.save(`Ready_Certified_Technician_${name.replace(/\s+/g, '_')}.pdf`);
+            doc.save(`${cfg.file}_${name.replace(/\s+/g, '_')}.pdf`);
+        }
+
+        function generateCertificate() {
+            const name = document.getElementById('cert-name').value;
+            const company = document.getElementById('cert-company').value;
+
+            if(!name) {
+                alert("Please enter your full name to generate the certificate.");
+                return;
+            }
+
+            const percent = Math.round((qScore/shuffledQuiz.length)*100);
+            const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            // Persist the result to the member's record so managers/owners can see + re-download it.
+            saveCertResult('mitigation', name, company, percent, today);
+
+            buildCertificatePDF(name, company, today, 'mitigation', percent);
         }
 
         // ── Shared helper: resolve account owner's email from Firestore ──────────
@@ -2281,114 +2451,19 @@ document.addEventListener('keydown', function(e) {
         function generateReconCertificate() {
             const name = document.getElementById('recon-cert-name').value;
             const company = document.getElementById('recon-cert-company').value;
-            
+
             if(!name) {
                 alert("Please enter your full name to generate the certificate.");
                 return;
             }
 
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-
-            const pageWidth = doc.internal.pageSize.getWidth();
-            const pageHeight = doc.internal.pageSize.getHeight();
-
-            // Border
-            doc.setDrawColor(124, 58, 237); // Violet-600
-            doc.setLineWidth(3);
-            doc.rect(10, 10, pageWidth - 20, pageHeight - 20);
-            doc.setDrawColor(139, 92, 246); // Violet-400
-            doc.setLineWidth(1);
-            doc.rect(13, 13, pageWidth - 26, pageHeight - 26);
-
-            // Header
-            doc.setFontSize(16);
-            doc.setTextColor(100, 116, 139);
-            doc.text('READY COMPANIES', pageWidth / 2, 30, { align: 'center' });
-
-            // Title
-            doc.setFontSize(36);
-            doc.setTextColor(124, 58, 237);
-            doc.setFont(undefined, 'bold');
-            doc.text('Certificate of Completion', pageWidth / 2, 50, { align: 'center' });
-
-            // Divider
-            doc.setDrawColor(203, 213, 225);
-            doc.setLineWidth(0.5);
-            doc.line(60, 55, pageWidth - 60, 55);
-
-            // Text
-            doc.setFontSize(14);
-            doc.setTextColor(71, 85, 105);
-            doc.setFont(undefined, 'normal');
-            doc.text('This certifies that', pageWidth / 2, 70, { align: 'center' });
-
-            // Name
-            doc.setFontSize(28);
-            doc.setTextColor(15, 23, 42);
-            doc.setFont(undefined, 'bold');
-            doc.text(name, pageWidth / 2, 85, { align: 'center' });
-
-            // Name underline
-            doc.setDrawColor(124, 58, 237);
-            doc.setLineWidth(0.5);
-            const nameWidth = doc.getTextWidth(name);
-            doc.line((pageWidth - nameWidth) / 2, 87, (pageWidth + nameWidth) / 2, 87);
-
-            // Company
-            let yOffset = 0;
-            if (company) {
-                doc.setFontSize(12);
-                doc.setTextColor(100, 116, 139);
-                doc.setFont(undefined, 'italic');
-                doc.text(company, pageWidth / 2, 95, { align: 'center' });
-                yOffset = 8;
-            }
-
-            // Achievement
-            doc.setFontSize(14);
-            doc.setTextColor(71, 85, 105);
-            doc.setFont(undefined, 'normal');
-            doc.text('has successfully completed comprehensive reconstruction training and', pageWidth / 2, 100 + yOffset, { align: 'center' });
-            doc.text('demonstrated proficiency in insurance-based reconstruction operations by achieving', pageWidth / 2, 108 + yOffset, { align: 'center' });
-
-            // Score badge
             const percent = Math.round((reconQScore/reconQuizQuestions.length)*100);
-            doc.setFillColor(124, 58, 237);
-            doc.roundedRect(pageWidth / 2 - 20, 114 + yOffset, 40, 12, 3, 3, 'F');
-            doc.setFontSize(16);
-            doc.setTextColor(255, 255, 255);
-            doc.setFont(undefined, 'bold');
-            doc.text(`${percent}%`, pageWidth / 2, 122 + yOffset, { align: 'center' });
-
-            // Final text
-            doc.setFontSize(14);
-            doc.setTextColor(71, 85, 105);
-            doc.setFont(undefined, 'normal');
-            doc.text('on the Ready Certified Contractor examination', pageWidth / 2, 134 + yOffset, { align: 'center' });
-
-            // Certification
-            doc.setFontSize(18);
-            doc.setTextColor(124, 58, 237);
-            doc.setFont(undefined, 'bold');
-            doc.text('Ready Certified Contractor', pageWidth / 2, 147 + yOffset, { align: 'center' });
-
-            // Date and ID
             const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-            const credentialId = 'RCC-' + Math.random().toString(36).substr(2, 9).toUpperCase();
-            
-            doc.setFontSize(10);
-            doc.setTextColor(100, 116, 139);
-            doc.setFont(undefined, 'normal');
-            doc.text(`Issued: ${today}`, pageWidth / 2, 162 + yOffset, { align: 'center' });
-            doc.text(`Credential ID: ${credentialId}`, pageWidth / 2, 168 + yOffset, { align: 'center' });
 
-            // Footer seal
-            doc.setFillColor(124, 58, 237);
-            doc.circle(pageWidth / 2, pageHeight - 20, 10, 'F');
-            drawCertSealLogo(doc, pageWidth / 2, pageHeight - 20, 10);
+            // Persist the result to the member's record so managers/owners can see + re-download it.
+            saveCertResult('reconstruction', name, company, percent, today);
 
-            doc.save(`Ready_Certified_Contractor_${name.replace(/\s+/g, '_')}.pdf`);
+            buildCertificatePDF(name, company, today, 'reconstruction', percent);
         }
 
         function emailReconResults() {
@@ -2602,93 +2677,14 @@ document.addEventListener('keydown', function(e) {
             const company = document.getElementById('mgmt-cert-company') ? document.getElementById('mgmt-cert-company').value.trim() : '';
             if (!name) { alert('Please enter your name to generate the certificate.'); return; }
 
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-            const pageWidth = doc.internal.pageSize.getWidth();
-            const pageHeight = doc.internal.pageSize.getHeight();
-
-            // Background
-            doc.setFillColor(245, 243, 255);
-            doc.rect(0, 0, pageWidth, pageHeight, 'F');
-
-            // Border
-            doc.setDrawColor(79, 70, 229);
-            doc.setLineWidth(3);
-            doc.rect(8, 8, pageWidth - 16, pageHeight - 16, 'S');
-            doc.setLineWidth(1);
-            doc.setDrawColor(167, 139, 250);
-            doc.rect(12, 12, pageWidth - 24, pageHeight - 24, 'S');
-
-            // Header accent
-            doc.setFillColor(79, 70, 229);
-            doc.rect(8, 8, pageWidth - 16, 22, 'F');
-
-            // Title
-            doc.setFontSize(11);
-            doc.setFont('helvetica', 'bold');
-            doc.setTextColor(255, 255, 255);
-            doc.text('READY TRAINING PLATFORM', pageWidth / 2, 22, { align: 'center' });
-
-            // Certificate of completion
-            doc.setFontSize(28);
-            doc.setFont('helvetica', 'bold');
-            doc.setTextColor(79, 70, 229);
-            doc.text('Certificate of Achievement', pageWidth / 2, 52, { align: 'center' });
-
-            doc.setFontSize(13);
-            doc.setFont('helvetica', 'normal');
-            doc.setTextColor(100, 116, 139);
-            doc.text('This is to certify that', pageWidth / 2, 66, { align: 'center' });
-
-            // Name
-            doc.setFontSize(36);
-            doc.setFont('helvetica', 'bold');
-            doc.setTextColor(15, 23, 42);
-            doc.text(name, pageWidth / 2, 84, { align: 'center' });
-
-            // Underline
-            const nameWidth = doc.getTextWidth(name);
-            doc.setDrawColor(79, 70, 229);
-            doc.setLineWidth(1);
-            doc.line((pageWidth - nameWidth) / 2, 87, (pageWidth + nameWidth) / 2, 87);
-
-            if (company) {
-                doc.setFontSize(14);
-                doc.setFont('helvetica', 'normal');
-                doc.setTextColor(100, 116, 139);
-                doc.text(company, pageWidth / 2, 96, { align: 'center' });
-            }
-
-            doc.setFontSize(14);
-            doc.setFont('helvetica', 'normal');
-            doc.setTextColor(71, 85, 105);
-            doc.text('has successfully earned the designation of', pageWidth / 2, company ? 108 : 100, { align: 'center' });
-
-            // Credential title
-            doc.setFontSize(24);
-            doc.setFont('helvetica', 'bold');
-            doc.setTextColor(79, 70, 229);
-            doc.text('Ready Certified Manager', pageWidth / 2, company ? 122 : 114, { align: 'center' });
-
-            // Score
             const total = mgmtQuizQuestions.length;
             const percent = Math.round((mgmtQScore / total) * 100);
-            doc.setFontSize(12);
-            doc.setFont('helvetica', 'normal');
-            doc.setTextColor(100, 116, 139);
-            doc.text(`Final Score: ${mgmtQScore}/${total} (${percent}%)`, pageWidth / 2, company ? 133 : 125, { align: 'center' });
-
-            // Date
             const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-            doc.setFontSize(11);
-            doc.text(`Issued: ${today}`, pageWidth / 2, pageHeight - 28, { align: 'center' });
 
-            // Footer seal
-            doc.setFillColor(79, 70, 229);
-            doc.circle(pageWidth / 2, pageHeight - 14, 10, 'F');
-            drawCertSealLogo(doc, pageWidth / 2, pageHeight - 14, 10);
+            // Persist the result to the member's record so managers/owners can see + re-download it.
+            saveCertResult('management', name, company, percent, today);
 
-            doc.save(`Ready_Certified_Manager_${name.replace(/\s+/g, '_')}.pdf`);
+            buildCertificatePDF(name, company, today, 'management', percent);
         }
 
         function emailMgmtResults() {
