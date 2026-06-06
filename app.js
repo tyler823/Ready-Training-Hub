@@ -854,12 +854,17 @@ document.addEventListener('keydown', function(e) {
                 // Show target section
                 targetSection.classList.remove('hidden');
                 
-                // Update nav link styling
+                // Update nav link styling ("you are here" indicator).
+                // Use the remapped sectionId, not the raw nav id, so sub-section
+                // entry points (e.g. nav('recon-transition')) still light up their
+                // module's nav item (#link-reconstruction). For every other module
+                // sectionId === id, so the right item is marked active either way —
+                // including when module chaining's "Continue to <next>" calls nav().
                 document.querySelectorAll('.nav-link').forEach(el => {
                     el.classList.remove('rt-active');
                 });
 
-                const activeLink = document.getElementById('link-' + id);
+                const activeLink = document.getElementById('link-' + sectionId);
                 if (activeLink && activeLink.classList.contains('nav-link')) {
                     activeLink.classList.add('rt-active');
                 }
