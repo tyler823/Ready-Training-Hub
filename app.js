@@ -396,6 +396,37 @@
         buildCertificatePDF(c.name || m.name || '', c.company || '', c.date, certType, c.score);
     }
 
+    // Expand all / Collapse all toggle for the member cards. If any card is
+    // collapsed, expand them all; otherwise collapse them all.
+    function toggleAllMemberCards() {
+        var grid = document.getElementById('dash-members-grid');
+        if (!grid) return;
+        var cards = grid.querySelectorAll('.dm-card');
+        if (!cards.length) return;
+        var anyCollapsed = Array.prototype.some.call(cards, function(c) { return !c.classList.contains('is-expanded'); });
+        Array.prototype.forEach.call(cards, function(c) {
+            c.classList.toggle('is-expanded', anyCollapsed);
+            var h = c.querySelector('.dm-card-header');
+            if (h) h.setAttribute('aria-expanded', anyCollapsed ? 'true' : 'false');
+            var d = c.querySelector('.dm-detail');
+            if (d) d.inert = !anyCollapsed;
+        });
+        syncExpandAllLabel();
+    }
+
+    // Reflect current card states in the Expand all / Collapse all control,
+    // and hide it when there are no cards to act on.
+    function syncExpandAllLabel() {
+        var grid = document.getElementById('dash-members-grid');
+        var btn = document.getElementById('dash-expand-all');
+        if (!grid || !btn) return;
+        var cards = grid.querySelectorAll('.dm-card');
+        if (!cards.length) { btn.style.display = 'none'; return; }
+        btn.style.display = '';
+        var allExpanded = Array.prototype.every.call(cards, function(c) { return c.classList.contains('is-expanded'); });
+        btn.textContent = allExpanded ? 'Collapse all' : 'Expand all';
+    }
+
     async function initTeamDashboard() {
         if (!db || !window.rtUser.companyCode) {
             document.getElementById('dash-no-company').classList.remove('hidden');
@@ -441,7 +472,7 @@
 
             members.forEach(function(m) {
                 var card = document.createElement('div');
-                card.className = 'home-card';
+                card.className = 'home-card dm-card';
                 var isOwner = (m.role === 'owner');
                 var isManager = (m.role === 'manager');
                 var isSelf = (m.id === window.rtUser.id);
@@ -451,13 +482,24 @@
                 if (isOwner) roleClass += ' is-owner';
                 else if (isManager) roleClass += ' is-manager';
 
-                var html = '<div class="dm-head">' +
-                    '<div><h3 class="dm-name">' + (m.name || 'Unknown') + '</h3>' +
+                // --- Clickable header: name, role, single overall bar, chevron ---
+                // Cards start collapsed; the header toggles the detail region below.
+                var html = '<button type="button" class="dm-card-header" aria-expanded="false">' +
+                    '<div class="dm-head">' +
+                    '<div class="dm-id"><h3 class="dm-name">' + (m.name || 'Unknown') + '</h3>' +
                     '<p class="dm-email">' + (m.email || '') + '</p></div>' +
-                    '<span class="' + roleClass + '">' + (m.role || 'member') + '</span></div>' +
+                    '<div class="dm-head-right"><span class="' + roleClass + '">' + (m.role || 'member') + '</span>' +
+                    '<svg class="dm-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+                    '</div></div>' +
                     '<div class="dm-overall"><div class="dm-overall-top"><span class="lbl">Overall</span><span class="val">' + m._pct + '%</span></div>' +
                     '<div class="dm-bar"><span class="' + (m._pct === 100 ? 'is-complete' : '') + '" style="width:' + m._pct + '%"></span></div></div>' +
-                    '<div class="dm-modules">';
+                    '</button>';
+
+                // --- Collapsible detail region: per-module progress + cert rows + actions ---
+                // `inert` keeps the hidden controls out of the tab order until expanded.
+                html += '<div class="dm-detail" inert><div class="dm-detail-inner">';
+
+                html += '<div class="dm-modules">';
 
                 Object.keys(PROGRESS_MODULES).forEach(function(mod) {
                     var items = Object.keys(PROGRESS_MODULES[mod].items);
@@ -517,13 +559,33 @@
                     html += '</div>';
                 }
 
+                // Close detail-inner + detail region.
+                html += '</div></div>';
+
                 card.innerHTML = html;
+
+                // Toggle expand/collapse on header click. The header is a real
+                // <button>, so Enter/Space work for keyboard users for free.
+                var headerEl = card.querySelector('.dm-card-header');
+                var detailEl = card.querySelector('.dm-detail');
+                if (headerEl) {
+                    headerEl.addEventListener('click', function() {
+                        var expanded = card.classList.toggle('is-expanded');
+                        headerEl.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+                        if (detailEl) detailEl.inert = !expanded;
+                        syncExpandAllLabel();
+                    });
+                }
+
                 container.appendChild(card);
             });
 
             if (members.length === 0) {
                 container.innerHTML = '<div class="dash-empty">No team members yet. Share your company code or use the invite link above.</div>';
             }
+
+            // Keep the optional Expand all / Collapse all control in sync.
+            syncExpandAllLabel();
 
         } catch(e) { console.error('Dashboard load error:', e); }
     }
