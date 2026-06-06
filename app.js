@@ -16,12 +16,12 @@
         if (FIREBASE_CONFIG.apiKey !== "YOUR_API_KEY_HERE") {
             firebase.initializeApp(FIREBASE_CONFIG);
             
-            // App Check — temporarily disabled for testing
-            // try {
-            //     var appCheck = firebase.appCheck();
-            //     appCheck.activate('6LcrMoEsAAAAAC_N03emlSYAUcbFLkaOT_qNHBVO', true);
-            //     console.log('🛡️ App Check activated');
-            // } catch(acErr) { console.warn('App Check init skipped:', acErr); }
+            // App Check — reCAPTCHA v3 (sends tokens; enforcement stays OFF in console)
+            try {
+                var appCheck = firebase.appCheck();
+                appCheck.activate('6LcrMoEsAAAAAC_N03emlSYAUcbFLkaOT_qNHBVO', true);
+                console.log('🛡️ App Check activated');
+            } catch(acErr) { console.warn('App Check init skipped:', acErr); }
             
             db = firebase.firestore();
             try { db.settings({ experimentalForceLongPolling: true, experimentalAutoDetectLongPolling: false }); } catch(se) { console.log('Firestore settings note:', se.message); }
