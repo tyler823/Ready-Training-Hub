@@ -1,0 +1,12 @@
+# Node dependencies — never commit. Run `npm install` to regenerate.
+node_modules/
+
+# Generated native projects.
+# DEV DECISION: `npx cap add ios` and `npx cap add android` generate the ios/ and
+# android/ folders. You decide whether to commit them:
+#   - COMMIT them if you hand-edit native config (Info.plist, entitlements, icons,
+#     Gradle, signing) and want it version-controlled (common for app projects).
+#   - IGNORE them (uncomment the two lines below) if you treat them as fully
+#     regenerable from this config and manage native settings another way.
+# ios/
+# android/
