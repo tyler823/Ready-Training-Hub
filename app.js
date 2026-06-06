@@ -487,9 +487,10 @@
                 // the header toggles the detail region below.
                 var html = '<button type="button" class="dm-card-header" aria-expanded="false">' +
                     '<div class="dm-head-left">' +
-                    '<div class="dm-id"><h3 class="dm-name">' + (m.name || 'Unknown') + '</h3>' +
+                    '<div class="dm-id">' +
+                    '<div class="dm-name-row"><h3 class="dm-name">' + (m.name || 'Unknown') + '</h3>' +
+                    '<span class="' + roleClass + '">' + (m.role || 'member') + '</span></div>' +
                     '<p class="dm-email">' + (m.email || '') + '</p></div>' +
-                    '<span class="' + roleClass + '">' + (m.role || 'member') + '</span>' +
                     '</div>' +
                     '<div class="dm-head-right">' +
                     '<div class="dm-overall"><div class="dm-overall-top"><span class="lbl">Overall</span><span class="val">' + m._pct + '%</span></div>' +

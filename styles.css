@@ -2253,11 +2253,19 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
   #sec-dashboard .dm-head-right { justify-content: space-between; }
   #sec-dashboard .dm-head-right .dm-overall { width: auto; flex: 1; }
 }
-#sec-dashboard .dm-name { font-family: 'Schibsted Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: var(--t1); margin: 0; }
+/* Name + role badge share one row. The name occupies a fixed-width column so
+   the badge always starts at the SAME x down the list (a clean vertical column),
+   regardless of how long or short the name is. The badge centers vertically with
+   the name line; the email sits below, unaffected. */
+#sec-dashboard .dm-name-row { display: flex; align-items: center; gap: 12px; }
+#sec-dashboard .dm-name {
+  font-family: 'Schibsted Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: var(--t1); margin: 0;
+  flex: 0 0 auto; width: clamp(140px, 20vw, 230px); overflow-wrap: anywhere;
+}
 #sec-dashboard .dm-email { font-size: 11.5px; color: var(--t3); margin: 2px 0 0; word-break: break-all; }
 #sec-dashboard .dm-role {
   font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: .1em;
-  text-transform: uppercase; padding: 4px 9px; border-radius: 999px; white-space: nowrap;
+  text-transform: uppercase; padding: 4px 9px; border-radius: 999px; white-space: nowrap; flex-shrink: 0;
   background: var(--s3); color: var(--t2); border: 1px solid var(--br-hi);
 }
 #sec-dashboard .dm-role.is-owner { background: var(--brand-tint); color: var(--brand-soft); border-color: var(--brand-line); }
