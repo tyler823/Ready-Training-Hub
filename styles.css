@@ -873,6 +873,19 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
 
 
 /* =====================================================
+   CERTIFICATE FORM INPUTS — theme-aware in light & dark
+   Name/company fields on the certificate completion screens.
+   Light: white field + dark text (unchanged look).
+   Dark:  dark themed surface + light text (readable; no
+   more light text on a white field).
+   ===================================================== */
+.cert-input {
+  background-color: var(--s1);
+  color: var(--t1);
+}
+.cert-input::placeholder { color: var(--t3); }
+
+/* =====================================================
    PASS 2b — DARK-MODE MODULE CONTENT THEMING
    Scoped to [data-theme="dark"]; descendant selectors
    outrank base Tailwind utilities (no !important needed).

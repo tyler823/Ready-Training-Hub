@@ -1541,8 +1541,8 @@ document.addEventListener('keydown', function(e) {
                                 <h3 class="font-bold text-violet-900 mb-3 text-lg">📜 Get Your Certificate</h3>
                                 <p class="text-sm text-violet-800 mb-4">Enter your information to generate and download your official Ready Certified Technician certificate.</p>
                                 
-                                <input type="text" id="cert-name" placeholder="Enter Your Full Name" class="w-full p-3 rounded-lg border-2 border-slate-200 mb-3 focus:border-violet-500 outline-none transition text-center">
-                                <input type="text" id="cert-company" placeholder="Company Name (Optional)" class="w-full p-3 rounded-lg border-2 border-slate-200 mb-4 focus:border-violet-500 outline-none transition text-center">
+                                <input type="text" id="cert-name" placeholder="Enter Your Full Name" class="cert-input w-full p-3 rounded-lg border-2 border-slate-200 mb-3 focus:border-violet-500 outline-none transition text-center">
+                                <input type="text" id="cert-company" placeholder="Company Name (Optional)" class="cert-input w-full p-3 rounded-lg border-2 border-slate-200 mb-4 focus:border-violet-500 outline-none transition text-center">
                                 
                                 <button onclick="generateCertificate()" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-4 rounded-xl font-bold transition shadow-lg mb-3">
                                     📥 Download Certificate PDF
@@ -1583,6 +1583,18 @@ document.addEventListener('keydown', function(e) {
                         </div>`;
                 }
             }
+        }
+
+        // Draw the Ready brand mark centered inside a seal circle (cx, cy, r in mm).
+        // The brand mark is the inline favicon (a 256x256 JPEG: white "R" on purple),
+        // so it blends with the purple seal. Sized to sit inside the circle with padding.
+        function drawCertSealLogo(doc, cx, cy, r) {
+            try {
+                var link = document.querySelector('link[rel="icon"]');
+                if (!link || !link.href) return;
+                var size = r * 1.3; // fits within the circle with a little padding
+                doc.addImage(link.href, 'JPEG', cx - size / 2, cy - size / 2, size, size);
+            } catch (e) { /* logo is decorative; never block the PDF */ }
         }
 
         function generateCertificate() {
@@ -1693,9 +1705,7 @@ document.addEventListener('keydown', function(e) {
             // Footer seal
             doc.setFillColor(124, 58, 237);
             doc.circle(pageWidth / 2, pageHeight - 20, 10, 'F');
-            doc.setFontSize(14);
-            doc.setTextColor(255, 255, 255);
-            doc.text('✓', pageWidth / 2, pageHeight - 16, { align: 'center' });
+            drawCertSealLogo(doc, pageWidth / 2, pageHeight - 20, 10);
 
             doc.save(`Ready_Certified_Technician_${name.replace(/\s+/g, '_')}.pdf`);
         }
@@ -2164,8 +2174,8 @@ document.addEventListener('keydown', function(e) {
                                 <h3 class="font-bold text-violet-900 mb-3 text-lg">📜 Get Your Certificate</h3>
                                 <p class="text-sm text-violet-800 mb-4">Enter your information to generate and download your official Ready Certified Contractor certificate.</p>
                                 
-                                <input type="text" id="recon-cert-name" placeholder="Enter Your Full Name" class="w-full p-3 rounded-lg border-2 border-slate-200 mb-3 focus:border-violet-500 outline-none transition text-center">
-                                <input type="text" id="recon-cert-company" placeholder="Company Name (Optional)" class="w-full p-3 rounded-lg border-2 border-slate-200 mb-4 focus:border-violet-500 outline-none transition text-center">
+                                <input type="text" id="recon-cert-name" placeholder="Enter Your Full Name" class="cert-input w-full p-3 rounded-lg border-2 border-slate-200 mb-3 focus:border-violet-500 outline-none transition text-center">
+                                <input type="text" id="recon-cert-company" placeholder="Company Name (Optional)" class="cert-input w-full p-3 rounded-lg border-2 border-slate-200 mb-4 focus:border-violet-500 outline-none transition text-center">
                                 
                                 <button onclick="generateReconCertificate()" class="w-full bg-violet-600 hover:bg-violet-700 text-white py-4 rounded-xl font-bold transition shadow-lg mb-3">
                                     📥 Download Certificate PDF
@@ -2310,9 +2320,7 @@ document.addEventListener('keydown', function(e) {
             // Footer seal
             doc.setFillColor(124, 58, 237);
             doc.circle(pageWidth / 2, pageHeight - 20, 10, 'F');
-            doc.setFontSize(14);
-            doc.setTextColor(255, 255, 255);
-            doc.text('✓', pageWidth / 2, pageHeight - 16, { align: 'center' });
+            drawCertSealLogo(doc, pageWidth / 2, pageHeight - 20, 10);
 
             doc.save(`Ready_Certified_Contractor_${name.replace(/\s+/g, '_')}.pdf`);
         }
@@ -2481,8 +2489,8 @@ document.addEventListener('keydown', function(e) {
                             <h3 class="font-bold text-indigo-900 mb-3 text-lg">📜 Get Your Certificate</h3>
                             <p class="text-sm text-indigo-800 mb-4">Enter your information to generate and download your official Ready Certified Manager certificate.</p>
 
-                            <input type="text" id="mgmt-cert-name" placeholder="Enter Your Full Name" class="w-full p-3 rounded-lg border-2 border-slate-200 mb-3 focus:border-indigo-500 outline-none transition text-center">
-                            <input type="text" id="mgmt-cert-company" placeholder="Company Name (Optional)" class="w-full p-3 rounded-lg border-2 border-slate-200 mb-4 focus:border-indigo-500 outline-none transition text-center">
+                            <input type="text" id="mgmt-cert-name" placeholder="Enter Your Full Name" class="cert-input w-full p-3 rounded-lg border-2 border-slate-200 mb-3 focus:border-indigo-500 outline-none transition text-center">
+                            <input type="text" id="mgmt-cert-company" placeholder="Company Name (Optional)" class="cert-input w-full p-3 rounded-lg border-2 border-slate-200 mb-4 focus:border-indigo-500 outline-none transition text-center">
 
                             <button onclick="generateMgmtCertificate()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-4 rounded-xl font-bold transition shadow-lg mb-3">
                                 📥 Download Certificate PDF
@@ -2612,9 +2620,7 @@ document.addEventListener('keydown', function(e) {
             // Footer seal
             doc.setFillColor(79, 70, 229);
             doc.circle(pageWidth / 2, pageHeight - 14, 10, 'F');
-            doc.setFontSize(14);
-            doc.setTextColor(255, 255, 255);
-            doc.text('✓', pageWidth / 2, pageHeight - 10, { align: 'center' });
+            drawCertSealLogo(doc, pageWidth / 2, pageHeight - 14, 10);
 
             doc.save(`Ready_Certified_Manager_${name.replace(/\s+/g, '_')}.pdf`);
         }
