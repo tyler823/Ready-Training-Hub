@@ -132,6 +132,12 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
   background: var(--brand);
   border-radius: 0 2px 2px 0;
 }
+/* Subtle brand tint on the icon so the "you are here" marker still reads
+   when the sidebar is collapsed (icon-only) and the label is hidden. */
+.rt-nav-item.rt-active .rt-nav-icon { color: var(--brand-soft); }
+/* In collapsed mode the item margin shrinks, so nudge the accent bar back
+   inside the (overflow:hidden) sidebar edge instead of clipping it off. */
+.rt-app.collapsed .rt-nav-item.rt-active::before { left: -4px; }
 .rt-nav-icon {
   font-size: 18px; flex-shrink: 0;
   width: 20px; text-align: center;
