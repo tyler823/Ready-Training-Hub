@@ -2208,18 +2208,31 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
 }
 #sec-dashboard .dash-expand-all:hover { background: var(--brand-line); }
 
+/* Member cards render as a single full-width stacked list (one card per row),
+   so expanding a card only pushes the cards below it down — no dead space
+   beside it the way a 3-wide grid row left. */
+#sec-dashboard #dash-members-grid { display: flex; flex-direction: column; gap: 14px; }
+
 /* Card becomes a header button + a collapsible detail region; padding moves
    onto those parts so the clickable area spans the whole header. */
 #sec-dashboard .dm-card { padding: 0; overflow: hidden; }
+
+/* Collapsed header fills the row: identity (name/role) on the LEFT, the overall
+   progress bar + % and the chevron on the RIGHT. */
 #sec-dashboard .dm-card-header {
-  display: block; width: 100%; text-align: left; padding: 22px;
+  display: flex; align-items: center; justify-content: space-between; gap: 28px;
+  width: 100%; text-align: left; padding: 18px 22px;
   font: inherit; color: inherit; background: transparent; border: 0; cursor: pointer;
   border-radius: var(--radius); transition: background .15s ease;
 }
 #sec-dashboard .dm-card-header:hover { background: var(--s3); }
 #sec-dashboard .dm-card-header:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
-#sec-dashboard .dm-card-header .dm-overall { margin-bottom: 0; }
-#sec-dashboard .dm-head-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+#sec-dashboard .dm-head-left { display: flex; align-items: center; gap: 14px; min-width: 0; flex: 1; }
+#sec-dashboard .dm-id { min-width: 0; }
+#sec-dashboard .dm-head-right { display: flex; align-items: center; gap: 18px; flex-shrink: 0; }
+/* Bar takes the available width on the right, with a sane min/max so it neither
+   crowds the identity nor sprawls across the whole card. */
+#sec-dashboard .dm-head-right .dm-overall { width: clamp(150px, 24vw, 280px); margin-bottom: 0; }
 #sec-dashboard .dm-chevron { width: 18px; height: 18px; color: var(--t3); transition: transform .28s ease; flex-shrink: 0; }
 #sec-dashboard .dm-card.is-expanded .dm-chevron { transform: rotate(180deg); }
 #sec-dashboard .dm-detail {
@@ -2234,8 +2247,12 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
   #sec-dashboard .dm-detail { transition: none; }
   #sec-dashboard .dm-chevron { transition: none; }
 }
-
-#sec-dashboard .dm-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
+/* On narrow screens the header stacks so neither side gets cramped. */
+@media (max-width: 560px) {
+  #sec-dashboard .dm-card-header { flex-direction: column; align-items: stretch; gap: 14px; }
+  #sec-dashboard .dm-head-right { justify-content: space-between; }
+  #sec-dashboard .dm-head-right .dm-overall { width: auto; flex: 1; }
+}
 #sec-dashboard .dm-name { font-family: 'Schibsted Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: var(--t1); margin: 0; }
 #sec-dashboard .dm-email { font-size: 11.5px; color: var(--t3); margin: 2px 0 0; word-break: break-all; }
 #sec-dashboard .dm-role {
@@ -2252,7 +2269,9 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
 #sec-dashboard .dm-bar { height: 7px; border-radius: 999px; background: var(--s3); overflow: hidden; }
 #sec-dashboard .dm-bar > span { display: block; height: 100%; width: 0%; border-radius: 999px; background: var(--brand); transition: width .5s ease; }
 #sec-dashboard .dm-bar > span.is-complete { background: var(--green); }
-#sec-dashboard .dm-modules { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+/* At full width the module list flows into responsive columns to use the
+   horizontal space instead of one tall single column. */
+#sec-dashboard .dm-modules { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 9px 28px; margin-bottom: 16px; }
 #sec-dashboard .dm-mod { display: flex; align-items: center; gap: 10px; }
 #sec-dashboard .dm-mod-name { font-size: 10.5px; color: var(--t3); width: 96px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 #sec-dashboard .dm-mod-bar { flex: 1; height: 5px; border-radius: 999px; background: var(--s3); overflow: hidden; }
@@ -2273,10 +2292,10 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
 }
 #sec-dashboard .dm-cert-btn:hover { background: var(--brand-line); }
 #sec-dashboard .dm-cert-btn svg { width: 13px; height: 13px; }
-#sec-dashboard .dm-actions { display: flex; gap: 8px; margin-top: auto; }
+#sec-dashboard .dm-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
 #sec-dashboard .dm-btn {
-  flex: 1; cursor: pointer; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 700; font-size: 11.5px;
-  padding: 8px; border-radius: var(--radius-sm); background: transparent; transition: background .15s ease;
+  flex: 0 0 auto; cursor: pointer; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 700; font-size: 11.5px;
+  padding: 8px 18px; border-radius: var(--radius-sm); background: transparent; transition: background .15s ease;
 }
 #sec-dashboard .dm-btn.is-remove { color: #ef4444; border: 1px solid rgba(239,68,68,.35); }
 #sec-dashboard .dm-btn.is-remove:hover { background: rgba(239,68,68,.1); }
