@@ -1979,6 +1979,41 @@ h1, h2, h3, h4 { font-family: 'Schibsted Grotesk', sans-serif; }
 #sec-home .home-panel-sub , #sec-resources .home-panel-sub , #sec-dashboard .home-panel-sub { font-size: 14px; line-height: 1.55; color: rgba(255,255,255,.72); margin: 0; }
 #sec-home .home-panel-foot , #sec-resources .home-panel-foot , #sec-dashboard .home-panel-foot { position: relative; text-align: center; font-size: 12px; color: rgba(255,255,255,.55); margin: 22px 0 0; }
 
+/* Home welcome video block — collapsible <details>; panel look via existing tokens */
+#sec-home .home-welcome {
+  background: var(--s2);
+  border: 1px solid var(--br);
+  border-radius: var(--radius);
+  margin-bottom: 38px;
+  overflow: hidden;
+}
+#sec-home .home-welcome-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 22px;
+  cursor: pointer;
+  user-select: none;
+  list-style: none; /* remove default <summary> disclosure marker */
+}
+#sec-home .home-welcome-head::-webkit-details-marker { display: none; }
+#sec-home .home-welcome-title { font-weight: 800; color: var(--t1); font-size: 16px; }
+#sec-home .home-welcome-chevron {
+  flex: none;
+  color: var(--brand);
+  font-size: 14px;
+  transition: transform .2s ease;
+}
+#sec-home .home-welcome[open] .home-welcome-chevron { transform: rotate(90deg); }
+#sec-home .home-welcome-body { padding: 4px 22px 22px; }
+#sec-home .home-welcome-body .lp-video { margin-bottom: 0; }
+
+@media (max-width: 640px) {
+  #sec-home .home-welcome-head { padding: 16px 16px; }
+  #sec-home .home-welcome-body { padding: 4px 16px 16px; }
+}
+
 #sec-home .home-cert-grid , #sec-resources .home-cert-grid , #sec-dashboard .home-cert-grid { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 #sec-home .home-cert-card , #sec-resources .home-cert-card , #sec-dashboard .home-cert-card { background: rgba(255,255,255,.04); border: 1px solid rgba(124,58,237,.4); border-radius: var(--radius); padding: 24px; }
 #sec-home .home-cert-title , #sec-resources .home-cert-title , #sec-dashboard .home-cert-title { font-family: 'Schibsted Grotesk', sans-serif; font-size: 19px; font-weight: 800; color: #c4b5fd; margin: 0 0 10px; }

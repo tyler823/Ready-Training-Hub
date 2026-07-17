@@ -111,6 +111,9 @@
     // Local progress cache
     let localProgress = {};
 
+    // Welcome-video seen flag: once-per-session write guard (avoids redundant Firestore writes)
+    let welcomeSeenWritten = false;
+
     // =====================================================
     // PROGRESS TRACKING FUNCTIONS
     // =====================================================
@@ -134,10 +137,45 @@
         } catch(e) { console.error('Save progress error:', e); }
     }
 
+    // Mark the welcome video as seen on the member's Firestore doc.
+    // Mirrors saveProgress()'s write exactly: same path, { merge: true }, same guards.
+    // Fire-and-forget (never blocks UI); once-per-session via welcomeSeenWritten.
+    async function markWelcomeSeen() {
+        if (welcomeSeenWritten) return;
+        if (!db || !window.rtUser.companyCode || !window.rtUser.id) return;
+        welcomeSeenWritten = true;
+        try {
+            await db.collection('companies').doc(window.rtUser.companyCode)
+                .collection('members').doc(window.rtUser.id)
+                .set({ welcomeSeen: true }, { merge: true });
+        } catch(e) { console.error('welcomeSeen save error:', e); }
+    }
+
     async function loadProgress() {
         if (!db || !window.rtUser.companyCode || !window.rtUser.id) return;
         try {
             const doc = await db.collection('companies').doc(window.rtUser.companyCode).collection('members').doc(window.rtUser.id).get();
+
+            // --- Welcome video block: reuse THIS SAME snapshot (no extra Firestore read) ---
+            try {
+                const wel = document.getElementById('home-welcome');
+                if (wel) {
+                    const seen = !!(doc.exists && doc.data().welcomeSeen);
+                    wel.hidden = false;            // reveal the collapsed bar either way
+                    if (!seen) {
+                        wel.open = true;           // first-time users see the video expanded
+                        markWelcomeSeen();         // fire-and-forget; stays collapsed on return visits
+                    } else {
+                        wel.open = false;          // return visitors: collapsed
+                    }
+                }
+            } catch(welErr) {
+                // Fail safe: reveal collapsed, never in the user's face
+                const wel = document.getElementById('home-welcome');
+                if (wel) { wel.hidden = false; wel.open = false; }
+                console.error('welcome video init error:', welErr);
+            }
+
             if (doc.exists && doc.data().progress) {
                 localProgress = doc.data().progress;
                 // Update all checkboxes and progress bars
